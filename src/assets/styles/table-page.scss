@@ -1,0 +1,782 @@
+/**
+ * 全局表格页面样式覆盖
+ * 查询条件、按钮、表格、分页 — 匹配 Figma 设计稿
+ */
+
+// ==================== 页面容器白色卡片 ====================
+.app-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  padding: 0 20px 20px !important;
+}
+
+// ==================== 查询表单区域 ====================
+.app-container {
+  > .el-form--inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 14px 0 14px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ebeef5;
+
+    .el-form-item {
+      margin-bottom: 0;
+      margin-right: 0;
+      line-height: 16px !important;
+    }
+
+    // 操作按钮推到右侧
+    .form-actions-right {
+      margin-left: auto;
+
+      // 删除按钮 — 红色描边
+      .el-button--danger.is-plain {
+        background-color: #fff;
+        border: 1px solid #ef4444;
+        color: #ef4444;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-weight: 500;
+        font-size: 14px;
+
+        &:hover,
+        &:focus {
+          background-color: #fef2f2;
+          border-color: #ef4444;
+          color: #ef4444;
+        }
+      }
+
+      // 编辑/导出/其他按钮 — 灰色描边
+      .el-button--success.is-plain,
+      .el-button--warning.is-plain,
+      .el-button--info.is-plain {
+        background-color: #fff;
+        border: 1px solid #e5e7eb;
+        color: #374151;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-weight: 500;
+        font-size: 14px;
+
+        &:hover,
+        &:focus {
+          color: #10b981;
+          border-color: #10b981;
+          background: #fff;
+        }
+      }
+    }
+
+    .el-form-item__label {
+      font-weight: 500;
+      color: #1a2a36;
+      font-size: 14px;
+      padding-right: 8px;
+      line-height: 16px !important;
+      white-space: nowrap;
+      width: auto !important;
+    }
+
+    // 输入框 & 选择器
+    .el-input__inner {
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      height: 36px;
+      line-height: 16px;
+      font-size: 14px;
+      color: #374151;
+      background: #fff;
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+
+      &:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+      }
+    }
+
+    .el-select .el-input__inner {
+      border-radius: 8px;
+    }
+
+    // 搜索按钮 — 绿色填充 #10B981
+    .el-button--primary {
+      background: linear-gradient( 270deg, #0F6A71 0%, #29908D 100%), linear-gradient( 90deg, #01BBAA 0%, #01A0BD 100%);
+      box-shadow: 0px 0px 0px 1px #156475;
+      border-radius: 10px 10px 10px 10px;
+      // border: 1px solid;
+      font-weight: 500;
+      font-size: 14px;
+    
+
+      &:hover,
+      &:focus {
+        background-color: #059669;
+        border-color: #059669;
+      }
+    }
+
+    // 重置按钮 — 白底灰边框
+    .el-button--default {
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      padding: 8px 20px;
+      font-size: 14px;
+      height: 36px;
+      background: #fff;
+
+      &:hover,
+      &:focus {
+        color: #10b981;
+        border-color: #10b981;
+        background: #fff;
+      }
+    }
+  }
+}
+
+// ==================== 操作按钮行 ====================
+.app-container {
+  > .mb8,
+  .area-toolbar {
+    margin-bottom: 16px !important;
+    padding-top: 14px;
+
+    // 新增按钮 — 绿色填充
+    .el-button--primary.is-plain {
+      background: linear-gradient( 270deg, #0F6A71 0%, #29908D 100%), linear-gradient( 90deg, #01BBAA 0%, #01A0BD 100%);
+      box-shadow: 0px 0px 0px 1px #156475;
+      border-radius: 10px 10px 10px 10px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 14px;
+
+      &:hover,
+      &:focus {
+        background-color: #059669;
+        border-color: #059669;
+        color: #fff;
+      }
+    }
+
+    // 删除按钮 — 红色描边
+    .el-button--danger.is-plain {
+      background-color: #fff;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-weight: 500;
+      font-size: 14px;
+
+      &:hover,
+      &:focus {
+        background-color: #fef2f2;
+        border-color: #ef4444;
+        color: #ef4444;
+      }
+    }
+
+    // 编辑/其他按钮 — 灰色描边
+    .el-button--success.is-plain,
+    .el-button--warning.is-plain,
+    .el-button--info.is-plain {
+      background-color: #fff;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-weight: 500;
+      font-size: 14px;
+
+      &:hover,
+      &:focus {
+        color: #10b981;
+        border-color: #10b981;
+        background: #fff;
+      }
+    }
+  }
+}
+  .el-select-dropdown__item.selected{
+        color: #29908D !important;
+     }
+// ==================== 表格样式 ====================
+.el-table {
+  border: none !important;
+  border-radius: 0;
+
+  // 去掉表格前后伪元素边框线
+  &::before,
+  &::after {
+    display: none !important;
+  }
+
+  // 恢复 .cell 的内边距，防止 checkbox 布局错乱产生多余圆点
+  .cell {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  // 复选框列禁用省略号，防止 ellipsis 渲染成小点
+  .el-table-column--selection .cell {
+    text-overflow: clip !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+  }
+
+  // 表头 — 白底灰色文字，无背景色
+  .el-table__header-wrapper,
+  .el-table__fixed-header-wrapper {
+    th {
+      background-color: #EEF1F5 !important;
+      color: #6B7C8D !important;
+      font-weight: 600;
+      font-size: 13px;
+      height: 48px;
+      border-bottom: 1px solid #e5e7eb !important;
+      padding: 0 12px;
+    }
+
+    // 去掉表头底部多余的 border
+    th.is-leaf {
+      border-bottom: 1px solid #e5e7eb !important;
+    }
+  }
+
+  // 表体行
+  .el-table__body {
+    tr {
+      transition: background 0.15s;
+
+      td {
+        height: 64px;
+        padding: 0 12px;
+        border-bottom: 1px solid #f3f4f6 !important;
+        color: #111827;
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      &:hover > td {
+        background-color: #f9fafb !important;
+      }
+
+      // 最后一行不要底线
+      &:last-child td {
+        border-bottom: none !important;
+      }
+    }
+  }
+
+  // 去掉固定列阴影
+  .el-table__fixed,
+  .el-table__fixed-right {
+    &::before {
+      display: none;
+    }
+    box-shadow: none !important;
+  }
+
+  // 表格内文字按钮
+  .el-button--text {
+    color: #374151;
+    font-weight: 500;
+    padding: 4px 6px;
+    font-size: 14px;
+
+    &:hover {
+      color: #10b981;
+    }
+
+    // 有显式颜色 class 时不覆盖 hover
+    &.btn-view:hover { color: #059669 !important; }
+    &.btn-edit:hover { color: #2563eb !important; }
+    &.btn-delete:hover { color: #dc2626 !important; }
+  }
+
+  // 状态标签 — 胶囊圆角填充
+  .cell .el-tag {
+    border-radius: 999px;
+    padding: 0 14px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+
+    &.el-tag--success,
+    &.el-tag--primary {
+      background-color: #10b981;
+      color: #fff;
+    }
+
+    &.el-tag--danger {
+      background-color: #ef4444;
+      color: #fff;
+    }
+
+    &.el-tag--warning {
+      background-color: #f59e0b;
+      color: #fff;
+    }
+
+    &.el-tag--info {
+      background-color: #6b7280;
+      color: #fff;
+    }
+  }
+}
+
+// ==================== 分页样式 ====================
+.pagination-container {
+  padding: 16px 0 !important;
+  margin-top: 0 !important;
+  height: auto !important;
+  background: transparent !important;
+  border-top: 1px solid #f3f4f6;
+
+  .el-pagination {
+    position: static !important;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 0;
+    font-weight: 400;
+
+    // "共 X 条" — 绿色左对齐
+    .el-pagination__total {
+      margin-right: auto;
+      color: #10b981;
+      font-weight: 500;
+      font-size: 14px;
+      order: -1;
+    }
+
+    // 每页条数
+    .el-pagination__sizes {
+      order: 0;
+      margin-left: auto;
+      margin-right: 16px;
+
+      .el-input__inner {
+        border-radius: 8px;
+        height: 32px;
+        line-height: 32px;
+        border-color: #e5e7eb;
+        font-size: 13px;
+      }
+    }
+
+    // 上一页 / 下一页
+    .btn-prev,
+    .btn-next {
+      background: #fff !important;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      min-width: 32px;
+      height: 32px;
+      line-height: 30px;
+      color: #6b7280;
+      margin: 0 2px;
+
+      &:hover:not(:disabled) {
+        color: #234b5a;
+        border-color: #234b5a;
+      }
+
+      &:disabled {
+        color: #d1d5db;
+        border-color: #e5e7eb;
+        cursor: not-allowed;
+      }
+    }
+  
+    // 页码
+    .el-pager {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        list-style: none;
+        background: #fff !important;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        min-width: 32px;
+        height: 32px;
+        line-height: 30px;
+        font-weight: 500;
+        font-size: 14px;
+        color: #374151;
+        margin: 0 2px;
+        padding: 0;
+
+        &:hover:not(.active) {
+          color: #29908D;
+          border-color: #29908D;
+        }
+
+        &.active {
+          background-color: #29908D !important;
+          border-color: #29908D;
+          color: #fff;
+        }
+      }
+    }
+
+    // 跳转
+    .el-pagination__jump {
+      font-size: 13px;
+      color: #6b7280;
+      margin-left: 8px;
+
+      .el-input__inner {
+        border-radius: 8px;
+        height: 32px;
+        line-height: 32px;
+        border-color: #e5e7eb;
+      }
+    }
+  }
+}
+
+// ==================== 无搜索表单页面工具栏 ====================
+.area-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #ebeef5;
+
+  &__left {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+// ==================== 操作列按钮颜色（全局） ====================
+// Element UI renders icon prop as <i class="el-icon-xxx"> inside the button
+// We color the button via its icon child's class on the parent button
+
+.el-table .cell {
+  // 查看/详情 — 绿色
+  .el-button--text.btn-view {
+    color: #0abf8a !important;
+    &:hover { color: #059669 !important; }
+  }
+
+  // 编辑 — 蓝色
+  .el-button--text.btn-edit {
+    color: #3b82f6 !important;
+    &:hover { color: #2563eb !important; }
+  }
+
+  // 删除 — 红色
+  .el-button--text.btn-delete {
+    color: #f05252 !important;
+    &:hover { color: #dc2626 !important; }
+  }
+
+  // 通过图标子元素推断按钮颜色（无显式 class 时的兜底）
+  .el-button--text .el-icon-edit { color: #3b82f6; }
+  .el-button--text .el-icon-delete { color: #f05252; }
+  .el-button--text .el-icon-view,
+  .el-button--text .el-icon-search { color: #0abf8a; }
+
+  // 让按钮文字跟随图标颜色（通过 inherit）
+  .el-button--text:not(.btn-view):not(.btn-edit):not(.btn-delete) {
+    &:has(.el-icon-edit) { color: #3b82f6 !important; }
+    &:has(.el-icon-delete) { color: #f05252 !important; }
+    &:has(.el-icon-view),
+    &:has(.el-icon-search) { color: #0abf8a !important; }
+  }
+}
+
+// 操作列竖线分隔符
+.action-divider {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: #e5e7eb;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
+// ==================== 在线/离线状态胶囊（全局） ====================
+.device-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid;
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &--online {
+    color: #0abf8a;
+    background: #e6faf4;
+    border-color: #b3edd9;
+    .status-dot { background: #0abf8a; }
+  }
+
+  &--offline {
+    color: #f05252;
+    background: #fef2f2;
+    border-color: #fecaca;
+    .status-dot { background: #f05252; }
+  }
+}
+
+// ==================== 弹窗全局样式 ====================
+
+// 全局 el-form-item__label 行高修正（防止长文字折行撑高）
+.el-form-item__label {
+  line-height: 16px !important;
+  font-size: 13px;
+}
+
+// 全局 Switch 绿色主题
+.el-switch.is-checked .el-switch__core {
+  background-color: #29908d !important;
+  border-color: #29908d !important;
+}
+
+.el-switch__core:after {
+  background-color: #fff;
+}
+
+.el-dialog {
+  border-radius: 16px !important;
+  overflow: hidden;
+
+  .el-dialog__header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #f0f2f5;
+    border-radius: 16px 16px 0 0;
+
+    .el-dialog__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .el-dialog__headerbtn {
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: border-color 0.2s, background 0.2s;
+
+      &:hover {
+        border-color: #9ca3af;
+        background: #f3f4f6;
+      }
+
+      .el-dialog__close {
+        font-size: 14px;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1;
+
+        &:hover {
+          color: #111827;
+        }
+      }
+    }
+  }
+
+  .el-dialog__body {
+    padding: 20px 24px;
+    max-height: 72vh;
+    overflow-y: auto;
+
+    // label-position="top" 时表单项垂直排列
+    .el-form--label-top {
+      .el-form-item {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .el-form-item__label {
+        display: block;
+        float: none;
+        width: auto !important;
+        text-align: left;
+        padding: 0 0 6px 0;
+        line-height: 16px !important;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6b7280;
+      }
+
+      .el-form-item__content {
+        margin-left: 0 !important;
+        line-height: normal;
+      }
+
+      .el-input,
+      .el-select {
+        width: 100%;
+      }
+    }
+
+    // 表单标签（非 top 模式兜底）
+    .el-form-item__label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #6b7280;
+      padding-bottom: 4px;
+      line-height: 16px;
+      white-space: nowrap;
+    }
+
+    // 输入框
+    .el-input__inner,
+    .el-textarea__inner {
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      font-size: 14px;
+      color: #111827;
+      background: #fff;
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+
+      &:focus {
+        border-color: #29908d;
+        box-shadow: 0 0 0 2px rgba(41, 144, 141, 0.1);
+      }
+    }
+
+    // 下拉选择器
+    .el-select {
+      width: 100%;
+
+      .el-input__inner {
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .el-dialog__footer {
+    padding: 16px 24px 20px;
+    border-top: 1px solid #f0f2f5;
+    border-radius: 0 0 16px 16px;
+
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    // 取消按钮
+    .el-button--default {
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      background: #fff;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+
+      &:hover,
+      &:focus {
+        border-color: #29908d;
+        color: #29908d;
+        background: #fff;
+      }
+    }
+
+    // 确认按钮 — 渐变绿
+    .el-button--primary {
+      background: linear-gradient(270deg, #0f6a71 0%, #29908d 100%);
+      box-shadow: 0 0 0 1px #41ad95;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: #fff;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+
+      &:hover,
+      &:focus {
+        background: linear-gradient(270deg, #0a5a60 0%, #1f7a77 100%);
+        box-shadow: 0 0 0 1px #29908d;
+      }
+    }
+  }
+}
+
+// MessageBox 确认弹窗按钮样式
+.el-message-box {
+  border-radius: 16px !important;
+
+  .el-message-box__header {
+    padding: 20px 24px 16px;
+
+    .el-message-box__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
+  }
+
+  .el-message-box__content {
+    padding: 10px 24px 20px;
+    color: #374151;
+    font-size: 14px;
+  }
+
+  .el-message-box__btns {
+    padding: 12px 24px 20px;
+
+    .el-button--default {
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      background: #fff;
+
+      &:hover {
+        border-color: #29908d;
+        color: #29908d;
+      }
+    }
+
+    .el-button--primary {
+      background: linear-gradient(270deg, #0f6a71 0%, #29908d 100%);
+      box-shadow: 0 0 0 1px #41ad95;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: #fff;
+
+      &:hover {
+        background: linear-gradient(270deg, #0a5a60 0%, #1f7a77 100%);
+      }
+    }
+  }
+}
