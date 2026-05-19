@@ -64,7 +64,7 @@ export const constantRoutes = [
   {
     path: '/data',
     component: Layout,
-    hidden: true,
+    hidden: false,
     children: [
       {
         path: '',
