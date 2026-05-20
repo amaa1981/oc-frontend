@@ -6,13 +6,10 @@
       size="small"
       :inline="true"
       v-show="showSearch"
+      class="search-form"
     >
-      <el-form-item :label="$t('record.eventTypeId')" prop="eventTypeId">
-        <el-select
-          v-model="queryParams.eventTypeId"
-          :placeholder="$t('commonTips.pleaseSelect')"
-          filterable
-        >
+      <el-form-item label="Event type" prop="eventTypeId">
+        <el-select v-model="queryParams.eventTypeId" placeholder="Select" filterable clearable>
           <el-option
             v-for="(dict, index) in dict.type.v1_alarm_type"
             :key="index"
@@ -22,8 +19,7 @@
         </el-select>
       </el-form-item>
 
-
-      <el-form-item :label="$t('record.sendTime')" prop="sendTime">
+      <el-form-item label="Occurrence time" prop="sendTime">
         <el-date-picker
           v-model="queryParams.sendTime"
           type="datetimerange"
@@ -34,210 +30,132 @@
           align="right"
           :picker-options="pickerOptions"
           :default-time="['00:00:00', '23:59:59']"
-        >
-        </el-date-picker>
+        />
       </el-form-item>
-      <el-form-item :label="$t('record.equipmentName')" prop="equipmentName">
+
+      <el-form-item label="Device name" prop="equipmentName">
         <el-input
           v-model="queryParams.equipmentName"
-          :placeholder="$t('commonTips.pleaseEnter')"
+          placeholder="Enter"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item :label="$t('record.taskName')" prop="taskName">
+
+      <el-form-item label="Task name" prop="taskName">
         <el-input
           v-model="queryParams.taskName"
-          :placeholder="$t('commonTips.pleaseEnter')"
+          placeholder="Enter"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <!-- <el-form-item label="处理状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择处理状态"
-          clearable
-        >
-          <el-option
-            v-for="dict in dict.type.v1_set_status"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
-      </el-form-item> -->
+
       <el-form-item>
-        <el-button
-          type="primary"
-          icon="el-icon-search"
-          size="mini"
-          @click="handleQuery"
-          >{{ $t("commonBtn.search") }}</el-button
-        >
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">{{
-          $t("commonBtn.reset")
-        }}</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">Search</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">Reset</el-button>
       </el-form-item>
+
       <el-form-item class="form-actions-right">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['system:record:remove']"
-          >{{ $t("commonBtn.remove") }}</el-button
-        >
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          >{{ $t("commonBtn.export") }}</el-button
-        >
+        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete" v-hasPermi="['system:record:remove']">Remove</el-button>
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport">Export</el-button>
       </el-form-item>
     </el-form>
 
-    <el-table
-      v-loading="loading"
-      :data="recordList"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column
-        :label="$t('record.imageUrl')"
-        align="center"
-        prop="imageUrl"
-        width="200"
+    <div style="overflow-x: auto; width: 100%;">
+      <el-table
+        v-loading="loading"
+        :data="recordList"
+        @selection-change="handleSelectionChange"
+        style="width: 100%; min-width: 1100px;"
       >
-        <template slot-scope="scope">
-          <video
-            controls
-            autoplay
-            loop
-            :width="200"
-            :height="150"
-            :src="scope.row.videoUrl"
-            v-if="scope.row.videoUrl"
-          ></video>
+        <el-table-column type="selection" width="45" align="center" />
 
-          <image-preview
-            :src="scope.row.imageUrl"
-            :width="50"
-            :height="50"
-            v-else
-          />
-        </template>
-      </el-table-column>
+        <el-table-column label="Picture" align="center" width="90">
+          <template slot-scope="scope">
+            <el-image
+              v-if="scope.row.imageData"
+              :src="'data:image/jpeg;base64,' + scope.row.imageData"
+              :preview-src-list="['data:image/jpeg;base64,' + scope.row.imageData]"
+              style="width:60px;height:50px;object-fit:cover;border-radius:4px;"
+              fit="cover"
+            />
+            <video
+              v-else-if="scope.row.videoUrl"
+              controls
+              loop
+              :width="80"
+              :height="60"
+              :src="scope.row.videoUrl"
+            />
+            <span v-else style="color:#aaa;font-size:12px;">No image</span>
+          </template>
+        </el-table-column>
 
-      <el-table-column
-        :label="$t('record.eventTypeId')"
-        align="center"
-        prop="eventTypeId"
-      >
-        <template slot-scope="scope">
-          <!-- <dict-tag
-            :options="dict.type.v1_alarm_type"
-            :value="scope.row.eventTypeId"
-          /> -->
-          {{ $t("dict.v1_alarm_type." + scope.row.eventTypeId) }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        :label="$t('record.sendTime')"
-        align="center"
-        prop="sendTime"
-      />
-      <el-table-column
-        :label="$t('record.equipmentName')"
-        align="center"
-        prop="equipmentName"
-      />
-      <el-table-column
-        :label="$t('record.installationArea')"
-        align="center"
-        prop="installationArea"
-      >
-        <template slot-scope="scope">
-          <dict-tag
-            :options="dict.type.v1_device_area"
-            :value="scope.row.installationArea"
-            v-if="scope.row.installationArea"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column
-        :label="$t('record.taskName')"
-        align="center"
-        prop="taskName"
-      />
-      <el-table-column
-        :label="$t('record.handleStatus')"
-        align="center"
-        prop="status"
-      >
-        <template slot-scope="scope">
-          <el-tag v-if="scope.row.status == 0" type="warning">
-            {{ $t("dict.v1_set_status." + scope.row.status) }}
-          </el-tag>
-          <el-tag v-if="scope.row.status == 1" type="success">
-            {{ $t("dict.v1_set_status." + scope.row.status) }}
-          </el-tag>
-          <el-tag v-if="scope.row.status == 2" type="danger">
-            {{ $t("dict.v1_set_status." + scope.row.status) }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column
-        :label="$t('record.handleTime')"
-        align="center"
-        prop="operateTime"
-        width="180"
-      >
-        <template slot-scope="scope">
-          <span>{{
-            parseTime(scope.row.operateTime, "{y}-{m}-{d} {h}:{i}:{s}")
-          }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        :label="$t('record.remarks')"
-        align="center"
-        prop="remarks"
-      />
-      <!-- <el-table-column label="处理人" align="center" prop="operateBy" /> -->
-      <el-table-column
-        :label="$t('record.operate')"
-        align="center"
-        class-name="small-padding fixed-width"
-        width="250px"
-      >
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-search"
-            class="btn-view"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:record:edit']"
-            >{{ $t("record.check") }}</el-button
-          >
-          <span class="action-divider" />
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            class="btn-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['system:record:remove']"
-            >{{ $t("commonBtn.remove") }}</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
+        <el-table-column label="Event Type" align="center" width="130" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <span>{{ $t('dict.v1_alarm_type.' + scope.row.eventTypeId) }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Occurrence Time" align="center" width="170">
+          <template slot-scope="scope">
+            <span>{{ formatDate(scope.row.sendTime || scope.row.createTime) }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Device" align="center" width="140" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <span>{{ scope.row.equipmentName || scope.row.deviceName || '-' }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Area" align="center" width="110">
+          <template slot-scope="scope">
+            <dict-tag
+              v-if="scope.row.installationArea"
+              :options="dict.type.v1_device_area"
+              :value="scope.row.installationArea"
+            />
+            <span v-else>-</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Task" align="center" width="110" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <span>{{ scope.row.taskName || '-' }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Status" align="center" width="110">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.status == 0" type="warning" size="small">Untreated</el-tag>
+            <el-tag v-else-if="scope.row.status == 1" type="success" size="small">Processed</el-tag>
+            <el-tag v-else type="danger" size="small">Rejected</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Handle Time" align="center" width="170">
+          <template slot-scope="scope">
+            <span>{{ formatDate(scope.row.operateTime) }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Remarks" align="center" width="100" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <span>{{ scope.row.remarks || '-' }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Actions" align="center" width="160" fixed="right">
+          <template slot-scope="scope">
+            <el-button size="mini" type="text" icon="el-icon-search" @click="handleUpdate(scope.row)" v-hasPermi="['system:record:edit']">View</el-button>
+            <span class="action-divider" />
+            <el-button size="mini" type="text" icon="el-icon-delete" style="color:#f56c6c;" @click="handleDelete(scope.row)" v-hasPermi="['system:record:remove']">Remove</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
 
     <pagination
       v-show="total > 0"
@@ -247,7 +165,7 @@
       @pagination="getList"
     />
 
-    <!-- 告警详情组件 -->
+    <!-- Alarm Detail Dialog -->
     <alarm-detail
       :visible.sync="open"
       :alarm-data="form"
@@ -258,44 +176,23 @@
 </template>
 
 <script>
-import {
-  listRecord,
-  getRecord,
-  delRecord,
-  addRecord,
-  updateRecord,
-} from "@/api/system/record";
+import { listRecord, getRecord, delRecord } from "@/api/system/record";
 import AlarmDetail from "@/components/AlarmDetail";
 
 export default {
   name: "Record",
   dicts: ["v1_set_status", "v1_alarm_type", "v1_device_area"],
-  components: {
-    AlarmDetail,
-  },
+  components: { AlarmDetail },
   data() {
     return {
-      IP: "http://" + window.location.hostname,
-      strRes: {},
-      // 遮罩层
       loading: true,
-      // 选中数组
       ids: [],
-      // 非单个禁用
       single: true,
-      // 非多个禁用
       multiple: true,
-      // 显示搜索条件
       showSearch: true,
-      // 总条数
       total: 0,
-      // 告警记录信息表格数据
       recordList: [],
-      // 弹出层标题
-      title: "",
-      // 是否显示弹出层
       open: false,
-      // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -308,27 +205,16 @@ export default {
         endTime: null,
         installationArea: localStorage.getItem('installationArea') || null,
       },
-      // 表单参数
       form: {},
-      // 表单校验
       rules: {},
-      opens: false,
-      strRes: {},
-      // 是否显示弹出层
-      openss: false,
-      // 表单参数
-      formss: {},
-      // 表单校验
-      rulesss: {},
     };
   },
   computed: {
-    // 日期选择器快捷选项
     pickerOptions() {
       return {
         shortcuts: [
           {
-            text: this.$t("record.today") || "今天",
+            text: "Today",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -338,7 +224,7 @@ export default {
             },
           },
           {
-            text: this.$t("record.last7Days") || "最近7天",
+            text: "Last 7 days",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -349,7 +235,7 @@ export default {
             },
           },
           {
-            text: this.$t("record.last30Days") || "最近30天",
+            text: "Last 30 days",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -359,56 +245,45 @@ export default {
               picker.$emit("pick", [start, end]);
             },
           },
-       
         ],
-        // 禁止选择明天之后的时间
         disabledDate(time) {
-          // 获取明天的开始时间（00:00:00）
           const tomorrow = new Date();
           tomorrow.setDate(tomorrow.getDate() + 1);
           tomorrow.setHours(0, 0, 0, 0);
-          // 禁止选择明天及之后的日期
           return time.getTime() >= tomorrow.getTime();
         },
       };
     },
   },
   created() {
-    // 先处理URL参数
     this.handleUrlParams();
-    // 如果没有时间参数传入，才设置默认当天
     if (!this.queryParams.sendTime) {
-      this.queryParams.sendTime = [
-        this.getNowFormatDate() + " 00:00:00",
-        this.getNowFormatDate() + " 23:59:59",
-      ];
+      const today = this.getNowFormatDate();
+      this.queryParams.sendTime = [today + " 00:00:00", today + " 23:59:59"];
     }
     this.getList();
-    // 监听设备区域变化
     this.$bus.$on('installationAreaChange', this.onInstallationAreaChange);
   },
   beforeDestroy() {
-    // 移除监听
     this.$bus.$off('installationAreaChange', this.onInstallationAreaChange);
   },
   methods: {
-    // 设备区域变化处理
+    formatDate(val) {
+      if (!val) return '-';
+      const d = new Date(val);
+      if (isNaN(d)) return val;
+      const pad = n => String(n).padStart(2, '0');
+      const year = String(d.getFullYear()).slice(2); // 26 instead of 2026
+      return `${year}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    },
     onInstallationAreaChange(val) {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
     },
-    // 处理URL参数
     handleUrlParams() {
-      const { eventTypeId, startTime, endTime, equipmentName } =
-        this.$route.query;
-      if (eventTypeId) {
-        this.queryParams.eventTypeId = eventTypeId;
-      }
-      // 处理设备名称参数
-      if (equipmentName) {
-        this.queryParams.equipmentName = equipmentName;
-      }
-      // 处理时间参数
+      const { eventTypeId, startTime, endTime, equipmentName } = this.$route.query;
+      if (eventTypeId) this.queryParams.eventTypeId = eventTypeId;
+      if (equipmentName) this.queryParams.equipmentName = equipmentName;
       if (startTime && endTime) {
         this.queryParams.sendTime = [startTime, endTime];
         this.queryParams.startTime = startTime;
@@ -416,28 +291,13 @@ export default {
       }
     },
     getNowFormatDate() {
-      var date = new Date();
-      var seperator1 = "-";
-      var year = date.getFullYear();
-      var month = date.getMonth() + 1;
-      var strDate = date.getDate();
-      if (month >= 1 && month <= 9) {
-        month = "0" + month;
-      }
-      if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-      }
-      var currentdate = year + seperator1 + month + seperator1 + strDate;
-      return currentdate;
+      const d = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
     },
-    /** 查询告警记录信息列表 */
     getList() {
       this.loading = true;
-      console.log(this.queryParams);
-      if (
-        this.queryParams.sendTime != null &&
-        this.queryParams.sendTime.length > 0
-      ) {
+      if (this.queryParams.sendTime && this.queryParams.sendTime.length > 0) {
         this.queryParams.startTime = this.queryParams.sendTime[0];
         this.queryParams.endTime = this.queryParams.sendTime[1];
       } else {
@@ -445,95 +305,58 @@ export default {
         this.queryParams.endTime = null;
       }
       listRecord(this.queryParams).then((response) => {
-        this.recordList = response.data.records;
-        this.total = response.data.totalCount;
+        this.recordList = response.data.records || [];
+        this.total = response.data.totalCount || 0;
         this.loading = false;
-      });
+      }).catch(() => { this.loading = false; });
     },
-    // 取消按钮
-    cancel() {
-      this.open = false;
-    },
-    // 表单重置
+    cancel() { this.open = false; },
     reset() {
-      this.form = {
-        id: null,
-        recordUrl1: null,
-        recordUrl2: null,
-        imageUrl: null,
-        videoUrl: null,
-        eventTypeId: null,
-        sendTime: null,
-        equipmentId: null,
-        equipmentName: null,
-        taskId: null,
-        taskName: null,
-        strRes: null,
-        isWriteWaringUser: null,
-        pushStatus: "0",
-        status: null,
-        remarks: null,
-        operateTime: null,
-        operateBy: null,
-      };
+      this.form = { id: null, imageData: null, eventTypeId: null, sendTime: null, equipmentName: null, status: null, remarks: null };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
-    },
-    /** 重置按钮操作 */
-    resetQuery() {
-      this.resetForm("queryForm");
-      this.handleQuery();
-    },
-    // 多选框选中数据
+    handleQuery() { this.queryParams.pageNum = 1; this.getList(); },
+    resetQuery() { this.resetForm("queryForm"); this.handleQuery(); },
     handleSelectionChange(selection) {
-      this.ids = selection.map((item) => item.id);
+      this.ids = selection.map(item => item.id);
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = this.$t("record.dialogTitle_a");
-    },
-    /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
       getRecord(id).then((response) => {
         this.form = response.data;
         this.open = true;
-        this.title = this.$t("record.dialogTitle");
       });
     },
-    /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal
-        .confirm(this.$t("record.confirmRemove", { ids: ids }))
-        .then(function () {
-          return delRecord(ids);
-        })
-        .then(() => {
-          this.getList();
-          this.$modal.msgSuccess(this.$t("commonTips.remove_s"));
-        })
+      this.$modal.confirm(`Are you sure you want to delete record #${ids}?`)
+        .then(() => delRecord(ids))
+        .then(() => { this.getList(); this.$modal.msgSuccess("Deleted successfully"); })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
     handleExport() {
-      this.download(
-        "api/alarm/record/export",
-        {
-          ...this.queryParams,
-        },
-        `record_${new Date().getTime()}.xlsx`
-      );
+      this.download("api/alarm/record/export", { ...this.queryParams }, `record_${new Date().getTime()}.xlsx`);
     },
   },
 };
 </script>
+
+<style scoped>
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.action-divider {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: #dcdfe6;
+  margin: 0 6px;
+  vertical-align: middle;
+}
+</style>

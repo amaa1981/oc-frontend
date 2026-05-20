@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // 查询人员信息列表
 export function listPeople(query) {
   return request({
-    url: '/api/people',
+    url: '/people',
     method: 'get',
     params: query
   })
@@ -28,7 +28,7 @@ export function getPeople(id) {
 // 新增人员信息
 export function addPeople(data) {
   return request({
-    url: '/api/people',
+    url: '/people',
     method: 'post',
     data: data
   })
@@ -37,7 +37,7 @@ export function addPeople(data) {
 // 修改人员信息
 export function updatePeople(data) {
   return request({
-    url: '/api/people',
+    url: '/people',
     method: 'put',
     data: data
   })
@@ -46,7 +46,7 @@ export function updatePeople(data) {
 // 删除人员信息
 export function delPeople(id) {
   return request({
-    url: '/api/people/' + id,
+    url: '/people/' + id,
     method: 'delete'
   })
 }

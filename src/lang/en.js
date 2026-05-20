@@ -1,5 +1,28 @@
 module.exports = {
   "appTitle": "Edge Terminal",//OpenCode
+  "Alarm map": "Alarm map",
+  "Monitoring Center": "Monitoring Center",
+  "Alarms": "Alarms",
+  "Alarm Log": "Alarm Log",
+  "Facial Information": "Facial Information",
+  "Device Information": "Device Information",
+  "Equipment area": "Equipment area",
+  "Configuration": "Configuration",
+  "Background": "Background",
+  "Login Log": "Login Log",
+  "Operation Log": "Operation Log",
+  "Server Monitor": "Server Monitor",
+  "Device Management": "Device Management",
+  "Area Management": "Area Management",
+  "Alarm Configuration": "Alarm Configuration",
+  "System": "System",
+  "Users": "Users",
+  "Roles": "Roles",
+  "Menus": "Menus",
+  "Departments": "Departments",
+  "Positions": "Positions",
+  "Dictionary": "Dictionary",
+  "Data Screen": "Data Screen",
   "copyright": "Guangdong CAS Cogniser  Information   Technology Co., Ltd.",
   "dict": {
     "sys_user_sex": {
@@ -70,6 +93,12 @@ module.exports = {
       "2": "Misstatement"
     },
     "v1_alarm_type": {
+      "no_hairnet": "No Hairnet",
+      "hairnet": "Hairnet",
+      "no_mask": "No Mask",
+      "mask": "Mask",
+      "no_glove": "No Glove",
+      "glove": "Glove",
       "F7581B40-A9F9-498E-A510-14F40009C545": "Off duty detection",
       "F7581B40-A9F9-498E-A510-14F40010C545": "Density detection",
       "6C448FAA-83E1-49AD-B06D-297D267BD80B": "Intrusion detection",

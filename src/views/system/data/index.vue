@@ -1,175 +1,104 @@
 <template>
   <div class="data-center-page">
-    <!-- 页面头部 -->
+    <!-- Page Header -->
     <div class="data-header">
       <div class="data-header-left">
         <h2 class="page-title">{{ $t('dataCenter.dataScreen') }}</h2>
         <span class="header-time">{{ headerTime }}</span>
       </div>
       <div class="data-header-right">
-        <!-- 切换天数 -->
         <div class="switch-days-box">
-          <div
-            class="switch-days-item"
-            :class="{ active: type === '1' }"
-            @click="switchType('1')"
-          >{{ $t('dataCenter.today') }}</div>
-          <div
-            class="switch-days-item"
-            :class="{ active: type === '2' }"
-            @click="switchType('2')"
-          >{{ $t('dataCenter.thisWeek') }}</div>
-          <div
-            class="switch-days-item"
-            :class="{ active: type === '3' }"
-            @click="switchType('3')"
-          >{{ $t('dataCenter.last30Days') }}</div>
+          <div class="switch-days-item" :class="{ active: type === '1' }" @click="switchType('1')">Today</div>
+          <div class="switch-days-item" :class="{ active: type === '2' }" @click="switchType('2')">This Week</div>
+          <div class="switch-days-item" :class="{ active: type === '3' }" @click="switchType('3')">Last 30 Days</div>
         </div>
-        <el-button size="small" icon="el-icon-document" @click="handleAiReport">{{ $t('dataCenter.aiReport') }}</el-button>
+        <el-button size="small" icon="el-icon-document" @click="handleAiReport">AI Report</el-button>
       </div>
     </div>
 
-    <!-- 统计卡片 -->
+    <!-- Stat Cards -->
     <div class="stat-cards">
       <div class="stat-card">
         <div class="stat-info">
-          <span class="stat-label">{{ $t('dataCenter.totalEvents') }}</span>
+          <span class="stat-label">Total Events</span>
           <span class="stat-value">{{ todayEvent }}</span>
         </div>
-        <div class="stat-icon">
-          <img src="@/assets/images/data/image1.png" alt="" />
-        </div>
+        <div class="stat-icon"><img src="@/assets/images/data/image1.png" alt="" /></div>
       </div>
       <div class="stat-card">
         <div class="stat-info">
-          <span class="stat-label">{{ $t('dataCenter.processedEvents') }}</span>
+          <span class="stat-label">Processed Events</span>
           <span class="stat-value processed">{{ todayEventHandled }}</span>
         </div>
-        <div class="stat-icon">
-          <img src="@/assets/images/data/image2.png" alt="" />
-        </div>
+        <div class="stat-icon"><img src="@/assets/images/data/image2.png" alt="" /></div>
       </div>
       <div class="stat-card">
         <div class="stat-info">
-          <span class="stat-label">{{ $t('dataCenter.unprocessedEvents') }}</span>
+          <span class="stat-label">Unprocessed Events</span>
           <span class="stat-value unprocessed">{{ todayEventUnHandled }}</span>
         </div>
-        <div class="stat-icon">
-          <img src="@/assets/images/data/image3.png" alt="" />
-        </div>
+        <div class="stat-icon"><img src="@/assets/images/data/image3.png" alt="" /></div>
       </div>
       <div class="stat-card">
         <div class="stat-info">
-          <span class="stat-label">{{ $t('dataCenter.peopleCount') }}</span>
+          <span class="stat-label">People Count</span>
           <span class="stat-value">{{ peopleNum }}</span>
         </div>
-        <div class="stat-icon">
-          <img src="@/assets/images/data/image4.png" alt="" />
-        </div>
+        <div class="stat-icon"><img src="@/assets/images/data/image4.png" alt="" /></div>
       </div>
       <div class="stat-card">
         <div class="stat-info">
-          <span class="stat-label">{{ $t('dataCenter.vehicleCount') }}</span>
+          <span class="stat-label">Vehicle Count</span>
           <span class="stat-value">{{ vehiclesNum }}</span>
         </div>
-        <div class="stat-icon">
-          <img src="@/assets/images/data/image5.png" alt="" />
-        </div>
+        <div class="stat-icon"><img src="@/assets/images/data/image5.png" alt="" /></div>
       </div>
     </div>
 
-    <!-- 图表区域 -->
+    <!-- Charts -->
     <div class="chart-section">
-      <!-- 上排图表 -->
+      <!-- Top Row -->
       <div class="chart-row-top">
         <div class="chart-card chart-left">
-          <Left
-            ref="leftChart"
-            :title="switchDaysData.value"
-            :data="dataList.leftData"
-            :alarmTypeMapping="leftAlarmTypeMapping"
-            :type="type"
-          />
+          <Left ref="leftChart" :title="switchDaysData.value" :data="dataList.leftData" :alarmTypeMapping="leftAlarmTypeMapping" :type="type" />
         </div>
         <div class="chart-card chart-center">
-          <Right
-            ref="rightChart"
-            :title="switchDaysData.value"
-            :data="dataList.rightData"
-            :alarmTypeMapping="rightAlarmTypeMapping"
-          />
+          <Right ref="rightChart" :title="switchDaysData.value" :data="dataList.rightData" :alarmTypeMapping="rightAlarmTypeMapping" />
         </div>
         <div class="chart-card chart-right2">
-          <Right2
-            ref="right2Chart"
-            :title="switchDaysData.value"
-            :data="dataList.vehiclesMapData"
-            :alarmTypeMapping="vehiclesAlarmTypeMapping"
-          />
+          <Right2 ref="right2Chart" :title="switchDaysData.value" :data="dataList.vehiclesMapData" :alarmTypeMapping="vehiclesAlarmTypeMapping" />
         </div>
       </div>
-      <!-- 下排图表 -->
+      <!-- Bottom Row -->
       <div class="chart-row-bottom">
         <div class="chart-card chart-bottom-full">
-          <div class="chart-bottom-title">{{ switchDaysData.value + $t('dataCenter.deviceAlarmTop3') }}</div>
+          <div class="chart-bottom-title">{{ switchDaysData.value + ' Top 3 Device Alarms' }}</div>
           <div class="chart-bottom-grid">
-            <Bottom
-              ref="bottomChart1"
-              color="#1FC6FF"
-              :name="dataList.bottomOneTitle"
-              :data="dataList.bottomOneData"
-              :type="type"
-              :alarmTypeMapping="bottomAlarmTypeMapping"
-            />
-            <Bottom
-              ref="bottomChart2"
-              color="#FFC600"
-              :name="dataList.bottomTwoTitle"
-              :data="dataList.bottomTwoData"
-              :type="type"
-              :alarmTypeMapping="bottomAlarmTypeMapping"
-            />
-            <Bottom
-              ref="bottomChart3"
-              color="#00FFA6"
-              :name="dataList.bottomThreeTitle"
-              :data="dataList.bottomThreeData"
-              :type="type"
-              :alarmTypeMapping="bottomAlarmTypeMapping"
-            />
+            <Bottom ref="bottomChart1" color="#1FC6FF" :name="dataList.bottomOneTitle" :data="dataList.bottomOneData" :type="type" :alarmTypeMapping="bottomAlarmTypeMapping" />
+            <Bottom ref="bottomChart2" color="#FFC600" :name="dataList.bottomTwoTitle" :data="dataList.bottomTwoData" :type="type" :alarmTypeMapping="bottomAlarmTypeMapping" />
+            <Bottom ref="bottomChart3" color="#00FFA6" :name="dataList.bottomThreeTitle" :data="dataList.bottomThreeData" :type="type" :alarmTypeMapping="bottomAlarmTypeMapping" />
           </div>
         </div>
       </div>
     </div>
 
-    <!-- AI 总结报告弹窗 -->
+    <!-- AI Report Dialog -->
     <AiReportDialog :visible.sync="aiReportVisible" :reportData="aiReportData" />
   </div>
 </template>
 
 <script>
 import AiReportDialog from "@/components/AiReportDialog/index.vue";
-import {
-  getTrendChart,
-  getTodayOverview,
-  getDeviceTrendChart,
-  getVehiclesNumber,
-  getVehiclesMap,
-} from "@/api/system/data";
+import { getTrendChart, getTodayOverview, getDeviceTrendChart, getVehiclesNumber, getVehiclesMap } from "@/api/system/data";
 import dayjs from "dayjs";
 import Left from "./left/index.vue";
 import Right from "./right/index.vue";
 import Right2 from "./right2/index.vue";
 import Bottom from "./bottom/index.vue";
+
 export default {
   dicts: ["v1_alarm_type"],
-  components: {
-    AiReportDialog,
-    Left,
-    Right,
-    Right2,
-    Bottom,
-  },
+  components: { AiReportDialog, Left, Right, Right2, Bottom },
   name: "DataCenter",
   data() {
     return {
@@ -180,17 +109,13 @@ export default {
       aiReportVisible: false,
       aiReportData: {},
       switchDaysData: {
-        // 选中天数 对应key
         key: 1,
-        // 选中天数 对应value
-        value: this.$t('dataCenter.today'),
-        // 选中天数对应预警总数
+        value: "Today",
         total: 0,
-        // 切换天数 数据源
         list: [
-          { key: 1, value: this.$t('dataCenter.today') },
-          { key: 2, value: this.$t('dataCenter.thisWeek') },
-          { key: 3, value: this.$t('dataCenter.last30Days') },
+          { key: 1, value: "Today" },
+          { key: 2, value: "This Week" },
+          { key: 3, value: "Last 30 Days" },
         ],
       },
       dataList: {
@@ -204,47 +129,34 @@ export default {
         bottomThreeData: [],
         vehiclesMapData: [],
       },
-      todayEvent: 0, //事件总数量
-      todayEventClosed: 0, //误报事件数量
-      todayEventHandled: 0, //已处理事件数量
-      todayEventUnHandled: 0, //未处理事件数量
-      peopleNum: 0, //人数
-      vehiclesNum: 0, //车辆数量
-      // 左侧饼图报警类型映射
+      todayEvent: 0,
+      todayEventClosed: 0,
+      todayEventHandled: 0,
+      todayEventUnHandled: 0,
+      peopleNum: 0,
+      vehiclesNum: 0,
       leftAlarmTypeMapping: {},
-      // 右侧折线图报警类型映射
       rightAlarmTypeMapping: {},
-      // 底部设备报警类型映射
       bottomAlarmTypeMapping: {},
     };
   },
   computed: {
     vehiclesAlarmTypeMapping() {
       return {
-        [this.$t('dataCenter.people')]: '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F',
-        [this.$t('dataCenter.vehicle')]: '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F',
+        "People": '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F',
+        "Vehicle": '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F',
       };
     },
   },
   created() {
     this.updateHeaderTime();
-    this.timeTimer = setInterval(() => {
-      this.updateHeaderTime();
-    }, 1000);
+    this.timeTimer = setInterval(() => { this.updateHeaderTime(); }, 1000);
     this.getTrendChart();
-    this.timer = setInterval(() => {
-      this.getTrendChart();
-    }, 5 * 60 * 1000);
+    this.timer = setInterval(() => { this.getTrendChart(); }, 5 * 60 * 1000);
   },
   beforeDestroy() {
-    if (this.timer) {
-      clearInterval(this.timer);
-      this.timer = null;
-    }
-    if (this.timeTimer) {
-      clearInterval(this.timeTimer);
-      this.timeTimer = null;
-    }
+    if (this.timer) { clearInterval(this.timer); this.timer = null; }
+    if (this.timeTimer) { clearInterval(this.timeTimer); this.timeTimer = null; }
   },
   methods: {
     updateHeaderTime() {
@@ -255,20 +167,11 @@ export default {
       const h = String(now.getHours()).padStart(2, '0');
       const min = String(now.getMinutes()).padStart(2, '0');
       const s = String(now.getSeconds()).padStart(2, '0');
-      const weekMap = [
-        this.$t('dataCenter.sun'),
-        this.$t('dataCenter.mon'),
-        this.$t('dataCenter.tue'),
-        this.$t('dataCenter.wed'),
-        this.$t('dataCenter.thu'),
-        this.$t('dataCenter.fri'),
-        this.$t('dataCenter.sat')
-      ];
+      const weekMap = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       const w = weekMap[now.getDay()];
       this.headerTime = `${y}-${m}-${d} ${w} ${h}:${min}:${s}`;
     },
     handleAiReport() {
-      // 组装设备Top3数据
       var topDevices = [];
       var devList = [
         { title: this.dataList.bottomOneTitle, data: this.dataList.bottomOneData },
@@ -278,13 +181,10 @@ export default {
       for (var i = 0; i < devList.length; i++) {
         if (devList[i].title && devList[i].data) {
           var sum = 0;
-          for (var j = 0; j < devList[i].data.length; j++) {
-            sum += devList[i].data[j].num || 0;
-          }
+          for (var j = 0; j < devList[i].data.length; j++) { sum += devList[i].data[j].num || 0; }
           topDevices.push({ name: devList[i].title, total: sum });
         }
       }
-
       this.aiReportData = {
         timeLabel: this.switchDaysData.value,
         totalEvents: this.todayEvent,
@@ -302,44 +202,29 @@ export default {
     switchType(type) {
       this.type = type;
       this.switchDaysData.key = type;
-      this.switchDaysData.value = this.switchDaysData.list.find(
-        (item) => item.key == type
-      ).value;
+      this.switchDaysData.value = this.switchDaysData.list.find(item => item.key == type).value;
       this.getTrendChart();
     },
     daysSinceDate(mmdd) {
       const [monthStr, dayStr] = mmdd.split("-");
-      const month = parseInt(monthStr, 10) - 1; // JS月从0开始
+      const month = parseInt(monthStr, 10) - 1;
       const day = parseInt(dayStr, 10);
-
       const today = new Date();
-      const thisYear = today.getFullYear();
-
-      let targetDate = new Date(thisYear, month, day);
-
-      if (today < targetDate) {
-        targetDate = new Date(thisYear - 1, month, day);
-      }
-
-      const msPerDay = 1000 * 60 * 60 * 24;
-      const diffMs = today.setHours(0, 0, 0, 0) - targetDate.getTime();
-      return 29 - Math.floor(diffMs / msPerDay);
+      let targetDate = new Date(today.getFullYear(), month, day);
+      if (today < targetDate) targetDate = new Date(today.getFullYear() - 1, month, day);
+      const diffMs = today.setHours(0,0,0,0) - targetDate.getTime();
+      return 29 - Math.floor(diffMs / (1000 * 60 * 60 * 24));
     },
     getTrendChart() {
       this.dataList = {
-        leftData: [],
-        rightData: [],
-        bottomOneTitle: "",
-        bottomOneData: [],
-        bottomTwoTitle: "",
-        bottomTwoData: [],
-        bottomThreeTitle: "",
-        bottomThreeData: [],
+        leftData: [], rightData: [],
+        bottomOneTitle: "", bottomOneData: [],
+        bottomTwoTitle: "", bottomTwoData: [],
+        bottomThreeTitle: "", bottomThreeData: [],
         vehiclesMapData: [],
       };
 
-      let startTime = "";
-      let endTime = "";
+      let startTime = "", endTime = "";
       if (this.type == "1") {
         startTime = dayjs().format("YYYY-MM-DD");
         endTime = dayjs().format("YYYY-MM-DD");
@@ -351,233 +236,103 @@ export default {
         endTime = dayjs().format("YYYY-MM-DD");
       }
 
-      //头部
-      getTodayOverview({
-        startTime: startTime + " 00:00:00",
-        endTime: endTime + " 23:59:59",
-      }).then((res) => {
+      getTodayOverview({ startTime: startTime + " 00:00:00", endTime: endTime + " 23:59:59" }).then((res) => {
         this.todayEvent = res.data.todayEvent;
         this.todayEventClosed = res.data.todayEventClosed;
         this.todayEventHandled = res.data.todayEventHandled;
         this.todayEventUnHandled = res.data.todayEventUnHandled;
       });
-      //统计时间范围内的人数和车数量
-      getVehiclesNumber({
-        startTime: startTime + " 00:00:00",
-        endTime: endTime + " 23:59:59",
-        type: this.type,
-      }).then((res) => {
+
+      getVehiclesNumber({ startTime: startTime + " 00:00:00", endTime: endTime + " 23:59:59", type: this.type }).then((res) => {
         this.peopleNum = res.data.peopleNum;
         this.vehiclesNum = res.data.vehiclesNum;
       });
-      //人车事件预警趋势图
-      getVehiclesMap({
-        type: this.type,
-      }).then((res) => {
-        console.log(res);
-        // 处理vehiclesMapData，结构跟rightData一样
+
+      getVehiclesMap({ type: this.type }).then((res) => {
         let week = [];
-        // 根据选择的时间类型生成横坐标数据
-        if (this.type == "1") {
-          // 本日，生成1-23小时
-          for (let i = 0; i <= 23; i++) {
-            week.push(i);
-          }
-        } else if (this.type == "2") {
-          // 本周，生成1-7天
-          for (let i = 0; i < 7; i++) {
-            week.push(i);
-          }
-        } else if (this.type == "3") {
-          // 获取最近30天日的数据
+        if (this.type == "1") { for (let i = 0; i <= 23; i++) week.push(i); }
+        else if (this.type == "2") { for (let i = 0; i < 7; i++) week.push(i); }
+        else if (this.type == "3") {
           const today = new Date();
-          for (let i = 29; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(today.getDate() - i);
-            week.push(date.getDate());
-          }
+          for (let i = 29; i >= 0; i--) { const d = new Date(today); d.setDate(today.getDate() - i); week.push(d.getDate()); }
         }
-
-        let vehiclesMapData = [];
-        // 创建人员和车辆两个数据系列
-        vehiclesMapData.push({
-          date_type: this.$t('dataCenter.people'),
-          eventTypeId: "people",
-          count: new Array(week.length).fill(0),
-          week: week,
-        });
-        vehiclesMapData.push({
-          date_type: this.$t('dataCenter.vehicle'),
-          eventTypeId: "vehicles",
-          count: new Array(week.length).fill(0),
-          week: week,
-        });
-
-        // 填充数据
+        let vehiclesMapData = [
+          { date_type: "People", eventTypeId: "people", count: new Array(week.length).fill(0), week },
+          { date_type: "Vehicle", eventTypeId: "vehicles", count: new Array(week.length).fill(0), week },
+        ];
         if (res.data && res.data.length > 0) {
           res.data.forEach((item) => {
-            const peopleItem = vehiclesMapData.find(
-              (x) => x.eventTypeId === "people"
-            );
-            const vehiclesItem = vehiclesMapData.find(
-              (x) => x.eventTypeId === "vehicles"
-            );
-
-            // 处理人员数量
-            if (
-              peopleItem &&
-              item.peopleNum !== undefined &&
-              item.peopleNum !== null
-            ) {
-              if (this.type == "1") {
-                peopleItem.count[item.time] = item.peopleNum;
-              } else if (this.type == "2") {
-                peopleItem.count[item.time - 1] = item.peopleNum;
-              } else if (this.type == "3") {
-                const index = this.daysSinceDate(item.time);
-                peopleItem.count[index] = item.peopleNum;
-              }
+            const peopleItem = vehiclesMapData.find(x => x.eventTypeId === "people");
+            const vehiclesItem = vehiclesMapData.find(x => x.eventTypeId === "vehicles");
+            if (peopleItem && item.peopleNum != null) {
+              if (this.type == "1") peopleItem.count[item.time] = item.peopleNum;
+              else if (this.type == "2") peopleItem.count[item.time - 1] = item.peopleNum;
+              else peopleItem.count[this.daysSinceDate(item.time)] = item.peopleNum;
             }
-
-            // 处理车辆数量
-            if (
-              vehiclesItem &&
-              item.vehiclesNum !== undefined &&
-              item.vehiclesNum !== null
-            ) {
-              if (this.type == "1") {
-                vehiclesItem.count[item.time] = item.vehiclesNum;
-              } else if (this.type == "2") {
-                vehiclesItem.count[item.time - 1] = item.vehiclesNum;
-              } else if (this.type == "3") {
-                const index = this.daysSinceDate(item.time);
-                vehiclesItem.count[index] = item.vehiclesNum;
-              }
+            if (vehiclesItem && item.vehiclesNum != null) {
+              if (this.type == "1") vehiclesItem.count[item.time] = item.vehiclesNum;
+              else if (this.type == "2") vehiclesItem.count[item.time - 1] = item.vehiclesNum;
+              else vehiclesItem.count[this.daysSinceDate(item.time)] = item.vehiclesNum;
             }
           });
         }
-
         this.dataList.vehiclesMapData = vehiclesMapData;
       });
-      //底部统计
-      getDeviceTrendChart({
-        type: this.type,
-      }).then((res) => {
-        for (let index = 0; index < res.data.length; index++) {
-          if (index == 0) {
-            this.dataList.bottomOneTitle = res.data[index].deviceName;
-            this.dataList.bottomOneData = res.data[index].deviceAlarmList;
-          } else if (index == 1) {
-            this.dataList.bottomTwoTitle = res.data[index].deviceName;
-            this.dataList.bottomTwoData = res.data[index].deviceAlarmList;
-          } else if (index == 2) {
-            this.dataList.bottomThreeTitle = res.data[index].deviceName;
-            this.dataList.bottomThreeData = res.data[index].deviceAlarmList;
-          }
-        }
 
-        // 构建底部设备报警类型映射
+      getDeviceTrendChart({ type: this.type }).then((res) => {
+        for (let i = 0; i < res.data.length; i++) {
+          if (i == 0) { this.dataList.bottomOneTitle = res.data[i].deviceName; this.dataList.bottomOneData = res.data[i].deviceAlarmList; }
+          else if (i == 1) { this.dataList.bottomTwoTitle = res.data[i].deviceName; this.dataList.bottomTwoData = res.data[i].deviceAlarmList; }
+          else if (i == 2) { this.dataList.bottomThreeTitle = res.data[i].deviceName; this.dataList.bottomThreeData = res.data[i].deviceAlarmList; }
+        }
         this.bottomAlarmTypeMapping = {};
-        res.data.forEach((item) => {
-          // 这里可以根据设备名称映射到对应的报警类型ID
-          // 暂时使用一个通用的报警类型ID，实际使用时可以根据需要调整
-          this.bottomAlarmTypeMapping[item.deviceName] =
-            "1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F";
-        });
+        res.data.forEach(item => { this.bottomAlarmTypeMapping[item.deviceName] = "1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F"; });
       });
 
-      getTrendChart({
-        type: this.type,
-      }).then((res) => {
-        //左边数据
-        const leftData = res.data.map((item) => {
-          return {
-            value: item.num,
-            name: this.$t(`dict.v1_alarm_type.${item.eventTypeId}`) || this.$t('dataCenter.unknown'),
-            id: item.eventTypeId,
-          };
-        });
-        // 将相同name的数据聚合在一起
+      getTrendChart({ type: this.type }).then((res) => {
+        const leftData = res.data.map(item => ({
+          value: item.num,
+          name: this.$t(`dict.v1_alarm_type.${item.eventTypeId}`) || item.eventTypeId,
+          id: item.eventTypeId,
+        }));
         const aggregatedData = [];
-        leftData.forEach((item) => {
-          const existingItem = aggregatedData.find((x) => x.name === item.name);
-          if (existingItem) {
-            existingItem.value += item.value;
-          } else {
-            aggregatedData.push({ ...item });
-          }
+        leftData.forEach(item => {
+          const existing = aggregatedData.find(x => x.name === item.name);
+          if (existing) existing.value += item.value;
+          else aggregatedData.push({ ...item });
         });
-        // 使用聚合后的数据（过滤掉 value 为 0 的项）
-        this.dataList.leftData = aggregatedData.filter(item => item.value > 0)
-
-        // 构建左侧饼图报警类型映射
+        this.dataList.leftData = aggregatedData.filter(item => item.value > 0);
         this.leftAlarmTypeMapping = {};
-        aggregatedData.forEach((item) => {
-          this.leftAlarmTypeMapping[item.name] = item.id;
-        });
+        aggregatedData.forEach(item => { this.leftAlarmTypeMapping[item.name] = item.id; });
 
-        //右边数据
         let week = [];
-        //switchDaysData.key 1: 本日 2: 本周 3: 本月
-        // 根据选择的时间类型生成横坐标数据
-        if (this.type == "1") {
-          // 本日，生成1-23小时
-          for (let i = 0; i <= 23; i++) {
-            week.push(i);
-          }
-        } else if (this.type == "2") {
-          // 本周，生成1-7天
-          for (let i = 0; i < 7; i++) {
-            week.push(i);
-          }
-        } else if (this.type == "3") {
-          // 获取最近30天日的数据
+        if (this.type == "1") { for (let i = 0; i <= 23; i++) week.push(i); }
+        else if (this.type == "2") { for (let i = 0; i < 7; i++) week.push(i); }
+        else if (this.type == "3") {
           const today = new Date();
-          for (let i = 29; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(today.getDate() - i);
-            week.push(date.getDate());
-          }
+          for (let i = 29; i >= 0; i--) { const d = new Date(today); d.setDate(today.getDate() - i); week.push(d.getDate()); }
         }
+
         let rightData = [];
-        this.dataList.leftData.forEach((item) => {
-          rightData.push({
-            date_type: item.name,
-            eventTypeId: item.id,
-            count: new Array(week.length).fill(0),
-            week: week,
-          });
+        this.dataList.leftData.forEach(item => {
+          rightData.push({ date_type: item.name, eventTypeId: item.id, count: new Array(week.length).fill(0), week });
         });
-        res.data.forEach((item) => {
-          const rightItem = rightData.find(
-            (x) => x.eventTypeId === item.eventTypeId
-          );
+        res.data.forEach(item => {
+          const rightItem = rightData.find(x => x.eventTypeId === item.eventTypeId);
           if (rightItem) {
-            if (this.type == "1") {
-              rightItem.count[item.time] = item.num;
-            } else if (this.type == "2") {
-              rightItem.count[item.time - 1] = item.num;
-            } else if (this.type == "3") {
-              // 计算item.time格式最近第几天
-              const index = this.daysSinceDate(item.time);
-              rightItem.count[index] = item.num;
-            }
+            if (this.type == "1") rightItem.count[item.time] = item.num;
+            else if (this.type == "2") rightItem.count[item.time - 1] = item.num;
+            else rightItem.count[this.daysSinceDate(item.time)] = item.num;
           }
         });
         this.dataList.rightData = rightData;
-
-        // 构建右侧折线图报警类型映射
         this.rightAlarmTypeMapping = {};
-        rightData.forEach((item) => {
-          this.rightAlarmTypeMapping[item.date_type] = item.eventTypeId;
-        });
+        rightData.forEach(item => { this.rightAlarmTypeMapping[item.date_type] = item.eventTypeId; });
       });
     },
   },
 };
 </script>
-
-
 
 <style lang="scss" scoped>
 .data-center-page {
@@ -590,11 +345,14 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
 
   .data-header-left {
     display: flex;
     align-items: baseline;
     gap: 16px;
+    flex-wrap: wrap;
 
     .page-title {
       font-size: 20px;
@@ -613,6 +371,7 @@ export default {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
 
     .switch-days-box {
       display: flex;
@@ -629,16 +388,8 @@ export default {
         transition: all 0.2s;
         user-select: none;
 
-        &:hover {
-          color: #1a7a6e;
-          background: #f0faf8;
-        }
-
-        &.active {
-          background: #1a7a6e;
-          color: #fff;
-          pointer-events: none;
-        }
+        &:hover { color: #1a7a6e; background: #f0faf8; }
+        &.active { background: #1a7a6e; color: #fff; pointer-events: none; }
       }
     }
   }
@@ -651,11 +402,10 @@ export default {
   margin-bottom: 20px;
 
   .stat-card {
-   background: radial-gradient( 107.99% 104.29% at 106.57% -3.85%, rgba(35,135,135,0.2) 0%, rgba(255,255,255,0) 100%), #FFFFFF;
-box-shadow: 0px 1px 4px -1px rgba(13,13,18,0.06);
-border-radius: 24px 24px 24px 24px;
-border: 1px solid #FFFFFF;
-
+    background: radial-gradient(107.99% 104.29% at 106.57% -3.85%, rgba(35,135,135,0.2) 0%, rgba(255,255,255,0) 100%), #FFFFFF;
+    box-shadow: 0px 1px 4px -1px rgba(13,13,18,0.06);
+    border-radius: 24px;
+    border: 1px solid #FFFFFF;
     padding: 20px 24px;
     display: flex;
     align-items: center;
@@ -678,14 +428,6 @@ border: 1px solid #FFFFFF;
         font-weight: 700;
         color: #1a2a36;
         line-height: 1.1;
-
-        &.processed {
-          color: #1a2a36;
-        }
-
-        &.unprocessed {
-          color: #1a2a36;
-        }
       }
     }
 
@@ -694,12 +436,7 @@ border: 1px solid #FFFFFF;
       width: 56px;
       height: 56px;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        mix-blend-mode: multiply;
-      }
+      img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
     }
   }
 }
@@ -714,17 +451,9 @@ border: 1px solid #FFFFFF;
     gap: 16px;
     min-height: 380px;
 
-    .chart-left {
-      flex: 1;
-    }
-
-    .chart-center {
-      flex: 2;
-    }
-
-    .chart-right2 {
-      flex: 2;
-    }
+    .chart-left { flex: 1; }
+    .chart-center { flex: 2; }
+    .chart-right2 { flex: 2; }
   }
 
   .chart-row-bottom {
@@ -751,5 +480,89 @@ border: 1px solid #FFFFFF;
     padding: 20px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1400px) {
+  .stat-cards {
+    grid-template-columns: repeat(3, 1fr);
+
+    .stat-card:nth-child(4),
+    .stat-card:nth-child(5) {
+      grid-column: span 1;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .chart-row-top {
+    flex-wrap: wrap !important;
+    min-height: auto !important;
+
+    .chart-left { flex: 1 1 100% !important; min-height: 300px; }
+    .chart-center { flex: 1 1 calc(50% - 8px) !important; min-height: 300px; }
+    .chart-right2 { flex: 1 1 calc(50% - 8px) !important; min-height: 300px; }
+  }
+
+  .chart-bottom-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .stat-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chart-row-top {
+    flex-direction: column !important;
+
+    .chart-left,
+    .chart-center,
+    .chart-right2 {
+      flex: 1 1 100% !important;
+      min-height: 280px;
+    }
+  }
+
+  .chart-bottom-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .stat-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    .stat-card {
+      padding: 14px 16px !important;
+      min-height: 80px !important;
+      border-radius: 16px !important;
+
+      .stat-value { font-size: 24px !important; }
+      .stat-label { font-size: 11px !important; margin-bottom: 4px !important; }
+      .stat-icon { width: 36px !important; height: 36px !important; }
+    }
+  }
+
+  .data-header {
+    .data-header-right {
+      width: 100%;
+      justify-content: space-between;
+
+      .switch-days-box {
+        flex: 1;
+
+        .switch-days-item { padding: 6px 10px !important; font-size: 12px !important; }
+      }
+    }
+  }
+
+  .page-title { font-size: 16px !important; }
+  .header-time { font-size: 11px !important; }
+
+  .chart-card { padding: 12px !important; }
+  .chart-bottom-title { font-size: 14px !important; }
 }
 </style>

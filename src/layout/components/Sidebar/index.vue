@@ -38,9 +38,9 @@
             <div class="alarm-card__divider" />
             <div v-if="alarmList.length === 0" class="alarm-card__empty">{{ $t('sidebarAlarm.noAlerts') }}</div>
             <template v-else>
-                <div v-for="(item, idx) in alarmList" :key="item.id" class="alarm-card__item">
+                <div v-for="(item, idx) in alarmList" :key="item.id || idx" class="alarm-card__item">
                     <div class="alarm-card__item-info">
-                        <span class="alarm-card__item-type">{{ $t('dict.v1_alarm_type.' + item.eventTypeId) }}</span>
+                        <span class="alarm-card__item-type">{{ item.eventTypeId || item.violationType }}</span>
                         <span class="alarm-card__item-device">{{ item.equipmentName }}</span>
                     </div>
                     <span :class="['alarm-card__time-badge', timeClass(item.sendTime)]">{{ timeAgo(item.sendTime) }}</span>
@@ -102,9 +102,12 @@ export default {
         this.disableMenuHoverBg()
         this.fetchAlarms()
         this.alarmTimer = setInterval(this.fetchAlarms, 60000)
+        // Listen for real-time alerts from WebSocket
+        this.$bus.$on('newAlert', this.onNewAlert)
     },
     beforeDestroy() {
         if (this.alarmTimer) clearInterval(this.alarmTimer)
+        this.$bus.$off('newAlert', this.onNewAlert)
     },
     updated() {
         this.disableMenuHoverBg()
@@ -113,17 +116,42 @@ export default {
         toggleSidebar() {
             this.$store.dispatch('app/toggleSideBar')
         },
+        onNewAlert(alert) {
+            // Add to top of list
+            this.alarmList.unshift({
+                id: alert.id,
+                eventTypeId: alert.violationType || alert.eventTypeId,
+                equipmentName: alert.equipmentName || alert.deviceName,
+                sendTime: alert.sendTime || alert.createTime
+            })
+            // Keep only 3
+            if (this.alarmList.length > 3) {
+                this.alarmList = this.alarmList.slice(0, 3)
+            }
+            // Increment counter
+            this.todayTotal += 1
+        },
         fetchAlarms() {
             const today = dayjs().format('YYYY-MM-DD')
-            listRecord({ pageNum: 1, pageSize: 3, beginTime: today + ' 00:00:00', endTime: today + ' 23:59:59' })
-                .then(res => {
-                    if (res && res.data) {
-                        const records = res.data.records || res.data.rows || []
-                        this.alarmList = records.slice(0, 3)
-                        this.todayTotal = res.data.totalCount || res.data.total || 0
-                    }
-                })
-                .catch(() => {})
+            listRecord({
+                pageNum: 1,
+                pageSize: 3,
+                beginTime: today + ' 00:00:00',
+                endTime: today + ' 23:59:59'
+            })
+            .then(res => {
+                if (res && res.data) {
+                    const records = res.data.records || res.data.rows || []
+                    this.alarmList = records.slice(0, 3).map(r => ({
+                        id: r.id,
+                        eventTypeId: r.violationType || r.eventTypeId,
+                        equipmentName: r.deviceName || r.deviceId || r.equipmentName,
+                        sendTime: r.createTime || r.sendTime
+                    }))
+                    this.todayTotal = res.data.totalCount || res.data.total || 0
+                }
+            })
+            .catch(() => {})
         },
         timeAgo(sendTime) {
             if (!sendTime) return ''
@@ -141,10 +169,6 @@ export default {
             return 'badge-blue'
         },
         disableMenuHoverBg() {
-            // Element UI 的 el-menu-item 和 el-submenu 会在 mouseenter 时
-            // 通过 JS 直接设置 style.backgroundColor，覆盖 CSS。
-            // 这里遍历所有菜单项，覆盖其 onMouseEnter/onMouseLeave 方法，
-            // 让 CSS :hover 样式生效。
             this.$nextTick(() => {
                 const menu = this.$refs.sideMenu
                 if (!menu) return
@@ -154,7 +178,6 @@ export default {
                 items.forEach(item => {
                     if (item.onMouseEnter) item.onMouseEnter = noop
                     if (item.onMouseLeave) item.onMouseLeave = noop
-                    // 清除已有的 inline backgroundColor
                     if (item.$el) item.$el.style.backgroundColor = ''
                 })
                 submenus.forEach(sub => {

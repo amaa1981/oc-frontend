@@ -40,6 +40,7 @@ export const mapConfigs = {
   mapbox: {
     name: 'Mapbox GL JS',
     mapboxToken: process.env.VUE_APP_MAPBOX_TOKEN,
+    accessToken: process.env.VUE_APP_MAPBOX_TOKEN,
     style: 'mapbox://styles/mapbox/dark-v11', // Options: dark-v11, light-v11, streets-v12, satellite-v9, outdoors-v12
     coverage: 'global',
     features: ['navigation', 'poi', 'traffic', 'markers', 'popups', '3d'],

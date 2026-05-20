@@ -349,25 +349,15 @@ export default {
   dicts: ["v1_sex", "v1_user_type"],
   data() {
     return {
-      // 遮罩层
       loading: true,
-      // 选中数组
       ids: [],
-      // 非单个禁用
       single: true,
-      // 非多个禁用
       multiple: true,
-      // 显示搜索条件
       showSearch: true,
-      // 总条数
       total: 0,
-      // 人员信息表格数据
       peopleList: [],
-      // 弹出层标题
       title: "",
-      // 是否显示弹出层
       open: false,
-      // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -376,40 +366,13 @@ export default {
         type: null,
         libId: null,
       },
-      // 表单参数
       form: {},
-      // 表单校验
       rules: {
-        name: [
-          {
-            required: true,
-            message: this.$t("commonTips.cannotBeEmpty"),
-            trigger: "change",
-          },
-        ],
-        sex: [
-          {
-            required: true,
-            message: this.$t("commonTips.cannotBeEmpty"),
-            trigger: "change",
-          },
-        ],
-        type: [
-          {
-            required: true,
-            message: this.$t("commonTips.cannotBeEmpty"),
-            trigger: "change",
-          },
-        ],
-        image: [
-          {
-            required: true,
-            message: this.$t("commonTips.cannotBeEmpty"),
-            trigger: "change",
-          },
-        ],
+        name: [{ required: true, message: "Name is required", trigger: "change" }],
+        sex: [{ required: true, message: "Gender is required", trigger: "change" }],
+        type: [{ required: true, message: "Type is required", trigger: "change" }],
+        image: [{ required: true, message: "Photo is required", trigger: "change" }],
       },
-      // 导入相关
       importOpen: false,
       importLoading: false,
       excelFile: null,
@@ -417,7 +380,6 @@ export default {
       excelList: [],
       pictureList: [],
       importLoadingInstance: null,
-      // 导入结果
       importResultOpen: false,
       importResult: {
         successNum: 0,
@@ -441,11 +403,14 @@ export default {
     getList() {
       this.loading = true;
       listPeople(this.queryParams).then((response) => {
-        this.peopleList = response.data.records;
-        this.total = response.data.totalCount;
+        this.peopleList = response.data.records || [];
+        this.total = response.data.totalCount || 0;
+        this.loading = false;
+      }).catch(() => {
         this.loading = false;
       });
     },
+    /** 关闭弹出层 */
     // 取消按钮
     cancel() {
       this.open = false;

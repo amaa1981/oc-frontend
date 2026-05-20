@@ -1,13 +1,6 @@
-/*
- * @Author: FGJ
- * @Date: 2025-05-22 11:16:50
- * @Descripttion: 
- * @LastEditTime: 2025-07-08 09:46:23
- * @LastEditors: FGJ
- * @version: 
- */
 import request from '@/utils/request'
-// 事件预警趋势图
+
+// Event Alarm Trend Chart (pie chart left)
 export function getTrendChart(query) {
   return request({
     url: '/cockpit/getTrendChart',
@@ -16,38 +9,38 @@ export function getTrendChart(query) {
   })
 }
 
-
-// 今日概况
+// Today Overview (header stats)
 export function getTodayOverview(query) {
   return request({
-    url: '/cockpit/getTrendChart',
+    url: '/cockpit/getTodayOverview',
     method: 'get',
     params: query
   })
 }
-//设备事件预警趋势图
+
+// Device Trend Chart (bottom 3 devices)
 export function getDeviceTrendChart(query) {
   return request({
-    url: '/cockpit/getTrendChart',
+    url: '/cockpit/getDeviceTrendChart',
     method: 'get',
     params: query
   })
 }
-//统计时间范围内的人数和车数量
+
+// People and Vehicle count
 export function getVehiclesNumber(query) {
   return request({
-    url: '/cockpit/getTrendChart',
+    url: '/cockpit/getVehiclesNumber',
     method: 'get',
     params: query
   })
 }
-//人车事件预警趋势图
+
+// People and Vehicle trend chart
 export function getVehiclesMap(query) {
   return request({
-    url: '/cockpit/getTrendChart',
+    url: '/cockpit/getVehicles',
     method: 'get',
     params: query
   })
 }
-
-
