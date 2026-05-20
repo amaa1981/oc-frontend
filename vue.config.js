@@ -27,6 +27,11 @@ module.exports = {
         target: `http://localhost:8081`,
         changeOrigin: true
       },
+      '/ws': {
+        target: 'http://localhost:8081',
+        changeOrigin: true,
+        ws: true
+      },
       '/ai-api': {
         target: process.env.VUE_APP_AI_PROXY_TARGET || 'http://61.142.135.143:18080',
         changeOrigin: true,
