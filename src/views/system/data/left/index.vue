@@ -3,7 +3,7 @@
  * @Date: 2024-03-13 17:31:22
  * @LastEditTime: 2025-10-09 11:02:03
  * @LastEditors: FGJ
- * @Description: 左侧 类型分析模块
+ * @Description: Left side type analysis module
 -->
 <template>
   <div class="left-container">
@@ -113,11 +113,11 @@ export default {
       if (this.type === "2") {
         // 本周数据
         const today = new Date();
-        const day = today.getDay() || 7; // 获取当前是周几（0-6，0代表周日）
+        const day = today.getDay() || 7; // Get day of week (0-6, 0=Sunday)
         const weekStart = new Date(today);
-        weekStart.setDate(today.getDate() - (day - 1)); // 设置到本周一
+        weekStart.setDate(today.getDate() - (day - 1)); // Set to Monday
         const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekStart.getDate() + 6); // 设置到本周日
+        weekEnd.setDate(weekStart.getDate() + 6); // Set to Sunday
 
         const startDateStr =
           weekStart.getFullYear() +
@@ -139,7 +139,7 @@ export default {
         // 近30天数据
         const today = new Date();
         const thirtyDaysAgo = new Date(today);
-        thirtyDaysAgo.setDate(today.getDate() - 29); // 设置到30天前
+        thirtyDaysAgo.setDate(today.getDate() - 29); // Set to 30 days ago
 
         const startDateStr =
           thirtyDaysAgo.getFullYear() +

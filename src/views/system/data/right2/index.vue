@@ -3,7 +3,7 @@
  * @Date: 2024-03-14 11:23:27
  * @LastEditTime: 2025-08-08 09:53:06
  * @LastEditors: FGJ
- * @Description: 右侧 预警趋势模块
+ * @Description: Right side alert trend module
 -->
 <template>
   <div class="right-container">
@@ -103,11 +103,11 @@ export default {
       if (this.data[0].week.length === 7) {
         // 本周数据
         const today = new Date();
-        const day = today.getDay() || 7; // 获取当前是周几（0-6，0代表周日）
+        const day = today.getDay() || 7; // Get day of week (0-6, 0=Sunday)
         const weekStart = new Date(today);
-        weekStart.setDate(today.getDate() - (day - 1)); // 设置到本周一
+        weekStart.setDate(today.getDate() - (day - 1)); // Set to Monday
         const targetDate = new Date(weekStart);
-        targetDate.setDate(weekStart.getDate() + parseInt(params.dataIndex)); // 根据点击的索引设置目标日期
+        targetDate.setDate(weekStart.getDate() + parseInt(params.dataIndex)); // Based on click index设置目标日期
         const dateStr =
           targetDate.getFullYear() +
           "-" +
@@ -133,7 +133,7 @@ export default {
         // 近30天数据
         const today = new Date();
         const targetDate = new Date(today);
-        targetDate.setDate(today.getDate() - (29 - params.dataIndex)); // 根据点击的索引计算目标日期
+        targetDate.setDate(today.getDate() - (29 - params.dataIndex)); // Calculate target date from index
         const dateStr =
           targetDate.getFullYear() +
           "-" +

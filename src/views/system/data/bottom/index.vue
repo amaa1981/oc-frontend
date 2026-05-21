@@ -3,7 +3,7 @@
  * @Date: 2024-03-14 16:16:41
  * @LastEditTime: 2025-06-04 14:36:28
  * @LastEditors: FGJ
- * @Description: 底部 事件数前三模块                                                              
+ * @Description: Bottom top 3 event count module                                                              
 -->
 <template>
   <div class="bottom-container">
@@ -15,7 +15,7 @@
     </div>
     <!-- 次数 -->
     <!-- <div class="bottom-numbers" v-if="data && data.length != 0">
-      <span :style="{ background: color }"></span>次数
+      <span :style="{ background: color }"></span>Count
     </div> -->
     <!-- 表格 -->
     <div class="bottom-echarts-box" ref="bottom-echarts"></div>
@@ -97,7 +97,7 @@ export default {
   methods: {
     daysSinceDate(mmdd) {
       const [monthStr, dayStr] = mmdd.split("-");
-      const month = parseInt(monthStr, 10) - 1; // JS月从0开始
+      const month = parseInt(monthStr, 10) - 1; // JS months start from 0
       const day = parseInt(dayStr, 10);
 
       const today = new Date();
@@ -126,18 +126,18 @@ export default {
 
       // 构建跳转参数
       const query = {
-        equipmentName: deviceName, // 添加设备名称参数
+        equipmentName: deviceName, // Add device name param
       };
 
       // 添加时间参数
       if (this.type === "2") {
         // 本周数据
         const today = new Date();
-        const day = today.getDay() || 7; // 获取当前是周几（0-6，0代表周日）
+        const day = today.getDay() || 7; // Get day of week (0-6, 0=Sunday)
         const weekStart = new Date(today);
-        weekStart.setDate(today.getDate() - (day - 1)); // 设置到本周一
+        weekStart.setDate(today.getDate() - (day - 1)); // Set to Monday
         const targetDate = new Date(weekStart);
-        targetDate.setDate(weekStart.getDate() + parseInt(params.dataIndex)); // 根据点击的索引设置目标日期
+        targetDate.setDate(weekStart.getDate() + parseInt(params.dataIndex)); // Based on click index设置目标日期
         const dateStr =
           targetDate.getFullYear() +
           "-" +
@@ -163,7 +163,7 @@ export default {
         // 近30天数据
         const today = new Date();
         const targetDate = new Date(today);
-        targetDate.setDate(today.getDate() - (29 - params.dataIndex)); // 根据点击的索引计算目标日期
+        targetDate.setDate(today.getDate() - (29 - params.dataIndex)); // Calculate target date from index
         const dateStr =
           targetDate.getFullYear() +
           "-" +

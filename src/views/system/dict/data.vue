@@ -276,7 +276,7 @@ export default {
     this.getTypeList();
   },
   methods: {
-    /** 查询字典类型详细 */
+    /** Query dict type detail */
     getType(dictId) {
       getType(dictId).then(response => {
         this.queryParams.dictType = response.data.dictType;
@@ -284,13 +284,13 @@ export default {
         this.getList();
       });
     },
-    /** 查询字典类型列表 */
+    /** Query dict type list */
     getTypeList() {
       getDictOptionselect().then(response => {
         this.typeOptions = response.data;
       });
     },
-    /** 查询字典数据列表 */
+    /** Query dict data list */
     getList() {
       this.loading = true;
       listData(this.queryParams).then(response => {
@@ -323,7 +323,7 @@ export default {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 返回按钮操作 */
+    /** Back handler */
     handleClose() {
       const obj = { path: "/system/dict" };
       this.$tab.closeOpenPage(obj);

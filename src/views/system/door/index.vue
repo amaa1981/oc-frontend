@@ -8,18 +8,18 @@
       v-show="showSearch"
       label-width="68px"
     >
-      <el-form-item label="门禁ID" prop="accessControlId">
+      <el-form-item label="Access Control ID" prop="accessControlId">
         <el-input
           v-model="queryParams.accessControlId"
-          placeholder="请输入门禁ID"
+          placeholder="Enter access control ID"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="名称" prop="name">
+      <el-form-item label="Name" prop="name">
         <el-input
           v-model="queryParams.name"
-          placeholder="请输入名称"
+          placeholder="Enter name"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -27,7 +27,7 @@
       <el-form-item label="安装位置" prop="position">
         <el-input
           v-model="queryParams.position"
-          placeholder="请输入安装位置"
+          placeholder="Enter installation location"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -52,8 +52,8 @@
       :data="recordList"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column label="门禁ID" align="center" prop="accessControlId" />
-      <el-table-column label="名称" align="center" prop="name" />
+      <el-table-column label="Access Control ID" align="center" prop="accessControlId" />
+      <el-table-column label="Name" align="center" prop="name" />
       <el-table-column label="安装位置" align="center" prop="position" />
       <el-table-column label="进出类型" align="center" prop="type">
         <template slot-scope="scope">
@@ -64,7 +64,7 @@
         </template>
       </el-table-column>
       <el-table-column label="门禁序号" align="center" prop="gatewayIndex" />
-      <el-table-column label="状态" align="center" prop="staic">
+      <el-table-column label="Status" align="center" prop="staic">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.staic === 1" type="success">{{
             $t("dict.v1_door_status.1")
@@ -75,7 +75,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="创建时间"
+        label="Created At"
         align="center"
         prop="createTime"
         width="180"
@@ -86,7 +86,7 @@
       </el-table-column>
 
       <el-table-column
-        label="操作"
+        label="Actions"
         align="center"
         class-name="small-padding fixed-width"
       >
@@ -166,7 +166,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询门禁操作记录信息列表 */
+    /** Query door operation record list */
     getList() {
       this.loading = true;
       listRecord(this.queryParams).then((response) => {
@@ -220,7 +220,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加门禁操作记录信息";
+      this.title = "Add Door Record";
     },
     /** Edit handler */
     handleUpdate(row) {
@@ -229,7 +229,7 @@ export default {
       getRecord(id).then((response) => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改门禁操作记录信息";
+        this.title = "Edit Door Record";
       });
     },
     /** Submit handler */
@@ -256,7 +256,7 @@ export default {
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
-        .confirm('是否确认删除门禁操作记录信息编号为"' + ids + '"的数据项？')
+        .confirm('Are you sure you want to delete door record #' + ids + '?')
         .then(function () {
           return delRecord(ids);
         })

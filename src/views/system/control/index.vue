@@ -8,18 +8,18 @@
       v-show="showSearch"
       label-width="68px"
     >
-      <el-form-item label="名称" prop="name">
+      <el-form-item label="Name" prop="name">
         <el-input
           v-model="queryParams.name"
-          placeholder="请输入名称"
+          placeholder="Enter name"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="门禁IP" prop="ip">
+      <el-form-item label="Access Control IP" prop="ip">
         <el-input
           v-model="queryParams.ip"
-          placeholder="请输入门禁IP"
+          placeholder="Enter access control IP"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -116,7 +116,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作"
+        label="Actions"
         align="center"
         class-name="small-padding fixed-width"
         width="250"
@@ -161,14 +161,14 @@
     <!-- 添加或修改门禁设备信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="form.name" placeholder="请输入名称" />
+        <el-form-item label="Name" prop="name">
+          <el-input v-model="form.name" placeholder="Enter name" />
         </el-form-item>
-        <el-form-item label="安装位置" prop="position">
-          <el-input v-model="form.position" placeholder="请输入安装位置" />
+        <el-form-item label="Installation Location" prop="position">
+          <el-input v-model="form.position" placeholder="Enter installation location" />
         </el-form-item>
-        <el-form-item label="进出类型" prop="type">
-          <el-select v-model="form.type" placeholder="请选择">
+        <el-form-item label="Entry/Exit Type" prop="type">
+          <el-select v-model="form.type" placeholder="Select">
             <el-option
               :label="$t('dict.v1_door_type.1')"
               :value="1"
@@ -179,28 +179,28 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="门禁IP" prop="ip">
-          <el-input v-model="form.ip" placeholder="请输入门禁IP" />
+        <el-form-item label="Access Control IP" prop="ip">
+          <el-input v-model="form.ip" placeholder="Enter access control IP" />
         </el-form-item>
-        <el-form-item label="门禁设备端口" prop="port">
-          <el-input v-model="form.port" placeholder="请输入门禁设备端口" />
+        <el-form-item label="Access Control Port" prop="port">
+          <el-input v-model="form.port" placeholder="Enter access control port" />
         </el-form-item>
-        <el-form-item label="用户名" prop="userName">
-          <el-input v-model="form.userName" placeholder="请输入用户名" />
+        <el-form-item label="Username" prop="userName">
+          <el-input v-model="form.userName" placeholder="Enter username" />
         </el-form-item>
-        <el-form-item label="密码" prop="passWord">
-          <el-input v-model="form.passWord" placeholder="请输入密码" />
+        <el-form-item label="Password" prop="passWord">
+          <el-input v-model="form.passWord" placeholder="Enter password" />
         </el-form-item>
-        <el-form-item label="门禁序号" prop="gatewayIndex">
+        <el-form-item label="Gateway Index" prop="gatewayIndex">
           <el-input
             v-model="form.gatewayIndex"
-            placeholder="请输入门禁序号"
+            placeholder="Enter gateway index"
             type="number"
           />
         </el-form-item>
 
-        <el-form-item label="状态" prop="staic">
-          <el-select v-model="form.staic" placeholder="请选择">
+        <el-form-item label="Status" prop="staic">
+          <el-select v-model="form.staic" placeholder="Select">
             <el-option
               :label="$t('dict.v1_door_status.1')"
               :value="1"
@@ -213,8 +213,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">Confirm</el-button>
+        <el-button @click="cancel">Cancel</el-button>
       </div>
     </el-dialog>
   </div>
@@ -262,21 +262,21 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        name: [{ required: true, message: "名称不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "Name is required", trigger: "blur" }],
         type: [
-          { required: true, message: "进出类型不能为空", trigger: "change" },
+          { required: true, message: "Entry/Exit type is required", trigger: "change" },
         ],
-        ip: [{ required: true, message: "门禁IP不能为空", trigger: "blur" }],
+        ip: [{ required: true, message: "Access control IP is required", trigger: "blur" }],
         port: [
-          { required: true, message: "门禁设备端口不能为空", trigger: "blur" },
+          { required: true, message: "Access control port is required", trigger: "blur" },
         ],
         userName: [
-          { required: true, message: "用户名不能为空", trigger: "blur" },
+          { required: true, message: "Username is required", trigger: "blur" },
         ],
         passWord: [
-          { required: true, message: "密码不能为空", trigger: "blur" },
+          { required: true, message: "Password is required", trigger: "blur" },
         ],
-        staic: [{ required: true, message: "状态不能为空", trigger: "change" }],
+        staic: [{ required: true, message: "Status is required", trigger: "change" }],
       },
     };
   },
@@ -292,7 +292,7 @@ export default {
         },
       });
     },
-    /** 查询门禁设备信息列表 */
+    /** Query access control device list */
     getList() {
       this.loading = true;
       listControl(this.queryParams).then((response) => {
@@ -342,7 +342,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加门禁设备信息";
+      this.title = "Add Access Control Device";
     },
     /** Edit handler */
     handleUpdate(row) {
@@ -351,7 +351,7 @@ export default {
       getControl(id).then((response) => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改门禁设备信息";
+        this.title = "Edit Access Control Device";
       });
     },
     /** Submit handler */
@@ -378,7 +378,7 @@ export default {
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
-        .confirm('是否确认删除门禁设备信息编号为"' + ids + '"的数据项？')
+        .confirm('Are you sure you want to delete access control device #' + ids + '?')
         .then(function () {
           return delControl(ids);
         })

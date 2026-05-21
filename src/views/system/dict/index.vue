@@ -239,7 +239,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询字典类型列表 */
+    /** Query dict type list */
     getList() {
       this.loading = true;
       listType(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
@@ -334,7 +334,7 @@ export default {
         ...this.queryParams
       }, `type_${new Date().getTime()}.xlsx`)
     },
-    /** 刷新缓存按钮操作 */
+    /** Refresh cache handler */
     handleRefreshCache() {
       refreshCache().then(() => {
         this.$modal.msgSuccess(this.$t('dicaManage.refresh_s'));

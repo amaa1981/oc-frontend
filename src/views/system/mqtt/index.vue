@@ -13,16 +13,16 @@
                 placeholder="Enter MQTT connection info"
               />
             </el-form-item>
-            <el-form-item label="mqtt用户名" prop="userName">
+            <el-form-item label="MQTT Username" prop="userName">
               <el-input
                 v-model="form.userName"
-                placeholder="请输入mqtt用户名"
+                placeholder="Enter MQTT username"
               />
             </el-form-item>
-            <el-form-item label="mqtt密码" prop="password">
-              <el-input v-model="form.password" placeholder="请输入mqtt密码" />
+            <el-form-item label="MQTT Password" prop="password">
+              <el-input v-model="form.password" placeholder="Enter MQTT password" />
             </el-form-item>
-            <el-form-item label="qos接收消息的机制" prop="qos">
+            <el-form-item label="QoS Level" prop="qos">
               <el-select v-model="form.qos" placeholder="" style="width: 100%">
                 <el-option key="0" label="0" value="0"></el-option>
                 <el-option key="1" label="1" value="1"></el-option>
@@ -32,13 +32,13 @@
             <el-form-item label="Client ID" prop="clientId">
               <el-input v-model="form.clientId" placeholder="Enter client ID" />
             </el-form-item>
-            <el-form-item label="推送消息主题" prop="topic">
-              <el-input v-model="form.topic" placeholder="请输入推送消息主题" />
+            <el-form-item label="Push Topic" prop="topic">
+              <el-input v-model="form.topic" placeholder="Enter push topic" />
             </el-form-item>
-            <el-form-item label="启动状态" prop="status">
+            <el-form-item label="Status" prop="status">
               <el-select
                 v-model="form.status"
-                placeholder="请选择启动状态"
+                placeholder="Select status"
                 style="width: 100%"
               >
                 <el-option
@@ -49,10 +49,10 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="连接状态" prop="connectStatus">
+            <el-form-item label="Connection Status" prop="connectStatus">
               <el-select
                 v-model="form.connectStatus"
-                placeholder="请选择连接状态"
+                placeholder="Select connection status"
                 style="width: 100%"
                 disabled="true"
               >
@@ -64,15 +64,15 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="推送报警类型 " prop="alarmType">
+            <el-form-item label="Push Alarm Type" prop="alarmType">
               <el-select
                 v-model="form.alarmType"
-                placeholder="请选择推送报警类型 "
+                placeholder="Select alarm type"
                 style="width: 100%"
                 multiple
                 @change="changeAlarmType"
               >
-                <el-option key="22222" label="全部" value="0" />
+                <el-option key="22222" label="All" value="0" />
                 <el-option
                   v-for="dict in dict.type.v1_alarm_type"
                   :key="dict.value"
@@ -83,7 +83,7 @@
             </el-form-item>
           </el-form>
           <div class="footer_btn">
-            <el-button type="primary" @click="submitForm">确 定</el-button>
+            <el-button type="primary" @click="submitForm">Confirm</el-button>
           </div>
         </el-card>
       </el-col>
@@ -135,39 +135,39 @@ export default {
         connectInfo: [
           {
             required: true,
-            message: "mqtt连接信息不能为空",
+            message: "MQTT connection info is required",
             trigger: "blur",
           },
         ],
         userName: [
-          { required: true, message: "mqtt用户名不能为空", trigger: "blur" },
+          { required: true, message: "MQTT username is required", trigger: "blur" },
         ],
         password: [
-          { required: true, message: "mqtt密码不能为空", trigger: "blur" },
+          { required: true, message: "MQTT password is required", trigger: "blur" },
         ],
         qos: [
           {
             required: true,
-            message: "qos接收消息的机制不能为空",
+            message: "QoS level is required",
             trigger: "blur",
           },
         ],
         clientId: [
-          { required: true, message: "clientId不能为空", trigger: "blur" },
+          { required: true, message: "Client ID is required", trigger: "blur" },
         ],
         topic: [
-          { required: true, message: "推送消息主题不能为空", trigger: "blur" },
+          { required: true, message: "Push topic is required", trigger: "blur" },
         ],
         status: [
-          { required: true, message: "启动状态不能为空", trigger: "change" },
+          { required: true, message: "Status is required", trigger: "change" },
         ],
         connectStatus: [
-          { required: true, message: "连接状态不能为空", trigger: "change" },
+          { required: true, message: "Connection status is required", trigger: "change" },
         ],
         alarmType: [
           {
             required: true,
-            message: "推送报警类型 不能为空",
+            message: "Alarm type is required",
             trigger: "change",
           },
         ],
@@ -197,7 +197,7 @@ export default {
 
       console.log(e);
     },
-    /** 查询mqtt推送配置列表 */
+    /** Query MQTT push config list */
     getList() {
       this.loading = true;
       listConfig(this.queryParams).then((response) => {
@@ -253,7 +253,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加mqtt推送配置";
+      this.title = "Add MQTT Config";
     },
     /** Edit handler */
     handleUpdate() {
@@ -263,7 +263,7 @@ export default {
         this.form = response.data;
         this.form.alarmType = this.form.alarmType.split(",");
         this.open = true;
-        this.title = "修改mqtt推送配置";
+        this.title = "Edit MQTT Config";
       });
     },
     /** Submit handler */
@@ -289,7 +289,7 @@ export default {
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
-        .confirm('是否确认删除mqtt推送配置编号为"' + ids + '"的数据项？')
+        .confirm('Are you sure you want to delete MQTT config #' + ids + '?')
         .then(function () {
           return delConfig(ids);
         })

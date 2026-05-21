@@ -3,19 +3,19 @@
     <el-row>
       <el-col :span="12">
         <el-form-item prop="tplCategory">
-          <span slot="label">生成模板</span>
+          <span slot="label">Template</span>
           <el-select v-model="info.tplCategory" @change="tplSelectChange">
-            <el-option label="单表（增删改查）" value="crud" />
-            <el-option label="树表（增删改查）" value="tree" />
-            <el-option label="主子表（增删改查）" value="sub" />
+            <el-option label="Single Table (CRUD)" value="crud" />
+            <el-option label="Tree Table (CRUD)" value="tree" />
+            <el-option label="Master-Sub Table (CRUD)" value="sub" />
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item prop="packageName">
           <span slot="label">
-            生成包路径
-            <el-tooltip content="生成在哪个java包下，例如 com.ruoyi.system" placement="top">
+            Package Path
+            <el-tooltip content="Java package path, e.g. com.ruoyi.system" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -26,8 +26,8 @@
       <el-col :span="12">
         <el-form-item prop="moduleName">
           <span slot="label">
-            生成模块名
-            <el-tooltip content="可理解为子系统名，例如 system" placement="top">
+            Module Name
+            <el-tooltip content="Sub-system name, e.g. system" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -38,8 +38,8 @@
       <el-col :span="12">
         <el-form-item prop="businessName">
           <span slot="label">
-            生成业务名
-            <el-tooltip content="可理解为功能英文名，例如 user" placement="top">
+            Business Name
+            <el-tooltip content="Feature name in English, e.g. user" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -50,7 +50,7 @@
       <el-col :span="12">
         <el-form-item prop="functionName">
           <span slot="label">
-            生成功能名
+            Function Name
             <el-tooltip content="用作类描述，例如 用户" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
@@ -124,7 +124,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-          <el-select v-model="info.treeCode" placeholder="请选择">
+          <el-select v-model="info.treeCode" placeholder="Select">
             <el-option
               v-for="(column, index) in info.columns"
               :key="index"
@@ -142,7 +142,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-          <el-select v-model="info.treeParentCode" placeholder="请选择">
+          <el-select v-model="info.treeParentCode" placeholder="Select">
             <el-option
               v-for="(column, index) in info.columns"
               :key="index"
@@ -160,7 +160,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-          <el-select v-model="info.treeName" placeholder="请选择">
+          <el-select v-model="info.treeName" placeholder="Select">
             <el-option
               v-for="(column, index) in info.columns"
               :key="index"
@@ -181,7 +181,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-          <el-select v-model="info.subTableName" placeholder="请选择" @change="subSelectChange">
+          <el-select v-model="info.subTableName" placeholder="Select" @change="subSelectChange">
             <el-option
               v-for="(table, index) in tables"
               :key="index"
@@ -199,7 +199,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-          <el-select v-model="info.subTableFkName" placeholder="请选择">
+          <el-select v-model="info.subTableFkName" placeholder="Select">
             <el-option
               v-for="(column, index) in subColumns"
               :key="index"
@@ -241,16 +241,16 @@ export default {
           { required: true, message: "请选择生成模板", trigger: "blur" }
         ],
         packageName: [
-          { required: true, message: "请输入生成包路径", trigger: "blur" }
+          { required: true, message: "请输入Package Path", trigger: "blur" }
         ],
         moduleName: [
-          { required: true, message: "请输入生成模块名", trigger: "blur" }
+          { required: true, message: "请输入Module Name", trigger: "blur" }
         ],
         businessName: [
-          { required: true, message: "请输入生成业务名", trigger: "blur" }
+          { required: true, message: "请输入Business Name", trigger: "blur" }
         ],
         functionName: [
-          { required: true, message: "请输入生成功能名", trigger: "blur" }
+          { required: true, message: "请输入Function Name", trigger: "blur" }
         ],
       }
     };
