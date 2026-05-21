@@ -210,27 +210,27 @@ export default {
   dicts: ["sys_common_status"],
   data() {
     return {
-      // 遮罩层
+      // Loading
       loading: true,
-      // 选中数组
+      // Selected IDs
       ids: [],
-      // 非单个禁用
+      // Single disabled
       single: true,
-      // 非多个禁用
+      // Multiple disabled
       multiple: true,
       // 选择用户名
       selectName: "",
-      // 显示搜索条件
+      // Show search
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 表格数据
+      // Table data
       list: [],
       // 日期范围
       dateRange: [],
       // 默认排序
       defaultSort: { prop: "loginTime", order: "descending" },
-      // 查询参数
+      // Query params
       queryParams: {
         pageNum: 1,
         pageSize: 10,

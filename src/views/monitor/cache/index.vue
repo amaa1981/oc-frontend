@@ -22,19 +22,19 @@
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.uptime_in_days }}</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell">使用内存</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.used_memory_human }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">使用CPU</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">CPU Usage</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ parseFloat(cache.info.used_cpu_user_children).toFixed(2) }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">内存配置</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">Memory Config</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.maxmemory_human }}</div></td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">AOF是否开启</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.aof_enabled == "0" ? "否" : "是" }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">RDB是否成功</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">AOF Enabled</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.aof_enabled == "0" ? "No" : "Yes" }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">RDB Success</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.rdb_last_bgsave_status }}</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">Key数量</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">Key Count</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.dbSize">{{ cache.dbSize }} </div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">网络入口/出口</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell">Network In/Out</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.instantaneous_input_kbps }}kps/{{cache.info.instantaneous_output_kbps}}kps</div></td>
                 </tr>
               </tbody>
@@ -137,7 +137,7 @@ export default {
     },
     // 打开加载层
     openLoading() {
-      this.$modal.loading("正在加载缓存监控数据，请稍候！");
+      this.$modal.loading("Loading cache monitor data, please wait...");
     }
   }
 };

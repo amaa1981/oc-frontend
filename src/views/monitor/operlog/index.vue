@@ -313,27 +313,27 @@ export default {
   dicts: ["sys_oper_type", "sys_common_status"],
   data() {
     return {
-      // 遮罩层
+      // Loading
       loading: true,
-      // 选中数组
+      // Selected IDs
       ids: [],
-      // 非多个禁用
+      // Multiple disabled
       multiple: true,
-      // 显示搜索条件
+      // Show search
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 表格数据
+      // Table data
       list: [],
-      // 是否显示弹出层
+      // Show dialog
       open: false,
-      // 日期范围
+      // Date range
       dateRange: [],
-      // 默认排序
+      // Default sort
       defaultSort: { prop: "operTime", order: "descending" },
-      // 表单参数
+      // Form params
       form: {},
-      // 查询参数
+      // Query params
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -378,7 +378,7 @@ export default {
         }
       );
     },
-    // 操作日志类型字典翻译
+    // Operation log type translation
     typeFormat(row, column) {
       return this.selectDictLabel(
         this.dict.type.sys_oper_type,

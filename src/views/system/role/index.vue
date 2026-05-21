@@ -388,25 +388,25 @@ export default {
   dicts: ["sys_normal_disable"],
   data() {
     return {
-      // 遮罩层
+      // Loading
       loading: true,
-      // 选中数组
+      // Selected IDs
       ids: [],
-      // 非单个禁用
+      // Single disabled
       single: true,
-      // 非多个禁用
+      // Multiple disabled
       multiple: true,
-      // 显示搜索条件
+      // Show search
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
       // 角色表格数据
       roleList: [],
-      // 弹出层标题
+      // Dialog title
       title: "",
-      // 是否显示弹出层
+      // Show dialog
       open: false,
-      // 是否显示弹出层（数据权限）
+      // Show dialog（数据权限）
       openDataScope: false,
       menuExpand: false,
       menuNodeAll: false,
@@ -441,7 +441,7 @@ export default {
       menuOptions: [],
       // 部门列表
       deptOptions: [],
-      // 查询参数
+      // Query params
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -449,13 +449,13 @@ export default {
         roleKey: undefined,
         status: undefined,
       },
-      // 表单参数
+      // Form params
       form: {},
       defaultProps: {
         children: "children",
         label: "label",
       },
-      // 表单校验
+      // Form rules
       rules: {
         roleName: [
           {
