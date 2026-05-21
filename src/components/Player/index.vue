@@ -3,7 +3,7 @@
  * @Date: 2023-03-10 22:45:40
  * @LastEditTime: 2025-05-12 14:50:07
  * @LastEditors: FGJ
- * @Description: 播放器组件 -- 用于多分屏时使用，画面的移动，隐藏，显示由其父组件进行统一通知，watch中提供分屏切换画面的回调
+ * @Description: Player component - used for multi-screen, parent handles show/hide/move callbacks
  * @FilePath: \ruoyi-ui\src\components\Player\index.vue
 -->
 <template>

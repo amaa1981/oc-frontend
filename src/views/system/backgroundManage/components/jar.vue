@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 11:06:24
  * @LastEditTime: 2023-08-03 10:51:02
  * @LastEditors: FGJ
- * @Description: http推送配置
+ * @Description: HTTP push configuration
  * @FilePath: \ruoyi-ui\src\views\system\backgroundManage\components\jar.vue
 -->
 <template>
@@ -74,7 +74,7 @@ export default {
   methods: {
     beforeUpload(res) {
       if (this.version == "") {
-        this.$modal.msgError("请填写版本号");
+        this.$modal.msgError("Please enter version number");
         return false;
       }
     },

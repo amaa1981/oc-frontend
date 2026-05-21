@@ -3,7 +3,7 @@
  * @Date: 2023-03-10 09:27:47
  * @LastEditTime: 2025-08-01 15:33:55
  * @LastEditors: FGJ
- * @Description: 播放页面组件
+ * @Description: Player screen component
  * @FilePath: \ruoyi-ui\src\components\playerScreen\index.vue
 -->
 <template>
@@ -18,7 +18,7 @@
       <el-button-group>
         <el-button :type="playerLength === btn.num ? 'primary' : ''" v-for="btn in playerBtnDate" :key="btn.num"
           @click="setPlayerLength(btn.num)" :disabled="btn.num === playerLength">{{ btn.name }}</el-button>
-        <el-button icon="el-icon-rank" title="全屏播放" @click.prevent="toggleFullscreen"></el-button>
+        <el-button icon="el-icon-rank" title="Full Screen" @click.prevent="toggleFullscreen"></el-button>
       </el-button-group>
     </div> -->
     <div class="btnList">
@@ -395,10 +395,10 @@ export default {
     setPlayerData(index, rtspUrl = "", label = "", type = "", videoId = "") {
       this.$set(this.players, index, {
         rtspUrl,
-        id: index, // video标签的id 插件服务端应该是通过查找当前Chrome浏览器的标签页是否有以video开头的类名的元素来判断是否展示画面
+        id: index, // video element ID - plugin checks for elements with class starting with "video"
         label,
         type,
-        videoId, // 监控的唯一id
+        videoId, // Unique monitor ID
       });
     },
     // 将隐藏的视频重新赋值到新的分屏上
@@ -465,36 +465,36 @@ export default {
             rtspUrl: player.rtspUrl,
             label: player.label,
             videoId: player.videoId,
-            screenIndex: player.id, // 播放屏幕的具体位置索引（0,1,2,3,4,5）
+            screenIndex: player.id, // Screen position index (0,1,2,3,4,5)
           }));
 
         const config = {
-          playerLength: this.playerLength, // 分屏数量（1,4,6）
+          playerLength: this.playerLength, // Split screen count (1,4,6)
           players: playingDevices,
-          savedAt: new Date().toISOString(), // 保存时间（人类可读）
-          timestamp: Date.now(), // 时间戳
+          savedAt: new Date().toISOString(), // Save time (human readable)
+          timestamp: Date.now(), // Timestamp
         };
 
         localStorage.setItem("monitor_config", JSON.stringify(config));
 
         this.$message({
-          message: this.$t("monitor.saveSuccess") || "配置保存成功",
+          message: this.$t("monitor.saveSuccess") || "Settings saved successfully",
           type: "success",
         });
 
         console.log("已保存监控配置:");
         console.log(`- 分屏数量: ${config.playerLength}`);
-        console.log(`- 播放设备数量: ${playingDevices.length}`);
+        console.log(`- playing device数量: ${playingDevices.length}`);
         playingDevices.forEach((device) => {
           console.log(
-            `  · 设备 ${device.videoId} (${device.label}) 在位置 ${device.screenIndex}`
+            `  · device ${device.videoId} (${device.label}) at position ${device.screenIndex}`
           );
         });
         console.log(`- 保存时间: ${config.savedAt}`);
       } catch (error) {
         console.error("保存配置失败:", error);
         this.$message({
-          message: this.$t("monitor.saveFailed") || "配置保存失败",
+          message: this.$t("monitor.saveFailed") || "Failed to save settings",
           type: "error",
         });
       }
@@ -510,7 +510,7 @@ export default {
           console.log(`- 保存时间: ${config.savedAt || "未知"}`);
           console.log(`- 分屏数量: ${config.playerLength}`);
           console.log(
-            `- 保存的设备数量: ${config.players ? config.players.length : 0}`
+            `- saved device count: ${config.players ? config.players.length : 0}`
           );
 
           // 恢复画面数量
@@ -522,13 +522,13 @@ export default {
             this.setPlayerLength(4);
           }
 
-          // 延迟恢复播放设备，确保分屏已经设置完成
+          // 延迟恢复playing device，确保分屏已经设置完成
           setTimeout(() => {
             if (config.players && config.players.length > 0) {
               // 用于跟踪已占用的屏幕位置
               const occupiedPositions = new Set();
 
-              // 按原始播放位置恢复设备
+              // 按原始播放位置restoring device
               config.players.forEach((savedPlayer, configIndex) => {
                 // 使用保存的屏幕位置索引
                 const targetScreenIndex = savedPlayer.screenIndex;
@@ -543,7 +543,7 @@ export default {
                   // 标记位置已占用
                   occupiedPositions.add(targetScreenIndex);
 
-                  // 恢复播放设备信息到指定位置
+                  // 恢复playing device信息到指定位置
                   this.setPlayerData(
                     targetScreenIndex,
                     savedPlayer.rtspUrl,
@@ -559,21 +559,21 @@ export default {
                   });
 
                   console.log(
-                    `✓ 恢复设备 ${savedPlayer.videoId} (${savedPlayer.label}) 到原始画面位置 ${targetScreenIndex}`
+                    `✓ restoring device ${savedPlayer.videoId} (${savedPlayer.label}) to original screen position ${targetScreenIndex}`
                   );
 
                   // 延迟触发播放事件，WebSocket 响应时会自动通知设备列表更新状态
                   setTimeout(() => {
                     console.log(
-                      `▶ 开始在位置 ${targetScreenIndex} 播放设备 ${savedPlayer.videoId}`
+                      `▶ starting at position ${targetScreenIndex} playing device ${savedPlayer.videoId}`
                     );
                     this.$bus.$emit("sendOpenInfo", {
                       videoId: savedPlayer.videoId,
                       label: savedPlayer.label,
                       rtspUrl: savedPlayer.rtspUrl,
-                      silent: true, // 恢复配置时不显示重复播放提示
+                      silent: true, // No duplicate play hint when restoring
                     });
-                  }, 200 + configIndex * 100); // 每个设备间隔100ms，避免同时触发
+                  }, 200 + configIndex * 100); // 100ms interval per device
                 } else {
                   // 处理位置无效或冲突的情况
                   let reason = "";
@@ -581,17 +581,17 @@ export default {
                     targetScreenIndex < 0 ||
                     targetScreenIndex >= this.playerLength
                   ) {
-                    reason = `位置 ${targetScreenIndex} 超出当前分屏范围 [0-${
+                    reason = `position ${targetScreenIndex} exceeds current split screen range [0-${
                       this.playerLength - 1
                     }]`;
                   } else if (occupiedPositions.has(targetScreenIndex)) {
-                    reason = `位置 ${targetScreenIndex} 已被其他设备占用`;
+                    reason = `position ${targetScreenIndex} already occupied by another device`;
                   } else if (!savedPlayer.videoId) {
-                    reason = "设备ID为空";
+                    reason = "device ID is empty";
                   }
 
                   console.warn(
-                    `✗ 跳过设备 ${savedPlayer.videoId} (${savedPlayer.label}): ${reason}`
+                    `✗ skipping device ${savedPlayer.videoId} (${savedPlayer.label}): ${reason}`
                   );
                 }
               });
@@ -602,20 +602,20 @@ export default {
               const skippedDevices = totalDevices - restoredDevices;
 
               console.log(
-                "=================== 配置恢复完成 ==================="
+                "=================== Configuration restore complete ==================="
               );
               console.log(`📊 恢复统计:`);
               console.log(`  - 总设备数: ${totalDevices}`);
               console.log(`  - 成功恢复: ${restoredDevices}`);
-              console.log(`  - 跳过设备: ${skippedDevices}`);
+              console.log(`  - skipping device: ${skippedDevices}`);
               console.log(
-                `📍 占用位置: [${Array.from(occupiedPositions)
+                `📍 occupied positions: [${Array.from(occupiedPositions)
                   .sort((a, b) => a - b)
                   .join(", ")}]`
               );
               console.log("================================================");
             }
-          }, 500); // 延迟1.5秒确保WebSocket服务稳定且设备列表已加载
+          }, 500); // Delay to ensure WebSocket stable and device list loaded
         }
       } catch (error) {
         console.error("恢复配置失败:", error);

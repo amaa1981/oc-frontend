@@ -110,14 +110,14 @@ export default {
       // 是否显示cropper
       visible: false,
       // 弹出层标题
-      title: "修改头像",
+      title: "Change Avatar",
       options: {
-        img: store.getters.avatar, //裁剪图片的地址
-        autoCrop: true, // 是否默认生成截图框
-        autoCropWidth: 200, // 默认生成截图框宽度
-        autoCropHeight: 200, // 默认生成截图框高度
-        fixedBox: true, // 固定截图框大小 不允许改变
-        outputType: "png", // 默认生成截图为PNG格式
+        img: store.getters.avatar, // Crop image URL
+        autoCrop: true, // Auto generate crop box
+        autoCropWidth: 200, // Default crop box width
+        autoCropHeight: 200, // Default crop box height
+        fixedBox: true, // Fixed crop box size
+        outputType: "png", // Default output PNG format
       },
       previews: {},
       resizeHandler: null,

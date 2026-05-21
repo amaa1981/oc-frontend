@@ -112,7 +112,7 @@
             <el-button type="text" class="el-icon-refresh-left" @click="Revoke()">{{ $t("commonBtn.reset")
               }}</el-button>
             <!-- <el-button type="text" @click="getFeatures()"
-              >获取标注数据</el-button
+              >Get Annotation Data</el-button
             > -->
           </div>
         </div>
@@ -1000,11 +1000,11 @@ export default {
       drawingStyle: {},
       mode: "",
       itemName: "",
-      editId: "", //待填充图形id
+      editId: "", // Pending shape ID
       deleteIconId: "delete01",
-      gMap: null, //AILabel实例
-      gFirstFeatureLayer: null, //矢量图层实例(矩形，多边形等矢量)
-      allFeatures: null, //所有features
+      gMap: null, // AILabel instance
+      gFirstFeatureLayer: null, // Vector layer instance (rect, polygon etc)
+      allFeatures: null, // All features
       //设置裁剪区域宽高
       map: {
         width: 0,
@@ -1040,7 +1040,7 @@ export default {
     }
   },
   methods: {
-    /** 非员工入侵检测--图片上传成功 */
+    /** Non-employee intrusion detection - image upload success */
     handleIntrusionUploadSuccess(res, type) {
       if (res.code === 200) {
         if (type === 'front') {
@@ -1053,7 +1053,7 @@ export default {
         this.$message.error(res.msg || this.$t('commonTips.uploadFailed'));
       }
     },
-    /** 非员工入侵检测--图片上传前校验 */
+    /** Non-employee intrusion detection - image upload validation */
     beforeIntrusionUpload(file) {
       const isImage = file.type.startsWith('image/');
       const isLt5M = file.size / 1024 / 1024 < 5;
@@ -1080,7 +1080,7 @@ export default {
         });
       }
     },
-    /** 查询设备任务信息列表 */
+    /** Query device task list */
     getList() {
       this.loading = true;
       listTask(this.queryParams).then((response) => {
@@ -1291,12 +1291,12 @@ export default {
       // 重置序号计数器
       this.sequenceCounter = 1;
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -1307,7 +1307,7 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 识别框开关变化处理 */
+    /** Recognition box toggle handler */
     handleRecognitionBoxChange(val) {
       if (!val) {
         this.form.frameRate = null;
@@ -1315,7 +1315,7 @@ export default {
         this.form.frameRate = 4;
       }
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
@@ -1323,10 +1323,10 @@ export default {
     
       
       this.mode = "";
-      this.sequenceCounter = 1; // 初始化序号计数器
+      this.sequenceCounter = 1; // Initialize sequence counter
       this.initMap();
     },
-    /**查看详情 */
+    /** View detail */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
@@ -1674,7 +1674,7 @@ export default {
         }, 500);
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       // if (this.form.algorithmType != "25" && this.form.dimension == []) {
       //   that.$message.error(this.$t("task.paintTips1"));
@@ -1809,7 +1809,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -1858,9 +1858,9 @@ export default {
         //多边形
         case "POLYGON": {
           this.drawingStyle = {
-            strokeStyle: "#cb1c1c", //边框颜色
-            fill: true, //是否填充
-            fillStyle: "#FF6666", //填充色
+            strokeStyle: "#cb1c1c", // Border color
+            fill: true, // Enable fill
+            fillStyle: "#FF6666", // Fill color
             globalAlpha: 0.3,
             lineWidth: 2,
             fill: true,
@@ -2185,7 +2185,7 @@ export default {
       this.gMap.destroy();
       this.mode = "";
       this.form.dimension = [];
-      this.sequenceCounter = 1; // 重置序号计数器
+      this.sequenceCounter = 1; // Reset sequence counter
       // 如果是店内顾客检测算法，清空区域名称列表
       if (this.form.algorithmType == '45BB561E-EA54-4F13-A7E6-A11DE5C75648') {
         this.other.options.areaNameList = [];
@@ -2206,7 +2206,7 @@ export default {
     initMap() {
       //获取图片宽高
       let img = new Image();
-      img.src = this.imgUrl; //加载摄像机图片
+      img.src = this.imgUrl; // Load camera image
       //this.form.dimension = [];
       img.onload = () => {
         console.log(img.width, img.height);
@@ -2226,15 +2226,15 @@ export default {
         this.map.height = img.height;
         let that = this;
         const gMap = new AILabel.Map("map", {
-          center: { x: img.width / 2, y: img.height / 2 }, // 为了让图片居中
+          center: { x: img.width / 2, y: img.height / 2 }, // Center image
           zoom: img.width,
           size: { width: img.width, height: img.height },
-          mode: "BAN", // 绘制线段
-          refreshDelayWhenZooming: true, // 缩放时是否允许刷新延时，性能更优
+          mode: "BAN", // Draw line segment
+          refreshDelayWhenZooming: true, // Refresh delay when zooming for better performance
           zoomWhenDrawing: false,
           panWhenDrawing: false,
-          zoomWheelRatio: 5, // 控制滑轮缩放缩率[0, 10), 值越小，则缩放越快，反之越慢
-          withHotKeys: true, // 关闭快捷键
+          zoomWheelRatio: 5, // Zoom wheel ratio [0, 10), smaller = faster zoom
+          withHotKeys: true, // Enable hotkeys
         });
         that.gMap = gMap;
         this.addEvent();
@@ -2245,14 +2245,14 @@ export default {
             src: that.imgUrl,
             width: img.width,
             height: img.height,
-            crossOrigin: false, // 如果跨域图片，需要设置为true
+            crossOrigin: false, // Set true for cross-origin images
             position: {
               // 左上角相对中心点偏移量
               x: 0,
               y: 0,
             },
           },
-          { name: "第一个图片图层" }, // props
+          { name: "First image layer" }, // props
           { zIndex: 5 } //
         );
         // 添加到gMap对象
@@ -2260,7 +2260,7 @@ export default {
         // 添加矢量图层
         const gFirstFeatureLayer = new AILabel.Layer.Feature(
           "first-layer-feature", // id
-          { name: "第一个矢量图层" }, // props
+          { name: "First vector layer" }, // props
           { zIndex: 10 } // style
         );
         this.gFirstFeatureLayer = gFirstFeatureLayer;
@@ -2277,9 +2277,9 @@ export default {
     //查看详情的时候回显标注
     initbiaozhu() {
       this.drawingStyle = {
-        strokeStyle: "#cb1c1c", //边框颜色
-        fill: true, //是否填充
-        fillStyle: "#FF6666", //填充色
+        strokeStyle: "#cb1c1c", // Border color
+        fill: true, // Enable fill
+        fillStyle: "#FF6666", // Fill color
         globalAlpha: 0.3,
         lineWidth: 2,
         fill: true,
@@ -2327,7 +2327,7 @@ export default {
   justify-content: center;
 }
 
-/* 带单位的输入框 */
+/* Input with unit */
 .input-with-unit {
   display: flex;
   align-items: center;
@@ -2410,13 +2410,13 @@ export default {
   border-color: #4169e1;
 }
 
-/* 删除图标 */
+/* Delete icon */
 #delete01 {
   width: 20px;
   height: 20px;
 }
 
-/* 非员工入侵检测图片上传 */
+/* Non-employee intrusion detection image upload */
 .intrusion-uploader {
   display: inline-block;
 }

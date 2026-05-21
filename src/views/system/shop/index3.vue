@@ -21,7 +21,7 @@
         <el-date-picker
           v-model="dateRange"
           type="datetimerange"
-          range-separator="至"
+          range-separator="to"
           :start-placeholder="$t('shopStatistics.startDate')"
           :end-placeholder="$t('shopStatistics.endDate')"
           value-format="yyyy-MM-dd HH:mm:ss"
@@ -192,7 +192,7 @@ export default {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
     },
-    /** 查询记录列表 */
+    /** Query record list */
     getList() {
       this.loading = true;
       getRecordList(this.queryParams)
@@ -206,12 +206,12 @@ export default {
           this.loading = false;
         });
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
@@ -222,7 +222,7 @@ export default {
       this.queryParams.eventTypeId = "45BB561E-EA54-4F13-A7E6-A11DE5C75648";
       this.handleQuery();
     },
-    /** 日期范围变化处理 */
+    /** Date range change handler */
     handleDateRangeChange(val) {
       if (val) {
         this.queryParams.startTime = val[0];
@@ -232,7 +232,7 @@ export default {
         this.queryParams.endTime = null;
       }
     },
-    /** 从strRes中获取conversation数组的指定字段值 */
+    /** Get field from conversation array in strRes */
     getConversationValue(strRes, fieldName) {
       try {
         if (!strRes) return "-";
@@ -257,7 +257,7 @@ export default {
         return "-";
       }
     },
-    /** 计算交流时长（结束时间 - 开始时间） */
+    /** Calculate interaction duration */
     calculateDuration(strRes) {
       try {
         if (!strRes) return "-";
@@ -316,7 +316,7 @@ export default {
         return "-";
       }
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal

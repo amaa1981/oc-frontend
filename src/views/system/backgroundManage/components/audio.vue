@@ -224,7 +224,7 @@ export default {
         this.$modal.msgSuccess(this.$t("commonTips.edit_s"));
       });
     },
-    /** 查询播放音频配置列表 */
+    /** Query audio config list */
     getList() {
       this.loading = true;
       listConfig(this.queryParams).then((response) => {
@@ -248,12 +248,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -264,13 +264,13 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
       this.title = this.$t("audioConfig.dialogTitle_a");
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
@@ -280,7 +280,7 @@ export default {
         this.title = this.$t("audioConfig.dialogTitle_e");
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -300,7 +300,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -314,7 +314,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/config/export",

@@ -232,11 +232,11 @@ export default {
   dicts: ["v1_device_area"],
   data() {
     return {
-      // 遮罩层
+      // Loading
       loading: true,
-      // 显示搜索条件
+      // Show search
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
       // 轨迹列表
       trajectoryList: [],
@@ -246,9 +246,9 @@ export default {
       trajectoryDetailList: [],
       // 详情图片列表
       detailImageList: [],
-      // 日期范围
+      // Date range
       dateRange: [],
-      // 查询参数
+      // Query params
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -282,7 +282,7 @@ export default {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
     },
-    /** 查询轨迹列表 */
+    /** Query track list */
     getList() {
       this.loading = true;
       trajectoryPage(this.queryParams).then((response) => {
@@ -291,12 +291,12 @@ export default {
         this.loading = false;
       });
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
@@ -304,7 +304,7 @@ export default {
       this.queryParams.endTime = null;
       this.handleQuery();
     },
-    /** 日期范围变化处理 */
+    /** Date range change handler */
     handleDateRangeChange(val) {
       if (val) {
         this.queryParams.startTime = val[0];
@@ -314,15 +314,15 @@ export default {
         this.queryParams.endTime = null;
       }
     },
-    /** 详情按钮操作 */
+    /** Detail handler */
     handleDetail(row) {
       this.detailVisible = true;
       this.detailLoading = true;
 
       // 调用轨迹详情接口
       const params = {
-        recordUrl1: row.recordUrl1, // 客户id
-        taskName: row.taskName, // 轨迹时间段
+        recordUrl1: row.recordUrl1, // Customer ID
+        taskName: row.taskName, // Track time period
         installationArea: this.queryParams.installationArea,
       };
 
@@ -341,11 +341,11 @@ export default {
           this.detailLoading = false;
         });
     },
-    /** 获取图片在预览列表中的索引 */
+    /** Get image index in preview list */
     getImageIndex(imageUrl) {
       return this.detailImageList.findIndex((url) => url === imageUrl);
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       this.$confirm(
         this.$t("trajectoryQuery.confirmDelete") ,

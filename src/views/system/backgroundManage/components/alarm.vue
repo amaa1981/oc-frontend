@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 11:04:58
  * @LastEditTime: 2025-05-26 09:51:17
  * @LastEditors: FGJ
- * @Description: 清理告警记录配置
+ * @Description: Alarm record cleanup config
  * @FilePath: \ruoyi-ui\src\views\system\backgroundManage\components\alarm.vue
 -->
 <template>
@@ -142,7 +142,7 @@ export default {
   data() {
     return {
       openAudio: false,
-      id: 1, // 此id固定，数据库只有此记录
+      id: 1, // Fixed ID, only one record in DB
       loading: false,
       // 表单参数
       form: {},
@@ -217,7 +217,7 @@ export default {
         this.$modal.msgSuccess(this.$t("commonTips.edit_s"));
       });
     },
-    /** 查询清理告警记录配置列表 */
+    /** Query alarm cleanup config list */
     getList() {
       this.loading = true;
       getConfig(1).then((response) => {
@@ -225,7 +225,7 @@ export default {
         this.form = response.data;
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       let that = this;
       this.$refs["form"].validate((valid) => {

@@ -8,10 +8,10 @@
       v-show="showSearch"
       label-width="68px"
     >
-      <el-form-item label="版本号" prop="version">
+      <el-form-item label="Version" prop="version">
         <el-input
           v-model="queryParams.version"
-          placeholder="请输入版本号"
+          placeholder="Enter version number"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -22,10 +22,10 @@
           icon="el-icon-search"
           size="mini"
           @click="handleQuery"
-          >搜索</el-button
+          >Search</el-button
         >
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-          >重置</el-button
+          >Reset</el-button
         >
       </el-form-item>
     </el-form>
@@ -39,7 +39,7 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:info:add']"
-          >新增</el-button
+          >Add</el-button
         >
       </el-col>
       <el-col :span="1.5">
@@ -51,7 +51,7 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:info:edit']"
-          >修改</el-button
+          >Edit</el-button
         >
       </el-col>
       <!-- <el-col :span="1.5">
@@ -63,7 +63,7 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:info:remove']"
-          >删除</el-button
+          >Delete</el-button
         >
       </el-col> -->
       <!-- <el-col :span="1.5">
@@ -74,7 +74,7 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['system:info:export']"
-          >导出</el-button
+          >Export</el-button
         >
       </el-col> -->
     </el-row>
@@ -85,16 +85,16 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键id" align="center" prop="id" />
-      <el-table-column label="版本号" align="center" prop="version" />
-      <el-table-column label="http请求地址" align="center" prop="httpUrl" />
+      <el-table-column label="ID" align="center" prop="id" />
+      <el-table-column label="Version" align="center" prop="version" />
+      <el-table-column label="HTTP URL" align="center" prop="httpUrl" />
       <el-table-column
-        label="绝对路径(本地服务地址)"
+        label="Absolute Path"
         align="center"
         prop="absolutePath"
       />
       <el-table-column
-        label="操作"
+        label="Actions"
         align="center"
         class-name="small-padding fixed-width"
       >
@@ -105,7 +105,7 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:info:edit']"
-            >修改</el-button
+            >Edit</el-button
           >
           <el-button
             size="mini"
@@ -113,7 +113,7 @@
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:info:remove']"
-            >删除</el-button
+            >Delete</el-button
           >
         </template>
       </el-table-column>
@@ -130,22 +130,22 @@
     <!-- 添加或修改服务安装包信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="版本号" prop="version">
-          <el-input v-model="form.version" placeholder="请输入版本号" />
+        <el-form-item label="Version" prop="version">
+          <el-input v-model="form.version" placeholder="Enter version number" />
         </el-form-item>
-        <el-form-item label="http请求地址" prop="httpUrl">
-          <el-input v-model="form.httpUrl" placeholder="请输入http请求地址" />
+        <el-form-item label="HTTP URL" prop="httpUrl">
+          <el-input v-model="form.httpUrl" placeholder="Enter HTTP URL" />
         </el-form-item>
-        <el-form-item label="绝对路径(本地服务地址)" prop="absolutePath">
+        <el-form-item label="Absolute Path" prop="absolutePath">
           <el-input
             v-model="form.absolutePath"
-            placeholder="请输入绝对路径(本地服务地址)"
+            placeholder="Enter absolute path"
           />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">Confirm</el-button>
+        <el-button @click="cancel">Cancel</el-button>
       </div>
     </el-dialog>
   </div>
@@ -196,15 +196,15 @@ export default {
       // 表单校验
       rules: {
         version: [
-          { required: true, message: "版本号不能为空", trigger: "blur" },
+          { required: true, message: "Version number is required", trigger: "blur" },
         ],
         httpUrl: [
-          { required: true, message: "http请求地址不能为空", trigger: "blur" },
+          { required: true, message: "HTTP URL is required", trigger: "blur" },
         ],
         absolutePath: [
           {
             required: true,
-            message: "绝对路径(本地服务地址)不能为空",
+            message: "Absolute path is required",
             trigger: "blur",
           },
         ],
@@ -215,7 +215,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询服务安装包信息列表 */
+    /** Query service package list */
     getList() {
       this.loading = true;
       listInfo(this.queryParams).then((response) => {
@@ -245,12 +245,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -261,35 +261,35 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加服务安装包信息";
+      this.title = "Add Service Package";
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
       getInfo(id).then((response) => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改服务安装包信息";
+        this.title = "Edit Service Package";
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id != null) {
             updateInfo(this.form).then((response) => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("Updated successfully");
               this.open = false;
               this.getList();
             });
           } else {
             addInfo(this.form).then((response) => {
-              this.$modal.msgSuccess("新增成功");
+              this.$modal.msgSuccess("Added successfully");
               this.open = false;
               this.getList();
             });
@@ -297,21 +297,21 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
-        .confirm('是否确认删除服务安装包信息编号为"' + ids + '"的数据项？')
+        .confirm('Are you sure you want to delete service package #' + ids + '?')
         .then(function () {
           return delInfo(ids);
         })
         .then(() => {
           this.getList();
-          this.$modal.msgSuccess("删除成功");
+          this.$modal.msgSuccess("Deleted successfully");
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/info/export",

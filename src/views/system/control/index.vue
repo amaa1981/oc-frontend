@@ -322,12 +322,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -338,13 +338,13 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
       this.title = "添加门禁设备信息";
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
@@ -354,19 +354,19 @@ export default {
         this.title = "修改门禁设备信息";
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id != null) {
             updateControl(this.form).then((response) => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("Updated successfully");
               this.open = false;
               this.getList();
             });
           } else {
             addControl(this.form).then((response) => {
-              this.$modal.msgSuccess("新增成功");
+              this.$modal.msgSuccess("Added successfully");
               this.open = false;
               this.getList();
             });
@@ -374,7 +374,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -384,11 +384,11 @@ export default {
         })
         .then(() => {
           this.getList();
-          this.$modal.msgSuccess("删除成功");
+          this.$modal.msgSuccess("Deleted successfully");
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/control/export",

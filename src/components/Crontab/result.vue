@@ -1,11 +1,11 @@
 <template>
 	<div class="popup-result">
-		<p class="title">最近5次运行时间</p>
+		<p class="title">Next 5 run times</p>
 		<ul class="popup-result-scroll">
 			<template v-if='isShow'>
 				<li v-for='item in resultList' :key="item">{{item}}</li>
 			</template>
-			<li v-else>计算结果中...</li>
+			<li v-else>Calculating...</li>
 		</ul>
 	</div>
 </template>
@@ -196,7 +196,7 @@ export default {
 								}
 							}
 						} else if (this.dayRule == 'weekDay') {
-							// 如果指定了是星期几
+							// 如果Specified了是星期几
 							// 获取当前日期是属于星期几
 							let thisWeek = this.formatDate(new Date(YY + '-' + MM + '-' + DD + ' 00:00:00'), 'week');
 							// 校验当前星期是否在星期池（dayRuleSup）中
@@ -213,8 +213,8 @@ export default {
 								continue;
 							}
 						} else if (this.dayRule == 'assWeek') {
-							// 如果指定了是第几周的星期几
-							// 获取每月1号是属于星期几
+							// 如果Specified了是第几周的星期几
+							// 获取Every month1号是属于星期几
 							let thisWeek = this.formatDate(new Date(YY + '-' + MM + '-' + DD + ' 00:00:00'), 'week');
 							if (this.dayRuleSup[1] >= thisWeek) {
 								DD = (this.dayRuleSup[0] - 1) * 7 + this.dayRuleSup[1] - thisWeek + 1;
@@ -222,7 +222,7 @@ export default {
 								DD = this.dayRuleSup[0] * 7 + this.dayRuleSup[1] - thisWeek + 1;
 							}
 						} else if (this.dayRule == 'lastWeek') {
-							// 如果指定了每月最后一个星期几
+							// 如果Specified了Every month最后一个星期几
 							// 校验并调整如果是2月30号这种日期传进来时需调整至正常月底
 							if (this.checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true) {
 								while (DD > 0 && this.checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true) {
@@ -327,11 +327,11 @@ export default {
 			}
 			// 判断100年内的结果条数
 			if (resultArr.length == 0) {
-				this.resultList = ['没有达到条件的结果！'];
+				this.resultList = ['No results matching the condition!'];
 			} else {
 				this.resultList = resultArr;
 				if (resultArr.length !== 5) {
-					this.resultList.push('最近100年内只有上面' + resultArr.length + '条结果！')
+					this.resultList.push('Only ' + resultArr.length + ' results in the last 100 years!')
 				}
 			}
 			// 计算完成-显示结果
@@ -470,7 +470,7 @@ export default {
 			}
 			return arr;
 		},
-		// 根据规则中指定的零散值返回一个数组
+		// 根据规则中Specified的零散值返回一个数组
 		getAssignArr(rule) {
 			let arr = [];
 			let assiginArr = rule.split(',');

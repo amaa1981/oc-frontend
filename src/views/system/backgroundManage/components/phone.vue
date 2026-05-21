@@ -1,5 +1,5 @@
 <!--
- * @Description: 手机推送配置
+ * @Description: Mobile push configuration
 -->
 <template>
   <div class="app-container">

@@ -407,7 +407,7 @@ export default {
     this.openLoading();
   },
   methods: {
-    /** 查询服务器信息 */
+    /** Query server info */
     getList() {
       getServer().then((response) => {
         this.server = response.data;

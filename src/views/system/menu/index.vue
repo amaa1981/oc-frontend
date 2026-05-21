@@ -487,7 +487,7 @@ export default {
     selected(name) {
       this.form.icon = name;
     },
-    /** 查询菜单列表 */
+    /** Query menu list */
     getList() {
       this.loading = true;
       listMenu(this.queryParams).then((response) => {
@@ -495,7 +495,7 @@ export default {
         this.loading = false;
       });
     },
-    /** 转换菜单数据结构 */
+    /** Convert menu data structure */
     normalizer(node) {
       if (node.children && !node.children.length) {
         delete node.children;
@@ -506,7 +506,7 @@ export default {
         children: node.children,
       };
     },
-    /** 查询菜单下拉树结构 */
+    /** Query menu dropdown tree */
     getTreeselect() {
       listMenu().then((response) => {
         this.menuOptions = [];
@@ -540,16 +540,16 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd(row) {
       this.reset();
       this.getTreeselect();
@@ -561,7 +561,7 @@ export default {
       this.open = true;
       this.title = this.$t("menuConfig.dialogTitle_a");
     },
-    /** 展开/折叠操作 */
+    /** Expand/collapse handler */
     toggleExpandAll() {
       this.refreshTable = false;
       this.isExpandAll = !this.isExpandAll;
@@ -569,7 +569,7 @@ export default {
         this.refreshTable = true;
       });
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       this.getTreeselect();
@@ -579,7 +579,7 @@ export default {
         this.title = this.$t("menuConfig.dialogTitle_e");
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm: function () {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -599,7 +599,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       this.$modal
         .confirm(

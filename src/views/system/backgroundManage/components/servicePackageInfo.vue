@@ -3,7 +3,7 @@
  * @Date: 2023-06-19 09:05:20
  * @LastEditTime: 2023-07-31 13:43:51
  * @LastEditors: FGJ
- * @Description: 服务安装包信息页面
+ * @Description: Service package info page
  * @FilePath: \ruoyi-ui\src\views\system\backgroundManage\components\servicePackageInfo.vue
 -->
 <template>
@@ -29,7 +29,7 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:info:edit']"
-          >修改</el-button
+          >Edit</el-button
         >
       </el-col> -->
       <!-- <right-toolbar
@@ -72,7 +72,7 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:info:edit']"
-            >修改</el-button
+            >Edit</el-button
           > -->
           <el-button
             size="mini"
@@ -114,7 +114,7 @@
         <!-- <el-form-item label="绝对路径(本地服务地址)" prop="absolutePath">
           <el-input
             v-model="form.absolutePath"
-            placeholder="请输入绝对路径(本地服务地址)"
+            placeholder="Enter absolute path (local service URL)"
           />
         </el-form-item> -->
       </el-form>
@@ -208,7 +208,7 @@ export default {
         return "";
       }
     },
-    /** 查询服务安装包信息列表 */
+    /** Query service package list */
     getList() {
       this.loading = true;
       listInfo(this.queryParams).then((response) => {
@@ -238,12 +238,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -254,13 +254,13 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
       this.title = this.$t("serverPackageInfo.dialogTitle_a");
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
@@ -270,7 +270,7 @@ export default {
         this.title = this.$t("serverPackageInfo.dialogTitle_e");
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -291,7 +291,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -305,7 +305,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/info/export",

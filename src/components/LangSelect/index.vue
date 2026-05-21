@@ -13,7 +13,7 @@
     </div>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item :disabled="language === 'zh'" command="zh">
-        中文
+        Chinese
       </el-dropdown-item>
       <el-dropdown-item :disabled="language === 'en'" command="en">
         English
@@ -56,7 +56,7 @@ export default {
       setLocale(lang).then((res) => {
         console.log("getLocale");
         console.log(res);
-        this.$router.go(0); // 刷新页面
+        this.$router.go(0); // Refresh page
       });
     },
   },

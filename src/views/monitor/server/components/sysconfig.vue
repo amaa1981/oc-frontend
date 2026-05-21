@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 10:36:53
  * @LastEditTime: 2025-05-29 16:58:00
  * @LastEditors: FGJ
- * @Description:java系统配置信息
+ * @Description: Java system config info
  * @FilePath: \ruoyi-ui\src\views\monitor\server\components\analysis.vue
 -->
 <template>

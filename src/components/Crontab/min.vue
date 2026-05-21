@@ -2,13 +2,13 @@
 	<el-form size="small">
 		<el-form-item>
 			<el-radio v-model='radioValue' :label="1">
-				分钟，允许的通配符[, - * /]
+				Minutes, allowed wildcards[, - * /]
 			</el-radio>
 		</el-form-item>
 
 		<el-form-item>
 			<el-radio v-model='radioValue' :label="2">
-				周期从
+				Cycle from
 				<el-input-number v-model='cycle01' :min="0" :max="58" /> -
 				<el-input-number v-model='cycle02' :min="cycle01 ? cycle01 + 1 : 1" :max="59" /> 分钟
 			</el-radio>
@@ -16,16 +16,16 @@
 
 		<el-form-item>
 			<el-radio v-model='radioValue' :label="3">
-				从
-				<el-input-number v-model='average01' :min="0" :max="58" /> 分钟开始，每
-				<el-input-number v-model='average02' :min="1" :max="59 - average01 || 0" /> 分钟执行一次
+				From
+				<el-input-number v-model='average01' :min="0" :max="58" /> minutes, every
+				<el-input-number v-model='average02' :min="1" :max="59 - average01 || 0" /> minutes execute一次
 			</el-radio>
 		</el-form-item>
 
 		<el-form-item>
 			<el-radio v-model='radioValue' :label="4">
-				指定
-				<el-select clearable v-model="checkboxList" placeholder="可多选" multiple style="width:100%">
+				Specified
+				<el-select clearable v-model="checkboxList" placeholder="Multiple select" multiple style="width:100%">
 					<el-option v-for="item in 60" :key="item" :value="item-1">{{item-1}}</el-option>
 				</el-select>
 			</el-radio>

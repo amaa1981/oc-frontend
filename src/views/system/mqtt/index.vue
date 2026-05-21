@@ -4,13 +4,13 @@
       <el-col :span="12" class="card-box">
         <el-card>
           <div slot="header">
-            <span>mqtt推送配置</span>
+            <span>MQTT Push Configuration</span>
           </div>
           <el-form ref="form" :model="form" :rules="rules" label-width="150px">
-            <el-form-item label="mqtt连接信息" prop="connectInfo">
+            <el-form-item label="MQTT Connection Info" prop="connectInfo">
               <el-input
                 v-model="form.connectInfo"
-                placeholder="请输入mqtt连接信息"
+                placeholder="Enter MQTT connection info"
               />
             </el-form-item>
             <el-form-item label="mqtt用户名" prop="userName">
@@ -29,8 +29,8 @@
                 <el-option key="2" label="2" value="2"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="clientId" prop="clientId">
-              <el-input v-model="form.clientId" placeholder="请输入clientId" />
+            <el-form-item label="Client ID" prop="clientId">
+              <el-input v-model="form.clientId" placeholder="Enter client ID" />
             </el-form-item>
             <el-form-item label="推送消息主题" prop="topic">
               <el-input v-model="form.topic" placeholder="请输入推送消息主题" />
@@ -233,12 +233,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -249,13 +249,13 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
       this.title = "添加mqtt推送配置";
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate() {
       this.reset();
       const id = 1;
@@ -266,26 +266,26 @@ export default {
         this.title = "修改mqtt推送配置";
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           this.form.alarmType = this.form.alarmType.join(",");
           if (this.form.id != null) {
             updateConfig(this.form).then((response) => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("Updated successfully");
               this.handleUpdate();
             });
           } else {
             addConfig(this.form).then((response) => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("Updated successfully");
               this.handleUpdate();
             });
           }
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -295,11 +295,11 @@ export default {
         })
         .then(() => {
           this.getList();
-          this.$modal.msgSuccess("删除成功");
+          this.$modal.msgSuccess("Deleted successfully");
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/config/export",

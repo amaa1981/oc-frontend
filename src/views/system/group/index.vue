@@ -222,7 +222,7 @@ export default {
         query: { libId: row.libId },
       });
     },
-    /** 查询人脸库信息列表 */
+    /** Query face library list */
     getList() {
       this.loading = true;
       listGroup(this.queryParams).then((response) => {
@@ -253,12 +253,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -269,13 +269,13 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
       this.title = this.$t("group.dialogTitle_a");
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
@@ -285,7 +285,7 @@ export default {
         this.title = this.$t("group.dialogTitle_e");
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -305,7 +305,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -319,7 +319,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/group/export",

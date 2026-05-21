@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 11:06:24
  * @LastEditTime: 2023-07-31 13:53:09
  * @LastEditors: FGJ
- * @Description: http推送配置
+ * @Description: HTTP push configuration
  * @FilePath: \ruoyi-ui\src\views\system\backgroundManage\components\http.vue
 -->
 <template>
@@ -263,7 +263,7 @@ export default {
 
       console.log(e);
     },
-    /** 查询http推送配置列表 */
+    /** Query HTTP push config list */
     getList() {
       this.loading = true;
       listConfig(this.queryParams).then((response) => {
@@ -293,12 +293,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -309,13 +309,13 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
       this.title = this.$t("httpConfig.dialogTitle_a");
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids;
@@ -326,7 +326,7 @@ export default {
         this.title = this.$t("httpConfig.dialogTitle_e");
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -347,7 +347,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -361,7 +361,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/config/export",

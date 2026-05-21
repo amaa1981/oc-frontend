@@ -138,7 +138,7 @@ export default {
     }
   },
   methods: {
-    /** 查询授权用户列表 */
+    /** Query authorized user list */
     getList() {
       this.loading = true;
       allocatedUserList(this.queryParams).then(response => {
@@ -153,12 +153,12 @@ export default {
       const obj = { path: "/system/role" };
       this.$tab.closeOpenPage(obj);
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -168,11 +168,11 @@ export default {
       this.userIds = selection.map(item => item.userId)
       this.multiple = !selection.length
     },
-    /** 打开授权用户表弹窗 */
+    /** Open authorized user dialog */
     openSelectUser() {
       this.$refs.select.show();
     },
-    /** 取消授权按钮操作 */
+    /** Revoke authorization handler */
     cancelAuthUser(row) {
       const roleId = this.queryParams.roleId;
       this.$modal.confirm(this.$t('role.confirmRemoveAuth',{username: row.userName})).then(function() {
@@ -182,7 +182,7 @@ export default {
         this.$modal.msgSuccess(this.$t('role.removeAuth_s'));
       }).catch(() => {});
     },
-    /** 批量取消授权按钮操作 */
+    /** Batch revoke authorization handler */
     cancelAuthUserAll(row) {
       const roleId = this.queryParams.roleId;
       const userIds = this.userIds.join(",");

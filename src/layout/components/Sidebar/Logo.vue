@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      title: '边缘终端',
+      title: 'Edge Terminal',
       logo: settings.edition === 'standard' ? logo2Img : logoImg,
       logoSmall:settings.edition === 'standard' ? logo2SmallImg : logoSmallImg, 
     }

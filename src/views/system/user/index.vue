@@ -656,7 +656,7 @@ export default {
     });
   },
   methods: {
-    /** 查询用户列表 */
+    /** Query user list */
     getList() {
       this.loading = true;
       listUser(this.addDateRange(this.queryParams, this.dateRange)).then(
@@ -667,7 +667,7 @@ export default {
         }
       );
     },
-    /** 查询部门下拉树结构 */
+    /** Query dept tree */
     getDeptTree() {
       deptTreeSelect().then((response) => {
         this.deptOptions = response.data;
@@ -726,12 +726,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
@@ -758,7 +758,7 @@ export default {
           break;
       }
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       getUser().then((response) => {
@@ -769,7 +769,7 @@ export default {
         this.form.password = this.initPassword;
       });
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const userId = row.userId || this.ids;
@@ -784,7 +784,7 @@ export default {
         this.form.password = "";
       });
     },
-    /** 重置密码按钮操作 */
+    /** Reset password handler */
     handleResetPwd(row) {
       this.$prompt(
         this.$t("user.confirmResetPassword", { username: row.userName }),
@@ -804,12 +804,12 @@ export default {
         })
         .catch(() => {});
     },
-    /** 分配角色操作 */
+    /** Assign role handler */
     handleAuthRole: function (row) {
       const userId = row.userId;
       this.$router.push("/system/user-auth/role/" + userId);
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm: function () {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -829,7 +829,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const userIds = row.userId || this.ids;
       this.$modal
@@ -843,7 +843,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/user/export",
@@ -853,12 +853,12 @@ export default {
         `user_${new Date().getTime()}.xlsx`
       );
     },
-    /** 导入按钮操作 */
+    /** Import handler */
     handleImport() {
       this.upload.title = this.$t("user.import");
       this.upload.open = true;
     },
-    /** 下载模板操作 */
+    /** Download template handler */
     importTemplate() {
       this.download(
         "system/user/importTemplate",
@@ -879,7 +879,7 @@ export default {
         "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
           response.msg +
           "</div>",
-        "导入结果",
+        "Import Result",
         { dangerouslyUseHTMLString: true }
       );
       this.getList();

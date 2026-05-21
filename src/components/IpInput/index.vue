@@ -1,8 +1,8 @@
 <!-- IpInput
-  @description IP地址输入框
+  @description IP address input component
     * props:
-        - value: IP地址, 格式为xx.xx.xx.xx, default: ''
-        - disabled: 是否禁用, default: false
+        - value: IP address, format xx.xx.xx.xx, default: ''
+        - disabled: whether disabled, default: false
   @date 2023-04-10
 -->
 <template>

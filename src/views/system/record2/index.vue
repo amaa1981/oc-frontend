@@ -33,7 +33,7 @@
       <!-- <el-form-item label="处理状态" prop="status">
         <el-select
           v-model="queryParams.status"
-          placeholder="请选择处理状态"
+          placeholder="Select status"
           clearable
         >
           <el-option
@@ -67,7 +67,7 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:record:add']"
-          >新增</el-button
+          >Add</el-button
         >
       </el-col>
       <el-col :span="1.5">
@@ -79,7 +79,7 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:record:edit']"
-          >修改</el-button
+          >Edit</el-button
         >
       </el-col> -->
       <!-- <el-col :span="1.5">
@@ -105,21 +105,21 @@
                 class="el-icon-warning"
                 style="color: #f56c6c; margin-right: 8px"
               ></i>
-              {{ item.equipmentName || "设备名称" }}
+              {{ item.equipmentName || "Device Name" }}
             </div>
             <div class="record-time">
-              事件时间 {{ item.strRes.startTime }} ~ {{ item.strRes.endTime }}
+              Event Time {{ item.strRes.startTime }} ~ {{ item.strRes.endTime }}
             </div>
           </div>
 
           <div class="record-content">
             <div class="record-info">
               <div class="info-item">
-                <label>告警类型:</label>
-                <span>卸油记录</span>
+                <label>Alarm Type:</label>
+                <span>Oil Unloading Record</span>
               </div>
               <div class="info-item" v-if="item.strRes">
-                <label>检测结果:</label>
+                <label>Detection Result:</label>
                 <div class="detection-results">
                   <!-- 如果是字符串类型 -->
                   <ul
@@ -147,7 +147,7 @@
                         >
                           <el-table-column
                             prop="eventTypeId"
-                            label="事件类型"
+                            label="Event Type"
                             min-width="200"
                             align="center"
                           >
@@ -158,7 +158,7 @@
                                   '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F24d-1'
                                 "
                               >
-                                人员是否未佩戴安全帽
+                                Personnel not wearing helmet
                               </div>
                               <div
                                 v-if="
@@ -166,7 +166,7 @@
                                   '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F24d-3'
                                 "
                               >
-                                人员是否有防静电措施
+                                Personnel anti-static measures
                               </div>
                               <div
                                 v-if="
@@ -174,7 +174,7 @@
                                   '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F24d-4'
                                 "
                               >
-                                场地是否摆放灭火器
+                                Fire extinguisher placement
                               </div>
                               <div
                                 v-if="
@@ -182,13 +182,13 @@
                                   '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F24d-5'
                                 "
                               >
-                                油罐车是否防静电措施
+                                Tanker anti-static measures
                               </div>
                             </template>
                           </el-table-column>
                           <el-table-column
                             prop="hasAlarm"
-                            label="完成状态"
+                            label="Status"
                             min-width="100"
                             align="center"
                           >
@@ -211,19 +211,19 @@
                                 >
                                   {{
                                     scope.row.hasAlarm
-                                      ? "无佩戴安全帽"
-                                      : "有佩戴安全帽"
+                                      ? "No Helmet"
+                                      : "Helmet On"
                                   }}
                                 </span>
                                 <span v-else>
-                                  {{ scope.row.hasAlarm ? "是" : "否" }}</span
+                                  {{ scope.row.hasAlarm ? "Yes" : "No" }}</span
                                 >
                               </el-tag>
                             </template>
                           </el-table-column>
                           <el-table-column
                             prop="sendTime"
-                            label="发生时间"
+                            label="Occurrence Time"
                             min-width="140"
                             align="center"
                           >
@@ -234,13 +234,13 @@
 
                           <el-table-column
                             prop="imageUrl"
-                            label="事件图片"
+                            label="Event Image"
                             min-width="80"
                             align="center"
                           >
                             <template slot-scope="scope">
                               <span v-if="!scope.row.imageUrl" class="no-image"
-                                >无</span
+                                >None</span
                               >
                               <el-image
                                 v-else
@@ -250,7 +250,7 @@
                                 fit="cover"
                               >
                                 <div slot="error" class="image-slot">
-                                  <span class="no-image">无</span>
+                                  <span class="no-image">None</span>
                                 </div>
                               </el-image>
                             </template>
@@ -262,11 +262,11 @@
                 </div>
               </div>
               <!-- <div class="info-item">
-                <label>开始时间:</label>
+                <label>Start Time:</label>
                 <span>{{ item.strRes.startTime }}</span>
               </div>
               <div class="info-item">
-                <label>结束时间:</label>
+                <label>End Time:</label>
                 <span>{{ item.strRes.endTime }}</span>
               </div> -->
             </div>
@@ -275,7 +275,7 @@
       </div>
 
       <div v-if="recordList.length === 0 && !loading" class="empty-container">
-        <el-empty description="暂无记录数据"></el-empty>
+        <el-empty description="No records found"></el-empty>
       </div>
     </div>
 
@@ -342,7 +342,7 @@ export default {
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: "Last week",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -351,7 +351,7 @@ export default {
             },
           },
           {
-            text: "最近一个月",
+            text: "Last month",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -360,7 +360,7 @@ export default {
             },
           },
           {
-            text: "最近三个月",
+            text: "Last 3 months",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -418,7 +418,7 @@ export default {
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
     },
-    /** 查询告警记录信息列表 */
+    /** Query alarm record list */
     getList() {
       this.loading = true;
       console.log(this.queryParams);
@@ -471,12 +471,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -487,14 +487,14 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
       this.title = this.$t("record.dialogTitle_a");
     },
 
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -522,7 +522,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -536,7 +536,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "api/alarm/record/export",
@@ -546,11 +546,11 @@ export default {
         `record_${new Date().getTime()}.xlsx`
       );
     },
-    /** 获取告警类型名称 */
+    /** Get alarm type name */
     getAlarmTypeName(eventTypeId) {
       const alarmTypes = this.dict.type.v1_alarm_type || [];
       const type = alarmTypes.find((item) => item.value === eventTypeId);
-      return type ? this.$t("dict.v1_alarm_type." + type.value) : "未知类型";
+      return type ? this.$t("dict.v1_alarm_type." + type.value) : "Unknown type";
     },
   },
 };
@@ -561,7 +561,7 @@ export default {
   margin-top: 20px;
 }
 
-/* 网格布局容器 */
+/* Grid layout container */
 .record-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -669,7 +669,7 @@ export default {
   padding: 40px 0;
 }
 
-/* 检测结果列表样式 */
+/* Detection result list styles */
 .detection-results {
   margin-top: 8px;
   width: 100%;
@@ -701,7 +701,7 @@ export default {
   margin-right: 4px;
 }
 
-/* gasStationResponse 表格样式 */
+/* gasStationResponse table styles */
 .gas-station-table {
   margin-top: 8px;
   background: #fff;
@@ -740,7 +740,7 @@ export default {
   color: #909399;
 }
 
-/* 响应式布局 */
+/* Responsive layout */
 @media (max-width: 1200px) {
   .record-grid {
     grid-template-columns: repeat(2, 1fr);

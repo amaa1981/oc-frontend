@@ -54,12 +54,12 @@ import { getToken } from "@/utils/auth";
 export default {
   props: {
     value: [String, Object, Array],
-    // 图片数量限制
+    // Image count limit
     limit: {
       type: Number,
       default: 5,
     },
-    // 大小限制(MB)
+    // Size limit (MB)
     fileSize: {
       type: Number,
       default: 5,
@@ -83,7 +83,7 @@ export default {
       dialogVisible: false,
       hideUpload: false,
       baseUrl: process.env.VUE_APP_BASE_API,
-      uploadImgUrl: process.env.VUE_APP_BASE_API + "/common/upload", // 上传的图片服务器地址
+      uploadImgUrl: process.env.VUE_APP_BASE_API + "/common/upload", // Upload server URL
       headers: {
         Authorization: "Bearer " + getToken(),
       },
@@ -123,7 +123,7 @@ export default {
     },
   },
   methods: {
-    // 上传前loading加载
+    // Loading before upload
     handleBeforeUpload(file) {
       console.log(file);
       let isImg = false;
@@ -167,7 +167,7 @@ export default {
         this.$t("imageUpload.sumLimit", { limit: this.limit })
       );
     },
-    // 上传成功回调
+    // Upload success callback
     handleUploadSuccess(res, file) {
       if (res.code === 200) {
         this.uploadList.push({ name: res.fileName, url: res.fileName });
@@ -180,7 +180,7 @@ export default {
         this.uploadedSuccessfully();
       }
     },
-    // 删除图片
+    // Delete image
     handleDelete(file) {
       const findex = this.fileList.map((f) => f.name).indexOf(file.name);
       if (findex > -1) {
@@ -188,12 +188,12 @@ export default {
         this.$emit("input", this.listToString(this.fileList));
       }
     },
-    // 上传失败
+    // Upload failed
     handleUploadError() {
       this.$modal.msgError(this.$t("imageUpload.errorTip"));
       this.$modal.closeLoading();
     },
-    // 上传结束处理
+    // Upload end handler
     uploadedSuccessfully() {
       if (this.number > 0 && this.uploadList.length === this.number) {
         this.fileList = this.fileList.concat(this.uploadList);

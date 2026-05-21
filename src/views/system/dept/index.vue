@@ -308,7 +308,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询部门列表 */
+    /** Query dept list */
     getList() {
       this.loading = true;
       listDept(this.queryParams).then((response) => {
@@ -316,7 +316,7 @@ export default {
         this.loading = false;
       });
     },
-    /** 转换部门数据结构 */
+    /** Convert dept data structure */
     normalizer(node) {
       if (node.children && !node.children.length) {
         delete node.children;
@@ -346,16 +346,16 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd(row) {
       this.reset();
       if (row != undefined) {
@@ -367,7 +367,7 @@ export default {
         this.deptOptions = this.handleTree(response.data, "deptId");
       });
     },
-    /** 展开/折叠操作 */
+    /** Expand/collapse handler */
     toggleExpandAll() {
       this.refreshTable = false;
       this.isExpandAll = !this.isExpandAll;
@@ -375,7 +375,7 @@ export default {
         this.refreshTable = true;
       });
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       getDept(row.deptId).then((response) => {
@@ -395,7 +395,7 @@ export default {
         });
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm: function () {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -415,7 +415,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       this.$modal
         .confirm(this.$t("dept.confirmRemove", { deptName: row.deptName }))

@@ -184,7 +184,7 @@ export default {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
     },
-    /** 查询记录列表 */
+    /** Query record list */
     getList() {
       this.loading = true;
       getRecordList(this.queryParams)
@@ -198,7 +198,7 @@ export default {
           this.loading = false;
         });
     },
-    /** 从strRes字符串中获取guestId */
+    /** Get guestId from strRes */
     getGuestId(strRes) {
       if (!strRes) {
         return "";
@@ -209,7 +209,7 @@ export default {
           // 提取所有guestId并用逗号连接
           const guestIds = resObj.retention
             .map((item) => item.guestId)
-            .filter((id) => id) // 过滤掉空值
+            .filter((id) => id) // Filter empty values
             .join(", ");
           return guestIds || "";
         }
@@ -219,7 +219,7 @@ export default {
         return "";
       }
     },
-    /** 从strRes字符串中获取regionId */
+    /** Get regionId from strRes */
     getRegionId(strRes) {
       if (!strRes) {
         return "";
@@ -230,7 +230,7 @@ export default {
           // 提取所有regionId并用逗号连接
           const regionIds = resObj.retention
             .map((item) => item.regionId)
-            .filter((id) => id) // 过滤掉空值
+            .filter((id) => id) // Filter empty values
             .join(", ");
           return regionIds || "";
         }
@@ -240,7 +240,7 @@ export default {
         return "";
       }
     },
-    /** 从strRes字符串中获取cameraIp */
+    /** Get cameraIp from strRes */
     getCameraIp(strRes) {
       if (!strRes) {
         return "";
@@ -251,7 +251,7 @@ export default {
           // 提取所有cameraIp并用逗号连接
           const cameraIps = resObj.retention
             .map((item) => item.cameraIp)
-            .filter((ip) => ip) // 过滤掉空值
+            .filter((ip) => ip) // Filter empty values
             .join(", ");
           return cameraIps || "";
         }
@@ -261,7 +261,7 @@ export default {
         return "";
       }
     },
-    /** 从strRes字符串中获取停留开始时间 */
+    /** Get stay start time from strRes */
     getBegTime(strRes) {
       if (!strRes) {
         return "";
@@ -272,7 +272,7 @@ export default {
           // 提取所有begTime并用逗号连接
           const begTimes = resObj.retention
             .map((item) => item.begTime)
-            .filter((time) => time) // 过滤掉空值
+            .filter((time) => time) // Filter empty values
             .join(", ");
           return begTimes || "";
         }
@@ -282,7 +282,7 @@ export default {
         return "";
       }
     },
-    /** 从strRes字符串中获取停留结束时间 */
+    /** Get stay end time from strRes */
     getEndTime(strRes) {
       if (!strRes) {
         return "";
@@ -293,7 +293,7 @@ export default {
           // 提取所有endTime并用逗号连接
           const endTimes = resObj.retention
             .map((item) => item.endTime)
-            .filter((time) => time) // 过滤掉空值
+            .filter((time) => time) // Filter empty values
             .join(", ");
           return endTimes || "";
         }
@@ -303,12 +303,12 @@ export default {
         return "";
       }
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
@@ -319,7 +319,7 @@ export default {
       this.queryParams.eventTypeId = "45BB561E-EA54-4F13-A7E6-A11DE5C75648";
       this.handleQuery();
     },
-    /** 日期范围变化处理 */
+    /** Date range change handler */
     handleDateRangeChange(val) {
       if (val) {
         this.queryParams.startTime = val[0];
@@ -329,7 +329,7 @@ export default {
         this.queryParams.endTime = null;
       }
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal

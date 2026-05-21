@@ -86,7 +86,7 @@ export default {
     }
   },
   methods: {
-    /** 单击选中行数据 */
+    /** Row click selection handler */
     clickRow(row) {
       this.$refs.table.toggleRowSelection(row);
     },
@@ -98,7 +98,7 @@ export default {
     getRowKey(row) {
       return row.roleId;
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       const userId = this.form.userId;
       const roleIds = this.roleIds.join(",");
@@ -107,7 +107,7 @@ export default {
         this.close();
       });
     },
-    /** 关闭按钮 */
+    /** Close handler */
     close() {
       const obj = { path: "/system/user" };
       this.$tab.closeOpenPage(obj);

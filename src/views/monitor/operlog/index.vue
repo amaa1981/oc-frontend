@@ -367,7 +367,7 @@ export default {
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
     },
-    /** 查询登录日志 */
+    /** Query operation logs */
     getList() {
       this.loading = true;
       list(this.addDateRange(this.queryParams, this.dateRange)).then(
@@ -385,35 +385,35 @@ export default {
         row.businessType
       );
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
       this.queryParams.pageNum = 1;
       this.$refs.tables.sort(this.defaultSort.prop, this.defaultSort.order);
     },
-    /** 多选框选中数据 */
+    /** Selection change handler */
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.operId);
       this.multiple = !selection.length;
     },
-    /** 排序触发事件 */
+    /** Sort change handler */
     handleSortChange(column, prop, order) {
       this.queryParams.orderByColumn = column.prop;
       this.queryParams.isAsc = column.order;
       this.getList();
     },
-    /** 详细按钮操作 */
+    /** View detail handler */
     handleView(row) {
       this.open = true;
       this.form = row;
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const operIds = row.operId || this.ids;
       this.$modal
@@ -427,7 +427,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 清空按钮操作 */
+    /** Clear handler */
     handleClean() {
       this.$modal
         .confirm(this.$t("operlog.confirmRemoveAllLog"))
@@ -440,7 +440,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "monitor/operlog/export",

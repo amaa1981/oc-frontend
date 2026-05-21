@@ -265,18 +265,18 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
@@ -288,7 +288,7 @@ export default {
       this.single = selection.length!=1
       this.multiple = !selection.length
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const dictId = row.dictId || this.ids
@@ -298,7 +298,7 @@ export default {
         this.title = this.$t('dictManage.dialogTitle_e');
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm: function() {
       this.$refs["form"].validate(valid => {
         if (valid) {
@@ -318,7 +318,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const dictIds = row.dictId || this.ids;
       this.$modal.confirm(this.$t('dictManage.comfirmRemove',{dictIds})).then(function() {
@@ -328,7 +328,7 @@ export default {
         this.$modal.msgSuccess(this.$t('commonTips.remove_s'));
       }).catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download('system/dict/type/export', {
         ...this.queryParams

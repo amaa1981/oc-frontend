@@ -6,13 +6,13 @@
       :rules="registerRules"
       class="register-form"
     >
-      <h3 class="title">边缘终端</h3>
+      <h3 class="title">Edge Terminal</h3>
       <el-form-item prop="username">
         <el-input
           v-model="registerForm.username"
           type="text"
           auto-complete="off"
-          placeholder="账号"
+          placeholder="Username"
         >
           <svg-icon
             slot="prefix"
@@ -26,7 +26,7 @@
           v-model="registerForm.password"
           type="password"
           auto-complete="off"
-          placeholder="密码"
+          placeholder="Password"
           @keyup.enter.native="handleRegister"
         >
           <svg-icon
@@ -41,7 +41,7 @@
           v-model="registerForm.confirmPassword"
           type="password"
           auto-complete="off"
-          placeholder="确认密码"
+          placeholder="Confirm Password"
           @keyup.enter.native="handleRegister"
         >
           <svg-icon
@@ -55,7 +55,7 @@
         <el-input
           v-model="registerForm.code"
           auto-complete="off"
-          placeholder="验证码"
+          placeholder="Verification Code"
           style="width: 63%"
           @keyup.enter.native="handleRegister"
         >
@@ -77,19 +77,19 @@
           style="width: 100%"
           @click.native.prevent="handleRegister"
         >
-          <span v-if="!loading">注 册</span>
-          <span v-else>注 册 中...</span>
+          <span v-if="!loading">Register</span>
+          <span v-else>Registering...</span>
         </el-button>
         <div style="float: right">
           <router-link class="link-type" :to="'/login'"
-            >使用已有账户登录</router-link
+            >Login with existing account</router-link
           >
         </div>
       </el-form-item>
     </el-form>
     <!--  底部  -->
     <div class="el-register-footer">
-      <span>版权所有：广东中科凯泽信息科技有限公司</span>
+      <span>Copyright © Edge Terminal</span>
     </div>
   </div>
 </template>
@@ -102,7 +102,7 @@ export default {
   data() {
     const equalToPassword = (rule, value, callback) => {
       if (this.registerForm.password !== value) {
-        callback(new Error("两次输入的密码不一致"));
+        callback(new Error("Passwords do not match"));
       } else {
         callback();
       }
@@ -118,28 +118,28 @@ export default {
       },
       registerRules: {
         username: [
-          { required: true, trigger: "blur", message: "请输入您的账号" },
+          { required: true, trigger: "blur", message: "Please enter your username" },
           {
             min: 2,
             max: 20,
-            message: "用户账号长度必须介于 2 和 20 之间",
+            message: "Username must be between 2 and 20 characters",
             trigger: "blur",
           },
         ],
         password: [
-          { required: true, trigger: "blur", message: "请输入您的密码" },
+          { required: true, trigger: "blur", message: "Please enter your password" },
           {
             min: 5,
             max: 20,
-            message: "用户密码长度必须介于 5 和 20 之间",
+            message: "Password must be between 5 and 20 characters",
             trigger: "blur",
           },
         ],
         confirmPassword: [
-          { required: true, trigger: "blur", message: "请再次输入您的密码" },
+          { required: true, trigger: "blur", message: "Please confirm your password" },
           { required: true, validator: equalToPassword, trigger: "blur" },
         ],
-        code: [{ required: true, trigger: "change", message: "请输入验证码" }],
+        code: [{ required: true, trigger: "change", message: "Please enter verification code" }],
       },
       loading: false,
       captchaEnabled: true,
@@ -167,10 +167,10 @@ export default {
             .then((res) => {
               const username = this.registerForm.username;
               this.$alert(
-                "<font color='red'>恭喜你，您的账号 " +
+                "<font color='red'>Congratulations! Account " +
                   username +
-                  " 注册成功！</font>",
-                "系统提示",
+                  " registered successfully!</font>",
+                "System Notice",
                 {
                   dangerouslyUseHTMLString: true,
                   type: "success",

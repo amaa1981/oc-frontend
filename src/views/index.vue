@@ -9,7 +9,7 @@
 <template>
   <div id="apps">
     <div>
-      <h2>播放器测试页面</h2>
+      <h2>Player Test Page</h2>
     </div>
     <div class="container">
       <div class="left">

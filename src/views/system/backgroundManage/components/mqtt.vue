@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 11:02:37
  * @LastEditTime: 2023-07-14 14:24:13
  * @LastEditors: FGJ
- * @Description: mptt推送配置页面
+ * @Description: MQTT push configuration page
  * @FilePath: \ruoyi-ui\src\views\system\backgroundManage\components\mqtt.vue
 -->
 <template>
@@ -228,7 +228,7 @@ export default {
         });
       }
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     getList() {
       this.loading = true;
       getConfig(1).then((response) => {
@@ -243,7 +243,7 @@ export default {
         this.loading = false;
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       let that = this;
       this.$refs["form"].validate((valid) => {

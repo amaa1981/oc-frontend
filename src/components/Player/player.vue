@@ -3,7 +3,7 @@
  * @Date: 2023-03-10 22:45:40
  * @LastEditTime: 2025-05-12 14:49:37
  * @LastEditors: FGJ
- * @Description: 单播放器组件 --- 用于弹窗单画面使用，此组件单独建立websocket连接，画面的显示，隐藏，缩放，移动，创建，销毁均由此组件独立控制
+ * @Description: Single player component - used for popup single view with independent WebSocket connection件独立控制
  * @FilePath: \ruoyi-ui\src\components\Player\player.vue
 -->
 <template>

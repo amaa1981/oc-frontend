@@ -55,8 +55,8 @@
 
     <!-- 位置信息提示 -->
     <div class="location-info" v-if="showLocationInfo">
-      <span>当前位置：{{ locationDescription }}</span>
-      <span>推荐地图：{{ mapConfigs[currentMapService]?.name }}</span>
+      <span>Current location: {{ locationDescription }}</span>
+      <span>Recommended map: {{ mapConfigs[currentMapService]?.name }}</span>
     </div>
   </div>
 </template>
@@ -77,7 +77,7 @@ export default {
   props: {
     center: {
       type: Array,
-      default: () => [116.397428, 39.90923], // 默认北京
+      default: () => [116.397428, 39.90923], // Default center
     },
     zoom: {
       type: Number,
@@ -101,7 +101,7 @@ export default {
     },
     autoDetect: {
       type: Boolean,
-      default: true, // 是否自动检测最适合的地图服务
+      default: true, // Auto-detect best map service
     },
     markers: {
       type: Array,
@@ -110,7 +110,7 @@ export default {
   },
   data() {
     return {
-      currentMapService: "mapbox", // 默认使用 Mapbox
+      currentMapService: "mapbox", // Default to Mapbox
       mapConfigs,
       amapPlugin: ["ToolBar", "Scale"],
       amapEvents: {
@@ -123,15 +123,15 @@ export default {
       },
       availableServices: [
         { value: "mapbox", label: "Mapbox GL JS" },
-        { value: "amap", label: "高德地图" },
-        { value: "google", label: "Google地图" },
+        { value: "amap", label: "AMap" },
+        { value: "google", label: "Google Maps" },
       ],
     };
   },
   computed: {
     locationDescription() {
       const [lng, lat] = this.center;
-      return isInChina(lng, lat) ? "中国境内" : "海外地区";
+      return isInChina(lng, lat) ? "China" : "Overseas";
     },
   },
   watch: {

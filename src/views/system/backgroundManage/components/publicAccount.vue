@@ -184,7 +184,7 @@ export default {
         });
       }
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     getList() {
       this.loading = true;
       getPublicAccountConfig(1).then((response) => {
@@ -196,7 +196,7 @@ export default {
         }
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       let that = this;
       this.$refs["form"].validate((valid) => {

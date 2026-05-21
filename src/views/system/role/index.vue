@@ -485,7 +485,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询角色列表 */
+    /** Query role list */
     getList() {
       this.loading = true;
       listRole(this.addDateRange(this.queryParams, this.dateRange)).then(
@@ -496,7 +496,7 @@ export default {
         }
       );
     },
-    /** 查询菜单树结构 */
+    /** Query menu tree structure */
     getMenuTreeselect() {
       menuTreeselect().then((response) => {
         this.menuOptions = response.data;
@@ -536,7 +536,7 @@ export default {
       checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
       return checkedKeys;
     },
-    /** 根据角色ID查询菜单树结构 */
+    /** Query menu tree by role ID */
     getRoleMenuTreeselect(roleId) {
       return roleMenuTreeselect(roleId).then((response) => {
         this.menuOptions = response.menus;
@@ -544,7 +544,7 @@ export default {
         return response;
       });
     },
-    /** 根据角色ID查询部门树结构 */
+    /** Query dept tree by role ID */
     getDeptTree(roleId) {
       return deptTreeSelect(roleId).then((response) => {
         this.deptOptions = response.depts;
@@ -604,12 +604,12 @@ export default {
         });
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
@@ -664,14 +664,14 @@ export default {
         this.form.deptCheckStrictly = value ? true : false;
       }
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.getMenuTreeselect();
       this.open = true;
       this.title = this.$t("role.dialogTitle_a");
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const roleId = row.roleId || this.ids;
@@ -692,13 +692,13 @@ export default {
         this.title = this.$t("role.dialogTitle_a");
       });
     },
-    /** 选择角色权限范围触发 */
+    /** Role permission scope change handler */
     dataScopeSelectChange(value) {
       if (value !== "2") {
         this.$refs.dept.setCheckedKeys([]);
       }
     },
-    /** 分配数据权限操作 */
+    /** Assign data permission handler */
     handleDataScope(row) {
       this.reset();
       const deptTreeSelect = this.getDeptTree(row.roleId);
@@ -714,12 +714,12 @@ export default {
         this.title = this.$t("role.authTitle");
       });
     },
-    /** 分配用户操作 */
+    /** Assign user handler */
     handleAuthUser: function (row) {
       const roleId = row.roleId;
       this.$router.push("/system/role-auth/user/" + roleId);
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm: function () {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -741,7 +741,7 @@ export default {
         }
       });
     },
-    /** 提交按钮（数据权限） */
+    /** Submit data permission handler */
     submitDataScope: function () {
       if (this.form.roleId != undefined) {
         this.form.deptIds = this.getDeptAllCheckedKeys();
@@ -752,7 +752,7 @@ export default {
         });
       }
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const roleIds = row.roleId || this.ids;
       this.$modal
@@ -766,7 +766,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/role/export",

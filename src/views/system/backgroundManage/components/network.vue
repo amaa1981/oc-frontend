@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 10:58:50
  * @LastEditTime: 2024-01-23 17:12:26
  * @LastEditors: FGJ
- * @Description: 网络配置信息页面
+ * @Description: Network configuration page
  * @FilePath: \ruoyi-ui\src\views\system\backgroundManage\components\network.vue
 -->
 <template>
@@ -88,7 +88,7 @@ export default {
         return callback(new Error(this.$t("commonTips.cannotBeEmpty")));
       }
       //验证IP地址的正则表达式
-      var reSpaceCheck = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; //匹配IP地址的正则表达式
+      var reSpaceCheck = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; // IP address regex
       if (reSpaceCheck.test(value)) {
         value.match(reSpaceCheck);
         if (
@@ -202,7 +202,7 @@ export default {
       }
       this.getList();
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     getList() {
       this.loading = true;
       getConfig(this.id).then((response) => {
@@ -210,7 +210,7 @@ export default {
         this.loading = false;
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       let that = this;
       this.$refs["form"].validate((valid) => {

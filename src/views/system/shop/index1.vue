@@ -41,7 +41,7 @@
         <el-date-picker
           v-model="dateRange"
           type="datetimerange"
-          range-separator="至"
+          range-separator="to"
           :start-placeholder="$t('shopStatistics.startDate')"
           :end-placeholder="$t('shopStatistics.endDate')"
           value-format="yyyy-MM-dd HH:mm:ss"
@@ -223,7 +223,7 @@ export default {
       this.getTodayData();
       this.handleQuery();
     },
-    /** 获取今日数据 */
+    /** Get today data */
     getTodayData() {
       const params = {
         installationArea: this.queryParams.installationArea
@@ -253,7 +253,7 @@ export default {
           };
         });
     },
-    /** 查询客流统计列表 */
+    /** Query traffic statistics list */
     getList() {
       this.loading = true;
       getShopCountPage(this.queryParams).then((response) => {
@@ -282,12 +282,12 @@ export default {
         });
       });
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
@@ -296,7 +296,7 @@ export default {
       this.getTodayData();
       this.handleQuery();
     },
-    /** 日期范围变化处理 */
+    /** Date range change handler */
     handleDateRangeChange(val) {
       if (val) {
         this.queryParams.startTime = val[0];
@@ -306,7 +306,7 @@ export default {
         this.queryParams.endTime = null;
       }
     },
-    /** 计算进店率 */
+    /** Calculate store entry rate */
     calculateRate(enterNum, passNum) {
       if (!passNum || passNum === 0) {
         return "0%";
@@ -314,7 +314,7 @@ export default {
       const rate = ((enterNum / passNum) * 100).toFixed(2);
       return rate + "%";
     },
-    /** 初始化图表 */
+    /** Initialize chart */
     initChart() {
       if (this.chartInstance) {
         this.chartInstance.dispose();
@@ -337,7 +337,7 @@ export default {
           },
         },
         legend: {
-          data: ["经过客流", "进店客流"],
+          data: ["Passing Traffic", "Store Entry"],
         },
         grid: {
           left: "3%",
@@ -354,11 +354,11 @@ export default {
         },
         yAxis: {
           type: "value",
-          name: "人数",
+          name: "People Count",
         },
         series: [
           {
-            name: "经过客流",
+            name: "Passing Traffic",
             type: "bar",
             data: passNumList,
             itemStyle: {
@@ -366,7 +366,7 @@ export default {
             },
           },
           {
-            name: "进店客流",
+            name: "Store Entry",
             type: "bar",
             data: enterNumList,
             itemStyle: {
@@ -374,7 +374,7 @@ export default {
             },
           },
           {
-            name: "进店率",
+            name: "Entry Rate",
             type: "line",
             yAxisIndex: 0,
             data: this.shopCountList.map((item) => {
@@ -391,13 +391,13 @@ export default {
       // 设置图表选项
       this.chartInstance.setOption(option);
     },
-    /** 调整图表大小 */
+    /** Resize chart */
     resizeChart() {
       if (this.chartInstance) {
         this.chartInstance.resize();
       }
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal

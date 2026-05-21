@@ -34,7 +34,7 @@
       </div>
     </div>
     <!-- <div class="monitor-list-wrap">
-      <div class="title">门禁列表</div>
+      <div class="title">Access Control List</div>
       <div class="monitor-list">
         <div class="list">
           <div class="monitor-item" v-for="item in controlList" :key="item.id">
@@ -46,7 +46,7 @@
               size="mini"
               @click="handleSwitchChange(item)"
             >
-              开门
+              Open Door
             </el-button>
           </div>
         </div>
@@ -90,9 +90,9 @@ export default {
         this.indexMap.set(infoObj.videoId, deviceIndex);
         // 更新显示状态为播放中
         this.$set(this.monitorList[deviceIndex], "select", true);
-        console.log(`设备 ${infoObj.videoId} 状态已更新为播放中，显示关闭按钮`);
+        console.log(`device ${infoObj.videoId} 状态已更新为播放中，显示关闭按钮`);
       } else {
-        console.warn(`未找到设备 ${infoObj.videoId} 在设备列表中`);
+        console.warn(`未找到device ${infoObj.videoId} 在设备列表中`);
       }
     });
     this.$bus.$on("removeVideoId", (infoObj) => {
@@ -107,7 +107,7 @@ export default {
         );
         this.indexMap.delete(infoObj.videoId);
         console.log(
-          `设备 ${infoObj.videoId} 状态已更新为停止播放，隐藏关闭按钮`
+          `device ${infoObj.videoId} status updated to stopped, hiding close button`
         );
       }
     });

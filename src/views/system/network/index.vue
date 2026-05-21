@@ -4,17 +4,17 @@
       <el-col :span="12" class="card-box">
         <el-card>
           <div slot="header">
-            <span>网络信息配置</span>
+            <span>Network Configuration</span>
           </div>
 
           <el-form ref="form" :model="form" :rules="rules" label-width="150px">
-            <el-form-item label="网卡" prop="internetCard">
+            <el-form-item label="Network Card" prop="internetCard">
               <!-- <el-input v-model="form.internetCard" placeholder="请输入网卡" />
               -->
 
               <el-select
                 v-model="form.internetCard"
-                placeholder="请选择网卡"
+                placeholder="Select network card"
                 @change="changeInternetCard"
               >
                 <el-option label="eth0" value="eth0"></el-option>
@@ -25,7 +25,7 @@
             <!-- <el-form-item label="MAC地址" prop="mac">
               <el-input
                 v-model="form.mac"
-                placeholder="请输入MAC地址"
+                placeholder="Enter MAC address"
                 :disabled="true"
               />
             </el-form-item> -->
@@ -39,27 +39,27 @@
               </el-form-item>
             </el-form-item> -->
 
-            <el-form-item label="IP地址" prop="ip" key="1">
+            <el-form-item label="IP Address" prop="ip" key="1">
               <ip-input v-model="form.ip" />
             </el-form-item>
 
-            <el-form-item label="子网掩码" prop="netMask" key="3">
+            <el-form-item label="Subnet Mask" prop="netMask" key="3">
               <ip-input v-model="form.netMask" />
             </el-form-item>
 
-            <el-form-item label="默认网关" prop="defaultGateway" key="5">
+            <el-form-item label="Default Gateway" prop="defaultGateway" key="5">
               <ip-input v-model="form.defaultGateway" />
             </el-form-item>
 
-            <el-form-item label="首选DNS" prop="dns1">
+            <el-form-item label="Primary DNS" prop="dns1">
               <ip-input v-model="form.dns1" />
             </el-form-item>
-            <el-form-item label="备选DNS" prop="dns2">
+            <el-form-item label="Secondary DNS" prop="dns2">
               <ip-input v-model="form.dns2" />
             </el-form-item>
           </el-form>
           <div class="footer_btn">
-            <el-button type="primary" @click="submitForm">确 定</el-button>
+            <el-button type="primary" @click="submitForm">Confirm</el-button>
           </div>
         </el-card>
       </el-col>
@@ -84,10 +84,10 @@ export default {
   data() {
     var checkIp = (rule, value, callback) => {
       if (!value || value == "...") {
-        return callback(new Error("不能为空"));
+        return callback(new Error("This field is required"));
       }
       //验证IP地址的正则表达式
-      var reSpaceCheck = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; //匹配IP地址的正则表达式
+      var reSpaceCheck = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; // IP address regex
       if (reSpaceCheck.test(value)) {
         value.match(reSpaceCheck);
         if (
@@ -102,10 +102,10 @@ export default {
         ) {
           callback();
         } else {
-          callback(new Error("格式不正确"));
+          callback(new Error("Invalid format"));
         }
       } else {
-        callback(new Error("格式不正确"));
+        callback(new Error("Invalid format"));
       }
     };
     return {
@@ -148,27 +148,27 @@ export default {
       // 表单校验
       rules: {
         internetCard: [
-          { required: true, message: "网卡不能为空", trigger: "blur" },
+          { required: true, message: "Network card is required", trigger: "blur" },
         ],
 
-        mac: [{ required: true, message: "MAC地址不能为空", trigger: "blur" }],
+        mac: [{ required: true, message: "MAC address is required", trigger: "blur" }],
         ip: [
-          { required: true, message: "IP地址不能为空", trigger: "chang" },
+          { required: true, message: "IP address is required", trigger: "chang" },
           { validator: checkIp, trigger: "chang" },
         ],
         netMask: [
-          { required: true, message: "子网掩码不能为空", trigger: "blur" },
+          { required: true, message: "Subnet mask is required", trigger: "blur" },
           { validator: checkIp, trigger: "blur" },
         ],
         defaultGateway: [
-          { required: true, message: "默认网关不能为空", trigger: "blur" },
+          { required: true, message: "Default gateway is required", trigger: "blur" },
           { validator: checkIp, trigger: "blur" },
         ],
-        dns1: [{ required: true, message: "首选DNS不能为空", trigger: "blur" }],
-        dns2: [{ required: true, message: "备选DNS不能为空", trigger: "blur" }],
-        port: [{ required: true, message: "端口不能为空", trigger: "blur" }],
+        dns1: [{ required: true, message: "Primary DNS is required", trigger: "blur" }],
+        dns2: [{ required: true, message: "Secondary DNS is required", trigger: "blur" }],
+        port: [{ required: true, message: "Port is required", trigger: "blur" }],
         rtspPort: [
-          { required: true, message: "RTSP端口不能为空", trigger: "blur" },
+          { required: true, message: "RTSP port is required", trigger: "blur" },
         ],
       },
     };
@@ -215,30 +215,30 @@ export default {
       this.resetForm("form");
     },
 
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
     },
 
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate() {
       this.reset();
       getConfig(this.id).then((response) => {
         this.form = response.data;
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id != null) {
             updateConfig(this.form).then((response) => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("Updated successfully");
             });
           } else {
             addConfig(this.form).then((response) => {
-              this.$modal.msgSuccess("新增成功");
+              this.$modal.msgSuccess("Added successfully");
             });
           }
         }

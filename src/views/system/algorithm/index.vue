@@ -211,7 +211,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询字典数据列表 */
+    /** Query dict data list */
     getList() {
       this.loading = true;
       listData(this.queryParams).then(response => {
@@ -239,23 +239,23 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 返回按钮操作 */
+    /** Back handler */
     handleClose() {
       const obj = { path: "/system/dict" };
       this.$tab.closeOpenPage(obj);
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.queryParams.dictType = this.defaultDictType;
       this.handleQuery();
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.reset();
       this.open = true;
@@ -268,7 +268,7 @@ export default {
       this.single = selection.length != 1
       this.multiple = !selection.length
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.reset();
       const dictCode = row.dictCode || this.ids
@@ -278,7 +278,7 @@ export default {
         this.title = this.$t('dictInfo.dialogTitle_e');
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
@@ -300,7 +300,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const dictCodes = row.dictCode || this.ids;
       this.$modal.confirm(this.$t('dictInfo.comfirmRemove', { dictCodes })).then(function () {
@@ -311,7 +311,7 @@ export default {
         this.$store.dispatch('dict/removeDict', this.queryParams.dictType);
       }).catch(() => { });
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download('system/dict/data/export', {
         ...this.queryParams

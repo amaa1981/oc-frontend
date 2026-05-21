@@ -107,7 +107,7 @@ export default {
 
       var prompt = this.buildPrompt(this.reportData);
       var self = this;
-      var currentLang = this.$i18n.locale; // 获取当前语言
+      var currentLang = this.$i18n.locale; // Get current language
 
       this.abortFn = streamAiReport(
         prompt,
@@ -126,7 +126,7 @@ export default {
           self.loading = false;
           self.errorMsg = self.$t('dataCenter.aiReportFailed') + ': ' + (err.message || err);
         },
-        currentLang // 传递当前语言
+        currentLang // Pass current language
       );
     },
     buildPrompt(data) {
@@ -146,22 +146,22 @@ export default {
         lines.push('- Vehicle Count: ' + (data.vehiclesNum || 0));
         lines.push('');
       } else {
-        lines.push('请根据以下安防监控数据大屏的数据，生成一份专业的数据总结分析报告：');
+        lines.push('Please generate a professional data analysis report based on the following security monitoring data:');
         lines.push('');
-        lines.push('【时间范围】' + (data.timeLabel || ''));
+        lines.push('[Time Range] ' + (data.timeLabel || ''));
         lines.push('');
-        lines.push('【概览统计】');
-        lines.push('- 事件总数: ' + (data.totalEvents || 0));
-        lines.push('- 已处理事件: ' + (data.processedEvents || 0));
-        lines.push('- 未处理事件: ' + (data.unprocessedEvents || 0));
-        lines.push('- 人数统计: ' + (data.peopleNum || 0));
-        lines.push('- 车辆数量: ' + (data.vehiclesNum || 0));
+        lines.push('[Overview Statistics]');
+        lines.push('- Total Events: ' + (data.totalEvents || 0));
+        lines.push('- Processed Events: ' + (data.processedEvents || 0));
+        lines.push('- Unprocessed Events: ' + (data.unprocessedEvents || 0));
+        lines.push('- People Count: ' + (data.peopleNum || 0));
+        lines.push('- Vehicle Count: ' + (data.vehiclesNum || 0));
         lines.push('');
       }
 
       // 事件类型分布
       if (data.eventTypes && data.eventTypes.length > 0) {
-        lines.push(isEnglish ? '[Event Type Distribution]' : '【事件类型分布】');
+        lines.push(isEnglish ? '[Event Type Distribution]' : '[Event Type Distribution]');
         var total = 0;
         for (var i = 0; i < data.eventTypes.length; i++) {
           total += data.eventTypes[i].value;
@@ -169,41 +169,41 @@ export default {
         for (var j = 0; j < data.eventTypes.length; j++) {
           var item = data.eventTypes[j];
           var pct = total > 0 ? ((item.value / total) * 100).toFixed(1) : '0';
-          lines.push('- ' + item.name + ': ' + item.value + (isEnglish ? ' times (' : '次 (') + pct + '%)');
+          lines.push('- ' + item.name + ': ' + item.value + (isEnglish ? ' times (' : ' times (') + pct + '%)');
         }
         lines.push('');
       }
 
       // 事件趋势
       if (data.trendData && data.trendData.length > 0) {
-        lines.push(isEnglish ? '[Event Alert Trends]' : '【事件预警趋势】');
+        lines.push(isEnglish ? '[Event Alert Trends]' : '[Event Alert Trends]');
         for (var k = 0; k < data.trendData.length; k++) {
           var series = data.trendData[k];
           var sumVal = 0;
           for (var m = 0; m < series.count.length; m++) sumVal += series.count[m];
-          lines.push('- ' + series.date_type + (isEnglish ? ': Total ' : ': 总计 ') + sumVal + (isEnglish ? ' times' : '次'));
+          lines.push('- ' + series.date_type + (isEnglish ? ': Total ' : ': Total ') + sumVal + (isEnglish ? ' times' : ' times'));
         }
         lines.push('');
       }
 
       // 人车趋势
       if (data.vehiclesTrend && data.vehiclesTrend.length > 0) {
-        lines.push(isEnglish ? '[People & Vehicle Alert Trends]' : '【人车预警趋势】');
+        lines.push(isEnglish ? '[People & Vehicle Alert Trends]' : '[People & Vehicle Trends]');
         for (var n = 0; n < data.vehiclesTrend.length; n++) {
           var vs = data.vehiclesTrend[n];
           var vSum = 0;
           for (var p = 0; p < vs.count.length; p++) vSum += vs.count[p];
-          lines.push('- ' + vs.date_type + (isEnglish ? ': Total ' : ': 总计 ') + vSum);
+          lines.push('- ' + vs.date_type + (isEnglish ? ': Total ' : ': Total ') + vSum);
         }
         lines.push('');
       }
 
       // 设备Top3
       if (data.topDevices && data.topDevices.length > 0) {
-        lines.push(isEnglish ? '[Top 3 Device Alerts]' : '【设备预警Top3】');
+        lines.push(isEnglish ? '[Top 3 Device Alerts]' : '[Top 3 Device Alerts]');
         for (var q = 0; q < data.topDevices.length; q++) {
           var dev = data.topDevices[q];
-          lines.push('- ' + dev.name + ': ' + dev.total + (isEnglish ? ' times' : '次'));
+          lines.push('- ' + dev.name + ': ' + dev.total + (isEnglish ? ' times' : ' times'));
         }
         lines.push('');
       }
@@ -215,11 +215,11 @@ export default {
         lines.push('3. Trend Analysis (any abnormal fluctuations or patterns)');
         lines.push('4. Security Recommendations and Improvement Measures');
       } else {
-        lines.push('请从以下几个方面进行分析：');
-        lines.push('1. 数据概览总结');
-        lines.push('2. 事件类型分析（哪些类型最多，是否需要重点关注）');
-        lines.push('3. 趋势分析（是否有异常波动或规律）');
-        lines.push('4. 安全建议和改进措施');
+        lines.push('Please analyze from the following aspects:');
+        lines.push('1. Data overview summary');
+        lines.push('2. Event type analysis (which types occur most, what needs attention)');
+        lines.push('3. Trend analysis (any abnormal fluctuations or patterns)');
+        lines.push('4. Safety recommendations and improvement measures');
       }
 
       return lines.join('\n');

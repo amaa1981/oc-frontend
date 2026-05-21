@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 10:38:18
  * @LastEditTime: 2023-06-19 14:27:50
  * @LastEditors: NULL 1628069508@qq.com
- * @Description: 流媒体服务器进程页面
+ * @Description: Media server process page
  * @FilePath: \ruoyi-ui\src\views\system\backgroundManage\components\stream.vue
 -->
 <template>
@@ -15,10 +15,10 @@
     </el-row>
 
     <el-table v-loading="loading" :data="processList">
-      <el-table-column label="进程管理名称" align="center" prop="name" />
-      <el-table-column label="进程名" align="center" prop="processName" />
-      <el-table-column label="启动时间" align="center" prop="startTime" />
-      <el-table-column label="状态" align="center" prop="state">
+      <el-table-column label="Process Name" align="center" prop="name" />
+      <el-table-column label="Process" align="center" prop="processName" />
+      <el-table-column label="Start Time" align="center" prop="startTime" />
+      <el-table-column label="Status" align="center" prop="state">
         <template slot-scope="scope">
           {{ scope.row.state | getStateText }}
         </template>
@@ -46,7 +46,7 @@ export default {
   },
   filters: {
     getStateText(state) {
-      return state === 0 ? '正常' : '异常';
+      return state === 0 ? 'Normal' : 'Abnormal';
     }
   },
   computed: {
@@ -66,16 +66,16 @@ export default {
     },
     async restart() {
       this.$modal
-        .confirm('是否确认重启分析服务器')
+        .confirm('Are you sure you want to restart the analysis server?')
         .then(function () {
           return restartMediaProcess();
         })
         .then((res)=>{
           if (res.data.code === 0) {
-            this.$modal.msgSuccess("重启成功");
+            this.$modal.msgSuccess("Restarted successfully");
             this.getList();
           } else {
-            this.$modal.msgError("重启失败");
+            this.$modal.msgError("Restart failed");
           }
         })
         .catch(() => { });

@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 10:38:18
  * @LastEditTime: 2023-06-21 15:28:41
  * @LastEditors: NULL 1628069508@qq.com
- * @Description: 流媒体服务器进程页面
+ * @Description: Media server process page
  * @FilePath: \ruoyi-ui\src\views\monitor\server\components\stream.vue
 -->
 <template>

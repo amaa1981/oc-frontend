@@ -3,7 +3,7 @@
  * @Date: 2023-06-16 10:36:53
  * @LastEditTime: 2023-06-21 15:23:48
  * @LastEditors: NULL 1628069508@qq.com
- * @Description: 分析服务器进程管理页面
+ * @Description: Analysis server process management page
  * @FilePath: \ruoyi-ui\src\views\monitor\server\components\analysis.vue
 -->
 <template>

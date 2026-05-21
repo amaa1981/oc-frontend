@@ -1,5 +1,5 @@
 <!--
- * @Description: 邮箱推送配置
+ * @Description: Email push configuration
 -->
 <template>
   <div class="app-container">

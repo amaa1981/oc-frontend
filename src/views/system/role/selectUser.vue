@@ -107,17 +107,17 @@ export default {
         this.total = res.total;
       });
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    /** 选择授权用户操作 */
+    /** Select authorized user handler */
     handleSelectUser() {
       const roleId = this.queryParams.roleId;
       const userIds = this.userIds.join(",");

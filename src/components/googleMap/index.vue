@@ -5,8 +5,8 @@
 <script>
 import { Loader } from "@googlemaps/js-api-loader"
 const loader = new Loader({
-  apiKey: "AIzaSyAFE09Wd75el2zfE-VVNOkqmti66abP8zo", //api的key
-  version: "weekly", //版本
+  apiKey: "AIzaSyAFE09Wd75el2zfE-VVNOkqmti66abP8zo", // API key
+  version: "weekly", // Version
   libraries: ["places"],
 })
 export default {
@@ -91,13 +91,13 @@ export default {
     // 地图初始化
     initMap() {
       const mapOptions = {
-        center: this.position, // 默认地图的中心点为标注所在位置
+        center: this.position, // Default map center at marker location
         zoom: 12,
         panControl: true,
         zoomControl: true,
         mapTypeControl: true,
         scaleControl: true,
-        streetViewControl: false, // 街景
+        streetViewControl: false, // Street view
         overviewMapControl: true,
         rotateControl: true
       }
@@ -115,12 +115,12 @@ export default {
             map: this.map,
             title: "My Location",
             // draggable:true, // 是否可移动
-            animation: google.maps.Animation.BOUNCE  // BOUNCE是一直跳动，DROP是初始化不跳动，移动标记后跳动
-          }) // 地图标记类
+            animation: google.maps.Animation.BOUNCE  // BOUNCE: always bouncing, DROP: bounce after move
+          }) // Map marker class
           if (this.cilckable) {
-            this.google.maps.event.addListener(this.map, 'click', this.clickMap) // 监听地图点击事件
+            this.google.maps.event.addListener(this.map, 'click', this.clickMap) // Listen to map click events
           }
-          this.service = new google.maps.places.PlacesService(this.map); // 创建地点搜索服务
+          this.service = new google.maps.places.PlacesService(this.map); // Create places search service
         }).catch((e) => {
           console.log(e)
         })

@@ -29,7 +29,7 @@ export default {
   props: {
     center: {
       type: Array,
-      default: () => defaultCenter, // 默认北京 [lng, lat]
+      default: () => defaultCenter, // Default center [lng, lat]
     },
     zoom: {
       type: Number,
@@ -66,8 +66,8 @@ export default {
     return {
       map: null,
       loading: true,
-      markersOnMap: [], // 存储地图上的标记
-      languageControl: null, // 存储语言控件实例
+      markersOnMap: [], // Store map markers
+      languageControl: null, // Store language control instance
     };
   },
   mounted() {
@@ -107,9 +107,9 @@ export default {
       try {
         // 检查mapboxgl是否可用
         if (typeof window.mapboxgl === "undefined") {
-          console.error("Mapbox GL JS 未加载");
+          console.error("Mapbox GL JS not loaded");
           this.loading = false;
-          this.$emit("map-error", new Error("Mapbox GL JS 未加载"));
+          this.$emit("map-error", new Error("Mapbox GL JS not loaded"));
           return;
         }
 
@@ -353,8 +353,8 @@ export default {
       const locale = this.$i18n?.locale || 'zh';
       // 将项目语言映射到 Mapbox 支持的语言代码
       const languageMap = {
-        'zh': 'zh-Hans', // 简体中文
-        'en': 'en',      // 英语
+        'zh': 'zh-Hans', // Simplified Chinese
+        'en': 'en',      // English
       };
       return languageMap[locale] || 'zh-Hans';
     },
@@ -410,7 +410,7 @@ export default {
   margin-bottom: 10px;
 }
 
-/* 默认标记样式 */
+/* Default marker style */
 ::v-deep .mapbox-marker {
   cursor: pointer;
 }
@@ -420,7 +420,7 @@ export default {
   transition: transform 0.2s ease;
 }
 
-/* Mapbox 控件样式调整 */
+/* Mapbox control styles */
 ::v-deep .mapboxgl-ctrl-nav {
   background: rgba(255, 255, 255, 0.9);
 }
@@ -432,7 +432,7 @@ export default {
 </style> 
 
 <style>
-/* 隐藏 Mapbox logo 和版权信息 */
+/* Hide Mapbox logo and copyright */
 .mapboxgl-ctrl-logo,
 .mapboxgl-ctrl-attrib {
   display: none !important;

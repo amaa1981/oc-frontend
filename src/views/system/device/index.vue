@@ -700,24 +700,24 @@ export default {
         ],
       },
 
-      dialogMap: false, //控制弹窗
-      center: { lng: 0, lat: 0 }, //中心坐标（保持兼容）
-      position: { lng: 0, lat: 0 }, //选中坐标（保持兼容）
-      zoom: 14, //缩放
-      sign: false, //弹窗开关
+      dialogMap: false, // Control dialog
+      center: { lng: 0, lat: 0 }, // Center coords (compatibility)
+      position: { lng: 0, lat: 0 }, // Selected coords (compatibility)
+      zoom: 14, // Zoom level
+      sign: false, // Dialog toggle
       keyword: "",
-      dialogPlayer: false, // 监控弹窗
+      dialogPlayer: false, // Monitor dialog
       playerInfo: {
         rtspUrl: "",
         videoId: "",
       },
-      fullscreen: false, // 监控弹窗是否全屏
-      select: mapConfig.mapType, //地图类型
+      fullscreen: false, // Monitor dialog fullscreen
+      select: mapConfig.mapType, // Map type
       map: null,
       // Mapbox 地图相关配置
-      amapCenter: defaultCenter, // 地图中心坐标 [lng, lat]
-      deviceMarkers: [], // 设备标记点数组
-      mapReady: false, // 控制地图是否已准备好
+      amapCenter: defaultCenter, // Map center [lng, lat]
+      deviceMarkers: [], // Device marker array
+      mapReady: false, // Map ready state
     };
   },
   watch: {
@@ -830,9 +830,9 @@ export default {
           draggable: true,
           popup: `
           <div style="padding: 10px;">
-            <h4>设备位置</h4>
-            <p><strong>经度:</strong> ${currentPosition[0].toFixed(6)}</p>
-            <p><strong>纬度:</strong> ${currentPosition[1].toFixed(6)}</p>
+            <h4>Device Location</h4>
+            <p><strong>Longitude:</strong> ${currentPosition[0].toFixed(6)}</p>
+            <p><strong>Latitude:</strong> ${currentPosition[1].toFixed(6)}</p>
           </div>
         `,
         },
@@ -841,7 +841,7 @@ export default {
     //根据名称搜索位置（使用Mapbox Geocoding API）
     async setView() {
       if (!this.keyword || !this.map) {
-        this.$message.warning("请输入搜索关键词");
+        this.$message.warning("Please enter search keywords");
         return;
       }
 
@@ -876,13 +876,13 @@ export default {
           // 更新标记点
           this.updateDeviceMarkers(location);
 
-          this.$message.success(`已找到：${feature.place_name}`);
+          this.$message.success(`Found: ${feature.place_name}`);
         } else {
-          this.$message.error("未找到相关地址");
+          this.$message.error("No address found");
         }
       } catch (error) {
         console.error("搜索地址时出错:", error);
-        this.$message.error("搜索地址失败，请重试");
+        this.$message.error("Address search failed, please try again");
       }
     },
     //拼接rtsp路径
@@ -1027,7 +1027,7 @@ export default {
         console.log(this.center);
       }, 1000);
     },
-    /** 查询设备信息列表 */
+    /** Query device list */
     getList() {
       this.loading = true;
       listDevice(this.queryParams).then((response) => {
@@ -1072,12 +1072,12 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
+    /** Search handler */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getList();
     },
-    /** 重置按钮操作 */
+    /** Reset handler */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
@@ -1088,14 +1088,14 @@ export default {
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
-    /** 新增按钮操作 */
+    /** Add handler */
     handleAdd() {
       this.disabled = false;
       this.reset();
       this.open = true;
       this.title = this.$t("device.dialogTitle_a");
     },
-    /** 修改按钮操作 */
+    /** Edit handler */
     handleUpdate(row) {
       this.disabled = true;
       this.reset();
@@ -1110,7 +1110,7 @@ export default {
         }, 500);
       });
     },
-    /** 提交按钮 */
+    /** Submit handler */
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -1131,7 +1131,7 @@ export default {
       });
     },
 
-    /** 删除按钮操作 */
+    /** Delete handler */
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal
@@ -1145,7 +1145,7 @@ export default {
         })
         .catch(() => {});
     },
-    /** 导出按钮操作 */
+    /** Export handler */
     handleExport() {
       this.download(
         "system/device/export",
@@ -1162,7 +1162,7 @@ export default {
       this.$nextTick(() => {
         setTimeout(() => {
           if (this.map) {
-            this.map.resize(); // Mapbox 地图需要调用 resize 方法
+            this.map.resize(); // Mapbox needs resize call
             this.map.flyTo({
               center: this.amapCenter,
               zoom: this.zoom,

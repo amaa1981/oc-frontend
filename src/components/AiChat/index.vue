@@ -167,19 +167,19 @@ If you need data, respond with ONLY a JSON object like: {"needData": true, "sour
 If you don't need data (for general questions), respond with: {"needData": false}
 
 Response:`
-        : `你是一个智能安防监控平台的AI助手。分析用户的问题，判断是否需要实时数据来回答。
+        : `You are an AI assistant for a smart security monitoring platform. Analyze the user's question and determine if real-time data is needed to answer.
 
-可用的数据源：
-1. ALARM_DATA - 最近的告警记录、告警统计、告警类型
-2. DEVICE_DATA - 设备列表、在线/离线状态、设备信息
-3. SERVER_DATA - 服务器性能、CPU、内存使用情况
+Available data sources:
+1. ALARM_DATA - Recent alarm records, statistics, and types
+2. DEVICE_DATA - Device list, online/offline status, device info
+3. SERVER_DATA - Server performance, CPU, memory usage
 
-用户问题：${userMessage}
+User question: ${userMessage}
 
-如果需要数据，只返回JSON对象，格式如：{"needData": true, "sources": ["ALARM_DATA", "DEVICE_DATA"]}
-如果不需要数据（一般性问题），返回：{"needData": false}
+If data is needed, return only JSON: {"needData": true, "sources": ["ALARM_DATA", "DEVICE_DATA"]}
+If no data needed (general question), return: {"needData": false}
 
-回复：`
+Reply:`
 
       const self = this
       let intentResponse = ''
@@ -216,7 +216,7 @@ Response:`
           let contextData = null
           if (needData && dataSources.length > 0) {
             // 显示正在获取数据的提示
-            self.currentAssistantMessage.content = '<em style="color: #909399;">正在获取数据...</em>'
+            self.currentAssistantMessage.content = '<em style="color: #909399;">Fetching data...</em>'
             contextData = await self.fetchSpecificData(dataSources)
             console.log('获取到的数据:', contextData)
           }
@@ -224,13 +224,13 @@ Response:`
           // 构建最终提示词
           const systemPrompt = currentLang === 'en'
             ? 'You are an AI assistant for a security monitoring platform. Answer user questions about alarm data, device status, and monitoring information in a conversational way. Keep responses concise and helpful. Use HTML formatting for better readability: <strong> for emphasis, <br> for line breaks, <ul><li> for lists.'
-            : '你是一个智能安防监控平台的AI助手。以对话方式回答用户关于告警数据、设备状态和监控信息的问题。保持回答简洁实用。使用HTML格式提高可读性：<strong>表示强调，<br>表示换行，<ul><li>表示列表。'
+            : 'You are an AI assistant for a smart security monitoring platform. Answer questions about alarm data, device status, and monitoring info conversationally. Keep answers concise. Use HTML for readability:<strong>表示强调，<br>表示换行，<ul><li>表示列表。'
           
-          let finalPrompt = systemPrompt + '\n\n用户问题：' + userMessage
+          let finalPrompt = systemPrompt + '\n\nUser question: ' + userMessage
           
           if (contextData) {
-            finalPrompt += '\n\n【系统提供的实时数据】\n' + contextData
-            finalPrompt += '\n\n请基于以上实时数据回答用户的问题。'
+            finalPrompt += '\n\n[System Real-time Data]\n' + contextData
+            finalPrompt += '\n\nPlease answer the user question based on the above real-time data.'
             console.log('最终提示词:', finalPrompt)
           }
 
@@ -273,10 +273,10 @@ Response:`
     detectNeedDataByKeywords(message) {
       const msg = message.toLowerCase()
       const dataKeywords = [
-        '告警', '报警', '预警', 'alarm', 'alert',
-        '设备', '摄像头', '监控', 'device', 'camera',
-        '服务器', '系统', '性能', 'server', 'cpu', '内存',
-        '多少', '几个', '统计', '状态', '数量', 'how many', 'status', 'count'
+        'alarm', 'alert', 'warning',
+        'device', 'camera', 'monitor',
+        'server', 'system', 'performance', 'cpu', 'memory',
+        'how many', 'status', 'count', 'total', 'statistics'
       ]
       return dataKeywords.some(k => msg.includes(k))
     },
@@ -285,13 +285,13 @@ Response:`
       const msg = message.toLowerCase()
       const sources = []
       
-      if (['告警', '报警', '预警', 'alarm', 'alert', '事件'].some(k => msg.includes(k))) {
+      if (['alarm', 'alert', 'warning', 'event'].some(k => msg.includes(k))) {
         sources.push('ALARM_DATA')
       }
-      if (['设备', '摄像头', '监控', 'device', 'camera', '在线', '离线'].some(k => msg.includes(k))) {
+      if (['device', 'camera', 'monitor', 'online', 'offline'].some(k => msg.includes(k))) {
         sources.push('DEVICE_DATA')
       }
-      if (['服务器', '系统', '性能', 'server', 'system', 'cpu', '内存', 'memory'].some(k => msg.includes(k))) {
+      if (['server', 'system', 'performance', 'cpu', 'memory'].some(k => msg.includes(k))) {
         sources.push('SERVER_DATA')
       }
       
@@ -306,17 +306,17 @@ Response:`
           if (source === 'ALARM_DATA') {
             const alarmData = await this.fetchAlarmData()
             if (alarmData) {
-              dataContext.push('【告警记录】\n' + alarmData)
+              dataContext.push('[Alarm Records]\n' + alarmData)
             }
           } else if (source === 'DEVICE_DATA') {
             const deviceData = await this.fetchDeviceData()
             if (deviceData) {
-              dataContext.push('【设备信息】\n' + deviceData)
+              dataContext.push('[Device Info]\n' + deviceData)
             }
           } else if (source === 'SERVER_DATA') {
             const serverData = await this.fetchServerData()
             if (serverData) {
-              dataContext.push('【服务器状态】\n' + serverData)
+              dataContext.push('[Server Status]\n' + serverData)
             }
           }
         }
@@ -337,16 +337,16 @@ Response:`
 
         // 识别关键词并调用相应API
         const keywords = {
-          alarm: ['告警', '报警', '预警', 'alarm', 'alert', '事件'],
-          device: ['设备', '摄像头', '监控', 'device', 'camera', '在线', '离线'],
-          server: ['服务器', '系统', '性能', 'server', 'system', 'cpu', '内存', 'memory']
+          alarm: ['alarm', 'alert', 'warning', 'event'],
+          device: ['device', 'camera', 'monitor', 'online', 'offline'],
+          server: ['server', 'system', 'performance', 'cpu', 'memory']
         }
 
         // 检测是否需要告警数据
         if (keywords.alarm.some(k => msg.includes(k))) {
           const alarmData = await this.fetchAlarmData()
           if (alarmData) {
-            dataContext.push('【告警记录】\n' + alarmData)
+            dataContext.push('[Alarm Records]\n' + alarmData)
           }
         }
 
@@ -354,7 +354,7 @@ Response:`
         if (keywords.device.some(k => msg.includes(k))) {
           const deviceData = await this.fetchDeviceData()
           if (deviceData) {
-            dataContext.push('【设备信息】\n' + deviceData)
+            dataContext.push('[Device Info]\n' + deviceData)
           }
         }
 
@@ -362,7 +362,7 @@ Response:`
         if (keywords.server.some(k => msg.includes(k))) {
           const serverData = await this.fetchServerData()
           if (serverData) {
-            dataContext.push('【服务器状态】\n' + serverData)
+            dataContext.push('[Server Status]\n' + serverData)
           }
         }
 
@@ -406,18 +406,18 @@ Response:`
               type: getAlarmTypeName(item.eventTypeId),
               device: item.equipmentName,
               time: item.sendTime,
-              status: item.handleStatus === 0 ? '未处理' : item.handleStatus === 1 ? '已处理' : '误报'
+              status: item.handleStatus === 0 ? 'Untreated' : item.handleStatus === 1 ? 'Processed' : 'False alarm'
             }))
           }
           
-          return `告警总数: ${summary.total}
+          return `Total alarms: ${summary.total}
 未处理: ${summary.unprocessed} | 已处理: ${summary.processed} | 误报: ${summary.misreport}
 
-最近5条告警:
+Recent 5 alarms:
 ${summary.recent.map((a, i) => 
   `${i + 1}. ${a.device} - ${a.type}
-   时间: ${a.time}
-   状态: ${a.status}`
+   Time: ${a.time}
+   Status: ${a.status}`
 ).join('\n')}`
         }
         return null
@@ -439,20 +439,20 @@ ${summary.recent.map((a, i) =>
           const offline = response.rows.filter(d => d.status === 0).length
           const devices = response.rows.slice(0, 10).map(d => ({
             name: d.deviceName,
-            status: d.status === 1 ? '在线' : '离线',
+            status: d.status === 1 ? 'Online' : 'Offline',
             area: d.installationArea,
             ip: d.deviceIp
           }))
           
-          return `设备总数: ${response.total}
-在线设备: ${online} (${((online / response.total) * 100).toFixed(1)}%)
-离线设备: ${offline} (${((offline / response.total) * 100).toFixed(1)}%)
+          return `Total devices: ${response.total}
+Online: ${online} (${((online / response.total) * 100).toFixed(1)}%)
+Offline: ${offline} (${((offline / response.total) * 100).toFixed(1)}%)
 
-设备列表 (前10个):
+Device list (top 10):
 ${devices.map((d, i) => 
   `${i + 1}. ${d.name} [${d.status}]
-   区域: ${d.area || '未分配'}
-   IP: ${d.ip || '未知'}`
+   Area: ${d.area || 'Unassigned'}
+   IP: ${d.ip || 'Unknown'}`
 ).join('\n')}`
         }
         return null
@@ -471,7 +471,7 @@ ${devices.map((d, i) =>
           const mem = response.mem
           const sys = response.sys
           
-          return `CPU使用率: ${cpu ? cpu.used + '%' : '未知'}\n内存使用率: ${mem ? mem.usage + '%' : '未知'}\n系统: ${sys ? sys.osName : '未知'}\nJava版本: ${response.jvm ? response.jvm.version : '未知'}`
+          return `CPU Usage: ${cpu ? cpu.used + '%' : 'Unknown'}\nMemory Usage: ${mem ? mem.usage + '%' : 'Unknown'}\n系统: ${sys ? sys.osName : 'Unknown'}\nJava版本: ${response.jvm ? response.jvm.version : 'Unknown'}`
         }
         return null
       } catch (error) {
