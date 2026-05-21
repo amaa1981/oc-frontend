@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // 查询清理告警记录配置列表
 export function listConfig(query) {
   return request({
-    url: '/api/alarm/config',
+    url: '/alarm/config',
     method: 'get',
     params: query
   })
@@ -20,7 +20,7 @@ export function listConfig(query) {
 // 查询清理告警记录配置详细
 export function getConfig(id) {
   return request({
-    url: '/api/sysConfig/' + id,
+    url: '/sysConfig/' + id,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function getConfig(id) {
 // 新增清理告警记录配置
 export function addConfig(data) {
   return request({
-    url: '/api/alarm/config',
+    url: '/alarm/config',
     method: 'post',
     data: data
   })
@@ -37,7 +37,7 @@ export function addConfig(data) {
 // 修改清理告警记录配置
 export function updateConfig(data) {
   return request({
-    url: '/api/sysConfig',
+    url: '/sysConfig',
     method: 'put',
     data: data
   })
@@ -46,7 +46,7 @@ export function updateConfig(data) {
 // 删除清理告警记录配置
 export function delConfig(id) {
   return request({
-    url: '/api/alarm/config/' + id,
+    url: '/alarm/config/' + id,
     method: 'delete'
   })
 }
