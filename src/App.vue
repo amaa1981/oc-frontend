@@ -2,7 +2,7 @@
   <div id="app">
     <router-view />
     <theme-picker />
-    <!-- 报警弹窗 -->
+    <!-- Alert popup -->
     <transition name="el-zoom-in-bottom">
       <div class="report" v-if="showmsg" @click="showInfo">
         <div class="cont">
@@ -15,7 +15,7 @@
       </div>
     </transition>
 
-    <!-- 告警详情组件 -->
+    <!-- Alarm detail component -->
     <alarm-detail
       :visible.sync="opens"
       :alarm-data="form"
@@ -32,6 +32,9 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { getRecord } from "@/api/system/record";
 import store from "@/store";
+
+// Only show alerts for violations
+const VIOLATION_TYPES = ['no_glove', 'no_hairnet', 'no_mask'];
 
 export default {
   name: "App",
@@ -84,7 +87,6 @@ export default {
       const socket = new SockJS(wsUrl);
       this.stompClient = Stomp.over(socket);
       this.stompClient.debug = null;
-
       this.stompClient.connect(
         {},
         (frame) => {
@@ -103,22 +105,26 @@ export default {
     handleAlert(alert) {
       if (this.$route.path == "/login") return;
 
+      // Only process violation alerts, skip compliant detections
+      const violationType = alert.violationType;
+      if (!VIOLATION_TYPES.includes(violationType)) {
+        console.log("Skipping non-violation:", violationType);
+        return;
+      }
+
       this.msg = {
         id: alert.id,
         imageUrl: alert.imageData ? "data:image/jpeg;base64," + alert.imageData : "",
         sendTime: alert.createTime,
         equipmentName: alert.deviceName || alert.deviceId,
-        eventTypeId: alert.violationType,
-        violationType: alert.violationType,
+        eventTypeId: violationType,
+        violationType: violationType,
         confidence: alert.confidence,
       };
 
       this.$bus.$emit("newAlert", this.msg);
-
       this.showmsg = false;
-      setTimeout(() => {
-        this.showmsg = true;
-      }, 500);
+      setTimeout(() => { this.showmsg = true; }, 500);
 
       if (alert.coordinate) {
         let position = alert.coordinate.split(",");
