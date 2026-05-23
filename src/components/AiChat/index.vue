@@ -224,7 +224,7 @@ Reply:`
           // 构建最终提示词
           const systemPrompt = currentLang === 'en'
             ? 'You are an AI assistant for a security monitoring platform. Answer user questions about alarm data, device status, and monitoring information in a conversational way. Keep responses concise and helpful. Use HTML formatting for better readability: <strong> for emphasis, <br> for line breaks, <ul><li> for lists.'
-            : 'You are an AI assistant for a smart security monitoring platform. Answer questions about alarm data, device status, and monitoring info conversationally. Keep answers concise. Use HTML for readability:<strong>表示强调，<br>表示换行，<ul><li>表示列表。'
+            : 'You are an AI assistant for a smart security monitoring platform. Answer questions about alarm data, device status, and monitoring info conversationally. Keep answers concise. Use HTML for readability:<strong> for emphasis, <br> for line breaks, <ul><li> for lists.'
           
           let finalPrompt = systemPrompt + '\n\nUser question: ' + userMessage
           
@@ -411,7 +411,7 @@ Reply:`
           }
           
           return `Total alarms: ${summary.total}
-未处理: ${summary.unprocessed} | 已处理: ${summary.processed} | 误报: ${summary.misreport}
+Unprocessed:  | Processed:  | False Alarms: 
 
 Recent 5 alarms:
 ${summary.recent.map((a, i) => 
@@ -471,7 +471,7 @@ ${devices.map((d, i) =>
           const mem = response.mem
           const sys = response.sys
           
-          return `CPU Usage: ${cpu ? cpu.used + '%' : 'Unknown'}\nMemory Usage: ${mem ? mem.usage + '%' : 'Unknown'}\n系统: ${sys ? sys.osName : 'Unknown'}\nJava版本: ${response.jvm ? response.jvm.version : 'Unknown'}`
+          return `CPU Usage: ${cpu ? cpu.used + '%' : 'Unknown'}\nMemory Usage: ${mem ? mem.usage + '%' : 'Unknown'}\nOS: ${sys ? sys.osName : 'Unknown'}\nJava Version: ${response.jvm ? response.jvm.version : 'Unknown'}`
         }
         return null
       } catch (error) {

@@ -24,7 +24,7 @@
 			<el-radio :label="4" v-model='radioValue'>
 				From
 				<el-input-number v-model='average01' :min='fullYear' :max="2098"/> years, every
-				<el-input-number v-model='average02' :min="1" :max="2099 - average01 || fullYear" /> years execute一次
+				<el-input-number v-model='average02' :min="1" :max="2099 - average01 || fullYear" /> years execute once
 			</el-radio>
 
 		</el-form-item>

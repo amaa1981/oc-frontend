@@ -16,7 +16,7 @@
 			<el-radio v-model='radioValue' :label="3">
 				Cycle from
 				<el-input-number v-model='cycle01' :min="1" :max="30" /> -
-				<el-input-number v-model='cycle02' :min="cycle01 ? cycle01 + 1 : 2" :max="31" /> 日
+				<el-input-number v-model='cycle02' :min="cycle01 ? cycle01 + 1 : 2" :max="31" /> day
 			</el-radio>
 		</el-form-item>
 
@@ -24,7 +24,7 @@
 			<el-radio v-model='radioValue' :label="4">
 				From
 				<el-input-number v-model='average01' :min="1" :max="30" /> day, every
-				<el-input-number v-model='average02' :min="1" :max="31 - average01 || 1" /> day execute次
+				<el-input-number v-model='average02' :min="1" :max="31 - average01 || 1" /> day execute times
 			</el-radio>
 		</el-form-item>
 

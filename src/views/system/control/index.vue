@@ -30,10 +30,10 @@
           icon="el-icon-search"
           size="mini"
           @click="handleQuery"
-          >搜索</el-button
+          >Search</el-button
         >
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-          >重置</el-button
+          >Reset</el-button
         >
       </el-form-item>
     </el-form>
@@ -46,7 +46,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          >新增</el-button
+          >Add</el-button
         >
       </el-col>
 
@@ -59,7 +59,7 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:control:edit']"
-        >修改</el-button>
+        >Edit</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -70,7 +70,7 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:control:remove']"
-        >删除</el-button>
+        >Delete</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -80,7 +80,7 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['system:control:export']"
-        >导出</el-button>
+        >Export</el-button>
       </el-col> -->
     </el-row>
 
@@ -90,9 +90,9 @@
       @selection-change="handleSelectionChange"
     >
       <!-- <el-table-column type="selection" width="55" align="center" /> -->
-      <el-table-column label="名称" align="center" prop="name" />
-      <el-table-column label="安装位置" align="center" prop="position" />
-      <el-table-column label="进出类型" align="center" prop="type">
+      <el-table-column label="Name" align="center" prop="name" />
+      <el-table-column label="Installation Location" align="center" prop="position" />
+      <el-table-column label="Access Type" align="center" prop="type">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.type === 1" type="success">{{
             $t("dict.v1_door_type.1")
@@ -100,12 +100,12 @@
           <el-tag v-else type="danger">{{ $t("dict.v1_door_type.0") }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="门禁IP" align="center" prop="ip" />
-      <el-table-column label="门禁设备端口" align="center" prop="port" />
-      <el-table-column label="用户名" align="center" prop="userName" />
-      <el-table-column label="密码" align="center" prop="passWord" />
-      <el-table-column label="门禁序号" align="center" prop="gatewayIndex" />
-      <el-table-column label="状态" align="center" prop="staic">
+      <el-table-column label="Access Control IP" align="center" prop="ip" />
+      <el-table-column label="Device Port" align="center" prop="port" />
+      <el-table-column label="Username" align="center" prop="userName" />
+      <el-table-column label="Password" align="center" prop="passWord" />
+      <el-table-column label="Access Control Index" align="center" prop="gatewayIndex" />
+      <el-table-column label="Status" align="center" prop="staic">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.staic === 1" type="success">{{
             $t("dict.v1_door_status.1")
@@ -127,7 +127,7 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            >修改</el-button
+            >Edit</el-button
           >
 
           <el-button
@@ -135,7 +135,7 @@
             icon="el-icon-view"
             size="mini"
             @click="handleViewDoor(scope.row)"
-            >查看门禁记录</el-button
+            >View Access Records</el-button
           >
 
           <el-button
@@ -144,7 +144,7 @@
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:control:remove']"
-            >删除</el-button
+            >Delete</el-button
           >
         </template>
       </el-table-column>

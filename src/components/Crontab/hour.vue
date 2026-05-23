@@ -10,7 +10,7 @@
 			<el-radio v-model='radioValue' :label="2">
 				Cycle from
 				<el-input-number v-model='cycle01' :min="0" :max="22" /> -
-				<el-input-number v-model='cycle02' :min="cycle01 ? cycle01 + 1 : 1" :max="23" /> 小时
+				<el-input-number v-model='cycle02' :min="cycle01 ? cycle01 + 1 : 1" :max="23" /> hour
 			</el-radio>
 		</el-form-item>
 
@@ -18,7 +18,7 @@
 			<el-radio v-model='radioValue' :label="3">
 				From
 				<el-input-number v-model='average01' :min="0" :max="22" /> hours, every
-				<el-input-number v-model='average02' :min="1" :max="23 - average01 || 0" /> hours execute一次
+				<el-input-number v-model='average02' :min="1" :max="23 - average01 || 0" /> hours execute once
 			</el-radio>
 		</el-form-item>
 
