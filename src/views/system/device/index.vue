@@ -190,7 +190,7 @@
         :label="$t('device.operate')"
         align="center"
         class-name="small-padding fixed-width"
-        width="220px"
+        width="260px"
       >
         <template slot-scope="scope">
 
