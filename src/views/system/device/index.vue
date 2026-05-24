@@ -677,27 +677,9 @@ export default {
             trigger: "blur",
           },
         ],
-        rtspMain: [
-          {
-            required: true,
-            message: this.$t("commonTips.cannotBeEmpty"),
-            trigger: "blur",
-          },
-        ],
-        rtspSub: [
-          {
-            required: true,
-            message: this.$t("commonTips.cannotBeEmpty"),
-            trigger: "blur",
-          },
-        ],
-        coordinate: [
-          {
-            required: true,
-            message: this.$t("commonTips.cannotBeEmpty"),
-            trigger: "blur",
-          },
-        ],
+        rtspMain: [],
+        rtspSub: [],
+        coordinate: [],
       },
 
       dialogMap: false, // Control dialog
