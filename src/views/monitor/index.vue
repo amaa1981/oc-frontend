@@ -125,9 +125,7 @@ export default {
         { value: 8, label: '8', icon: 'el-icon-s-grid' },
         { value: 16, label: '16', icon: 'el-icon-grid' },
       ],
-      cameras: [
-        { id: 1, name: 'Mac Webcam', location: 'Kitchen', status: 'online', alerts: 0 },
-      ],
+      cameras: [],
     };
   },
   computed: {
@@ -137,6 +135,7 @@ export default {
   },
   created() {
     this.fetchAlerts();
+    this.loadDevices();
   },
   methods: {
     setGrid(size) {
@@ -153,8 +152,27 @@ export default {
         endTime: dateStr + ' 23:59:59'
       }).then(res => {
         this.todayAlerts = res.data.totalCount || 0;
-        this.cameras[0].alerts = this.todayAlerts;
       }).catch(() => {});
+    },
+    loadDevices() {
+      listDeviceAll().then(res => {
+        const devices = res.data || [];
+        this.cameras = devices.map(d => ({
+          id: d.id,
+          name: d.deviceName || 'Camera',
+          location: d.installationLocation || '',
+          status: d.status === '1' || d.status === 'online' ? 'online' : 'offline',
+          alerts: 0,
+          rtspMain: d.rtspMain || '',
+          deviceIp: d.deviceIp || '',
+          isWebcam: false,
+        }));
+        if (this.cameras.length === 0) {
+          this.cameras = [{ id: 0, name: 'Mac Webcam', location: 'Local', status: 'online', alerts: 0, isWebcam: true }];
+        }
+      }).catch(() => {
+        this.cameras = [{ id: 0, name: 'Mac Webcam', location: 'Local', status: 'online', alerts: 0, isWebcam: true }];
+      });
     },
   },
 };
