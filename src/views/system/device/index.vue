@@ -722,6 +722,7 @@ export default {
         detectGlove: true,
       },
       aiSettingsMap: {},
+      refreshTimer: null,
       dialogMap: false, // Control dialog
       center: { lng: 0, lat: 0 }, // Center coords (compatibility)
       position: { lng: 0, lat: 0 }, // Selected coords (compatibility)
@@ -780,7 +781,11 @@ export default {
     // 移除监听
     this.$bus.$off('installationAreaChange', this.onInstallationAreaChange);
   },
-  mounted() {},
+  mounted() {
+    this.refreshTimer = setInterval(() => {
+      this.getList();
+    }, 10000); // refresh every 10 seconds
+  },
   methods: {
     // 设备区域变化处理
     onInstallationAreaChange(val) {
@@ -1217,7 +1222,9 @@ export default {
       });
     },
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    if (this.refreshTimer) clearInterval(this.refreshTimer);
+  },
 };
 </script>
 <style>
