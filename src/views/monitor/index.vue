@@ -109,6 +109,7 @@
 
 <script>
 import { listRecord } from "@/api/system/record";
+import { listDeviceAll } from "@/api/system/device";
 import decoImg from '@/assets/images/top_bg_right.png'
 
 export default {
