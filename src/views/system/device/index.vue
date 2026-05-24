@@ -126,8 +126,7 @@
       @selection-change="handleSelectionChange"
     >
       <!-- <el-table-column type="selection" width="55" align="center" /> -->
-      <el-table-column :label="$t('device.ID')" align="center" prop="deviceId">
-      </el-table-column>
+
       <el-table-column
         :label="$t('device.image')"
         align="center"
@@ -172,11 +171,7 @@
         align="center"
         prop="installationLocation"
       />
-      <el-table-column
-        :label="$t('device.coordinate')"
-        align="center"
-        prop="coordinate"
-      />
+
       <el-table-column
         :label="$t('device.status')"
         align="center"
@@ -195,18 +190,10 @@
         :label="$t('device.operate')"
         align="center"
         class-name="small-padding fixed-width"
-        width="280px"
+        width="220px"
       >
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-view"
-            class="btn-view"
-            @click="getTask(scope.row)"
-            >{{ $t("device.taskDetail") }}</el-button
-          >
-          <span class="action-divider" />
+
           <el-button
             size="mini"
             type="text"
