@@ -70,6 +70,9 @@ export default {
       if (this.msg.id) {
         getRecord(this.msg.id).then((response) => {
           this.form = response.data;
+          if (response.data.imageData && !response.data.imageUrl) {
+            this.form.imageUrl = "data:image/jpeg;base64," + response.data.imageData;
+          }
           this.opens = true;
           this.showmsg = false;
         }).catch(() => {

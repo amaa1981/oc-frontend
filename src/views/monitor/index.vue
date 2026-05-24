@@ -63,7 +63,15 @@
           :key="camera.id"
         >
           <div class="camera-feed">
-            <div class="camera-placeholder">
+            <video
+              v-if="camera.id === 1 && camera.status === 'online'"
+              :ref="'webcam_' + camera.id"
+              autoplay
+              muted
+              playsinline
+              class="webcam-feed"
+            ></video>
+            <div v-else class="camera-placeholder">
               <i class="el-icon-video-camera-solid"></i>
               <p>{{ camera.name }}</p>
             </div>
@@ -117,22 +125,7 @@ export default {
         { value: 16, label: '16', icon: 'el-icon-grid' },
       ],
       cameras: [
-        { id: 1, name: 'Kitchen Camera 1', location: 'Main Kitchen', status: 'online', alerts: 0 },
-        { id: 2, name: 'Kitchen Camera 2', location: 'Prep Area', status: 'online', alerts: 0 },
-        { id: 3, name: 'Kitchen Camera 3', location: 'Storage Room', status: 'offline', alerts: 0 },
-        { id: 4, name: 'Kitchen Camera 4', location: 'Entrance', status: 'online', alerts: 0 },
-        { id: 5, name: 'Kitchen Camera 5', location: 'Dishwashing Area', status: 'online', alerts: 0 },
-        { id: 6, name: 'Kitchen Camera 6', location: 'Cold Storage', status: 'online', alerts: 0 },
-        { id: 7, name: 'Kitchen Camera 7', location: 'Cooking Area', status: 'offline', alerts: 0 },
-        { id: 8, name: 'Kitchen Camera 8', location: 'Delivery Zone', status: 'online', alerts: 0 },
-        { id: 9, name: 'Kitchen Camera 9', location: 'Staff Room', status: 'online', alerts: 0 },
-        { id: 10, name: 'Kitchen Camera 10', location: 'Bakery', status: 'online', alerts: 0 },
-        { id: 11, name: 'Kitchen Camera 11', location: 'Grill Station', status: 'offline', alerts: 0 },
-        { id: 12, name: 'Kitchen Camera 12', location: 'Salad Bar', status: 'online', alerts: 0 },
-        { id: 13, name: 'Kitchen Camera 13', location: 'Fryer Station', status: 'online', alerts: 0 },
-        { id: 14, name: 'Kitchen Camera 14', location: 'Plating Area', status: 'online', alerts: 0 },
-        { id: 15, name: 'Kitchen Camera 15', location: 'Freezer Room', status: 'offline', alerts: 0 },
-        { id: 16, name: 'Kitchen Camera 16', location: 'Loading Dock', status: 'online', alerts: 0 },
+        { id: 1, name: 'Mac Webcam', location: 'Kitchen', status: 'online', alerts: 0 },
       ],
     };
   },

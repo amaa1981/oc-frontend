@@ -20,7 +20,7 @@ export function listRecord(query) {
 // 查询告警记录信息详细
 export function getRecord(id) {
   return request({
-    url: '/alarm/record' + id,
+    url: '/alarm/record/' + id,
     method: 'get'
   })
 }
@@ -46,7 +46,7 @@ export function updateRecord(data) {
 // 删除告警记录信息
 export function delRecord(id) {
   return request({
-    url: '/alarm/record' + id,
+    url: '/alarm/record/' + id,
     method: 'delete'
   })
 }

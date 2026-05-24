@@ -354,6 +354,9 @@ export default {
       handler(val) {
         if (val && Object.keys(val).length > 0) {
           this.form = { ...val }
+          if (val.imageData && !val.imageUrl) {
+            this.form.imageUrl = "data:image/jpeg;base64," + val.imageData;
+          }
           if (this.form.eventTypeId == "B7A27D32-5274-A1C3-2DA7-8F827B1C8644") {
             try { this.strRes = JSON.parse(this.form.strRes) } catch (e) { this.strRes = {} }
           }

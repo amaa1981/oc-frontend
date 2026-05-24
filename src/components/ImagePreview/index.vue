@@ -35,6 +35,7 @@ export default {
       if (!this.src) {
         return;
       }
+      if (this.src.startsWith("data:")) { return this.src; }
       let real_src = this.src.split(",")[0];
       if (isExternal(real_src)) {
         return real_src;
@@ -45,6 +46,7 @@ export default {
       if (!this.src) {
         return;
       }
+      if (this.src.startsWith("data:")) { return [this.src]; }
       let real_src_list = this.src.split(",");
       let srcList = [];
       real_src_list.forEach(item => {
