@@ -183,11 +183,11 @@
         prop="status"
       >
         <template slot-scope="scope">
-          <span v-if="scope.row.status === '1'" class="device-status device-status--online">
-            <i class="status-dot" />{{ $t("dict.v1_device_status." + scope.row.status) }}
+          <span v-if="scope.row.status === '1' || scope.row.status === 'online'" class="device-status device-status--online">
+            <i class="status-dot" />Online
           </span>
-          <span v-else-if="scope.row.status" class="device-status device-status--offline">
-            <i class="status-dot" />{{ $t("dict.v1_device_status." + scope.row.status) }}
+          <span v-else class="device-status device-status--offline">
+            <i class="status-dot" />Offline
           </span>
         </template>
       </el-table-column>
