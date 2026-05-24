@@ -188,10 +188,12 @@ export default {
     getList() {
       this.loading = true;
       getPublicAccountConfig(1).then((response) => {
-        if (response.code === "200") {
+        if (response.data) {
           this.loading = false;
           this.form = response.data;
-          this.form.alarmType = this.form.alarmType.split(",");
+          if (this.form.alarmType && typeof this.form.alarmType === 'string') {
+            this.form.alarmType = this.form.alarmType.split(",");
+          }
           // this.form.pushAccount = response.data.pushAccount.toString();
         }
       });

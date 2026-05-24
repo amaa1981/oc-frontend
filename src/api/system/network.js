@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // Query network configuration information List
 export function listConfig(query) {
   return request({
-    url: '/api/network/config',
+    url: '/network/config',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listConfig(query) {
 // Query network configuration information details
 export function getConfig(id) {
   return request({
-    url: '/api/network/config/' + id,
+    url: '/network/config/' + id,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getConfig(id) {
 // Add network configuration information
 export function addConfig(data) {
   return request({
-    url: '/api/network/config',
+    url: '/network/config',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addConfig(data) {
 // EditNetwork configuration information
 export function updateConfig(data) {
   return request({
-    url: '/api/network/config',
+    url: '/network/config',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateConfig(data) {
 // Delete network configuration information
 export function delConfig(id) {
   return request({
-    url: '/api/network/config/' + id,
+    url: '/network/config/' + id,
     method: 'delete'
   })
 }

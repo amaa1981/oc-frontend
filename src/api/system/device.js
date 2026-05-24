@@ -60,14 +60,14 @@ export function delDevice(id) {
 //Audio status master switch 10 on 20 off status
 export function audioStatus(status) {
   return request({
-    url: '/deviceTask/audioStatus?status=' + status,
+    url: '/device/taskStatus/audioStatus?status=' + status,
     method: 'get'
   })
 }
 
 export function getAudioStatus() {
   return request({
-    url: '/deviceTask/getAudioStatus',
+    url: '/device/taskStatus/getAudioStatus',
     method: 'get'
   })
 }

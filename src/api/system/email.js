@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // Query mailbox push configuration list
 export function listEmailPush(query) {
   return request({
-    url: '/api/email/push',
+    url: '/email/push',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listEmailPush(query) {
 // Query mailbox push configuration details
 export function getEmailPush(id) {
   return request({
-    url: '/api/email/push/' + id,
+    url: '/email/push/' + id,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getEmailPush(id) {
 // Added email push configuration
 export function addEmailPush(data) {
   return request({
-    url: '/api/email/push',
+    url: '/email/push',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addEmailPush(data) {
 // Edit email push configuration
 export function updateEmailPush(data) {
   return request({
-    url: '/api/email/push',
+    url: '/email/push',
     method: 'put',
     data: data
   })

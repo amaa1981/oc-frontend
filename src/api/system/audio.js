@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // Query plays Audio configuration List
 export function listConfig(query) {
   return request({
-    url: '/api/audio/config',
+    url: '/audio/config',
     method: 'get',
     params: query
   })
@@ -20,7 +20,7 @@ export function listConfig(query) {
 // Query play Audio configuration details
 export function getConfig(id) {
   return request({
-    url: '/api/audio/config/' + id,
+    url: '/audio/config/' + id,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function getConfig(id) {
 // Added playback Audio configuration
 export function addConfig(data) {
   return request({
-    url: '/api/audio/config',
+    url: '/audio/config',
     method: 'post',
     data: data
   })
@@ -37,7 +37,7 @@ export function addConfig(data) {
 // Edit play Audio configuration
 export function updateConfig(data) {
   return request({
-    url: '/api/audio/config',
+    url: '/audio/config',
     method: 'put',
     data: data
   })
@@ -46,7 +46,7 @@ export function updateConfig(data) {
 // Delete playAudio configuration
 export function delConfig(id) {
   return request({
-    url: '/api/audio/config/' + id,
+    url: '/audio/config/' + id,
     method: 'delete'
   })
 }

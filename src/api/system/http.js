@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // Queryhttp push configuration List
 export function listConfig(query) {
   return request({
-    url: '/api/http/push',
+    url: '/http/push',
     method: 'get',
     params: query
   })
@@ -20,7 +20,7 @@ export function listConfig(query) {
 // Queryhttp push configuration details
 export function getConfig(id) {
   return request({
-    url: '/api/http/push/' + id,
+    url: '/http/push/' + id,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function getConfig(id) {
 // Added http push configuration
 export function addConfig(data) {
   return request({
-    url: '/api/http/push',
+    url: '/http/push',
     method: 'post',
     data: data
   })
@@ -37,7 +37,7 @@ export function addConfig(data) {
 // Edithttp push configuration
 export function updateConfig(data) {
   return request({
-    url: '/api/http/push',
+    url: '/http/push',
     method: 'put',
     data: data
   })
@@ -46,7 +46,7 @@ export function updateConfig(data) {
 // Deletehttp push configuration
 export function delConfig(id) {
   return request({
-    url: '/api/http/push/' + id,
+    url: '/http/push/' + id,
     method: 'delete'
   })
 }

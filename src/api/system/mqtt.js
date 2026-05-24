@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // Querymqtt push configuration List
 export function listConfig(query) {
   return request({
-    url: '/api/mqtt/push',
+    url: '/mqtt/push',
     method: 'get',
     params: query
   })
@@ -20,7 +20,7 @@ export function listConfig(query) {
 // Querymqtt push configuration details
 export function getConfig(id) {
   return request({
-    url: '/api/mqtt/push/' + id,
+    url: '/mqtt/push/' + id,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function getConfig(id) {
 // Added mqtt push configuration
 export function addConfig(data) {
   return request({
-    url: '/api/mqtt/push',
+    url: '/mqtt/push',
     method: 'post',
     data: data
   })
@@ -37,7 +37,7 @@ export function addConfig(data) {
 // Editmqtt push configuration
 export function updateConfig(data) {
   return request({
-    url: '/api/mqtt/push',
+    url: '/mqtt/push',
     method: 'put',
     data: data
   })
@@ -46,7 +46,7 @@ export function updateConfig(data) {
 // Deletemqtt push configuration
 export function delConfig(id) {
   return request({
-    url: '/api/mqtt/push/' + id,
+    url: '/mqtt/push/' + id,
     method: 'delete'
   })
 }

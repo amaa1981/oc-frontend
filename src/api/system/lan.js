@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // Get system locale
 export function getLocale() {
   return request({
-    url: '/api/sysConfig/getLocale',
+    url: '/sysConfig/getLocale',
     method: 'get',
   })
 }
@@ -19,7 +19,7 @@ export function getLocale() {
 // Set system locale
 export function setLocale(locale) {
   return request({
-    url: '/api/sysConfig/setLocale?locale=' + locale,
+    url: '/sysConfig/setLocale?locale=' + locale,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function setLocale(locale) {
 // Get Java system config
 export function getConfig() {
   return request({
-    url: '/api/sysConfig/java',
+    url: '/sysConfig/java',
     method: 'get'
   })
 }

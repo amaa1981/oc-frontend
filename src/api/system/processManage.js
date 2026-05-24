@@ -10,7 +10,7 @@ import request from '@/utils/request'
 // Query analyzes server process information
 export function getProcessInfo(query) {
   return request({
-    url: '/api/manageConfig/analysis/getProcessInfo',
+    url: '/manageConfig/analysis/getProcessInfo',
     method: 'get',
     params: query
   })
@@ -18,7 +18,7 @@ export function getProcessInfo(query) {
 // Restart analysis server process
 export function restartProcess(query) {
   return request({
-    url: '/api/manageConfig/analysis/restartProcess',
+    url: '/manageConfig/analysis/restartProcess',
     method: 'get',
     params: query
   })
@@ -26,7 +26,7 @@ export function restartProcess(query) {
 // Query streaming server process information
 export function getMediaProcessInfo(query) {
   return request({
-    url: '/api/manageConfig/media/getProcessInfo',
+    url: '/manageConfig/media/getProcessInfo',
     method: 'get',
     params: query
   })
@@ -34,7 +34,7 @@ export function getMediaProcessInfo(query) {
 // Restart streaming server process
 export function restartMediaProcess(query) {
   return request({
-    url: '/api/manageConfig/media/restartProcess',
+    url: '/manageConfig/media/restartProcess',
     method: 'get',
     params: query
   })
@@ -42,7 +42,7 @@ export function restartMediaProcess(query) {
 
 export function reboot(data) {
   return request({
-    url: '/api/network/config/reboot',
+    url: '/network/config/reboot',
     method: 'post',
     data: data
   })

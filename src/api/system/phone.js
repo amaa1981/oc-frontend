@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // Query mobile phone push configuration List
 export function listPhonePush(query) {
   return request({
-    url: '/api/phone/push',
+    url: '/phone/push',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listPhonePush(query) {
 // Query mobile push configuration details
 export function getPhonePush(id) {
   return request({
-    url: '/api/phone/push/' + id,
+    url: '/phone/push/' + id,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getPhonePush(id) {
 // Added mobile push configuration
 export function addPhonePush(data) {
   return request({
-    url: '/api/phone/push',
+    url: '/phone/push',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addPhonePush(data) {
 // Edit mobile push configuration
 export function updatePhonePush(data) {
   return request({
-    url: '/api/phone/push',
+    url: '/phone/push',
     method: 'put',
     data: data
   })

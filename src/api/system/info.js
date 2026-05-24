@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // Query service installation package information list
 export function listInfo(query) {
   return request({
-    url: '/api/service/update',
+    url: '/service/update',
     method: 'get',
     params: query
   })
@@ -20,7 +20,7 @@ export function listInfo(query) {
 // Query service installation package information details
 export function getInfo(id) {
   return request({
-    url: '/api/service/update/' + id,
+    url: '/service/update/' + id,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function getInfo(id) {
 // Get the latest service installation package information
 export function getInfonew() {
   return request({
-    url: '/api/service/update/new',
+    url: '/service/update/new',
     method: 'get'
   })
 }
@@ -36,7 +36,7 @@ export function getInfonew() {
 // Added service installation package information
 export function addInfo(data) {
   return request({
-    url: '/api/service/update',
+    url: '/service/update',
     method: 'post',
     data: data
   })
@@ -45,7 +45,7 @@ export function addInfo(data) {
 // Edit service installation package information
 export function updateInfo(data) {
   return request({
-    url: '/api/service/update',
+    url: '/service/update',
     method: 'put',
     data: data
   })
@@ -54,7 +54,7 @@ export function updateInfo(data) {
 // Delete service installation package information
 export function delInfo(id) {
   return request({
-    url: '/api/service/update/' + id,
+    url: '/service/update/' + id,
     method: 'delete'
   })
 }

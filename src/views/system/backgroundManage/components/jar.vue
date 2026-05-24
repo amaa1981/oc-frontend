@@ -53,8 +53,8 @@ export default {
 
   data() {
     return {
-      IP1: process.env.VUE_APP_BASE_API + "/api/service/update/updateJar",
-      IP2: process.env.VUE_APP_BASE_API + "/api/service/update/updateWeb",
+      IP1: process.env.VUE_APP_BASE_API + "/service/update/updateJar",
+      IP2: process.env.VUE_APP_BASE_API + "/service/update/updateWeb",
       myHeaders: {
         Authorization: "Bearer " + getToken(),
       },
