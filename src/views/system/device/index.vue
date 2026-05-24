@@ -132,13 +132,10 @@
         :label="$t('device.image')"
         align="center"
         prop="image"
-        width="150"
+        width="100"
       >
         <template slot-scope="scope">
-          <img
-            :src="'data:image/png;base64,' + scope.row.imageData"
-            style="width: 150px; height: 100px"
-          />
+          <i class="el-icon-video-camera" style="font-size:32px;color:#26a69a;"></i>
         </template>
       </el-table-column>
       <el-table-column
@@ -933,10 +930,7 @@ export default {
     },
     //跳转到设置任务
     getTask(row) {
-      this.$router.push({
-        path: "/alarmmanger/task",
-        query: { deviceId: row.id, deviceCode: row.deviceId },
-      });
+      this.$message.info("Device: " + (row.deviceName || row.name) + " | IP: " + (row.deviceIp || "N/A") + " | RTSP: " + (row.rtspMain || "N/A"));
     },
     //确认坐标
     setok() {
