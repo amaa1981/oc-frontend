@@ -107,20 +107,15 @@
 
 <script>
 import {
-  listData,
-  getData,
-  delData,
-  addData,
-  updateData
-} from '@/api/system/dict/data'
-import {
-  optionselect as getDictOptionselect,
-  getType
-} from '@/api/system/dict/type'
+  listArea,
+  getArea,
+  delArea,
+  addArea,
+  updateArea
+} from '@/api/system/area'
 
 export default {
-  name: 'Data',
-  dicts: ['sys_normal_disable'],
+  name: 'DeviceArea',
   data() {
     return {
       loading: true,
@@ -129,16 +124,11 @@ export default {
       multiple: true,
       total: 0,
       dataList: [],
-      defaultDictType: '',
       title: '',
       open: false,
-      typeOptions: [],
       queryParams: {
         pageNum: 1,
-        pageSize: 12,
-        dictName: undefined,
-        dictType: undefined,
-        status: undefined
+        pageSize: 12
       },
       form: {},
       rules: {
@@ -148,27 +138,16 @@ export default {
     }
   },
   created() {
-    this.getType(101)
-    this.getTypeList()
+    this.getList()
   },
   methods: {
-    getType(dictId) {
-      getType(dictId).then(response => {
-        this.queryParams.dictType = response.data.dictType
-        this.defaultDictType = response.data.dictType
-        this.getList()
-      })
-    },
-    getTypeList() {
-      getDictOptionselect().then(response => {
-        this.typeOptions = response.data
-      })
-    },
     getList() {
       this.loading = true
-      listData(this.queryParams).then(response => {
-        this.dataList = response.rows
-        this.total = response.total
+      listArea(this.queryParams).then(response => {
+        this.dataList = response.data.rows
+        this.total = response.data.total
+        this.loading = false
+      }).catch(() => {
         this.loading = false
       })
     },
@@ -215,11 +194,12 @@ export default {
       this.reset()
       this.open = true
       this.title = this.$t('deviceArea.dialogTitle_a')
-      this.form.dictType = this.queryParams.dictType
+      this.form.dictType = 'v1_device_area'
     },
     handleUpdate(row) {
       this.reset()
-      getData(row.dictCode || this.ids).then(response => {
+      const dictCode = row.dictCode || this.ids[0]
+      getArea(dictCode).then(response => {
         this.form = response.data
         this.open = true
         this.title = this.$t('deviceArea.dialogTitle_e')
@@ -229,15 +209,15 @@ export default {
       this.$refs['form'].validate(valid => {
         if (valid) {
           if (this.form.dictCode !== undefined) {
-            updateData(this.form).then(() => {
-              this.$store.dispatch('dict/removeDict', this.queryParams.dictType)
+            updateArea(this.form).then(() => {
+              this.$store.dispatch('dict/removeDict', 'v1_device_area')
               this.$modal.msgSuccess(this.$t('commonTips.edit_s'))
               this.open = false
               this.getList()
             })
           } else {
-            addData(this.form).then(() => {
-              this.$store.dispatch('dict/removeDict', this.queryParams.dictType)
+            addArea(this.form).then(() => {
+              this.$store.dispatch('dict/removeDict', 'v1_device_area')
               this.$modal.msgSuccess(this.$t('commonTips.add_s'))
               this.open = false
               this.getList()
@@ -247,14 +227,14 @@ export default {
       })
     },
     handleDelete(row) {
-      const dictCodes = row.dictCode || this.ids
+      const dictCodes = row.dictCode || this.ids.join(',')
       this.$modal
         .confirm(this.$t('deviceArea.comfirmRemove', { dictCodes }))
-        .then(() => delData(dictCodes))
+        .then(() => delArea(dictCodes))
         .then(() => {
           this.getList()
           this.$modal.msgSuccess(this.$t('commonTips.remove_s'))
-          this.$store.dispatch('dict/removeDict', this.queryParams.dictType)
+          this.$store.dispatch('dict/removeDict', 'v1_device_area')
           this.ids = []
           this.multiple = true
           this.single = true
