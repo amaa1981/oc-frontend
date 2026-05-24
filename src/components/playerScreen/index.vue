@@ -87,19 +87,19 @@ export default {
   data() {
     return {
       loading: true,
-      // 确保每次打开页面只提示一次下载插件的弹窗
+      // Make sure that each time you open the page, you only receive a pop-up window to download the plug-in.
       isDownload: true,
-      // 获取边缘位置的定时器
+      // Get edge position timer
       intervalId: null,
-      // 浏览器到系统桌面左边缘距离
+      // Distance from browser to left edge of system desktop
       screenX: window.screenX,
-      // 浏览器到系统桌面左边缘距离
+      // Distance from browser to left edge of system desktop
       screenY: window.screenY,
-      // 是否全屏
+      // Whether to full screen
       fullscreen: false,
-      // 是否标签页最小化或切换标签页
+      // Whether to minimize the Label page or switch the Label page
       isHiddenTab: false,
-      // 分屏按钮配置
+      // Split screen button configuration
       playerBtnDate: [
         {
           num: 1,
@@ -117,15 +117,15 @@ export default {
           icon: 'el-icon-s-grid'
         }
       ],
-      // 当前分屏数量 -- 默认为4
+      // Current number of split screens -- default is 4
       playerLength: 0,
-      // 当前高亮的分屏下标
+      // The currently highlighted split screen subscript
       playerIdx: 0,
-      // 当前分屏的播放列表
+      // Playlist of current split screen
       players: [],
-      // 被隐藏的播放列表
+      // Hidden playlist
       oldPlayers: [],
-      // 记录当前的播放的map映射
+      // Record the current playback map
       isPlayingList: new Map(),
     };
   },
@@ -133,14 +133,14 @@ export default {
     Player,
   },
   created() {
-    // 连接服务
+    // connection service
     createSocket(window.g.wsBaseURL);
-    // 设置初始分屏数量为4
+    // Set the initial number of split screens to 4
     this.setPlayerLength(4);
-    // 配置恢复将在WebSocket连接成功后执行
-    // store.state.mqtt.showList 填充到players
+    // Configuration restore will be performed after successful WebSocket connection
+    // store.state.mqtt.showList is populated into players
     // this.players = store.state.mqtt.showList;
-    // // 将store.state.mqtt.showList 填充到isPlayingList
+    // // Fill store.state.mqtt.showList into isPlayingList
     // for (let item of this.players) {
     //   this.isPlayingList.set(item.videoId, {
     //     rtspUrl: item.rtspUrl,
@@ -150,34 +150,34 @@ export default {
   },
   mounted() {
     let _this = this;
-    // 开启定时器不断获取浏览器距离系统桌面边缘的位置
+    // Turn on the timer to continuously obtain the position of the browser from the edge of the system desktop
     this.intervalId = setInterval(() => {
       _this.handlerScreeMove();
     }, 80);
-    // 注册ws连接监听回调
+    // Register ws connection listening callback
     window.addEventListener("onWSOpen", this.handlerOpenWS);
-    // 注册监听ws消息接收事件
+    // Register to listen to ws message receiving events
     window.addEventListener("onMessageWS", this.getSocketData);
-    // 注册监听标签页最小化或切换事件
+    // Register to listen for Label page minimize or switch events
     document.addEventListener("visibilitychange", this.handleVisiable);
-    // 注册监听窗口刷新或者关闭事件
+    // Register to listen for window refresh or close events
     window.addEventListener("beforeunload", this.handlerDestory);
-    // 监听页面滚动，通知插件跟随移动
+    // Monitor the scrolling of the page and notify the plug-in to follow the movement
     this._onScroll = () => { this.$bus.$emit("move") }
     window.addEventListener("scroll", this._onScroll, true)
-    // 挂载$bus -- 播放事件
+    // Mount $bus -- play event
     this.$bus.$on("sendOpenInfo", (infoObj) => {
-      // 执行播放事件，支持静默模式（恢复配置时不显示重复播放提示）
+      // Execute playback events and support silent mode (repeat play prompt will not be displayed when restoring configuration)
       this.play(infoObj, infoObj.silent || false);
     });
   },
   computed: {},
   watch: {
-    // 监听store中的opens状态
+    // monitorstoreinopensstate
     "$store.state.mqtt.opens": {
       handler(newVal) {
-        console.log("mqtt.opens状态变更为:", newVal);
-        // 这里可以根据需要添加当opens状态变化时的处理逻辑
+        console.log("mqtt.opens status changed to:", newVal);
+        // Add processing logic here when mqtt.opens status changes, if needed
         if (newVal) {
           this.hideAll();
         } else {
@@ -186,28 +186,28 @@ export default {
       },
       deep: true,
     },
-    // 监听浏览器到系统桌面左边缘的距离
+    // Monitor the distance from the browser to the left edge of the system desktop
     screenX(newVal) {
       if (!this.isHiddenTab) {
         this.$bus.$emit("move");
       }
     },
-    // 监听浏览器到系统桌面上边缘的距离
+    // Monitor the distance from the browser to the upper edge of the system desktop
     screenY(newVal) {
       if (!this.isHiddenTab) {
         this.$bus.$emit("move");
       }
     },
-    // 监听当前分屏数量
+    // Monitor the current number of split screens
     playerLength(newVal, oldVal) {
-      // 切换到更多分屏数量，不改变当前的播放窗口，新增分屏数量
+      // Switched to more split screens without changing current players; add empty slots
       if (newVal > oldVal) {
         for (let index = oldVal; index < newVal; index++) {
           this.setVideoToScreen(index);
         }
       } else {
-        // 切换到更少分屏
-        // 先将当前分屏中正在播放的视频隐藏
+        // Switched to less split screen
+        // First hide the video being played in the current split screen
         for (let item of this.players) {
           if (item.type === "show") {
             item.type = "hidden";
@@ -220,7 +220,7 @@ export default {
         for (let index = 0; index < newVal; index++) {
           this.setVideoToScreen(index);
         }
-        // 移除多余分屏
+        // Remove redundant split screens
         this.players.splice(newVal, oldVal - newVal);
       }
     },
@@ -245,28 +245,28 @@ export default {
         }
       });
     },
-    // 处理页面刷新或关闭，或销毁当前实例
+    // Handle page refresh or close, or Destroy the current instance
     handlerDestory() {
-      // 发送ws消息 -- 关闭全部视频
+      // Send ws message -- close all videos
       closeAll({
         type: "closeAll",
       });
-      // 断开webSocket连接
+      // Disconnect webSocket
       closeWebsocket();
-      // 清除定时器
+      // clear timer
       clearInterval(this.intervalId);
-      // 清除map
+      // clear map
       this.isPlayingList.clear();
-      // 清除store.state.mqtt.showList
+      // Clear store.state.mqtt.showList
       store.dispatch("mqtt/setShowList", []);
     },
-    // 处理浏览器标签页切换或浏览器最小化
+    // Handle browser Label page switching or browser minimization
     handleVisiable(e) {
       switch (e.target.visibilityState) {
-        // 网页预渲染，内容不可见
+        // Web pages are pre-rendered and the content is invisible
         case "prerender":
           break;
-        // 内容不可见，处理后台、最小化、锁屏状态
+        // The content is invisible, and the background, minimized, and locked screen states are processed.
         case "hidden":
           this.isHiddenTab = true;
           for (const item of this.players) {
@@ -275,10 +275,10 @@ export default {
             }
           }
           break;
-        // 处于正常打开
+        // Normally open
         case "visible":
           this.isHiddenTab = false;
-          // 延迟恢复显示，确保页面渲染完成
+          // Delay recovery display to ensure page rendering is completed
           this.$nextTick(() => {
             setTimeout(() => {
               for (const item of this.players) {
@@ -291,7 +291,7 @@ export default {
           break;
       }
     },
-    // 建立websocket连接
+    // Establish websocket connection
     handlerOpenWS(res) {
       const isOpen = res && res.detail.isOpen;
       this.loading = false;
@@ -304,36 +304,36 @@ export default {
           type: "warning",
         })
           .then(async () => {
-            // 检测网络连接状态
+            // Check network connection status
             try {
               await internetAvailable({
                 timeout: 3000,
                 retries: 2,
               });
-              // 有网络，使用云端下载
+              // If you have an internet connection, use the cloud to download
               window.location =
                 "https://web-1318283609.cos.ap-guangzhou.myqcloud.com/tool/ChromePlayer_x64.exe";
             } catch (error) {
-              // 无网络，使用本地路径
-              console.log("网络不可用，使用本地安装包");
+              // No network, use local path
+              console.log("Network unavailable; using local installer");
               window.location = "/ChromePlayer_x64.exe";
             }
           })
           .catch(() => {});
       } else if (isOpen) {
-        console.log("WebSocket连接成功，准备恢复配置");
-        // WebSocket连接成功后再恢复配置，延迟确保设备列表组件也已加载完成
+        console.log("WebSocket connected; restoring configuration");
+        // Restore the configuration after the WebSocket connection is successful, and delay to ensure that the device List component has also been loaded.
      
           this.restoreConfig();
      
       }
     },
-    // 赋值最新的浏览器边缘距离
+    // Assign the latest browser edge distance
     handlerScreeMove() {
       this.screenX = window.screenX;
       this.screenY = window.screenY;
     },
-    // 接受WS消息回调
+    // Accept WS message callback
     getSocketData(res) {
       const data = res && res.detail.data;
       try {
@@ -343,12 +343,12 @@ export default {
           //   message: this.$t("monitor.fail"),
           //   type: "warning",
           // });
-          console.debug("操作失败");
+          console.debug("Operation failed");
         } else {
           switch (res.type) {
             case "open":
               let idx = 0;
-              // 通知列表组件
+              // Notify List component
               this.$bus.$emit("addVideoId", {
                 videoId: res.videoId,
               });
@@ -368,16 +368,16 @@ export default {
               }
               break;
             case "close":
-              // 在已播放列表中移除对应信息
+              // Remove the corresponding information from the played list
               if (
                 this.players[this.isPlayingList.get(res.videoId).index].type !==
                 "open"
               ) {
-                // 说明此时此窗口未正在播放其他通道
+                // It means that this window is not playing other channels at this time.
                 this.setPlayerData(this.isPlayingList.get(res.videoId).index);
               }
               this.isPlayingList.delete(res.videoId);
-              // 通知列表组件
+              // Notify List component
               this.$bus.$emit("removeVideoId", {
                 videoId: res.videoId,
               });
@@ -391,7 +391,7 @@ export default {
         }
       } catch (error) {}
     },
-    // 设置players的动态数据
+    // Set dynamic data for players
     setPlayerData(index, rtspUrl = "", label = "", type = "", videoId = "") {
       this.$set(this.players, index, {
         rtspUrl,
@@ -401,7 +401,7 @@ export default {
         videoId, // Unique monitor ID
       });
     },
-    // 将隐藏的视频重新赋值到新的分屏上
+    // Reassign the hidden Video to the new split screen
     setVideoToScreen(index) {
       if (this.oldPlayers[0] !== undefined) {
         let data = this.oldPlayers.shift();
@@ -420,24 +420,24 @@ export default {
         this.setPlayerData(index);
       }
     },
-    // 设置播放屏幕数量
+    // Set the number of playback screens
     setPlayerLength(num) {
       if (num === this.players.length) return;
       this.playerIdx = 0;
       this.playerLength = num;
     },
-    // 切换全屏
+    // Toggle full screen
     toggleFullscreen() {
       this.fullscreen = !this.fullscreen;
     },
-    // 切换播放屏幕
+    // Switch playback screen
     changePlayScreen(index) {
       this.playerIdx = index;
     },
-    // 播放事件
+    // Play event
     play(obj, silent = false) {
       if (this.isPlayingList.has(obj.videoId)) {
-        // silent 为 true 时不显示提示（用于恢复配置）
+        // Tip is not shown when silent is true (used to restore configuration)
         if (!silent) {
           this.$message({
             message: this.$t("monitor.playTip"),
@@ -455,10 +455,10 @@ export default {
         );
       }
     },
-    // 保存当前配置到localStorage
+    // Save current configuration to localStorage
     saveCurrentConfig() {
       try {
-        // 收集正在播放的设备及其位置信息
+        // Collect information about the device being played and its location
         const playingDevices = this.players
           .filter((player) => player.type === "show" || player.type === "open")
           .map((player) => ({
@@ -482,68 +482,68 @@ export default {
           type: "success",
         });
 
-        console.log("已保存监控配置:");
-        console.log(`- 分屏数量: ${config.playerLength}`);
-        console.log(`- playing device数量: ${playingDevices.length}`);
+        console.log("Saved monitoring configuration:");
+        console.log(`- Split screen count: ${config.playerLength}`);
+        console.log(`- Playing device count: ${playingDevices.length}`);
         playingDevices.forEach((device) => {
           console.log(
             `  · device ${device.videoId} (${device.label}) at position ${device.screenIndex}`
           );
         });
-        console.log(`- 保存时间: ${config.savedAt}`);
+        console.log(`- Saved at: ${config.savedAt}`);
       } catch (error) {
-        console.error("保存配置失败:", error);
+        console.error("Failed to save configuration:", error);
         this.$message({
           message: this.$t("monitor.saveFailed") || "Failed to save settings",
           type: "error",
         });
       }
     },
-    // 从localStorage恢复配置
+    // Restore configuration from localStorage
     restoreConfig() {
       try {
         const savedConfig = localStorage.getItem("monitor_config");
         if (savedConfig) {
           const config = JSON.parse(savedConfig);
 
-          console.log("开始恢复监控配置:");
-          console.log(`- 保存时间: ${config.savedAt || "未知"}`);
-          console.log(`- 分屏数量: ${config.playerLength}`);
+          console.log("Restoring monitoring configuration:");
+          console.log(`- Saved at: ${config.savedAt || "unknown"}`);
+          console.log(`- Split screen count: ${config.playerLength}`);
           console.log(
             `- saved device count: ${config.players ? config.players.length : 0}`
           );
 
-          // 恢复画面数量
+          // Number of recovery screens
           if (config.playerLength && [1, 4, 6].includes(config.playerLength)) {
-            console.log(`恢复分屏数量: ${config.playerLength}`);
+            console.log(`recoverSplit screen count: ${config.playerLength}`);
             this.setPlayerLength(config.playerLength);
           } else {
-            console.warn(`无效的分屏数量: ${config.playerLength}，使用默认值4`);
+            console.warn(`InvalidSplit screen count: ${config.playerLength}，useDefault Value4`);
             this.setPlayerLength(4);
           }
 
-          // 延迟恢复playing device，确保分屏已经设置完成
+          // Delay the recovery of the playing device and ensure that the split screen has been set up
           setTimeout(() => {
             if (config.players && config.players.length > 0) {
-              // 用于跟踪已占用的屏幕位置
+              // Used to track occupied screen position
               const occupiedPositions = new Set();
 
-              // 按原始播放位置restoring device
+              // Restoring device by original playback position
               config.players.forEach((savedPlayer, configIndex) => {
-                // 使用保存的屏幕位置索引
+                // Use saved screen position index
                 const targetScreenIndex = savedPlayer.screenIndex;
 
-                // 检查目标位置是否有效且未被占用
+                // Check if the target location is valid and unoccupied
                 if (
                   targetScreenIndex >= 0 &&
                   targetScreenIndex < this.playerLength &&
                   savedPlayer.videoId &&
                   !occupiedPositions.has(targetScreenIndex)
                 ) {
-                  // 标记位置已占用
+                  // The marked position is already occupied
                   occupiedPositions.add(targetScreenIndex);
 
-                  // 恢复playing device信息到指定位置
+                  // Restore playing device information to the specified location
                   this.setPlayerData(
                     targetScreenIndex,
                     savedPlayer.rtspUrl,
@@ -552,7 +552,7 @@ export default {
                     savedPlayer.videoId
                   );
 
-                  // 添加到正在播放列表，使用正确的屏幕索引
+                  // Add to Now Playing List, using correct screen index
                   this.isPlayingList.set(savedPlayer.videoId, {
                     rtspUrl: savedPlayer.rtspUrl,
                     index: targetScreenIndex,
@@ -562,7 +562,7 @@ export default {
                     `✓ restoring device ${savedPlayer.videoId} (${savedPlayer.label}) to original screen position ${targetScreenIndex}`
                   );
 
-                  // 延迟触发播放事件，WebSocket 响应时会自动通知设备列表更新状态
+                  // Delay triggering of playback events, and WebSocket will automatically notify the device of List update status when responding.
                   setTimeout(() => {
                     console.log(
                       `▶ starting at position ${targetScreenIndex} playing device ${savedPlayer.videoId}`
@@ -575,7 +575,7 @@ export default {
                     });
                   }, 200 + configIndex * 100); // 100ms interval per device
                 } else {
-                  // 处理位置无效或冲突的情况
+                  // Handle invalid or conflicting locations
                   let reason = "";
                   if (
                     targetScreenIndex < 0 ||
@@ -596,7 +596,7 @@ export default {
                 }
               });
 
-              // 统计恢复结果
+              // Statistical recovery results
               const totalDevices = config.players.length;
               const restoredDevices = occupiedPositions.size;
               const skippedDevices = totalDevices - restoredDevices;
@@ -604,9 +604,9 @@ export default {
               console.log(
                 "=================== Configuration restore complete ==================="
               );
-              console.log(`📊 恢复统计:`);
-              console.log(`  - 总设备数: ${totalDevices}`);
-              console.log(`  - 成功恢复: ${restoredDevices}`);
+              console.log(`📊 Restore statistics:`);
+              console.log(`  - Total devices: ${totalDevices}`);
+              console.log(`  - Restored successfully: ${restoredDevices}`);
               console.log(`  - skipping device: ${skippedDevices}`);
               console.log(
                 `📍 occupied positions: [${Array.from(occupiedPositions)
@@ -618,14 +618,14 @@ export default {
           }, 500); // Delay to ensure WebSocket stable and device list loaded
         }
       } catch (error) {
-        console.error("恢复配置失败:", error);
+        console.error("Failed to restore configuration:", error);
       }
     },
   },
   beforeDestroy() {
     console.log("beforeDestroy");
-    console.log("销毁");
-    //卸载事件监听
+    console.log("Destroy");
+    //Uninstall event listening
     window.removeEventListener("onMessageWS", this.getSocketData);
     window.removeEventListener("onWSOpen", this.handlerOpenWS);
     document.removeEventListener("visibilitychange", this.handleVisiable);
@@ -713,7 +713,7 @@ export default {
     }
   }
 
-  // vue-fullscreen 组件渲染的包裹层
+  // The wrapping layer rendered by the vue-fullscreen component
   .fullscreen {
     flex: 1;
     min-height: 0;
@@ -722,7 +722,7 @@ export default {
     flex-direction: column;
   }
 
-  // vue-fullscreen 内部可能生成额外 div，用 ::v-deep 穿透
+  // vue-fullscreen may generate additional divs internally and use ::v-deep to penetrate them
   ::v-deep .fullscreen-wrapper {
     flex: 1;
     min-height: 0;

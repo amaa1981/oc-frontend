@@ -27,3 +27,6 @@ selenium-debug.log
 
 package-lock.json
 yarn.lock
+
+scripts/.venv/
+scripts/zh-en-map.json

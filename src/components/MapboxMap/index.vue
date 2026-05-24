@@ -7,7 +7,7 @@
       ref="mapContainer"
     ></div>
 
-    <!-- 地图加载状态 -->
+    <!-- Map loading status -->
     <div v-if="loading" class="map-loading">
       <div class="loading-content">
         <i class="el-icon-loading"></i>
@@ -22,7 +22,7 @@ import { mapConfigs } from "@/utils/mapUtils";
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
   import settings from "@/settings";
 
-// 获取全局地图默认中心坐标
+// Get the default center coordinates of the global map
 const defaultCenter = settings.mapConfig?.defaultCenter ;
 export default {
   name: "MapboxMap",
@@ -105,7 +105,7 @@ export default {
   methods: {
     initMap() {
       try {
-        // 检查mapboxgl是否可用
+        // Check if mapboxgl is available
         if (typeof window.mapboxgl === "undefined") {
           console.error("Mapbox GL JS not loaded");
           this.loading = false;
@@ -113,10 +113,10 @@ export default {
           return;
         }
 
-        // 设置 Mapbox 访问令牌
+        // Set up a Mapbox access token
         window.mapboxgl.accessToken = mapConfigs.mapbox.accessToken;
 
-        // 创建地图实例
+        // Create a map instance
         this.map = new window.mapboxgl.Map({
           container: this.mapId,
           style: this.style || mapConfigs.mapbox.style,
@@ -125,31 +125,31 @@ export default {
           antialias: true,
         });
 
-        // 添加导航控件
+        // Add navigation controls
         const nav = new window.mapboxgl.NavigationControl();
         this.map.addControl(nav, "top-right");
 
-        // 添加比例尺控件
+        // Add scale bar control
         const scale = new window.mapboxgl.ScaleControl({
           maxWidth: 100,
           unit: "metric",
         });
         this.map.addControl(scale, "bottom-left");
 
-        // 添加语言控件
+        // Add language control
         this.languageControl = new MapboxLanguage({
           defaultLanguage: this.getMapLanguage()
         });
         this.map.addControl(this.languageControl);
 
-        // 地图加载完成事件
+        // Map loading complete event
         this.map.on("load", () => {
           this.loading = false;
           this.$emit("map-init", this.map);
           this.updateMarkers(this.markers);
         });
 
-        // 地图点击事件
+        // Map click event
         this.map.on("click", (e) => {
           this.$emit("map-click", {
             lngLat: e.lngLat,
@@ -158,7 +158,7 @@ export default {
           });
         });
 
-        // 地图移动事件
+        // Map move event
         this.map.on("move", () => {
           this.$emit("map-move", {
             center: this.map.getCenter(),
@@ -166,38 +166,38 @@ export default {
           });
         });
 
-        // 地图缩放事件
+        // Map zoom event
         this.map.on("zoom", () => {
           this.$emit("map-zoom", this.map.getZoom());
         });
 
-        // 地图错误处理
+        // Map error handling
         this.map.on("error", (error) => {
-          console.error("Mapbox 地图错误:", error);
+          console.error("Mapbox map error:", error);
           this.loading = false;
           this.$emit("map-error", error);
         });
       } catch (error) {
-        console.error("初始化 Mapbox 地图失败:", error);
+        console.error("Failed to initialize Mapbox map:", error);
         this.loading = false;
         this.$emit("map-error", error);
       }
     },
 
-    // 更新标记点
+    // Update markers
     updateMarkers(markers) {
       if (!this.map || !this.map.isStyleLoaded()) return;
 
-      // 清除现有标记
+      // Clear existing tags
       this.clearMarkers();
 
-      // 添加新标记
+      // Add new tag
       markers.forEach((marker) => {
         this.addMarker(marker);
       });
     },
 
-    // 添加标记点
+    // Add markers
     addMarker(markerData) {
       if (!this.map) return;
 
@@ -210,11 +210,11 @@ export default {
       } = markerData;
 
       if (!position || !Array.isArray(position) || position.length < 2) {
-        console.warn("无效的标记位置:", position);
+        console.warn("Invalid marker position:", position);
         return;
       }
 
-      // 创建标记元素
+      // Create markup elements
       const el = document.createElement("div");
       el.className = "mapbox-marker";
 
@@ -231,7 +231,7 @@ export default {
           el.style.height = icon.height ? `${icon.height}px` : "32px";
         }
       } else {
-        // 默认标记样式
+        // Default markup style
         el.className += " default-marker";
         el.style.width = "20px";
         el.style.height = "20px";
@@ -241,13 +241,13 @@ export default {
         el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.3)";
       }
 
-      // 创建标记
+      // Create tag
       const marker = new window.mapboxgl.Marker({
         element: el,
         draggable: draggable,
       }).setLngLat(position);
 
-      // 添加弹窗
+      // Add pop-up window
       if (popup) {
         const popupInstance = new window.mapboxgl.Popup({
           offset: 25,
@@ -264,12 +264,12 @@ export default {
         marker.setPopup(popupInstance);
       }
 
-      // 添加到地图
+      // Add to map
       if (visible) {
         marker.addTo(this.map);
       }
 
-      // 拖拽事件
+      // drag event
       if (draggable) {
         marker.on("dragend", () => {
           const lngLat = marker.getLngLat();
@@ -280,7 +280,7 @@ export default {
         });
       }
 
-      // 点击事件
+      // click event
       marker.getElement().addEventListener("click", (e) => {
         e.stopPropagation();
         this.$emit("marker-click", {
@@ -292,7 +292,7 @@ export default {
       this.markersOnMap.push(marker);
     },
 
-    // 清除所有标记
+    // Clear all marks
     clearMarkers() {
       this.markersOnMap.forEach((marker) => {
         marker.remove();
@@ -300,7 +300,7 @@ export default {
       this.markersOnMap = [];
     },
 
-    // 飞行到指定位置
+    // Fly to a designated location
     flyTo(center, zoom) {
       if (this.map) {
         this.map.flyTo({
@@ -311,26 +311,26 @@ export default {
       }
     },
 
-    // 设置地图中心
+    // Set map center
     setCenter(center) {
       if (this.map) {
         this.map.setCenter(center);
       }
     },
 
-    // 设置缩放级别
+    // Set zoom level
     setZoom(zoom) {
       if (this.map) {
         this.map.setZoom(zoom);
       }
     },
 
-    // 获取地图实例
+    // Get map instance
     getMap() {
       return this.map;
     },
 
-    // 适应标记点
+    // Adapt to marker points
     fitBounds(markers) {
       if (!this.map || !markers || markers.length === 0) return;
 
@@ -348,7 +348,7 @@ export default {
       });
     },
 
-    // 获取地图语言代码
+    // Get map language code
     getMapLanguage() {
       const locale = this.$i18n?.locale || 'en';
       const languageMap = {
@@ -358,13 +358,13 @@ export default {
       return languageMap[locale] || 'en';
     },
 
-    // 更新地图语言
+    // Update map language
     updateMapLanguage(locale) {
       if (!this.map || !this.languageControl) return;
       
       const mapLanguage = this.getMapLanguage();
       try {
-        // 使用 setLanguage 方法切换语言
+        // Use the setLanguage method to switch languages
         this.languageControl.setLanguage(this.map, mapLanguage);
       } catch (error) {
         console.warn('Failed to switch map language:', error);

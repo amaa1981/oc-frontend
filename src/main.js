@@ -27,30 +27,30 @@ import './permission' // permission control
 import { getDicts } from "@/api/system/dict/data";
 import { getConfigKey } from "@/api/system/config";
 import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree } from "@/utils/ruoyi";
-// 分页组件
+// Pagination component
 import Pagination from "@/components/Pagination";
-// 自定义表格工具组件
+// Custom form tool component
 import RightToolbar from "@/components/RightToolbar"
-// 富文本组件
+// Rich text component
 import Editor from "@/components/Editor"
-// 文件上传组件
+// File Upload component
 import FileUpload from "@/components/FileUpload"
-// 图片上传组件
+// Image upload component
 import ImageUpload from "@/components/ImageUpload"
-// 图片预览组件
+// ImagePreview component
 import ImagePreview from "@/components/ImagePreview"
-// 字典标签组件
+// DictionaryLabel component
 import DictTag from '@/components/DictTag'
 import PageBanner from '@/components/PageBanner'
-// 头部标签组件
+// Head Label component
 import VueMeta from 'vue-meta'
-// 字典数据组件
+// Dictionary Data component
 import DictData from '@/components/DictData'
 import fullscreen from 'vue-fullscreen'
 import dataV from '@jiaminghi/data-view'
 Vue.use(dataV)
 Vue.use(fullscreen)
-// 全局方法挂载
+// Global method mounting
 Vue.prototype.getDicts = getDicts
 Vue.prototype.getConfigKey = getConfigKey
 Vue.prototype.parseTime = parseTime
@@ -61,7 +61,7 @@ Vue.prototype.selectDictLabels = selectDictLabels
 Vue.prototype.download = download
 Vue.prototype.handleTree = handleTree
 
-// 全局组件挂载
+// Global component mounting
 Vue.component('DictTag', DictTag)
 Vue.component('Pagination', Pagination)
 Vue.component('RightToolbar', RightToolbar)
@@ -70,9 +70,9 @@ Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
 Vue.component('ImagePreview', ImagePreview)
 Vue.component('PageBanner', PageBanner)
-// Mapbox GL JS 已配置
+// Mapbox GL JS configured
 
-console.log('地图服务已切换至 Mapbox GL JS');
+console.log('Map service switched to Mapbox GL JS');
 Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
@@ -96,13 +96,17 @@ Vue.use(Element, {
 
 Vue.config.productionTip = false
 
+const defaultLocale = Cookies.get('language') || 'en'
+i18n.locale = defaultLocale
+store.dispatch('app/setLanguage', defaultLocale)
+
 new Vue({
   i18n,
   el: '#app',
   router,
   store,
   beforeCreate() {
-    // 安装全局事件总线
+    // Install global event bus
     Vue.prototype.$bus = this
   },
   render: h => h(App)
