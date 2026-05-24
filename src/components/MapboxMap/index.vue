@@ -350,13 +350,12 @@ export default {
 
     // 获取地图语言代码
     getMapLanguage() {
-      const locale = this.$i18n?.locale || 'zh';
-      // 将项目语言映射到 Mapbox 支持的语言代码
+      const locale = this.$i18n?.locale || 'en';
       const languageMap = {
-        'zh': 'zh-Hans', // Simplified Chinese
-        'en': 'en',      // English
+        'zh': 'zh-Hans',
+        'en': 'en',
       };
-      return languageMap[locale] || 'zh-Hans';
+      return languageMap[locale] || 'en';
     },
 
     // 更新地图语言
@@ -368,7 +367,7 @@ export default {
         // 使用 setLanguage 方法切换语言
         this.languageControl.setLanguage(this.map, mapLanguage);
       } catch (error) {
-        console.warn('切换地图语言失败:', error);
+        console.warn('Failed to switch map language:', error);
       }
     },
   },

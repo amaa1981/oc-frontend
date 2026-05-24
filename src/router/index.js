@@ -9,7 +9,7 @@ import Layout from '@/layout'
 /**
  * Note: 路由配置项
  *
- * hidden: true                     // 当设置 true 的时候该路由不会再侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
+ * hidden: true                     // 当设置 true 的时候该路由不会再侧边栏出现 如401，login等页面，或者如一些Edit页面/edit/1
  * alwaysShow: true                 // 当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面
  *                                  // 只有一个时，会将那个子路由当做根路由显示在侧边栏--如引导页面
  *                                  // 若你想不管路由下面的 children 声明的个数都显示你的根路由
@@ -97,7 +97,7 @@ export const constantRoutes = [
         path: 'profile',
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        meta: { title: 'Profile', icon: 'user' }
       }
     ]
   }
@@ -115,7 +115,7 @@ export const dynamicRoutes = [
         path: 'role/:userId(\\d+)',
         component: () => import('@/views/system/user/authRole'),
         name: 'AuthRole',
-        meta: { title: '分配角色', activeMenu: '/system/user' }
+        meta: { title: 'Assign Roles', activeMenu: '/system/user' }
       }
     ]
   },
@@ -129,7 +129,7 @@ export const dynamicRoutes = [
         path: 'user/:roleId(\\d+)',
         component: () => import('@/views/system/role/authUser'),
         name: 'AuthUser',
-        meta: { title: '分配用户', activeMenu: '/system/role' }
+        meta: { title: 'Assign Users', activeMenu: '/system/role' }
       }
     ]
   },
@@ -143,7 +143,7 @@ export const dynamicRoutes = [
         path: 'index/:dictId(\\d+)',
         component: () => import('@/views/system/dict/data'),
         name: 'Data',
-        meta: { title: '字典数据', activeMenu: '/system/dict' }
+        meta: { title: 'Dictionary Data', activeMenu: '/system/dict' }
       }
     ]
   },
@@ -157,7 +157,7 @@ export const dynamicRoutes = [
         path: 'index/:jobId(\\d+)',
         component: () => import('@/views/monitor/job/log'),
         name: 'JobLog',
-        meta: { title: '调度日志', activeMenu: '/monitor/job' }
+        meta: { title: 'Job Log', activeMenu: '/monitor/job' }
       }
     ]
   },
@@ -171,7 +171,7 @@ export const dynamicRoutes = [
         path: 'index/:tableId(\\d+)',
         component: () => import('@/views/tool/gen/editTable'),
         name: 'GenEdit',
-        meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
+        meta: { title: 'Edit Generator Config', activeMenu: '/tool/gen' }
       }
     ]
   }

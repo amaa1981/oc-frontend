@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import { getLocale, setLocale } from "@/api/system/lan";
 export default {
   computed: {
@@ -34,11 +35,14 @@ export default {
     },
   },
   mounted() {
-    getLocale().then((res) => {
-      console.log("getLocale");
-      console.log(res);
-      this.init(res.data);
-    });
+    const fallback = Cookies.get('language') || 'en'
+    getLocale()
+      .then((res) => {
+        this.init(res.data || fallback)
+      })
+      .catch(() => {
+        this.init(fallback)
+      })
   },
   methods: {
     init(lang) {

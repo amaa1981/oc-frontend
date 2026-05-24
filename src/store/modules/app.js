@@ -16,7 +16,7 @@ const state = {
   },
   device: 'desktop',
   size: Cookies.get('size') || 'medium',
-  language: Cookies.get('language') || 'zh',
+  language: Cookies.get('language') || 'en',
   position: { lng: 113.345481, lat: 22.108198 }
 }
 

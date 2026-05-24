@@ -28,7 +28,7 @@
         :class="{ selected: ids.includes(item.dictCode) }"
         @click="toggleSelect(item)"
       >
-        <!-- 顶部区域 -->
+        <!-- Card header -->
         <div class="area-card__top">
           <div class="area-card__icon">
             <i class="el-icon-location-outline" />
@@ -48,7 +48,7 @@
 
         <div class="area-card__divider" />
 
-        <!-- 信息行 -->
+        <!-- Info rows -->
         <div class="area-card__info">
           <div class="area-card__row">
             <span class="area-card__row-label"><i class="el-icon-hash" /> {{ $t('deviceArea.dictCode') }}</span>
@@ -60,7 +60,7 @@
           </div>
         </div>
 
-        <!-- 操作按钮 -->
+        <!-- Actions -->
         <div class="area-card__actions">
           <el-button
             size="mini"
