@@ -210,6 +210,15 @@
           <el-button
             size="mini"
             type="text"
+            icon="el-icon-setting"
+            class="btn-view"
+            @click="handleAiSettings(scope.row)"
+            >AI Settings</el-button
+          >
+          <span class="action-divider" />
+          <el-button
+            size="mini"
+            type="text"
             icon="el-icon-edit"
             class="btn-edit"
             @click="handleUpdate(scope.row)"
@@ -496,6 +505,42 @@
       </span>
     </el-dialog>
 
+    <!-- AI Settings Dialog -->
+    <el-dialog
+      title="AI Detection Settings"
+      :visible.sync="aiSettingsOpen"
+      width="480px"
+      append-to-body
+    >
+      <div v-if="aiSettingsDevice" style="padding:10px">
+        <h4 style="margin-bottom:20px;color:#26a69a">{{ aiSettingsDevice.deviceName }}</h4>
+        
+        <el-form label-position="top">
+          <el-form-item label="Confidence Threshold (0.1 - 1.0)">
+            <el-slider v-model="aiSettings.confidence" :min="0.1" :max="1.0" :step="0.05" show-input />
+          </el-form-item>
+
+          <el-form-item label="Alert Cooldown (seconds)">
+            <el-input-number v-model="aiSettings.cooldown" :min="5" :max="300" :step="5" style="width:100%" />
+          </el-form-item>
+
+          <el-form-item label="Camera Refresh Interval (seconds)">
+            <el-input-number v-model="aiSettings.refreshInterval" :min="10" :max="300" :step="10" style="width:100%" />
+          </el-form-item>
+
+          <el-form-item label="Enable Violations">
+            <el-checkbox v-model="aiSettings.detectMask">No Mask Detection</el-checkbox><br/>
+            <el-checkbox v-model="aiSettings.detectHairnet">No Hairnet Detection</el-checkbox><br/>
+            <el-checkbox v-model="aiSettings.detectGlove">No Glove Detection</el-checkbox>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div slot="footer">
+        <el-button type="primary" @click="saveAiSettings">Save</el-button>
+        <el-button @click="aiSettingsOpen = false">Cancel</el-button>
+      </div>
+    </el-dialog>
+
     <!-- 监控弹窗组件 -->
     <el-dialog
       :title="$t('device.monitor')"
@@ -679,6 +724,17 @@ export default {
         coordinate: [],
       },
 
+      aiSettingsOpen: false,
+      aiSettingsDevice: null,
+      aiSettings: {
+        confidence: 0.5,
+        cooldown: 10,
+        refreshInterval: 30,
+        detectMask: true,
+        detectHairnet: true,
+        detectGlove: true,
+      },
+      aiSettingsMap: {},
       dialogMap: false, // Control dialog
       center: { lng: 0, lat: 0 }, // Center coords (compatibility)
       position: { lng: 0, lat: 0 }, // Selected coords (compatibility)
@@ -929,6 +985,31 @@ export default {
       console.log(this.select);
     },
     //跳转到设置任务
+    handleAiSettings(row) {
+      this.aiSettingsDevice = row;
+      const saved = this.aiSettingsMap[row.id];
+      if (saved) {
+        this.aiSettings = { ...saved };
+      } else {
+        this.aiSettings = {
+          confidence: 0.5,
+          cooldown: 10,
+          refreshInterval: 30,
+          detectMask: true,
+          detectHairnet: true,
+          detectGlove: true,
+        };
+      }
+      this.aiSettingsOpen = true;
+    },
+    saveAiSettings() {
+      const deviceId = this.aiSettingsDevice.id;
+      this.aiSettingsMap[deviceId] = { ...this.aiSettings };
+      // Save to localStorage for persistence
+      localStorage.setItem('aiSettings_' + deviceId, JSON.stringify(this.aiSettings));
+      this.$message.success('AI settings saved for ' + this.aiSettingsDevice.deviceName);
+      this.aiSettingsOpen = false;
+    },
     getTask(row) {
       this.$message.info("Device: " + (row.deviceName || row.name) + " | IP: " + (row.deviceIp || "N/A") + " | RTSP: " + (row.rtspMain || "N/A"));
     },
