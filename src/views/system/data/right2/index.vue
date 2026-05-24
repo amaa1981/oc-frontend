@@ -7,15 +7,15 @@
 -->
 <template>
   <div class="right-container">
-    <!-- 标题 -->
+    <!-- Title -->
     <div class="chart-header">
       <span class="chart-header__bar" />
       <span class="chart-header__name">{{ title }}</span>
       <span class="chart-header__sub">{{ $t('dataCenter.peopleVehicleTrend') }}</span>
     </div>
-    <!-- 表格 -->
+    <!-- sheet -->
     <div class="right-container-echarts" ref="rightEcharts"></div>
-    <!-- 无数据 -->
+    <!-- No data -->
     <div v-show="!Boolean(data.length)" class="empty-state">
       <span>{{ $t('dataCenter.noData') }}</span>
     </div>
@@ -31,17 +31,17 @@ export default {
   components: {
   },
   props: {
-    // 标题
+    // Title
     title: {
       type: String,
       default: "",
     },
-    // 数据
+    // data
     data: {
       type: Array,
       default: () => [],
     },
-    // 报警类型ID映射关系
+    // Alarm type ID mapping relationship
     alarmTypeMapping: {
       type: Object,
       default: () => ({}),
@@ -49,24 +49,24 @@ export default {
   },
   data() {
     return {
-      // 初始化echarts
+      // initializeecharts
       eCharts: null,
     };
   },
   watch: {
     data: {
       handler(value) {
-        console.log("值改变");
+        console.log("Value changed");
         console.log(value);
-        // 取消监听
+        // Cancel monitoring
         window.removeEventListener("resize", this.echartsSize);
-        // 销毁表格
+        // Destroy form
         this.eCharts?.dispose();
-        // 重置为null
+        // Reset is null
         this.eCharts = null;
-        // 有数据则初始化内容
+        // If there is data, initialize the content
         if (value.length != 0) {
-          // 初始化表格
+          // Initialization form
           this.initEcharts();
           console.log(value);
         }
@@ -75,39 +75,39 @@ export default {
     },
   },
   beforeDestroy() {
-    // 取消监听
+    // Cancel monitoring
     window.removeEventListener("resize", this.echartsSize);
   },
   methods: {
-    // echarts修改大小方法
+    // echartsEdit size method
     echartsSize() {
-      // 重置echarts大小
+      // Resetecharts size
       this.eCharts?.resize();
     },
-    // 处理图表点击事件
+    // Handling chart click events
     handleChartClick(params) {
-      // 获取点击的数据系列名称
+      // Get the clicked data series name
       const seriesName = params.seriesName;
       const clickDate = params.name;
 
-      // 从映射关系中获取对应的报警类型ID
+      // Get the corresponding alarm type ID from the mapping relationship
       const eventTypeId = this.alarmTypeMapping[seriesName];
 
-      // 构建跳转参数
+      // Build jump parameters
       const query = {};
       if (eventTypeId) {
         query.eventTypeId = eventTypeId;
       }
 
-      // 添加时间参数
+      // Add time parameter
       if (this.data[0].week.length === 7) {
-        // 本周数据
+        // This week's data
         const today = new Date();
         const day = today.getDay() || 7; // Get day of week (0-6, 0=Sunday)
         const weekStart = new Date(today);
         weekStart.setDate(today.getDate() - (day - 1)); // Set to Monday
         const targetDate = new Date(weekStart);
-        targetDate.setDate(weekStart.getDate() + parseInt(params.dataIndex)); // Based on click index设置目标日期
+        targetDate.setDate(weekStart.getDate() + parseInt(params.dataIndex)); // Based on click indexSet target date
         const dateStr =
           targetDate.getFullYear() +
           "-" +
@@ -117,7 +117,7 @@ export default {
         query.startTime = dateStr + " 00:00:00";
         query.endTime = dateStr + " 23:59:59";
       } else if (this.data[0].week.length === 24) {
-        // 本日数据
+        // Today's data
         const today = new Date();
         const dateStr =
           today.getFullYear() +
@@ -130,7 +130,7 @@ export default {
         query.endTime =
           dateStr + " " + String(clickDate).padStart(2, "0") + ":59:59";
       } else {
-        // 近30天数据
+        // Data for the past 30 days
         const today = new Date();
         const targetDate = new Date(today);
         targetDate.setDate(today.getDate() - (29 - params.dataIndex)); // Calculate target date from index
@@ -144,15 +144,15 @@ export default {
         query.endTime = dateStr + " 23:59:59";
       }
 
-      // 跳转到报警记录页面
+      // Jump to alarm record page
       this.$router.push({
         path: "/alarmmanger/record",
         query: query,
       });
     },
-    // 初始化echarts方法
+    // Initialize echarts method
     initEcharts() {
-      // 饼图颜色合集
+      // Pie chart color collection
       let pieColors = [
         "#EB02FFFF",
         "#FFE500FF",
@@ -163,9 +163,9 @@ export default {
         "#00FFA6FF",
         "#9300DDFF",
       ];
-      // 文本颜色合计
+      // Text color total
       let richColor = {};
-      // 循环添加颜色
+      // Loop through colors
       pieColors.forEach((item, i) => {
         richColor[`color${i}`] = {
           fontSize: 12,
@@ -203,15 +203,15 @@ export default {
         });
       });
 
-      // 初始化echarts
+      // initializeecharts
       this.eCharts = echarts.init(this.$refs["rightEcharts"]);
 
-      // 添加点击事件监听
+      // Add click event listener
       this.eCharts.on("click", (params) => {
         this.handleChartClick(params);
       });
 
-      // 设置选项
+      // Set Options
       this.eCharts.setOption({
         color: pieColors,
         tooltip: {
@@ -322,7 +322,7 @@ export default {
         series: series,
       });
 
-      // 监听窗口变化修改大小
+      // Listen to window changes Edit size
       window.addEventListener("resize", this.echartsSize);
     },
   },

@@ -1,22 +1,22 @@
 /**
- * ECharts 按需引入配置
- * 只引入项目中实际使用的图表和组件，大幅减小打包体积
+ * ECharts introduces configurations on demand
+ * Only the charts and components actually used in the project are introduced, greatly reducing the packaging volume.
  */
 import * as echarts from 'echarts/core';
 
-// 引入需要的图表类型
+// Introduce required chart types
 import {
   BarChart,
   LineChart,
   PieChart,
   RadarChart,
-  // 如果还使用了其他图表类型，在这里添加
+  // If other chart types are used, add them here
   // ScatterChart,
   // MapChart,
   // etc.
 } from 'echarts/charts';
 
-// 引入需要的组件
+// Introduce required components
 import {
   TitleComponent,
   TooltipComponent,
@@ -24,16 +24,16 @@ import {
   LegendComponent,
   DatasetComponent,
   TransformComponent,
-  // 如果还使用了其他组件，在这里添加
+  // If other components are used, add them here
   // PolarComponent,
   // GeoComponent,
   // etc.
 } from 'echarts/components';
 
-// 引入渲染器（必须）
+// Introduce renderer (required)
 import { CanvasRenderer } from 'echarts/renderers';
 
-// 注册必须的组件
+// Register required components
 echarts.use([
   BarChart,
   LineChart,

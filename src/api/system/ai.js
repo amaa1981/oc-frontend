@@ -1,196 +1,196 @@
 /**
- * AI 报告生成 API — 直接调用 DeepSeek（兼容 OpenAI）接口
- * 使用 fetch + ReadableStream 实现 SSE 流式输出
+ * AI report Generate API - directly calls the DeepSeek (compatible with OpenAI) interface
+ * Use fetch + ReadableStream to implement SSE streaming output
  */
 
-// ==================== 配置常量 ====================
+// ==================== Configuration Constants ====================
 
-// AI 服务基础 URL
-// 直连 DeepSeek API: https://api.deepseek.com
-// 从环境变量 VUE_APP_AI_BASE_URL 读取，默认使用 DeepSeek 官方地址
+// AI service basic URL
+// Direct connection to DeepSeek API: https://api.deepseek.com
+// Read from the environment variable VUE_APP_AI_BASE_URL, using the DeepSeek official address by default
 const AI_BASE_URL = process.env.VUE_APP_AI_BASE_URL || 'https://api.deepseek.com';
 
-// AI API 密钥，用于身份验证
-// 从环境变量 VUE_APP_AI_API_KEY 读取
+// AI API key for authentication
+// Read from environment variable VUE_APP_AI_API_KEY
 const AI_API_KEY = process.env.VUE_APP_AI_API_KEY || '';
 
-// AI 模型名称
-// 从环境变量 VUE_APP_AI_MODEL 读取，默认使用 deepseek-chat
-// 示例：qwen3-30b-a3b-instruct-2507-fp8
+// AI model name
+// Read from the environment variable VUE_APP_AI_MODEL, using deepseek-chat by default
+// Example: qwen3-30b-a3b-instruct-2507-fp8
 const AI_MODEL = process.env.VUE_APP_AI_MODEL || 'deepseek-chat';
 
-// ==================== API 函数 ====================
+// ==================== API functions ====================
 
 /**
- * 流式调用 AI 生成报告
+ * Streaming call AI Generate report
  * 
- * 工作原理：
- * 1. 发送 HTTP POST 请求到 AI 服务
- * 2. 使用 SSE (Server-Sent Events) 接收流式响应
- * 3. 逐步解析返回的文本片段
- * 4. 通过回调函数实时返回生成的内容
+ * How it works:
+ * 1. Send HTTP POST request to AI service
+ * 2. Use SSE (Server-Sent Events) to receive streaming responses
+ * 3. Step by step parsing the text fragments of Back
+ * 4. Real-time BackGenerate content through callback function
  * 
- * @param {string} prompt - 用户提示词，包含要分析的数据和要求
- * @param {function} onChunk - 接收文本片段的回调函数
- *                              参数: text (string) - 新生成的文本片段
- *                              每次 AI 生成新内容时调用
- * @param {function} onDone - 生成完成的回调函数
- *                            当 AI 完成全部内容生成时调用
- * @param {function} onError - 错误处理回调函数
- *                             参数: err (Error) - 错误对象
- *                             当请求失败或解析错误时调用
- * @param {string} language - 语言代码，控制 AI 回复的语言
- *                            'zh': 中文（默认）
- *                            'en': 英文
- * @returns {function} abort - 取消请求的函数
- *                             调用此函数可以中止正在进行的 AI 生成
+ * @param {string} prompt - user prompt word, containing the data and requirements to be analyzed
+ * @param {function} onChunk - callback function to receive the text fragment
+ *                              Parameters: text (string) - The text fragment for the new Generate
+ *                              Called every time AI Generate new content
+ * @param {function} onDone - Generate completion callback function
+ *                            Called when AI has finished generating all content
+ * @param {function} onError - error handling callback function
+ *                             Parameters: err (Error) - error object
+ *                             Called when a request fails or a parsing error occurs
+ * @param {string} language - the language code that controls the language of the AI ​​reply
+ *                            'zh': Chinese (default)
+ *                            'en': English
+ * @returns {function} abort - function to cancel the request
+ *                             Call this function to abort an ongoing AI Generate
  * 
  * @example
  * const abort = streamAiReport(
- *   '请分析以下数据...',
- *   (text) => console.log('收到:', text),
- *   () => console.log('完成'),
- *   (err) => console.error('错误:', err),
+ *   'Please analyze the following data...',
+ *   (text) => console.log('Received:', text),
+ *   () => console.log('Complete'),
+ *   (err) => console.error('Error:', err),
  *   'zh'
  * );
- * // 如需取消: abort();
+ * // To cancel: abort();
  */
 export function streamAiReport(prompt, onChunk, onDone, onError, language) {
-  // 默认使用中文
+  // Chinese is used by default
   language = language || 'zh';
   
-  // 创建 AbortController 用于取消请求
+  // Create AbortController for canceling requests
   const controller = new AbortController();
 
-  // 根据语言设置 system prompt（系统提示词）
-  // system prompt 定义了 AI 的角色、行为规则和输出格式
+  // Set system prompt according to language
+  // system prompt defines the role, behavior rules and output format of AI
   var systemPrompt = language === 'en'
     ? 'You are a professional security data analyst who excels at generating concise and professional summary reports based on monitoring and alert data. The report should include data overview, trend analysis, key focus areas, and recommendations. Output in Markdown format.'
-    : '你是一个专业的安防数据分析师，擅长根据监控预警数据生成简洁、专业的中文总结报告。报告需要包含数据概览、趋势分析、重点关注项和建议。使用 Markdown 格式输出。';
+    : "You are a professional security data analyst who is good at generating concise and professional Chinese summary reports based on monitoring and warning data. Reports need to include an overview of the data, trend analysis, key concerns and recommendations. Use Markdown format for output.";
 
-  // 发起 HTTP POST 请求
-  // 发起 HTTP POST 请求
+  // Make an HTTP POST request
+  // Make an HTTP POST request
   fetch(AI_BASE_URL + '/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // Bearer Token 认证方式
+      // Bearer Token authentication method
       'Authorization': '' + AI_API_KEY,
       'apikey':AI_API_KEY
     },
     body: JSON.stringify({
-      // 使用的 AI 模型名称（如 qwen3-30b-a3b-instruct-2507-fp8）
+      // The name of the AI ​​model used (e.g. qwen3-30b-a3b-instruct-2507-fp8)
       model: AI_MODEL,
       
-      // 启用流式传输，逐步返回生成的内容而不是等待全部完成
-      // 优点：用户可以实时看到生成过程，体验更好
+      // Enable streaming to gradually BackGenerate content instead of waiting for it all to complete
+      // Advantages: Users can see the Generate process in real time, giving them a better experience
       stream: true,
       
-      // 对话消息数组
+      // Conversation message array
       messages: [
-        // system: 定义 AI 的角色和行为规则
+        // system: Define the role and behavior rules of the AI
         { role: 'system', content: systemPrompt },
-        // user: 用户的实际问题或请求
+        // user: the user’s actual question or request
         { role: 'user', content: prompt }
       ],
       
-      // temperature: 控制输出的随机性和创造性
-      // 范围 0-2，值越高越随机，越低越确定
-      // 0.0: 完全确定，每次输出相同
-      // 0.7: 平衡值，适合生成专业报告（推荐）
-      // 1.0: 较高创造性
-      // 2.0: 最高随机性
-      // 关闭深度思考模式（Qwen3 特有参数）
+      // temperature: Control the randomness and creativity of the output
+      // Range 0-2, higher values ​​are more random, lower values ​​are more certain
+      // 0.0: Completely sure, the output is the same every time
+      // 0.7: Balanced value, suitable for Generate professional reports (recommended)
+      // 1.0: High creativity
+      // 2.0: Highest randomness
+      // Turn off deep thinking mode (Qwen3 specific parameter)
       // enable_thinking: false,
       temperature: 0.7,
       
-      // max_tokens: 限制生成的最大 token 数量
-      // 1 token ≈ 0.75 个英文单词 ≈ 0.5-1 个中文字符
-      // 2000 tokens ≈ 1500-2000 个中文字符
+      // max_tokens: Limit the maximum number of tokens for Generate
+      // 1 token ≈ 0.75 English words ≈ 0.5-1 Chinese characters
+      // 2000 tokens ≈ 1500-2000 Chinese characters
       max_tokens: 100000,
     }),
-    // 绑定 AbortController，用于取消请求
+    // Bind AbortController for canceling requests
     signal: controller.signal,
   })
     .then(function (response) {
-      // 检查 HTTP 响应状态
+      // Check HTTP response status
       if (!response.ok) {
-        throw new Error('AI 接口请求失败: ' + response.status);
+        throw new Error("AI interface request failed:" + response.status);
       }
       
-      // 获取响应体的 ReadableStream 读取器
+      // ReadableStream reader that gets the response body
       var reader = response.body.getReader();
-      // 创建 UTF-8 解码器，将字节流转换为文本
+      // Create a UTF-8 decoder to convert a byte stream to text
       var decoder = new TextDecoder('utf-8');
-      // 缓冲区，用于存储未完成的行
+      // Buffer to store unfinished lines
       var buffer = '';
 
-      // 递归读取流式数据
+      // Recursively read streaming data
       function read() {
         reader.read().then(function (result) {
-          // result.done 为 true 表示流结束
+          // result.done is true to indicate the end of the stream
           if (result.done) {
             onDone && onDone();
             return;
           }
           
-          // 解码新接收的数据并追加到缓冲区
+          // Decode newly received data and append to buffer
           buffer += decoder.decode(result.value, { stream: true });
           
-          // 按行分割数据（SSE 格式是按行传输的）
+          // Split data by rows (SSE format is transferred row by row)
           var lines = buffer.split('\n');
-          // 保留最后一个未完成的行
+          // Keep the last unfinished line
           buffer = lines.pop();
 
-          // 处理每一行数据
+          // Process each row of data
           for (var i = 0; i < lines.length; i++) {
             var line = lines[i].trim();
-            // SSE 格式：每行以 "data: " 开头
+            // SSE format: Each line starts with "data: "
             if (!line || !line.startsWith('data:')) continue;
             
-            // 提取 JSON 数据部分
+            // Extract JSON data part
             var data = line.slice(5).trim();
             
-            // "[DONE]" 表示流结束
+            // "[DONE]" indicates the end of the stream
             if (data === '[DONE]') {
               onDone && onDone();
               return;
             }
             
             try {
-              // 解析 JSON 数据
+              // Parse JSON data
               var json = JSON.parse(data);
-              // 提取生成的文本片段
+              // Extract the text fragment of Generate
               var delta = json.choices && json.choices[0] && json.choices[0].delta;
               if (delta && delta.content) {
                 onChunk(delta.content);
               }
             } catch (e) {
-              // 忽略 JSON 解析错误（可能是不完整的数据）
+              // Ignore JSON parsing errors (possibly incomplete data)
             }
           }
           
-          // 继续读取下一批数据
+          // Continue reading the next batch of data
           read();
         }).catch(function (err) {
-          // 如果不是用户主动取消，则调用错误回调
+          // If the user does not actively cancel, the error callback is called.
           if (err.name !== 'AbortError') {
             onError && onError(err);
           }
         });
       }
       
-      // 开始读取
+      // Start reading
       read();
     })
     .catch(function (err) {
-      // 处理 fetch 错误
+      // Handling fetch errors
       if (err.name !== 'AbortError') {
         onError && onError(err);
       }
     });
 
-  // 返回取消函数
+  // Backcancel function
   return function abort() {
     controller.abort();
   };

@@ -76,14 +76,14 @@
       padding: 6px 14px;
       background-color: transparent !important;
 
-      // 子菜单展开的 inline ul
+      // submenu expanded inline ul
       &.el-menu--inline {
         background-color: transparent !important;
         padding: 0 0 0 8px;
       }
     }
 
-    // 菜单项通用样式
+    // Menu item common style
     .el-menu-item,
     .el-submenu__title {
       height: 50px;
@@ -112,7 +112,7 @@
       }
     }
 
-    // 激活态 — 浅青白色胶囊背景
+    // Active state - light cyan and white capsule background
     .el-menu-item.is-active {
       background-color: $base-menu-active-bg !important;
       color: $base-menu-active-color !important;
@@ -123,13 +123,13 @@
       }
     }
 
-    // submenu 激活态
+    // submenu active state
     .el-submenu.is-active > .el-submenu__title {
       color: #ffffff !important;
       font-weight: 600;
     }
 
-    // submenu 展开箭头
+    // submenu expand arrow
     .el-submenu__icon-arrow {
       color: rgba(255, 255, 255, 0.45);
       font-size: 12px;
@@ -154,7 +154,7 @@
       color: #ffffff !important;
     }
 
-    // 子菜单项
+    // submenu item
     & .nest-menu .el-submenu > .el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: calc(#{$base-sidebar-width} - 40px) !important;
@@ -197,12 +197,12 @@
     }
   }
 
-  // 折叠态
+  // folded state
   .hideSidebar {
     .sidebar-container {
       width: 76px !important;
 
-      // 折叠时按钮位置跟随
+      // Button Position follows when folded
       .sidebar-toggle-btn {
         left: 62px;
       }
@@ -211,7 +211,7 @@
         padding: 6px 10px;
       }
 
-      // 折叠态菜单项通用
+      // Common menu items in collapsed state
       .el-menu-item,
       .el-submenu__title {
         padding: 0 !important;
@@ -329,7 +329,7 @@
   }
 }
 
-// 折叠弹出菜单
+// Collapse popup menu
 .el-menu--vertical {
   & > .el-menu {
     .svg-icon {

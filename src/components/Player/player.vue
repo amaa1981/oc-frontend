@@ -3,7 +3,7 @@
  * @Date: 2023-03-10 22:45:40
  * @LastEditTime: 2025-05-12 14:49:37
  * @LastEditors: FGJ
- * @Description: Single player component - used for popup single view with independent WebSocket connection件独立控制
+ * @Description: Single player component - used for popup single view with independent WebSocket connection
  * @FilePath: \ruoyi-ui\src\components\Player\player.vue
 -->
 <template>
@@ -39,44 +39,44 @@ export default {
   },
   data() {
     return {
-      // 获取边缘位置的定时器
+      // Get edge position timer
       intervalId: null,
-      // 浏览器到系统桌面左边缘距离
+      // Distance from browser to left edge of system desktop
       screenX: window.screenX,
-      // 浏览器到系统桌面左边缘距离
+      // Distance from browser to left edge of system desktop
       screenY: window.screenY,
-      // 是否标签页最小化或切换标签页
+      // Whether to minimize the Label page or switch the Label page
       isHiddenTab: false,
       resizeObserver: null,
       position: null,
       playInfo: null,
-      // 防抖 -- 缩放
+      // Anti-Shake -- Zoom
       debounceResize: _.debounce(resize, 50),
-      // 防抖 -- 移动
+      // Anti-Shake - Mobile
       debounceMove: _.debounce(move, 50),
-      // 防抖 -- 隐藏视频
+      // Anti-shake -- Hide Video
       debounceHidden: _.debounce(hidden, 16),
-      // 防抖 -- 显示视频
+      // Anti-Shake -- Display Video
       debounceShow: _.debounce(show, 16),
-      // 防抖 -- 创建视频
+      // Anti-shake -- Create Video
       debounceOpen: _.debounce(open, 16),
-      // 防抖 -- 关闭视频
+      // Anti-shake -- turn off Video
       debounceClose: _.debounce(close, 16),
     };
   },
   created() {
-    // 注册监听ws消息接收事件
+    // Register to listen to ws message receiving events
     window.addEventListener("onWSOpen", this.onWSOpen);
-    // 注册监听ws消息接收事件
+    // Register to listen to ws message receiving events
     window.addEventListener("onMessageWS", this.getSocketData);
-    // 注册监听标签页最小化或切换事件
+    // Register to listen for Label page minimize or switch events
     document.addEventListener("visibilitychange", this.handleVisiable);
-    // 连接服务
+    // connection service
     createSocket(window.g.wsBaseURL);
   },
   mounted() {
     let _this = this;
-    // 开启定时器不断获取浏览器距离系统桌面边缘的位置
+    // Turn on the timer to continuously obtain the position of the browser from the edge of the system desktop
     this.intervalId = setInterval(() => {
       _this.handlerScreeMove();
     }, 80);
@@ -91,29 +91,29 @@ export default {
   },
   computed: {},
   watch: {
-    // 监听浏览器到系统桌面左边缘的距离
+    // Monitor the distance from the browser to the left edge of the system desktop
     screenX(newVal) {
       this.handlerScreenMove();
     },
-    // 监听浏览器到系统桌面上边缘的距离
+    // Monitor the distance from the browser to the upper edge of the system desktop
     screenY(newVal) {
       this.handlerScreenMove();
     },
   },
   methods: {
-    // ws连接成功回调
+    // ws connection success callback
     onWSOpen(e) {
       if (e.detail.isOpen) {
         this.createStream();
       }
     },
-    // 隐藏视频
+    // HideVideo
     handlerHidden() {
       this.debounceHidden({
         videoId: this.config.videoId,
       });
     },
-    // 显示视频
+    // Show Video
     handlerScreenShow() {
       this.position = getElementPosition(this.$refs[`player`], this.fullscreen);
       this.debounceShow({
@@ -125,14 +125,14 @@ export default {
         rtspUrl: this.config.rtspUrl,
       };
     },
-    // 画面移动
+    // screen movement
     handlerScreenMove() {
       this.position = getElementPosition(this.$refs[`player`], this.fullscreen);
       this.debounceMove({
         position: this.position,
         videoId: this.config.videoId,
       });
-      //更新store中的showList位置信息
+      //Update the showList location information in the store
       // store.dispatch(
       //   "mqtt/setShowList",
       //   store.state.mqtt.showList.map((item) => {
@@ -143,14 +143,14 @@ export default {
       //   })
       // );
     },
-    // 画面缩放
+    // Screen zoom
     handlerScreenResize() {
       this.position = getElementPosition(this.$refs[`player`], this.fullscreen);
       this.debounceResize({
         position: this.position,
         videoId: this.config.videoId,
       });
-      // //更新store中的showList位置信息
+      // //Update the showList location information in the store
       // store.dispatch(
       //   "mqtt/setShowList",
       //   store.state.mqtt.showList.map((item) => {
@@ -161,7 +161,7 @@ export default {
       //   })
       // );
     },
-    // 连接视频流
+    // Connect Video Stream
     createStream() {
       this.position = getElementPosition(this.$refs[`player`], this.fullscreen);
       this.debounceOpen({
@@ -179,14 +179,14 @@ export default {
         rtspUrl: this.config.rtspUrl,
       };
     },
-    // 销毁视频流
+    // DestroyVideo streaming
     destroyStream() {
       this.debounceClose({
         videoId: this.playInfo.videoId,
       });
       this.playInfo = null;
     },
-    // 接受WS消息回调
+    // Accept WS message callback
     getSocketData(res) {
       const data = res && res.detail.data;
       try {
@@ -212,35 +212,35 @@ export default {
         }
       } catch (error) {}
     },
-    // 处理浏览器标签页切换或浏览器最小化
+    // Handle browser Label page switching or browser minimization
     handleVisiable(e) {
       switch (e.target.visibilityState) {
-        // 网页预渲染，内容不可见
+        // Web pages are pre-rendered and the content is invisible
         case "prerender":
           break;
-        // 内容不可见，处理后台、最小化、锁屏状态
+        // The content is invisible, and the background, minimized, and locked screen states are processed.
         case "hidden":
           this.isHiddenTab = true;
           this.handlerHidden();
           break;
-        // 处于正常打开
+        // Normally open
         case "visible":
           this.isHiddenTab = false;
           this.handlerScreenShow();
           break;
       }
     },
-    // 赋值最新的浏览器边缘距离
+    // Assign the latest browser edge distance
     handlerScreeMove() {
       this.screenX = window.screenX;
       this.screenY = window.screenY;
     },
   },
   beforeDestroy() {
-    // 发送ws消息 -- 关闭全部视频
+    // Send ws message -- close all videos
     this.destroyStream();
     this.resizeObserver.disconnect();
-    // 清除定时器
+    // clear timer
     clearInterval(this.intervalId);
   },
   destroyed() {},

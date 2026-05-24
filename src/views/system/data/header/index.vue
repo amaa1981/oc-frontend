@@ -146,7 +146,7 @@ export default {
       this.$emit('ai-report');
     },
     getWeather() {
-      // 保留原有的天气获取方法占位
+      // Keep the original weather acquisition method placeholder
     },
   },
 };

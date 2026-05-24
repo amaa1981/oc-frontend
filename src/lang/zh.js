@@ -37,13 +37,13 @@ export default {
         //操作类型
         sys_oper_type: {
             1: "新增",
-            2: "修改",
-            3: "删除",
+            2: "Edit",
+            3: "Delete",
             4: "授权",
             5: "导出",
             6: "导入",
             7: "强退",
-            8: "生成代码",
+            8: "Generate代码",
             9: "清空数据",
             0: "其他",
         },
@@ -166,7 +166,7 @@ export default {
             10: "连接成功",
             20: "连接失败",
         },
-        //http推送数据类型
+        //http推送Data Type
         v1_http: {
             10: "报警",
             20: "心跳",
@@ -204,7 +204,7 @@ export default {
         dept: "部门管理",
         post: "岗位管理",
         area: "设备区域",
-        door: "门禁列表",
+        door: "门禁List",
         storeStatistics: "门店统计",
         passengerFlowRecords: "客流统计记录",
         personnelTrajectory: "人员轨迹",
@@ -218,33 +218,33 @@ export default {
         todayPassFlow: "今日经过客流",
         todayEnterFlow: "今日进店客流",
         todayEnterRate: "今日进店率",
-        dataUpdateTime: "数据更新时间",
+        dataUpdateTime: "数据Updated At",
         noData: "暂无数据",
         timeRange: "时间区间",
         startDate: "开始日期",
         endDate: "结束日期",
-        query: "查询",
-        reset: "重置",
-        serialNumber: "序号",
+        query: "Query",
+        reset: "Reset",
+        serialNumber: "No.",
         date: "日期",
         passFlow: "经过客流",
         enterFlow: "进店客流",
-        trajectoryQuery: "轨迹查询",
+        trajectoryQuery: "轨迹Query",
         type: "类型",
         0: "进店",
         1: "出店",
         2: "店内",
         trajectoryDetail: "轨迹详情",
         guestId: "客人ID",
-        trajectoryTimeRange: "轨迹时间段",
+        trajectoryTimeRange: "轨迹Time Range",
         regionId: "区域ID",
         deviceIp: "设备IP",
-        image: "图片",
+        image: "Image",
         eventTime: "事件发生时间",
         operation: "操作",
         detail: "详情",
         close: "关闭",
-        noImage: "无图片",
+        noImage: "无Image",
         customerConversation: "客户交谈",
         startTime: "开始时间",
         endTime: "结束时间",
@@ -257,26 +257,26 @@ export default {
         time: "时间"
     },
 
-    // 轨迹查询相关
+    // 轨迹Query相关
     trajectoryQuery: {
-        title: "轨迹查询",
+        title: "轨迹Query",
         guestId: "客人ID",
-        trajectoryTime: "轨迹时间段",
+        trajectoryTime: "轨迹Time Range",
         areaId: "区域ID",
         equipmentName: "区域名称",
         deviceIp: "设备IP",
-        image: "图片",
+        image: "Image",
         eventTime: "事件发生时间",
         operation: "操作",
         detail: "详情",
-        delete: "删除",
+        delete: "Delete",
         trajectoryDetail: "轨迹详情",
-        noImage: "无图片",
+        noImage: "无Image",
         close: "关闭",
         getDetailFailed: "获取轨迹详情失败",
-        confirmDelete: "是否确认删除该轨迹数据？",
-        deleteSuccess: "删除成功",
-        deleteFailed: "删除失败"
+        confirmDelete: "是否确认Delete该轨迹数据？",
+        deleteSuccess: "Delete成功",
+        deleteFailed: "Delete失败"
     },
 
     // 客流统计相关
@@ -298,8 +298,8 @@ export default {
         usernamePlaceholder: '请输入账号',
         password: '密码',
         passwordPlaceholder: '请输入密码',
-        code: '验证码',
-        codePlaceholder: '请输入验证码',
+        code: 'Captcha',
+        codePlaceholder: '请输入Captcha',
         rememberMe: '记住密码'
     },
     tagsView: {
@@ -326,44 +326,44 @@ export default {
         confirm: '确认',
         cancel: '取消',
         add: '新增',
-        edit: '修改',
-        remove: '删除',
-        reset: '重置',
+        edit: 'Edit',
+        remove: 'Delete',
+        reset: 'Reset',
         clear: '清空',
         unlock: '解锁',
         export: '导出',
         import: '导入',
         selectFile: '选择文件',
-        search: '搜索',
+        search: 'Search',
         close: '关闭',
         operate: '操作',
-        submit: '提交',
+        submit: 'Submit',
         adduser: "添加账户"
     },
     // 页面通用提示
     commonTips: {
         cannotBeEmpty: '不能为空',
-        pleaseSelect: '请选择',
+        pleaseSelect: 'Please select',
         pleaseEnter: '请输入',
         incorrectFormat: '格式不正确',
-        edit_s: '修改成功',
+        edit_s: 'Edit成功',
         add_s: '新增成功',
-        remove_s: '删除成功',
+        remove_s: 'Delete成功',
         clear_s: '清空成功',
         operate_s: '操作成功',
         unlockSuccessfully: '用户{username}解锁成功',
         serverLoading: '正在加载服务监控数据，请稍候！',
-        confirm: "是否确定修改？",
+        confirm: "是否确定Edit？",
         tips: "提示",
         import_s: '导入成功',
         import_f: '导入失败',
-        fileTypeError: '文件类型错误',
-        selectExcel: '请选择 Excel 文件',
-        selectZip: '请选择 ZIP 文件',
+        fileTypeError: 'File Type错误',
+        selectExcel: 'Please select Excel 文件',
+        selectZip: 'Please select ZIP 文件',
         uploadSuccess: '上传成功',
         uploadFailed: '上传失败',
-        pleaseUploadImage: '请上传图片文件',
-        imageSizeLimit: '图片大小不能超过5MB'
+        pleaseUploadImage: '请上传Image文件',
+        imageSizeLimit: 'Image大小不能超过5MB'
     },
     importResult: {
         title: '导入结果',
@@ -384,8 +384,8 @@ export default {
      * xxx_r 表示该字段的rules校验的提示字段
      * xxx_n 表示该字段不能为空(not empty)的提示
      * xxx_s 表示该字段的选择(select)提示
-     * dialogTitle_a 表示新增(add)弹窗的标题
-     * dialogtitl_e 表示修改(edit)弹窗的标题
+     * dialogTitle_a 表示新增(add)弹窗的Title
+     * dialogtitl_e 表示Edit(edit)弹窗的Title
      */
     // 侧边栏告警卡片
     sidebarAlarm: {
@@ -396,8 +396,8 @@ export default {
     // 后台管理配置页面
     backgroundConfigurationManage: {
         title: '系统配置',
-        subtitle: '管理网络、推送、音频等系统参数',
-        audio: "音频配置",
+        subtitle: '管理网络、推送、Audio等系统参数',
+        audio: "Audio配置",
         networknformationConfig: '网络信息配置',
         systemConfiguration: '系统配置',
         config: '推送配置',
@@ -416,7 +416,7 @@ export default {
         defaultGateway: '默认网关',
         preferredDNS: '首选DNS',
         alternateDNS: '备选DNS',
-        networkCard_s: '请选择网卡',
+        networkCard_s: 'Please select网卡',
         networkCard_n: '网卡不能为空',
         mac_n: 'MAC地址不能为空',
         IP_n: 'IP地址不能为空',
@@ -430,13 +430,13 @@ export default {
     // 系统配置页面
     systemConfig: {
         title: '系统配置',
-        delAlarmTime: '删除多少天前的告警记录',
+        delAlarmTime: 'Delete多少天前的告警记录',
         delAlarmStatus: '状态',
-        delSysTime: '删除多少天前的系统日志',
+        delSysTime: 'Delete多少天前的系统日志',
         alarmSocketStatus: '预警弹窗状态',
         heartbeatPushTime: "心跳推送间隔时间(分钟)",
         boxCode: "盒子唯一编码",
-        imageIp: "图片IP"
+        imageIp: "ImageIP"
     },
     // mqtt推送配置页面
     mqttConfig: {
@@ -457,26 +457,26 @@ export default {
         pushTopic_p: '请输入推送消息主题',
         pushTopic_n: '推送消息主题不能为空',
         status: '启动状态',
-        status_p: '请选择启动状态',
+        status_p: 'Please select启动状态',
         status_n: '启动状态不能为空',
         connectStatus: '连接状态',
-        connectStatus_p: '请选择连接状态',
+        connectStatus_p: 'Please select连接状态',
         connectStatus_n: '连接状态不能为空',
         alarmType: '推送报警类型',
-        alarmType_p: '请选择推送报警类型',
+        alarmType_p: 'Please select推送报警类型',
         alarmType_n: '推送报警类型不能为空',
         all: '全部',
     },
-    // 音频配置页面
+    // Audio配置页面
     audioConfig: {
         playContent: '播放内容',
         alarmType: '报警类型',
         all: '全部',
         opearte: '操作',
-        dialogTitle_a: '添加播放音频配置',
-        dialogTitle_e: '修改播放音频配置',
-        confirmRemove: '是否确认删除编号为{ids}的数据项？',
-        mp3: "音频地址"
+        dialogTitle_a: '添加播放Audio配置',
+        dialogTitle_e: 'Edit播放Audio配置',
+        confirmRemove: '是否确认Delete编号为{ids}的数据项？',
+        mp3: "Audio地址"
     },
     // http推送配置页面
     httpConfig: {
@@ -485,17 +485,17 @@ export default {
         connectInfo_p: '请输入http推送地址',
         connectInfo_n: 'http推送地址不能为空',
         status: '启动状态',
-        status_s: '请选择启动状态',
+        status_s: 'Please select启动状态',
         status_n: '启动状态不能为空',
         alarmType: '推送报警',
-        alarmType_s: '请选择推送报警',
+        alarmType_s: 'Please select推送报警',
         alarmType_n: '推送报警不能为空',
         all: '全部',
         opearte: '操作',
         dialogTitle_a: '添加http推送配置',
-        dialogTitle_e: '修改http推送配置',
-        confirmRemove: '是否确认删除http推送配置编号为{ids}的数据项？',
-        type: "http推送数据类型"
+        dialogTitle_e: 'Edithttp推送配置',
+        confirmRemove: '是否确认Deletehttp推送配置编号为{ids}的数据项？',
+        type: "http推送Data Type"
     },
     // jar-wed包上传页面
     jarUpload: {
@@ -504,12 +504,12 @@ export default {
     // 服务安装包信息页面
     serverPackageInfo: {
         version: '版本号',
-        httpUrl: 'http请求地址',
+        httpUrl: 'httpRequest URL',
         absolutePath: '绝对路径(本地服务地址)',
         operate: '操作',
         dialogTitle_a: '添加服务安装包信息',
-        dialogTitle_e: '修改服务安装包信息',
-        comfirmRemove: '是否确认删除服务安装包信息编号为{ids}的数据项？'
+        dialogTitle_e: 'Edit服务安装包信息',
+        comfirmRemove: '是否确认Delete服务安装包信息编号为{ids}的数据项？'
     },
     // 公众号配置页面
     publicAccountConfig: {
@@ -537,7 +537,7 @@ export default {
         os: '操作系统',
         msg: '操作信息',
         loginTime: '登录日期',
-        confirmRemove: '是否确认删除访问编号为{infoIds}的数据项？',
+        confirmRemove: '是否确认Delete访问编号为{infoIds}的数据项？',
         conformRemoveLog: '是否确认清空所有登录日志数据项？',
         confirmUnloackUser: '是否确认解锁用户{username}数据项?'
     },
@@ -566,13 +566,13 @@ export default {
         dialogTitle: '操作日志详细',
         operModule: '操作模块：',
         loginInfo: '登录信息：',
-        operUrl: '请求地址：',
+        operUrl: 'Request URL：',
         requestMethod: '请求方式：',
         method: '操作方法：',
         operParam: '请求参数：',
-        jsonResult: '返回参数：',
+        jsonResult: 'Back参数：',
         errorMsg: '异常信息：',
-        confirmRemoveLog: '是否确认删除日志编号为{operIds}的数据项？',
+        confirmRemoveLog: '是否确认Delete日志编号为{operIds}的数据项？',
         confirmRemoveAllLog: '是否确认清空所有操作日志数据项？',
         ms: '毫秒',
     },
@@ -586,10 +586,10 @@ export default {
         status: '状态',
         normal: '正常',
         abnormal: '异常',
-        restart: '重启',
-        confirmRestart: '是否确认重启服务器',
-        restartSuccessfully: '重启成功',
-        restartFaily: '重启失败'
+        restart: 'Restart',
+        confirmRestart: '是否确认Restart服务器',
+        restartSuccessfully: 'Restart成功',
+        restartFaily: 'Restart失败'
     },
     sysconfig: {
         title: '系统配置信息',
@@ -638,20 +638,20 @@ export default {
         deviceName_p: '请输入设备名称',
         deviceName_n: '设备名称不能为空',
         deviceType: '设备类型',
-        deviceType_s: '请选择设备类型',
+        deviceType_s: 'Please select设备类型',
         deviceType_n: '设备类型不能为空',
         factoryType: '厂商类型',
-        factoryType_s: '请选择厂商类型',
+        factoryType_s: 'Please select厂商类型',
         factoryType_n: '厂商类型不能为空',
         protocolType: '取流协议',
-        protocolType_s: '请选择取流协议',
+        protocolType_s: 'Please select取流协议',
         protocolType_n: '取流协议不能为空',
         installationArea: '设备区域',
-        installationArea_s: '请选择设备区域',
+        installationArea_s: 'Please select设备区域',
         installationArea_n: '设备区域不能为空',
-        closeAudio: '关闭音频',
-        openAudio: '开启音频',
-        image: '画面图片',
+        closeAudio: '关闭Audio',
+        openAudio: '开启Audio',
+        image: '画面Image',
         coordinate: '设备坐标',
         coordinate_p: '请输入设备坐标',
         status: '设备状态',
@@ -671,20 +671,20 @@ export default {
         deviceChannel_p: '请输入设备通道',
         deviceChannel_n: '设备通道不能为空',
         cameraIndexCode_n: '第三方摄像机索引id不能为空',
-        rtspMain: '视频流url',
-        rtspMain_p: '请输入视频流url地址',
-        rtspMain_n: '视频流url地址不能为空',
-        rtspSub: '子视频流url',
-        rtspSub_p: '请输入子视频流url地址',
-        rtspSub_n: '子视频流url地址不能为空',
+        rtspMain: 'Video流url',
+        rtspMain_p: '请输入Video流url地址',
+        rtspMain_n: 'Video流url地址不能为空',
+        rtspSub: '子Video流url',
+        rtspSub_p: '请输入子Video流url地址',
+        rtspSub_n: '子Video流url地址不能为空',
         operate: '操作',
         setter: '设置',
-        search: '搜索',
+        search: 'Search',
         input: '请输入',
         monitor: '监控',
         dialogTitle_a: '添加设备信息',
-        dialogTitle_e: '修改设备信息',
-        confirmRemove: '是否确认删除设备信息编号为{ids}的数据项？'
+        dialogTitle_e: 'Edit设备信息',
+        confirmRemove: '是否确认Delete设备信息编号为{ids}的数据项？'
     },
     // 任务详情页面
     task: {
@@ -728,21 +728,21 @@ export default {
         illegalParkingTimeout: '违停限时',
         illegalParkingType: '违停类型',
         MaxCount: '拥堵报警时间(秒)',
-        audioStatus: '音频开启状态',
+        audioStatus: 'Audio开启状态',
         executionTime: '执行时间',
         dialogTitle_a: '添加设备任务信息',
         paintTips1: '请画八个点的多边形',
         paintTips2: '请画3个八个点的多边形',
         paintTips3: '请最少画3个点的多边形',
         paintTips4: '请画不多于8个点的多边形',
-        confirmRemove: '是否确认删除设备任务信息编号为{ids}的数据项？',
+        confirmRemove: '是否确认Delete设备任务信息编号为{ids}的数据项？',
         to: '至',
         startTime: '开始时间',
         endTime: '结束时间',
         posture1: '远处识别不检测烟，只识别姿势',
         posture2: '进处要检测烟，同时识别姿势',
         line: "线段",
-        point: "画点",
+        point: "Draw point",
         fenceThreshold: "围栏阈值",
         fencePersonThreshold: "人检测阈值",
         glovesPersonThreshold: "人员阈值",
@@ -781,7 +781,7 @@ export default {
         ageGenderAlarmInterval: "间隔时间",
         maskScore: "口罩阈值",
         frameInterval: "人脸检测间隔（毫秒）",
-        areaNameList: "区域名称列表",
+        areaNameList: "区域名称List",
         areaName: "区域",
         enterAreaName: "请输入区域名称",
         Threshold1: "门状态检测阈值1",
@@ -792,13 +792,13 @@ export default {
         garbageType1: "垃圾乱放",
         garbageType2: "都报",
         intrusionPersonThresh: "人员检查阈值",
-        intrusionFrontPic: "衣服正面图片",
-        intrusionBackPic: "衣服背面图片",
+        intrusionFrontPic: "衣服正面Image",
+        intrusionBackPic: "衣服背面Image",
         cm: '厘米',
         ms: '毫秒',
         intrusionPersonThreshRequired: "请输入人员检查阈值",
-        intrusionFrontPicRequired: "请上传衣服正面图片",
-        intrusionBackPicRequired: "请上传衣服背面图片",
+        intrusionFrontPicRequired: "请上传衣服正面Image",
+        intrusionBackPicRequired: "请上传衣服背面Image",
         carThreshold: "汽车阈值",
         chargingThreshold: "充电枪阈值",
         vehicleCarThreshold: "汽车阈值",
@@ -810,8 +810,8 @@ export default {
     },
     // 右侧工具栏
     rightToolbar: {
-        showSearch: "显示搜索",
-        hideSearch: "隐藏搜索",
+        showSearch: "显示Search",
+        hideSearch: "隐藏Search",
         refresh: "刷新",
         columnDisplay: "显隐列",
         title: "显示/隐藏",
@@ -830,22 +830,22 @@ export default {
         id: '主键id',
         operate: '操作',
         dialogTitle_a: '添加人脸库信息',
-        dialogTitle_e: '修改人脸库信息',
-        confirmRemove: '是否确认删除人脸库信息编号为{ids}的数据项？',
+        dialogTitle_e: 'Edit人脸库信息',
+        confirmRemove: '是否确认Delete人脸库信息编号为{ids}的数据项？',
         name: '人员名称',
         sex: '人员性别',
         type: '人员类型',
-        image: '人脸图片',
+        image: '人脸Image',
         dialogTitle_people_a: '添加人员信息',
-        dialogTitle_people_e: '修改人员信息',
-        confirmRemovePeople: '是否确认删除人员信息编号为{ids}的数据项？',
+        dialogTitle_people_e: 'Edit人员信息',
+        confirmRemovePeople: '是否确认Delete人员信息编号为{ids}的数据项？',
         libId: '人员库ID'
     },
     // 告警记录信息页面
     record: {
         eventTypeId: '事件类型',
         eventTypeId_p: '请输入事件类型',
-        eventTypeId_s: '请选择事件类型',
+        eventTypeId_s: 'Please select事件类型',
         sendTime: '发生时间',
         equipmentName: '设备名称',
         equipmentName_p: '请输入设备名称',
@@ -858,7 +858,7 @@ export default {
         strRes: '报警事件描述',
         dialogTitle_a: '添加告警记录信息',
         dialogTitle: '告警记录信息',
-        confirmRemove: '是否确认删除告警记录信息编号为{ids}的数据项？',
+        confirmRemove: '是否确认Delete告警记录信息编号为{ids}的数据项？',
         name: "姓名",
         originalDrawing: "原图",
         peoplenum: "人数",
@@ -892,7 +892,7 @@ export default {
         yes: "有",
         no: "无",
         stickyBoardResult: "识别结果",
-        imagePreview: "图片预览",
+        imagePreview: "ImagePreview",
         smokeFireResult: "检测结果",
         fire: "火",
         smoke: "烟",
@@ -921,11 +921,11 @@ export default {
         all: "全部",
         id: "主键ID",
         addHttpPush: "添加HTTP推送配置",
-        editHttpPush: "修改HTTP推送配置",
+        editHttpPush: "EditHTTP推送配置",
         addPhonePush: "添加手机推送配置",
-        editPhonePush: "修改手机推送配置",
+        editPhonePush: "Edit手机推送配置",
         addEmailPush: "添加邮箱推送配置",
-        editEmailPush: "修改邮箱推送配置",
+        editEmailPush: "Edit邮箱推送配置",
         httpAddressRequired: "HTTP推送地址不能为空",
         phoneRequired: "手机号不能为空",
         phoneFormatError: "请输入11位数字手机号",
@@ -933,20 +933,20 @@ export default {
         emailFormatError: "请输入正确的邮箱格式",
         statusRequired: "启动状态不能为空",
         alarmTypeRequired: "推送报警不能为空",
-        confirmDeleteHttp: "是否确认删除HTTP推送配置编号为\"{ids}\"的数据项？",
-        confirmDeletePhone: "是否确认删除手机推送配置编号为\"{ids}\"的数据项？",
-        confirmDeleteEmail: "是否确认删除邮箱推送配置编号为\"{ids}\"的数据项？",
+        confirmDeleteHttp: "是否确认DeleteHTTP推送配置编号为\"{ids}\"的数据项？",
+        confirmDeletePhone: "是否确认Delete手机推送配置编号为\"{ids}\"的数据项？",
+        confirmDeleteEmail: "是否确认Delete邮箱推送配置编号为\"{ids}\"的数据项？",
     },
     // 监控中心页面
     monitor: {
         layout: '布局',
-        list: '设备列表',
-        playTip: '当前监控已在播放列表中！',
+        list: '设备List',
+        playTip: '当前监控已在播放List中！',
         fullscreen: '全屏',
         one: '单屏',
         four: '四分屏',
         six: '六分屏',
-        fail: '操作失败！',
+        fail: 'Operation failed！',
         playing: '正在播放',
         nosign: '无信号接入',
         loadingText: '连接服务中',
@@ -966,7 +966,7 @@ export default {
         subtitle: '查看、配置和管理报警地图与告警记录',
         alarmDetail: '告警详情',
         alarmRecord: '告警记录',
-        imageUrl: '报警图片',
+        imageUrl: '报警Image',
         eventTypeId: '事件类型',
         sendTime: '事件发生时间',
         equipmentName: '设备名称',
@@ -991,14 +991,14 @@ export default {
     // 导航栏
     navbar: {
         lang: '语言',
-        individualCenter: '个人中心',
+        individualCenter: 'Profile',
         logOut: '退出登录',
         logOutTip: '确定注销并退出系统吗？',
         tip: '提示',
         deviceArea: '设备区域',
         all: '全部'
     },
-    // 个人中心页面
+    // Profile页面
     profile: {
         title1: '个人信息',
         userName: '用户名称',
@@ -1008,7 +1008,7 @@ export default {
         roleGroup: '所属角色',
         createTime: '创建日期',
         title2: '基本资料',
-        title3: '修改密码',
+        title3: 'Edit密码',
         nickName: '用户昵称',
         sex: '性别',
         man: '男',
@@ -1023,7 +1023,7 @@ export default {
         passwordTip: '两次输入的密码不一致',
         select: '选择',
         uploadTip: '点击上传头像',
-        uploadFileTip: '文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。',
+        uploadFileTip: '文件格式错误，请上传Image类型,如：JPG，PNGSuffix的文件。',
     },
     // 用户管理页面
     user: {
@@ -1041,8 +1041,8 @@ export default {
         createTime: '创建时间',
         operate: '操作',
         more: '更多',
-        resetPassword: '重置密码',
-        assignRoles: '分配角色',
+        resetPassword: 'Reset密码',
+        assignRoles: 'Assign Roles',
         deptId: '归属部门',
         email: '邮箱',
         email_r: '请输入正确的邮箱地址',
@@ -1062,21 +1062,21 @@ export default {
         confirmChangeStatus: '确认要{text}{username}用户吗？',
         success: '{text}成功',
         dialogTitle_a: '添加用户',
-        dialogTitle_e: '修改用户',
+        dialogTitle_e: 'Edit用户',
         confirmResetPassword: '请输入{username}的新密码',
         tip: '提示',
         inputErrorMessage: '用户密码长度必须介于 5 和 20 之间',
-        successTip: '修改成功，新密码是：{value}',
-        comfirmRemove: '是否确认删除用户编号为{userIds}的数据项？',
+        successTip: 'Edit成功，新密码是：{value}',
+        comfirmRemove: '是否确认Delete用户编号为{userIds}的数据项？',
         import: '用户导入',
-        authTitle1: '基本信息',
+        authTitle1: 'Basic Info',
         authTitle2: '角色信息',
-        index: '序号',
+        index: 'No.',
         roleId: '角色编号',
         roleName: '角色名称',
         roleKey: '权限字符',
-        submit: '提交',
-        close: '返回',
+        submit: 'Submit',
+        close: 'Back',
         authSuccess: '授权成功'
     },
     // 角色管理页面
@@ -1092,7 +1092,7 @@ export default {
         operate: '操作',
         more: '更多',
         dataPermi: '数据权限',
-        authUser: '分配用户',
+        authUser: 'Assign Users',
         roleKeyTip: "控制器中定义的权限字符，如：@PreAuthorize('@ss.hasRole('admin')')",
         menuPermi: '菜单权限',
         menuExpand: '展开/折叠',
@@ -1111,9 +1111,9 @@ export default {
         confirmChangeStatus: '确认要{text}{username}用户吗？',
         success: '{text}成功',
         dialogTitle_a: '添加角色',
-        dialogTitle_e: '修改角色',
+        dialogTitle_e: 'Edit角色',
         authTitle: '分配数据权限',
-        confirmRemove: '是否确认删除角色编号为{roleIds}的数据项？',
+        confirmRemove: '是否确认Delete角色编号为{roleIds}的数据项？',
         userName: '用户名称',
         phonenumber: '手机号码',
         addUser: '添加用户',
@@ -1125,7 +1125,7 @@ export default {
         confirmRemoveAuthAll: '是否取消选中用户授权数据项？',
         removeAuth_s: '取消授权成功',
         selectUser: '选择用户',
-        seletUserTip: '请选择要分配的用户'
+        seletUserTip: 'Please select要分配的用户'
     },
     // 菜单管理页面
     menuConfig: {
@@ -1163,8 +1163,8 @@ export default {
         menuStatusTip: '选择停用则路由将不会出现在侧边栏，也不能被访问',
         main: '主类目',
         dialogTitle_a: '添加菜单',
-        dialogTitle_e: '修改菜单',
-        comfirmRemove: '是否确认删除名称为{menuName}的数据项？'
+        dialogTitle_e: 'Edit菜单',
+        comfirmRemove: '是否确认Delete名称为{menuName}的数据项？'
     },
     // 部门管理页面
     dept: {
@@ -1180,8 +1180,8 @@ export default {
         email: '邮箱',
         email_r: '请输入正确的邮箱地址',
         dialogTitle_a: '添加部门',
-        dialogTitle_e: '修改部门',
-        confirmRemove: '是否确认删除名称为{deptName}的数据项？'
+        dialogTitle_e: 'Edit部门',
+        confirmRemove: '是否确认Delete名称为{deptName}的数据项？'
     },
     // 岗位管理页面
     post: {
@@ -1193,12 +1193,12 @@ export default {
         createTime: '创建时间',
         remark: '备注',
         dialogTitle_a: '添加岗位',
-        dialogTitle_e: '修改岗位',
-        confirmRemove: '是否确认删除岗位编号为{postIds}的数据项？'
+        dialogTitle_e: 'Edit岗位',
+        confirmRemove: '是否确认Delete岗位编号为{postIds}的数据项？'
     },
     // axios配置字段
     axiosConfig: {
-        submitRepeatTip: '数据正在处理，请勿重复提交',
+        submitRepeatTip: '数据正在处理，请勿重复Submit',
         loginTimeout: '登录状态已过期，您可以继续留在该页面，或者重新登录',
         systemTip: '系统提示',
         loginAgain: '重新登录',
@@ -1217,32 +1217,32 @@ export default {
         code_404: '访问资源不存在',
         default: '系统未知错误，请反馈给管理员'
     },
-    // 文件上传组件
+    // File Upload组件
     fileUpload: {
         selectFile: '选取文件',
         pleaseUpload: '请上传',
         maxSize: '大小不超过',
         fileType: '格式为',
         file: '的文件',
-        delete: '删除',
+        delete: 'Delete',
         uploadError: '文件格式不正确, 请上传{fileType}格式文件!',
-        sizeTip: '上传文件大小不能超过 {fileSize} MB!',
+        sizeTip: '上传File Size不能超过 {fileSize} MB!',
         loadingText: '正在上传文件，请稍候...',
         sumLimit: '上传文件数量不能超过 {limit} 个!',
         errorTip: '上传文件失败，请重试'
     },
-    // 图片上传组件
+    // Image上传组件
     imageUpload: {
         pleaseUpload: '请上传',
         maxSize: '大小不超过',
         fileType: '格式为',
         file: '的文件',
-        preview: '预览',
-        uploadError: '文件格式不正确, 请上传{fileType}图片格式文件!',
-        sizeTip: '上传图片大小不能超过 {fileSize} MB!',
-        loadingText: '正在上传图片，请稍候...',
+        preview: 'Preview',
+        uploadError: '文件格式不正确, 请上传{fileType}Image格式文件!',
+        sizeTip: '上传Image大小不能超过 {fileSize} MB!',
+        loadingText: '正在上传Image，请稍候...',
         sumLimit: '上传文件数量不能超过 {limit} 个!',
-        errorTip: '上传图片失败，请重试'
+        errorTip: '上传Image失败，请重试'
     },
     // 全局modal配置
     modal: {
@@ -1251,27 +1251,27 @@ export default {
         errornet2: '暂时无法显示报警位置',
         more: '更多菜单',
     },
-    // 字典管理页面
+    // Dictionary management page
     dictManage: {
         dictId: '字典编号',
         dictName: '字典名称',
-        dictType: '字典类型',
+        dictType: 'Dict Type',
         status: '状态',
         createTime: '创建时间',
         startTime: '开始时间',
         endTime: '结束时间',
         refresh: '刷新缓存',
         remark: '备注',
-        dialogTitle_a: '添加字典类型',
-        dialogTitle_e: '修改字典类型',
-        comfirmRemove: '是否确认删除字典编号为{dictIds}的数据项？',
+        dialogTitle_a: '添加Dict Type',
+        dialogTitle_e: 'EditDict Type',
+        comfirmRemove: '是否确认Delete字典编号为{dictIds}的数据项？',
         refresh_s: '刷新成功'
     },
-    // 字典详情页面
+    // Dictionary detail page
     dictInfo: {
         dictCode: '字典编码',
         dictType: '字典名称',
-        dictLabel: '字典标签',
+        dictLabel: '字典Label',
         dictValue: '字典键值',
         dictSort: '字典排序',
         remark: '备注',
@@ -1285,11 +1285,11 @@ export default {
         classOptions_4: '信息',
         classOptions_5: '警告',
         classOptions_6: '危险',
-        dialogTitle_a: '添加字典数据',
-        dialogTitle_e: '修改字典数据',
-        comfirmRemove: '是否确认删除字典编码为{dictCodes}的数据项？'
+        dialogTitle_a: '添加Dictionary Data',
+        dialogTitle_e: 'EditDictionary Data',
+        comfirmRemove: '是否确认Delete字典编码为{dictCodes}的数据项？'
     },
-    // 设备区域管理页面
+    // Device area management page
     area: {
         deptName: '设备区域名称',
         status: '设备区域状态',
@@ -1303,28 +1303,28 @@ export default {
         email: '邮箱',
         email_r: '请输入正确的邮箱地址',
         dialogTitle_a: '添加设备区域',
-        dialogTitle_e: '修改设备区域',
-        confirmRemove: '是否确认删除名称为{deptName}的数据项？'
+        dialogTitle_e: 'Edit设备区域',
+        confirmRemove: '是否确认Delete名称为{deptName}的数据项？'
     },
-    // 设备区域页面
+    // Device area page
     deviceArea: {
         dictCode: '区域ID',
         dictLabel: '设备区域',
         dictSort: '排序',
         dialogTitle_a: '添加区域',
-        dialogTitle_e: '修改区域',
-        comfirmRemove: '是否确认删除区域ID为{dictCodes}的数据项？'
+        dialogTitle_e: 'Edit区域',
+        comfirmRemove: '是否确认Delete区域ID为{dictCodes}的数据项？'
     },
 
     // 商店相关页面
     shop: {
-        // 轨迹查询相关
+        // 轨迹Query相关
         trackQuery: {
             guestId: '客人ID',
             trackTime: '轨迹时间',
             regionId: '区域ID',
-            query: '查询',
-            reset: '重置',
+            query: 'Query',
+            reset: 'Reset',
             trackDetails: '轨迹详情',
             close: '关闭',
             noData: '暂无数据'
@@ -1332,7 +1332,7 @@ export default {
 
         // 客户统计相关
         customerStats: {
-            serialNumber: '序号',
+            serialNumber: 'No.',
             guestId: '客人ID',
             totalTime: '总时长',
             hours: '小时',
@@ -1342,21 +1342,21 @@ export default {
             regions: '个区域'
         },
 
-        // 记录查询相关 (index4.vue)
+        // 记录Query相关 (index4.vue)
         recordQuery: {
             timeRange: '时间区间',
             to: '至',
             startDate: '开始日期',
             endDate: '结束日期',
-            query: '查询',
-            reset: '重置',
-            serialNumber: '序号',
+            query: 'Query',
+            reset: 'Reset',
+            serialNumber: 'No.',
             time: '时间',
             customerId: '客户ID',
             deviceIp: '设备IP',
             regionId: '区域ID',
-            image: '图片',
-            noImage: '无图片',
+            image: 'Image',
+            noImage: '无Image',
             stayStartTime: '停留开始时间',
             stayEndTime: '停留结束时间',
             operation: '操作'
@@ -1377,7 +1377,7 @@ export default {
         peopleCount: '人数',
         vehicleCount: '车辆数量',
 
-        // 标题
+        // Title
         dataScreen: '数据大屏',
         backend: '后台',
         deviceAlarmTop3: '设备预警次数前3名',
@@ -1419,20 +1419,20 @@ export default {
 
         // 导出
         exportPdf: '导出PDF',
-        exportFailed: '导出PDF失败',
+        exportFailed: 'Failed to export PDF',
         exportTime: '导出时间',
         overviewTitle: '概览统计',
         alarmType: '报警类型',
         alarmCount: '报警次数',
         percentage: '占比',
-        timePeriod: '时间段',
+        timePeriod: 'Time Range',
         // AI报告
         aiReport: 'AI总结报告',
-        aiGenerating: 'AI正在分析数据并生成报告...',
-        aiReportFailed: 'AI报告生成失败',
-        copyReport: '复制报告',
-        copySuccess: '已复制到剪贴板',
-        stopGenerate: '停止生成',
+        aiGenerating: 'AI正在分析数据并Generate报告...',
+        aiReportFailed: 'AI报告Generate失败',
+        copyReport: 'Copy报告',
+        copySuccess: '已Copy到剪贴板',
+        stopGenerate: '停止Generate',
         exportPdfSuccess: 'PDF导出成功',
     },
       aiChat: {
@@ -1468,26 +1468,26 @@ export default {
   confirm: '确定',
   cancel: '取消',
   sessionCreated: '已新建会话',
-  deleteSession: '删除会话',
-  deleteSuccess: '删除成功',
-  deleteFailed: '删除失败',
+  deleteSession: 'Delete会话',
+  deleteSuccess: 'Delete成功',
+  deleteFailed: 'Delete失败',
   today: '今天',
   yesterday: '昨天',
   maxFilesLimit: '最多只能上传3个文件',
   fileTypeError: '只支持上传Excel、Word和PDF文件',
-  fileSizeError: '文件大小不能超过20MB',
-  uploadSuccess: '文件上传成功',
-  uploadFailed: '文件上传失败',
-  uploadRetry: '文件上传失败，请重试',
+  fileSizeError: 'File Size不能超过20MB',
+  uploadSuccess: 'File Upload成功',
+  uploadFailed: 'File Upload失败',
+  uploadRetry: 'File Upload失败，请重试',
   clearFilesConfirm: '确定要清空所有已上传的文件吗？',
   filesCleared: '已清空所有文件',
-  deleteSessionConfirm: '确定要删除会话吗？',
-  querySessionFailed: '查询会话列表失败',
-  queryDetailFailed: '查询会话详情失败',
+  deleteSessionConfirm: '确定要Delete会话吗？',
+  querySessionFailed: 'Query会话List失败',
+  queryDetailFailed: 'Query会话详情失败',
   aiServiceError: 'AI服务连接失败，请稍后重试',
   cannotConnectAI: '无法连接到AI服务',
   parseError: '消息解析失败',
-  stopGeneration: '已停止生成',
+  stopGeneration: '已停止Generate',
   defaultErrorResponse: '抱歉，我遇到了一些技术问题：{error}。请稍后重试，或者重新提问。'
 },
 }

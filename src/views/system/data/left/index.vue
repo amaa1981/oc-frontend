@@ -7,15 +7,15 @@
 -->
 <template>
   <div class="left-container">
-    <!-- 标题 -->
+    <!-- Title -->
     <div class="chart-header">
       <span class="chart-header__bar" />
       <span class="chart-header__name">{{ title }}</span>
       <span class="chart-header__sub">{{ $t('dataCenter.eventTypeAnalysis') }}</span>
     </div>
-    <!-- 表格 -->
+    <!-- sheet -->
     <div class="left-container-echarts" ref="leftEcharts"></div>
-    <!-- 无数据 -->
+    <!-- No data -->
     <div v-show="!Boolean(data.length)" class="empty-state">
       <span>{{ $t('dataCenter.noData') }}</span>
     </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-// 标题组件
+// Title component
 // echarts
 import echarts from "@/plugins/echarts";
 
@@ -32,22 +32,22 @@ export default {
   components: {
   },
   props: {
-    // 标题
+    // Title
     title: {
       type: String,
       default: "",
     },
-    // 数据
+    // data
     data: {
       type: Array,
       default: () => [],
     },
-    // 报警类型ID映射关系
+    // Alarm type ID mapping relationship
     alarmTypeMapping: {
       type: Object,
       default: () => ({}),
     },
-    // 时间类型 1: 本日 2: 本周 3: 近30天
+    // Time Type 1: Today 2: This week 3: Last 30 days
     type: {
       type: String,
       default: "1",
@@ -55,63 +55,63 @@ export default {
   },
   data() {
     return {
-      // 初始化echarts
+      // initializeecharts
       eCharts: null,
     };
   },
   watch: {
     data: {
       handler(value) {
-        // 取消监听
+        // Cancel monitoring
         window.removeEventListener("resize", this.echartsSize);
-        // 销毁表格
+        // Destroy form
         this.eCharts?.dispose();
-        // 重置为null
+        // Reset is null
         this.eCharts = null;
 
-        // 有数据则初始化内容
+        // If there is data, initialize the content
         if (value.length !== 0) {
-          // 初始化表格
+          // Initialization form
           this.$nextTick(() => {
             this.initEcharts();
           });
         }
       },
       deep: true,
-      // immediate: true, // 添加immediate属性，确保组件创建时立即执行一次监听函数
+      // immediate: true, // Add immediate attribute to ensure that the listening function is executed immediately when the component is created
     },
   },
   mounted() {
-    // 添加窗口大小变化监听
+    // Add window size change monitoring
     window.addEventListener("resize", this.echartsSize);
   },
   beforeDestroy() {
-    // 取消监听
+    // Cancel monitoring
     window.removeEventListener("resize", this.echartsSize);
   },
   methods: {
-    // echarts修改大小方法
+    // echartsEdit size method
     echartsSize() {
-      // 重置echarts大小
+      // Resetecharts size
       this.eCharts?.resize();
     },
-    // 处理图表点击事件
+    // Handling chart click events
     handleChartClick(params) {
-      // 获取点击的数据系列名称
+      // Get the clicked data series name
       const seriesName = params.name;
 
-      // 从映射关系中获取对应的报警类型ID
+      // Get the corresponding alarm type ID from the mapping relationship
       const eventTypeId = this.alarmTypeMapping[seriesName];
 
-      // 构建跳转参数
+      // Build jump parameters
       const query = {};
       if (eventTypeId) {
         query.eventTypeId = eventTypeId;
       }
 
-      // 添加时间参数
+      // Add time parameter
       if (this.type === "2") {
-        // 本周数据
+        // This week's data
         const today = new Date();
         const day = today.getDay() || 7; // Get day of week (0-6, 0=Sunday)
         const weekStart = new Date(today);
@@ -136,7 +136,7 @@ export default {
         query.startTime = startDateStr + " 00:00:00";
         query.endTime = endDateStr + " 23:59:59";
       } else if (this.type === "3") {
-        // 近30天数据
+        // Data for the past 30 days
         const today = new Date();
         const thirtyDaysAgo = new Date(today);
         thirtyDaysAgo.setDate(today.getDate() - 29); // Set to 30 days ago
@@ -159,15 +159,15 @@ export default {
         query.endTime = endDateStr + " 23:59:59";
       }
 
-      // 跳转到报警记录页面
+      // Jump to alarm record page
       this.$router.push({
         path: "/alarmmanger/record",
         query: query,
       });
     },
-    // 初始化echarts方法
+    // Initialize echarts method
     initEcharts() {
-      // 饼图颜色合集
+      // Pie chart color collection
       let pieColors = [
         "#1FC6FFFF",
         "#FF9900FF",
@@ -178,24 +178,24 @@ export default {
         "#87A8FFFF",
         "#0067EDFF",
       ];
-      // 文本颜色合计
+      // Text color total
       let richColor = {};
-      // 循环添加颜色
+      // Loop through colors
       pieColors.forEach((item, i) => {
         richColor[`color${i}`] = {
           fontSize: 12,
           color: item,
         };
       });
-      // 初始化echarts
+      // initializeecharts
       this.eCharts = echarts.init(this.$refs["leftEcharts"]);
 
-      // 添加点击事件监听
+      // Add click event listener
       this.eCharts.on("click", (params) => {
         this.handleChartClick(params);
       });
 
-      // 设置选项
+      // Set Options
       this.eCharts.setOption({
         color: pieColors,
         tooltip: {
@@ -253,7 +253,7 @@ export default {
         ],
       });
 
-      // 监听窗口变化修改大小
+      // Listen to window changes Edit size
       window.addEventListener("resize", this.echartsSize);
     },
   },

@@ -393,7 +393,7 @@ export default {
   name: "Server",
   data() {
     return {
-      // 服务器信息
+      // Server information
       server: [],
     };
   },
@@ -414,7 +414,7 @@ export default {
         this.$modal.closeLoading();
       });
     },
-    // 打开加载层
+    // Open loading layer
     openLoading() {
       this.$modal.loading(this.$t("commonTips.serverLoading"));
     },

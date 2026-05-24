@@ -40,7 +40,7 @@ export default {
       appMain.style.padding = '0'
       appMain.style.overflow = 'hidden'
     }
-    // 默认选中第一个 tab（仅当不在任何 alarmmanger 子路由时才跳转）
+    // The first tab is selected by default (jumps only if it is not in any alarmmanger sub-route)
     this.$nextTick(() => {
       if (this.visibleTabs.length && this.$route.path === '/alarmmanger') {
         this.$router.replace(this.visibleTabs[0].fullPath)
@@ -59,7 +59,7 @@ export default {
       const sidebarRouters = this.$store.state.permission.sidebarRouters || []
       const alarmRoute = sidebarRouters.find(r => r.path === '/alarmmanger')
       if (!alarmRoute || !alarmRoute.children) return []
-      // children 可能被 AlarmLayout 包装器包裹，需要取内层 children
+      // children may be wrapped by the AlarLayout wrapper, and the inner children need to be taken
       let children = alarmRoute.children
       if (children.length === 1 && children[0].path === '' && children[0].children) {
         children = children[0].children
@@ -78,9 +78,9 @@ export default {
       return this.$route.path === tab.fullPath || this.$route.path.startsWith(tab.fullPath + '/')
     },
     getTabLabel(title) {
-      // title 可能是 i18n key（如 menu.alarm）或中文文本
+      // title may be i18n key (such as menu.alarm) or Chinese text
       const translated = this.$t(title)
-      // 如果翻译成功（不等于 key 本身），使用翻译结果
+      // If the translation is successful (not equal to the key itself), use the translation result
       if (translated !== title) return translated
       return title
     }

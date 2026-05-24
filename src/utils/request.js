@@ -9,29 +9,29 @@ import { saveAs } from 'file-saver'
 import { translate as $t } from "@/lang"
 
 let downloadLoadingInstance;
-// 是否显示重新登录
+// Whether to show re-login prompt
 export let isRelogin = { show: false };
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
-// 创建axios实例
+// Create axios instance
 const service = axios.create({
-  // axios中请求配置有baseURL选项，表示请求URL公共部分
+  // The request configuration in axios has baseURLOptions, which indicates the public part of the request URL.
   baseURL: process.env.VUE_APP_BASE_API,
-  // 超时1000=1秒
+  // timeout in ms (1000 = 1 second)
   timeout: 60000
 })
 
-// request拦截器
+// request interceptor
 service.interceptors.request.use(config => {
-  // 是否需要设置 token
+  // Whether to attach token
   const isToken = (config.headers || {}).isToken === false
-  // 是否需要防止数据重复提交
+  // Do you need to prevent data duplication?Submit
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
   if (getToken() && !isToken) {
-    config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['Authorization'] = 'Bearer ' + getToken() // Let each request carry customizationtoken Please make your own decisions based on the actual situationEdit
     // config.headers["Locale"] = "en";
   }
-  // get请求映射params参数
+  // Serialize GET query params into URL
   if (config.method === 'get' && config.params) {
     let url = config.url + '?' + tansParams(config.params);
     url = url.slice(0, -1);
@@ -48,10 +48,10 @@ service.interceptors.request.use(config => {
     if (sessionObj === undefined || sessionObj === null || sessionObj === '') {
       cache.session.setJSON('sessionObj', requestObj)
     } else {
-      const s_url = sessionObj.url;                  // 请求地址
-      const s_data = sessionObj.data;                // 请求数据
-      const s_time = sessionObj.time;                // 请求时间
-      const interval = 1000;                         // 间隔时间(ms)，小于此时间视为重复提交
+      const s_url = sessionObj.url;                  // Request URL
+      const s_data = sessionObj.data;                // Request data
+      const s_time = sessionObj.time;                // Request time
+      const interval = 1000;                         // Interval time(ms)，Anything less than this time will be considered a repeatSubmit
       if (s_data === requestObj.data && requestObj.time - s_time < interval && s_url === requestObj.url) {
         const message = $t('axiosConfig.submitRepeatTip');
         console.warn(`[${s_url}]: ` + message)
@@ -67,14 +67,14 @@ service.interceptors.request.use(config => {
   Promise.reject(error)
 })
 
-// 响应拦截器
+// response interceptor
 service.interceptors.response.use(res => {
 
-  // 未设置状态码则默认成功状态
+  // Default to success when status code is missing
   const code = parseInt(res.data.code);
-  // 获取错误信息
+  // Resolve error message
   const msg = errorCode[code] || res.data.msg || errorCode['default']
-  // 二进制数据则直接返回
+  // Binary data is directly Back
   if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
     return res.data
   }
@@ -120,7 +120,7 @@ service.interceptors.response.use(res => {
   }
 )
 
-// 通用下载方法
+// Common download helper
 export function download(url, params, filename, config) {
   downloadLoadingInstance = Loading.service({ text: $t('axiosConfig.downloadText'), spinner: "el-icon-loading", background: "rgba(0, 0, 0, 0.7)", })
   return service.post(url, params, {

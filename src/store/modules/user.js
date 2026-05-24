@@ -33,7 +33,7 @@ const user = {
   },
 
   actions: {
-    // 登录
+    // Log in
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
       const password = userInfo.password
@@ -50,7 +50,7 @@ const user = {
       })
     },
 
-    // 获取用户信息
+    // Get user information
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
@@ -73,7 +73,7 @@ const user = {
       })
     },
 
-    // 退出系统
+    // Exit the system
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
@@ -88,7 +88,7 @@ const user = {
       })
     },
 
-    // 前端 登出
+    // Frontend Logout
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')

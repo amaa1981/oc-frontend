@@ -156,7 +156,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改参数配置对话框 -->
+    <!-- Add or Edit parameter configuration dialog box -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('dictManage.dictName')" prop="dictName">
@@ -194,27 +194,27 @@ export default {
   dicts: ['sys_normal_disable'],
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 字典表格数据
+      // dictionary table data
       typeList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 日期范围
+      // date range
       dateRange: [],
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -222,9 +222,9 @@ export default {
         dictType: undefined,
         status: undefined
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         dictName: [
           { required: true, message: this.$t('commonTips.cannotBeEmpty'), trigger: "blur" }
@@ -249,12 +249,12 @@ export default {
         }
       );
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         dictId: undefined,
@@ -282,7 +282,7 @@ export default {
       this.open = true;
       this.title = this.$t('dictManage.dialogTitle_a');
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.dictId)
       this.single = selection.length!=1

@@ -58,16 +58,16 @@ export default {
       myHeaders: {
         Authorization: "Bearer " + getToken(),
       },
-      //版本号
+      //version number
       version: "",
     };
   },
   created() {
     let da = new Date();
-    //获取月份小于10时，自动补0
+    //When the obtained month is less than 10, 0 will be added automatically.
     let month =
       da.getMonth() + 1 < 10 ? "0" + (da.getMonth() + 1) : da.getMonth() + 1;
-    //获取日小于10时，自动补0
+    //When the acquisition date is less than 10, 0 will be added automatically.
     let date = da.getDate() < 10 ? "0" + da.getDate() : da.getDate();
     this.version = "1.23." + month + "." + date + "1";
   },

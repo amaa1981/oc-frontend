@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 获取商店客流统计分页列表
+// Get the pagination list of store customer flow statistics
 export function getShopCountPage(query) {
     return request({
         url: '/api/alarm/record/shopCountPage',
@@ -9,7 +9,7 @@ export function getShopCountPage(query) {
     })
 }
 
-// 获取今日客流统计
+// Get today’s passenger flow statistics
 export function getShopCountToday(query) {
     return request({
         url: '/api/alarm/record/shopCountToday',
@@ -18,7 +18,7 @@ export function getShopCountToday(query) {
     })
 }
 
-// 获取轨迹查询分页列表
+// Get the track Query paging List
 export function trajectoryPage(query) {
     return request({
         url: '/api/alarm/record/trajectoryPage',
@@ -27,7 +27,7 @@ export function trajectoryPage(query) {
     })
 }
 
-// 获取轨迹详情
+// Get track details
 export function getTrajectory(query) {
     return request({
         url: '/api/alarm/record/getTrajectory',
@@ -36,7 +36,7 @@ export function getTrajectory(query) {
     })
 }
 
-// 导出商店客流统计数据
+// Export store traffic statistics
 export function exportShopCount(query) {
     return request({
         url: '/api/alarm/record/shopCount/export',
@@ -46,7 +46,7 @@ export function exportShopCount(query) {
     })
 }
 
-// 获取记录查询数据
+// Get record Query data
 export function getRecordList(query) {
     return request({
         url: '/api/alarm/record',
@@ -55,7 +55,7 @@ export function getRecordList(query) {
     })
 }
 
-// 删除轨迹数据
+// Delete trajectory data
 export function delTrajectory(query) {
     return request({
         url: '/api/alarm/record/delTrajectory',

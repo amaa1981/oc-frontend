@@ -179,7 +179,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改岗位对话框 -->
+    <!-- Add or Edit Post dialog box -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('post.postName')" prop="postName">
@@ -255,7 +255,7 @@ export default {
       showSearch: true,
       // Total count
       total: 0,
-      // 岗位表格数据
+      // Job form data
       postList: [],
       // Dialog title
       title: "",
@@ -310,12 +310,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         postId: undefined,
@@ -337,7 +337,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.postId);
       this.single = selection.length != 1;

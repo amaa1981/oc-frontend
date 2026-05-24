@@ -16,7 +16,7 @@ if (!cosConfig.SecretId || !cosConfig.SecretKey) {
   console.error('[COS] Missing Tencent Cloud credentials. Please check VUE_APP_TENCENT_SECRET_ID and VUE_APP_TENCENT_SECRET_KEY in your .env file.');
 }
 
-// 创建 COS 实例
+// Create a COS instance
 const cos = new COS({
   SecretId: cosConfig.SecretId,
   SecretKey: cosConfig.SecretKey,

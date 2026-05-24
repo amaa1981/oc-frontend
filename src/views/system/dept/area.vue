@@ -139,7 +139,7 @@
       </el-table-column>
     </el-table>
 
-    <!-- 添加或修改设备区域对话框 -->
+    <!-- Add or Edit Device Zone Dialog Box -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-position="top">
         <el-row>
@@ -245,30 +245,30 @@ export default {
   components: { Treeselect },
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 表格树数据
+      // table tree data
       deptList: [],
-      // 部门树选项
+      // Department TreeOptions
       deptOptions: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 是否展开，默认全部展开
+      // Whether to expand, expand all by default
       isExpandAll: true,
-      // 重新渲染表格状态
+      // Re-render table state
       refreshTable: true,
-      // 查询参数
+      // Query parameters
       queryParams: {
         deptName: undefined,
         status: undefined,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         parentId: [
           {
@@ -331,12 +331,12 @@ export default {
         children: node.children,
       };
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         deptId: undefined,

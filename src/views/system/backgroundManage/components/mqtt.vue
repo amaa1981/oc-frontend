@@ -135,11 +135,11 @@ export default {
   dicts: ["v1_startup_status", "v1_alarm_type", "v1_connection_status"],
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: false,
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         connectInfo: [
           {
@@ -211,7 +211,7 @@ export default {
     this.getList();
   },
   methods: {
-    //选中推送报警全部时，清空其他选项
+    //When Push Alarm All is selected, clear other Options.
     changeAlarmType(e) {
       let that = this;
       if (e[e.length - 1] == "0") {

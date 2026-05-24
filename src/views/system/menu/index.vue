@@ -168,7 +168,7 @@
       </el-table-column>
     </el-table>
 
-    <!-- 添加或修改菜单对话框 -->
+    <!-- Add or Edit menu dialog -->
     <el-dialog :title="title" :visible.sync="open" width="680px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-row>
@@ -430,30 +430,30 @@ export default {
   components: { Treeselect, IconSelect },
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 菜单表格树数据
+      // Menu table tree data
       menuList: [],
-      // 菜单树选项
+      // Menu treeOptions
       menuOptions: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 是否展开，默认全部折叠
+      // Whether to expand or not, collapse all by default
       isExpandAll: false,
-      // 重新渲染表格状态
+      // Re-render table state
       refreshTable: true,
-      // 查询参数
+      // Query parameters
       queryParams: {
         menuName: undefined,
         visible: undefined,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         menuName: [
           {
@@ -483,7 +483,7 @@ export default {
     this.getList();
   },
   methods: {
-    // 选择图标
+    // Select icon
     selected(name) {
       this.form.icon = name;
     },
@@ -519,12 +519,12 @@ export default {
         this.menuOptions.push(menu);
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         menuId: undefined,

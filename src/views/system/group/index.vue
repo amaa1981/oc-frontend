@@ -127,7 +127,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改人脸库信息对话框 -->
+    <!-- Add or Edit face database information dialog box -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-position="top">
         <el-form-item :label="$t('group.libName')" prop="libName">
@@ -166,34 +166,34 @@ export default {
   name: "Group",
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 人脸库信息表格数据
+      // Face database information table data
       groupList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
         libName: null,
         algorithmName: null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         libName: [
           {
@@ -231,12 +231,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: null,
@@ -263,7 +263,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.id);
       this.single = selection.length !== 1;

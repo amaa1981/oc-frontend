@@ -39,7 +39,7 @@ export default {
         return [10, 20, 30, 50]
       }
     },
-    // 移动端页码按钮的数量端默认值5
+    // Default Value5 of the quantity side of the mobile page number button
     pagerCount: {
       type: Number,
       default: document.body.clientWidth < 992 ? 5 : 7

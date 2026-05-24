@@ -44,7 +44,7 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center" />
-      <!-- <el-table-column label="主键id" align="center" prop="id" /> -->
+      <!-- <el-table-column label="primary key id" align="center" prop="id" /> -->
       <el-table-column
         :label="$t('serverPackageInfo.version')"
         align="center"
@@ -94,7 +94,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改服务安装包信息对话框 -->
+    <!-- Add or Edit service installation package information dialog box -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('serverPackageInfo.version')" prop="version">
@@ -111,7 +111,7 @@
             :fileSize="3072"
           />
         </el-form-item>
-        <!-- <el-form-item label="绝对路径(本地服务地址)" prop="absolutePath">
+        <!-- <el-form-item label="Absolute path (local service address)" prop="absolutePath">
           <el-input
             v-model="form.absolutePath"
             placeholder="Enter absolute path (local service URL)"
@@ -144,33 +144,33 @@ export default {
       myHeaders: {
         Authorization: "Bearer " + getToken(),
       },
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 服务安装包信息表格数据
+      // Service installation package information table data
       infoList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
         version: null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         version: [
           {
@@ -200,7 +200,7 @@ export default {
     this.getList();
   },
   methods: {
-    // 获取文件名称
+    // Get File Name
     getFileName(name) {
       if (name.lastIndexOf("/") > -1) {
         return name.slice(name.lastIndexOf("/") + 1);
@@ -217,12 +217,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: null,
@@ -248,7 +248,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.id);
       this.single = selection.length !== 1;

@@ -46,7 +46,7 @@ export const mapConfigs = {
     features: ['navigation', 'poi', 'traffic', 'markers', 'popups', '3d'],
   },
   amap: {
-    name: 'AMap (高德地图)',
+    name: "AMap (AMAP)",
     key: process.env.VUE_APP_AMAP_KEY,
     securityJsCode: process.env.VUE_APP_AMAP_SECURITY_CODE,
     coverage: 'china',

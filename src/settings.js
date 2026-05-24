@@ -8,37 +8,37 @@
  */
 module.exports = {
   /**
-   * 侧边栏主题 深色主题theme-dark，浅色主题theme-light
+   * Sidebar theme: theme-dark or theme-light
    */
   sideTheme: 'theme-dark',
 
   /**
-   * 是否系统布局配置
+   * Whether to show layout settings
    */
   showSettings: false,
 
   /**
-   * 是否显示顶部导航
+   * Whether to show top navigation
    */
   topNav: false,
 
   /**
-   * 是否显示 tagsView
+   * Whether to show tags view
    */
   tagsView: false,
 
   /**
-   * 是否固定头部
+   * Whether to fix header
    */
   fixedHeader: false,
 
   /**
-   * 是否显示logo
+   * Whether to show logo
    */
   sidebarLogo: true,
 
   /**
-   * 是否显示动态标题
+   * Whether to display dynamic Title
    */
   dynamicTitle: false,
 
@@ -51,21 +51,21 @@ module.exports = {
   errorLog: 'production',
 
   mapConfig: {
-    // 加载地图类型配置，值类型为 amap（高德地图）
+    // Map provider type (e.g. amap)
     mapType: 'amap',
-    // 地图默认中心坐标 [经度, 纬度]
-    //沙特
+    // Default map center [lng, lat]
+    //Saudi Arabia
     defaultCenter: [50.10623597796621, 26.43333665104305]
-    //香港机场
+    //Hong Kong Airport
     // defaultCenter: [113.91436539596975,22.313772163972757]
-    //广州公司地址
+    //Guangzhou company address
     // defaultCenter: [113.5177869522218,22.759208422067744]
   },
 
   /**
-   * 版本类型
-   * 'saudi' — 沙特版（设备区域使用字典下拉）
-   * 'standard' — 标准版（设备区域使用部门树形选择器）
+   * Edition type
+   * 'saudi' — Saudi edition (device area uses dictionary select)
+   * 'standard' — Standard edition (device area uses department tree)
    */
   edition: 'saudi'
 }

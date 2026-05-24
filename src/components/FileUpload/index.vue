@@ -14,9 +14,9 @@
       class="upload-file-uploader"
       ref="fileUpload"
     >
-      <!-- 上传按钮 -->
+      <!-- upload button -->
       <el-button size="mini" type="primary">{{ $t('fileUpload.selectFile') }}</el-button>
-      <!-- 上传提示 -->
+      <!-- Upload tips -->
       <div class="el-upload__tip" slot="tip" v-if="showTip">
         {{ $t('fileUpload.pleaseUpload') }}
         <template v-if="fileSize"> {{ $t('fileUpload.maxSize') }} <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
@@ -25,7 +25,7 @@
       </div>
     </el-upload>
 
-    <!-- 文件列表 -->
+    <!-- File List -->
     <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul">
       <li :key="file.url" class="el-upload-list__item ele-upload-list__item-content" v-for="(file, index) in fileList">
         <el-link :href="`${baseUrl}${file.url}`" :underline="false" target="_blank">
@@ -45,24 +45,24 @@ import { getToken } from "@/utils/auth";
 export default {
   name: "FileUpload",
   props: {
-    // 值
+    // value
     value: [String, Object, Array],
-    // 数量限制
+    // Quantity limit
     limit: {
       type: Number,
       default: 5,
     },
-    // 大小限制(MB)
+    // Size limit(MB)
     fileSize: {
       type: Number,
       default: 5,
     },
-    // 文件类型, 例如['png', 'jpg', 'jpeg']
+    // File Type, such as ['png', 'jpg', 'jpeg']
     fileType: {
       type: Array,
       default: () => ["doc", "xls", "ppt", "txt", "pdf"],
     },
-    // 是否显示提示
+    // Whether to Show Tip
     isShowTip: {
       type: Boolean,
       default: true
@@ -85,9 +85,9 @@ export default {
       handler(val) {
         if (val) {
           let temp = 1;
-          // 首先将值转为数组
+          // First convert the value into an array
           const list = Array.isArray(val) ? val : this.value.split(',');
-          // 然后将数组转为对象数组
+          // Then convert the array into an object array
           this.fileList = list.map(item => {
             if (typeof item === "string") {
               item = { name: item, url: item };
@@ -105,15 +105,15 @@ export default {
     }
   },
   computed: {
-    // 是否显示提示
+    // Whether to Show Tip
     showTip() {
       return this.isShowTip && (this.fileType || this.fileSize);
     },
   },
   methods: {
-    // 上传前校检格式和大小
+    // Check format and size before uploading
     handleBeforeUpload(file) {
-      // 校检文件类型
+      // Check File Type
       if (this.fileType) {
         const fileName = file.name.split('.');
         const fileExt = fileName[fileName.length - 1];
@@ -123,7 +123,7 @@ export default {
           return false;
         }
       }
-      // 校检文件大小
+      // Check File Size
       if (this.fileSize) {
         const isLt = file.size / 1024 / 1024 < this.fileSize;
         if (!isLt) {
@@ -135,16 +135,16 @@ export default {
       this.number++;
       return true;
     },
-    // 文件个数超出
+    // The number of files exceeds
     handleExceed() {
       this.$modal.msgError(this.$t('fileUpload.sumLimit',{limit: this.limit}));
     },
-    // 上传失败
+    // Upload failed
     handleUploadError(err) {
       this.$modal.msgError(this.$t('fileUpload.errorTip'));
       this.$modal.closeLoading()
     },
-    // 上传成功回调
+    // Upload success callback
     handleUploadSuccess(res, file) {
       if (res.code === 200) {
         this.uploadList.push({ name: res.fileName, url: res.fileName });
@@ -157,12 +157,12 @@ export default {
         this.uploadedSuccessfully();
       }
     },
-    // 删除文件
+    // Delete file
     handleDelete(index) {
       this.fileList.splice(index, 1);
       this.$emit("input", this.listToString(this.fileList));
     },
-    // 上传结束处理
+    // Upload end processing
     uploadedSuccessfully() {
       if (this.number > 0 && this.uploadList.length === this.number) {
         this.fileList = this.fileList.concat(this.uploadList);
@@ -172,7 +172,7 @@ export default {
         this.$modal.closeLoading();
       }
     },
-    // 获取文件名称
+    // Get File Name
     getFileName(name) {
       if (name.lastIndexOf("/") > -1) {
         return name.slice(name.lastIndexOf("/") + 1);
@@ -180,7 +180,7 @@ export default {
         return "";
       }
     },
-    // 对象转成指定字符串分隔
+    // Convert the object to the specified string delimited
     listToString(list, separator) {
       let strs = "";
       separator = separator || ",";

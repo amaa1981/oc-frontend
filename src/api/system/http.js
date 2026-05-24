@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询http推送配置列表
+// Queryhttp push configuration List
 export function listConfig(query) {
   return request({
     url: '/api/http/push',
@@ -17,7 +17,7 @@ export function listConfig(query) {
   })
 }
 
-// 查询http推送配置详细
+// Queryhttp push configuration details
 export function getConfig(id) {
   return request({
     url: '/api/http/push/' + id,
@@ -25,7 +25,7 @@ export function getConfig(id) {
   })
 }
 
-// 新增http推送配置
+// Added http push configuration
 export function addConfig(data) {
   return request({
     url: '/api/http/push',
@@ -34,7 +34,7 @@ export function addConfig(data) {
   })
 }
 
-// 修改http推送配置
+// Edithttp push configuration
 export function updateConfig(data) {
   return request({
     url: '/api/http/push',
@@ -43,7 +43,7 @@ export function updateConfig(data) {
   })
 }
 
-// 删除http推送配置
+// Deletehttp push configuration
 export function delConfig(id) {
   return request({
     url: '/api/http/push/' + id,

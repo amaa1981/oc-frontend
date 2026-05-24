@@ -30,7 +30,7 @@ export default {
     var _this = this;
     const iframeId = ("#" + this.iframeId).replace(/\//g, "\\/");
     const iframe = document.querySelector(iframeId);
-    // iframe页面loading控制
+    // iframe page loading control
     if (iframe.attachEvent) {
       this.loading = true;
       iframe.attachEvent("onload", function () {

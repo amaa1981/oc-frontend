@@ -112,9 +112,9 @@ export default {
   dicts: ["v1_startup_status", "v1_alarm_type"],
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: false,
-      // 表单参数
+      // Form parameters
       form: {
         id: "",
         pushAccount: [],
@@ -122,7 +122,7 @@ export default {
         alarmType: "",
         status: "",
       },
-      // 表单校验
+      // Form verification
       rules: {
         pushAccount: [
           {

@@ -1,14 +1,14 @@
 <template>
   <div class="ai-chat-wrapper">
-    <!-- 悬浮按钮 -->
+    <!-- floating button -->
     <div class="ai-chat-button" @click="toggleChat" v-show="!isOpen">
       <img src="@/assets/images/AI.png" alt="AI" />
     </div>
 
-    <!-- 聊天窗口 -->
+    <!-- chat window -->
     <transition name="slide-up">
       <div class="ai-chat-panel" v-show="isOpen">
-        <!-- 头部 -->
+        <!-- head -->
         <div class="ai-chat-header">
           <div class="ai-chat-header-left">
             <div class="ai-avatar">
@@ -19,7 +19,7 @@
           <i class="el-icon-arrow-down" @click="toggleChat"></i>
         </div>
 
-        <!-- 快捷操作 -->
+        <!-- Quick operation -->
         <div class="ai-quick-actions">
           <div
             class="quick-action-chip"
@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <!-- 消息列表 -->
+        <!-- informationList -->
         <div class="ai-chat-messages" ref="messageList">
           <div
             v-for="(message, index) in messages"
@@ -48,7 +48,7 @@
             </div>
           </div>
 
-          <!-- 加载中 -->
+          <!-- loading -->
           <div class="message-item assistant" v-if="isLoading">
             <div class="message-avatar">
               <img src="@/assets/images/AI.png" alt="AI" />
@@ -63,7 +63,7 @@
           </div>
         </div>
 
-        <!-- 输入框 -->
+        <!-- Input -->
         <div class="ai-chat-input">
           <el-input
             v-model="inputMessage"
@@ -112,14 +112,14 @@ export default {
     }
   },
   mounted() {
-    // 初始化快捷操作（使用计算属性避免翻译问题）
+    // Initialize shortcut actions (use computed properties to avoid translation issues)
     this.quickActions = [
       { label: this.$t('aiChat.alarmSummary'), icon: 'el-icon-warning-outline', prompt: this.$t('aiChat.alarmSummary') },
       { label: this.$t('aiChat.deviceStatus'), icon: 'el-icon-video-camera', prompt: this.$t('aiChat.deviceStatus') },
       { label: this.$t('aiChat.analytics'), icon: 'el-icon-data-analysis', prompt: this.$t('aiChat.analytics') }
     ]
     
-    // 添加欢迎消息
+    // Add welcome message
     this.addMessage('assistant', this.$t('aiChat.welcome'))
   },
   methods: {
@@ -143,7 +143,7 @@ export default {
       this.inputMessage = ''
       this.isLoading = true
 
-      // 创建一个空的助手消息用于流式更新
+      // Create an empty helper message for streaming updates
       this.currentAssistantMessage = {
         role: 'assistant',
         content: '',
@@ -151,7 +151,7 @@ export default {
       }
       this.messages.push(this.currentAssistantMessage)
 
-      // 第一阶段：让AI判断是否需要数据
+      // The first stage: Let AI determine whether data is needed
       const currentLang = this.$i18n.locale
       const intentPrompt = currentLang === 'en'
         ? `You are an AI assistant for a security monitoring platform. Analyze the user's question and determine if you need real-time data to answer it.
@@ -184,19 +184,19 @@ Reply:`
       const self = this
       let intentResponse = ''
       
-      // 第一次调用：判断意图
+      // First call: Determine intent
       this.abortFn = streamAiReport(
         intentPrompt,
         function onChunk(text) {
           intentResponse += text
         },
         async function onDone() {
-          // 解析AI的意图判断
+          // Analyzing AI’s Intent Judgment
           let needData = false
           let dataSources = []
           
           try {
-            // 提取JSON
+            // Extract JSON
             const jsonMatch = intentResponse.match(/\{[^}]+\}/)
             if (jsonMatch) {
               const intent = JSON.parse(jsonMatch[0])
@@ -204,24 +204,24 @@ Reply:`
               dataSources = intent.sources || []
             }
           } catch (e) {
-            console.error('解析意图失败:', e)
-            // 如果解析失败，使用关键词匹配作为后备
+            console.error('Failed to parse intent:', e)
+            // Use keyword matching as fallback if parsing fails
             needData = self.detectNeedDataByKeywords(userMessage)
             if (needData) {
               dataSources = self.detectDataSourcesByKeywords(userMessage)
             }
           }
 
-          // 第二阶段：根据意图获取数据并回答
+          // Phase 2: Get data and answer based on intent
           let contextData = null
           if (needData && dataSources.length > 0) {
-            // 显示正在获取数据的提示
+            // Display a prompt that data is being obtained
             self.currentAssistantMessage.content = '<em style="color: #909399;">Fetching data...</em>'
             contextData = await self.fetchSpecificData(dataSources)
-            console.log('获取到的数据:', contextData)
+            console.log('Fetched data:', contextData)
           }
 
-          // 构建最终提示词
+          // Construct the final prompt word
           const systemPrompt = currentLang === 'en'
             ? 'You are an AI assistant for a security monitoring platform. Answer user questions about alarm data, device status, and monitoring information in a conversational way. Keep responses concise and helpful. Use HTML formatting for better readability: <strong> for emphasis, <br> for line breaks, <ul><li> for lists.'
             : 'You are an AI assistant for a smart security monitoring platform. Answer questions about alarm data, device status, and monitoring info conversationally. Keep answers concise. Use HTML for readability:<strong> for emphasis, <br> for line breaks, <ul><li> for lists.'
@@ -231,13 +231,13 @@ Reply:`
           if (contextData) {
             finalPrompt += '\n\n[System Real-time Data]\n' + contextData
             finalPrompt += '\n\nPlease answer the user question based on the above real-time data.'
-            console.log('最终提示词:', finalPrompt)
+            console.log('Final prompt:', finalPrompt)
           }
 
-          // 清空之前的内容，准备显示最终回答
+          // Clear the previous content and prepare to display the final answer
           self.currentAssistantMessage.content = ''
 
-          // 第二次调用：生成最终回答
+          // Second call: Generate final answer
           self.abortFn = streamAiReport(
             finalPrompt,
             function onChunk(text) {
@@ -269,7 +269,7 @@ Reply:`
         currentLang
       )
     },
-    // 关键词检测（后备方案）
+    // Keyword detection (backup plan)
     detectNeedDataByKeywords(message) {
       const msg = message.toLowerCase()
       const dataKeywords = [
@@ -280,7 +280,7 @@ Reply:`
       ]
       return dataKeywords.some(k => msg.includes(k))
     },
-    // 关键词检测数据源（后备方案）
+    // Keyword detection data source (backup plan)
     detectDataSourcesByKeywords(message) {
       const msg = message.toLowerCase()
       const sources = []
@@ -297,7 +297,7 @@ Reply:`
       
       return sources
     },
-    // 根据指定的数据源获取数据
+    // Get data from specified data source
     async fetchSpecificData(sources) {
       const dataContext = []
       
@@ -323,11 +323,11 @@ Reply:`
         
         return dataContext.length > 0 ? dataContext.join('\n\n') : null
       } catch (error) {
-        console.error('获取数据失败:', error)
+        console.error('Failed to fetch data:', error)
         return null
       }
     },
-    // 智能识别用户意图并获取相关数据
+    // Intelligently identify user intentions and obtain relevant data
     async fetchRelevantData(userMessage) {
       const msg = userMessage.toLowerCase()
       const dataContext = []
@@ -335,14 +335,14 @@ Reply:`
       try {
         this.isFetchingData = true
 
-        // 识别关键词并调用相应API
+        // Identify keywords and call corresponding API
         const keywords = {
           alarm: ['alarm', 'alert', 'warning', 'event'],
           device: ['device', 'camera', 'monitor', 'online', 'offline'],
           server: ['server', 'system', 'performance', 'cpu', 'memory']
         }
 
-        // 检测是否需要告警数据
+        // Check whether alarm data is needed
         if (keywords.alarm.some(k => msg.includes(k))) {
           const alarmData = await this.fetchAlarmData()
           if (alarmData) {
@@ -350,7 +350,7 @@ Reply:`
           }
         }
 
-        // 检测是否需要设备数据
+        // Check if device data is required
         if (keywords.device.some(k => msg.includes(k))) {
           const deviceData = await this.fetchDeviceData()
           if (deviceData) {
@@ -358,7 +358,7 @@ Reply:`
           }
         }
 
-        // 检测是否需要服务器数据
+        // Check if server data is required
         if (keywords.server.some(k => msg.includes(k))) {
           const serverData = await this.fetchServerData()
           if (serverData) {
@@ -368,13 +368,13 @@ Reply:`
 
         return dataContext.length > 0 ? dataContext.join('\n\n') : null
       } catch (error) {
-        console.error('获取数据失败:', error)
+        console.error('Failed to fetch data:', error)
         return null
       } finally {
         this.isFetchingData = false
       }
     },
-    // 获取告警数据
+    // Get alarm data
     async fetchAlarmData() {
       try {
         const response = await getRecordList({
@@ -386,12 +386,12 @@ Reply:`
           const records = response.data.records
           const totalCount = response.data.totalCount
           
-          // 统计处理状态
+          // Statistical processing status
           const unprocessed = records.filter(r => r.handleStatus === 0).length
           const processed = records.filter(r => r.handleStatus === 1).length
           const misreport = records.filter(r => r.handleStatus === 2).length
           
-          // 获取字典翻译
+          // Get dictionary translation
           const getAlarmTypeName = (typeId) => {
             const dict = this.$t('dict.v1_alarm_type')
             return dict[typeId] || typeId
@@ -422,11 +422,11 @@ ${summary.recent.map((a, i) =>
         }
         return null
       } catch (error) {
-        console.error('获取告警数据失败:', error)
+        console.error('Failed to fetch alarm data:', error)
         return null
       }
     },
-    // 获取设备数据
+    // Get device data
     async fetchDeviceData() {
       try {
         const response = await listDevice({
@@ -457,11 +457,11 @@ ${devices.map((d, i) =>
         }
         return null
       } catch (error) {
-        console.error('获取设备数据失败:', error)
+        console.error('Failed to fetch device data:', error)
         return null
       }
     },
-    // 获取服务器数据
+    // Get server data
     async fetchServerData() {
       try {
         const response = await getServer()
@@ -475,7 +475,7 @@ ${devices.map((d, i) =>
         }
         return null
       } catch (error) {
-        console.error('获取服务器数据失败:', error)
+        console.error('Failed to fetch server data:', error)
         return null
       }
     },
@@ -503,8 +503,8 @@ ${devices.map((d, i) =>
       }
     },
     formatMessage(text) {
-      // 直接返回HTML内容，不做Markdown转换
-      // AI已经输出HTML格式，只需要处理换行符
+      // BackHTML content directly without Markdown conversion
+      // AI already outputs HTML format and only needs to process line breaks
       return text.replace(/\n/g, '<br>')
     },
     stopGeneration() {
@@ -516,7 +516,7 @@ ${devices.map((d, i) =>
     }
   },
   beforeDestroy() {
-    // 组件销毁时取消正在进行的请求
+    // Cancel an ongoing request when component Destroy
     this.stopGeneration()
   }
 }
@@ -530,7 +530,7 @@ ${devices.map((d, i) =>
   z-index: 9999;
 }
 
-// 悬浮按钮
+// floating button
 .ai-chat-button {
   width: 64px;
   height: 64px;
@@ -555,7 +555,7 @@ ${devices.map((d, i) =>
   }
 }
 
-// 聊天面板
+// chat panel
 .ai-chat-panel {
   width: 400px;
   height: 600px;
@@ -567,7 +567,7 @@ ${devices.map((d, i) =>
   overflow: hidden;
 }
 
-// 头部
+// head
 .ai-chat-header {
   display: flex;
   align-items: center;
@@ -613,7 +613,7 @@ ${devices.map((d, i) =>
   }
 }
 
-// 快捷操作
+// Quick operation
 .ai-quick-actions {
   padding: 16px;
   display: flex;
@@ -656,7 +656,7 @@ ${devices.map((d, i) =>
   }
 }
 
-// 消息列表
+// Message List
 .ai-chat-messages {
   flex: 1;
   padding: 16px;
@@ -740,7 +740,7 @@ ${devices.map((d, i) =>
   padding: 0 4px;
 }
 
-// 加载动画
+// loading animation
 .message-loading {
   display: flex;
   gap: 6px;
@@ -774,7 +774,7 @@ ${devices.map((d, i) =>
   }
 }
 
-// 输入框
+// Input
 .ai-chat-input {
   padding: 16px;
   border-top: 1px solid #f0f2f5;
@@ -838,7 +838,7 @@ ${devices.map((d, i) =>
   }
 }
 
-// 动画
+// animation
 .slide-up-enter-active,
 .slide-up-leave-active {
   transition: all 0.3s ease;

@@ -11,7 +11,7 @@
                   <td class="el-table__cell is-leaf"><div class="cell">Redis Version</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.redis_version }}</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell">Run Mode</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.redis_mode == "standalone" ? "单机" : "集群" }}</div></td>
+                  <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.redis_mode == "standalone" ? "Standalone" : "Cluster" }}</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell">Port</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell" v-if="cache.info">{{ cache.info.tcp_port }}</div></td>
                   <td class="el-table__cell is-leaf"><div class="cell">Clients</div></td>
@@ -72,11 +72,11 @@ export default {
   name: "Cache",
   data() {
     return {
-      // 统计命令信息
+      // Statistics command information
       commandstats: null,
-      // 使用内存
+      // Use memory
       usedmemory: null,
-      // cache信息
+      // cache information
       cache: []
     }
   },
@@ -135,7 +135,7 @@ export default {
         });
       });
     },
-    // 打开加载层
+    // Open loading layer
     openLoading() {
       this.$modal.loading("Loading cache monitor data, please wait...");
     }

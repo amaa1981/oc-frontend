@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询告警记录信息列表
+// Query alarm record information list
 export function listRecord(query) {
   return request({
     url: '/alarm/record',
@@ -17,7 +17,7 @@ export function listRecord(query) {
   })
 }
 
-// 查询告警记录信息详细
+// Query alarm record information details
 export function getRecord(id) {
   return request({
     url: '/alarm/record/' + id,
@@ -25,7 +25,7 @@ export function getRecord(id) {
   })
 }
 
-// 新增告警记录信息
+// Add alarm record
 export function addRecord(data) {
   return request({
     url: '/alarm/record',
@@ -34,7 +34,7 @@ export function addRecord(data) {
   })
 }
 
-// 修改告警记录信息
+// Edit alarm record information
 export function updateRecord(data) {
   return request({
     url: '/alarm/record',
@@ -43,7 +43,7 @@ export function updateRecord(data) {
   })
 }
 
-// 删除告警记录信息
+// Delete alarm record information
 export function delRecord(id) {
   return request({
     url: '/alarm/record/' + id,

@@ -9,7 +9,7 @@
 
           <el-form ref="form" :model="form" :rules="rules" label-width="150px">
             <el-form-item label="Network Card" prop="internetCard">
-              <!-- <el-input v-model="form.internetCard" placeholder="请输入网卡" />
+              <!-- <el-input v-model="form.internetCard" placeholder="Please enter network card" />
               -->
 
               <el-select
@@ -22,14 +22,14 @@
               </el-select>
             </el-form-item>
 
-            <!-- <el-form-item label="MAC地址" prop="mac">
+            <!-- <el-form-item label="MACaddress" prop="mac">
               <el-input
                 v-model="form.mac"
                 placeholder="Enter MAC address"
                 :disabled="true"
               />
             </el-form-item> -->
-            <!-- <el-form-item label="是否开启DHCP" prop="dhcp">
+            <!-- <el-form-item label="Whether to enable DHCP" prop="dhcp">
               <el-form-item>
                 <el-switch
                   v-model="form.dhcp"
@@ -86,7 +86,7 @@ export default {
       if (!value || value == "...") {
         return callback(new Error("This field is required"));
       }
-      //验证IP地址的正则表达式
+      //Regular Pattern to verify IP address
       var reSpaceCheck = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; // IP address regex
       if (reSpaceCheck.test(value)) {
         value.match(reSpaceCheck);
@@ -110,25 +110,25 @@ export default {
     };
     return {
       id: "1",
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 网络配置信息表格数据
+      // Network configuration information table data
       configList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -143,9 +143,9 @@ export default {
         port: null,
         rtspPort: null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         internetCard: [
           { required: true, message: "Network card is required", trigger: "blur" },
@@ -186,12 +186,12 @@ export default {
       }
       this.handleUpdate();
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: "1",

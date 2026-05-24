@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询门禁操作记录信息列表
+// Query access control operation record information list
 export function listRecord(query) {
   return request({
     url: '/api/access/record',
@@ -17,7 +17,7 @@ export function listRecord(query) {
   })
 }
 
-// 查询门禁操作记录信息详细
+// Query access control operation record information details
 export function getRecord(id) {
   return request({
     url: '/api/access/record/' + id,
@@ -25,7 +25,7 @@ export function getRecord(id) {
   })
 }
 
-// 新增门禁操作记录信息
+// Added access control operation record information
 export function addRecord(data) {
   return request({
     url: '/api/access/record',
@@ -34,7 +34,7 @@ export function addRecord(data) {
   })
 }
 
-// 修改门禁操作记录信息
+// Edit access control operation record information
 export function updateRecord(data) {
   return request({
     url: '/api/access/record',
@@ -43,7 +43,7 @@ export function updateRecord(data) {
   })
 }
 
-// 删除门禁操作记录信息
+// Delete access control operation record information
 export function delRecord(id) {
   return request({
     url: '/api/access/record/' + id,

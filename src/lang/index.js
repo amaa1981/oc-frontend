@@ -28,16 +28,16 @@ const messages = {
 }
 
 const i18n = new VueI18n({
-    // 设置语言 选项 en | zh
+    // Set locale Options en | zh
     locale: Cookies.get('language') || 'en',
-    // 设置文本内容
+    // Message bundles
     messages
 })
 
-// 非 vue 文件中使用这个方法
+// Use this helper outside Vue SFCs
 export const translate = (localeKey) => {
     const locale = Cookies.get('language') || 'en'
-    const hasKey = i18n.te(localeKey, locale)  // 使用i18n的 te 方法来检查是否能够匹配到对应键值
+    const hasKey = i18n.te(localeKey, locale)  // Use i18n te() to check if key exists
     const translatedStr = i18n.t(localeKey)
     if (hasKey) {
         return translatedStr

@@ -146,17 +146,17 @@ export default {
   name: "RecordQuery",
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 记录列表
+      // Record List
       recordList: [],
-      // 日期范围
+      // date range
       dateRange: [],
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -166,10 +166,10 @@ export default {
         eventTypeId: "45BB561E-EA54-4F13-A7E6-A11DE5C75648",
         installationArea: localStorage.getItem('installationArea') || null,
       },
-      // 日期选择器配置
+      // Date picker configuration
       pickerOptions: {
         disabledDate(time) {
-          // 禁用明天及之后的日期
+          // Disable tomorrow and later dates
           const today = new Date();
           today.setHours(23, 59, 59, 999);
           return time.getTime() > today.getTime();
@@ -179,15 +179,15 @@ export default {
   },
   created() {
     this.getList();
-    // 监听设备区域变化
+    // Monitor device area changes
     this.$bus.$on('installationAreaChange', this.onInstallationAreaChange);
   },
   beforeDestroy() {
-    // 移除监听
+    // Remove listening
     this.$bus.$off('installationAreaChange', this.onInstallationAreaChange);
   },
   methods: {
-    // 设备区域变化处理
+    // Device area change processing
     onInstallationAreaChange(val) {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
@@ -202,7 +202,7 @@ export default {
           this.loading = false;
         })
         .catch((error) => {
-          console.error("获取记录列表失败", error);
+          console.error("Failed to fetch record list", error);
           this.loading = false;
         });
     },
@@ -215,7 +215,7 @@ export default {
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
-      // 保持固定参数不变
+      // Keep fixed parameters unchanged
       this.queryParams.startTime = null;
       this.queryParams.endTime = null;
       this.queryParams.recordUrl1 = 20;
@@ -237,10 +237,10 @@ export default {
       try {
         if (!strRes) return "-";
 
-        // 如果strRes是字符串，需要解析为JSON
+        // If strRes is a string, it needs to be parsed as JSON
         const data = typeof strRes === "string" ? JSON.parse(strRes) : strRes;
 
-        // 检查是否有conversation数组且不为空
+        // Check if there is a conversation array and it is not empty
         if (
           data &&
           data.conversation &&
@@ -253,7 +253,7 @@ export default {
 
         return "-";
       } catch (error) {
-        console.error("解析strRes数据失败:", error);
+        console.error("Failed to parse strRes data:", error);
         return "-";
       }
     },
@@ -262,10 +262,10 @@ export default {
       try {
         if (!strRes) return "-";
 
-        // 如果strRes是字符串，需要解析为JSON
+        // If strRes is a string, it needs to be parsed as JSON
         const data = typeof strRes === "string" ? JSON.parse(strRes) : strRes;
 
-        // 检查是否有conversation数组且不为空
+        // Check if there is a conversation array and it is not empty
         if (
           data &&
           data.conversation &&
@@ -278,19 +278,19 @@ export default {
 
           if (!begTime || !endTime) return "-";
 
-          // 解析时间
+          // parsing time
           const startTime = new Date(begTime);
           const finishTime = new Date(endTime);
 
-          // 计算时间差（毫秒）
+          // Calculation time difference (milliseconds)
           const diffMs = finishTime.getTime() - startTime.getTime();
 
           if (diffMs < 0) return "-";
 
-          // 转换为秒
+          // Convert to seconds
           const diffSeconds = Math.floor(diffMs / 1000);
 
-          // 格式化为时分秒
+          // Formatted as hours, minutes and seconds
           const hours = Math.floor(diffSeconds / 3600);
           const minutes = Math.floor((diffSeconds % 3600) / 60);
           const seconds = diffSeconds % 60;
@@ -312,7 +312,7 @@ export default {
 
         return "-";
       } catch (error) {
-        console.error("计算交流时长失败:", error);
+        console.error("Failed to calculate interaction duration:", error);
         return "-";
       }
     },

@@ -63,9 +63,9 @@ export default {
   data() {
     return {
       monitorList: [],
-      // 记录正在播放的id列表
+      // Record the idList being played
       playingList: new Set(),
-      // 存放id对应的index
+      // Store the index corresponding to the id
       indexMap: new Map(),
       controlList: [],
       activeNames: ["1"],
@@ -74,30 +74,30 @@ export default {
   created() {},
   mounted() {
     this.getDeviceList();
-    // 监听设备区域变化
+    // Monitor device area changes
     this.$bus.$on("installationAreaChange", this.onInstallationAreaChange);
-    // 挂载$bus
+    // Mount $bus
     this.$bus.$on("addVideoId", (infoObj) => {
-      console.log("设备列表接收到addVideoId事件:", infoObj.videoId);
-      // 添加播放id到列表
+      console.log("The device List receives the addVideoId event:", infoObj.videoId);
+      // Add playback id to List
       this.playingList.add(infoObj.videoId);
-      // 查找对应的设备索引
+      // Find the corresponding device index
       const deviceIndex = this.monitorList.findIndex(
         (item) => item.id === infoObj.videoId
       );
       if (deviceIndex !== -1) {
-        // 建立映射关系
+        // Establish mapping relationship
         this.indexMap.set(infoObj.videoId, deviceIndex);
-        // 更新显示状态为播放中
+        // Update display status to Playing
         this.$set(this.monitorList[deviceIndex], "select", true);
-        console.log(`device ${infoObj.videoId} 状态已更新为播放中，显示关闭按钮`);
+        console.log(`device ${infoObj.videoId} Status has been updated to Playing，Show close button`);
       } else {
-        console.warn(`未找到device ${infoObj.videoId} 在设备列表中`);
+        console.warn(`not founddevice ${infoObj.videoId} in deviceListmiddle`);
       }
     });
     this.$bus.$on("removeVideoId", (infoObj) => {
-      console.log("设备列表接收到removeVideoId事件:", infoObj.videoId);
-      // 移除播放id到列表
+      console.log("The device List receives the removeVideoId event:", infoObj.videoId);
+      // Remove playback id to List
       this.playingList.delete(infoObj.videoId);
       if (this.indexMap.has(infoObj.videoId)) {
         this.$set(
@@ -115,7 +115,7 @@ export default {
   computed: {},
   watch: {},
   methods: {
-    // 获取设备列表
+    // Get device list
     getDeviceList() {
       const params = {
         pageNum: 1,
@@ -134,7 +134,7 @@ export default {
         }
       });
     },
-    // 设备区域变化处理
+    // Device area change processing
     onInstallationAreaChange(val) {
       this.getDeviceList();
     },
@@ -162,7 +162,7 @@ export default {
         });
         return;
       }
-      // 触发自定义事件
+      // Trigger custom event
       this.$bus.$emit("sendOpenInfo", {
         videoId: node.id,
         label: node.name,
@@ -176,7 +176,7 @@ export default {
     this.indexMap.clear();
     this.playingList = null;
     this.indexMap = null;
-    // 移除监听
+    // Remove listening
     this.$bus.$off("installationAreaChange", this.onInstallationAreaChange);
   },
 };

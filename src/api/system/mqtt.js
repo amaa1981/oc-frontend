@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询mqtt推送配置列表
+// Querymqtt push configuration List
 export function listConfig(query) {
   return request({
     url: '/api/mqtt/push',
@@ -17,7 +17,7 @@ export function listConfig(query) {
   })
 }
 
-// 查询mqtt推送配置详细
+// Querymqtt push configuration details
 export function getConfig(id) {
   return request({
     url: '/api/mqtt/push/' + id,
@@ -25,7 +25,7 @@ export function getConfig(id) {
   })
 }
 
-// 新增mqtt推送配置
+// Added mqtt push configuration
 export function addConfig(data) {
   return request({
     url: '/api/mqtt/push',
@@ -34,7 +34,7 @@ export function addConfig(data) {
   })
 }
 
-// 修改mqtt推送配置
+// Editmqtt push configuration
 export function updateConfig(data) {
   return request({
     url: '/api/mqtt/push',
@@ -43,7 +43,7 @@ export function updateConfig(data) {
   })
 }
 
-// 删除mqtt推送配置
+// Deletemqtt push configuration
 export function delConfig(id) {
   return request({
     url: '/api/mqtt/push/' + id,

@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询网络配置信息列表
+// Query network configuration information List
 export function listConfig(query) {
   return request({
     url: '/api/network/config',
@@ -9,7 +9,7 @@ export function listConfig(query) {
   })
 }
 
-// 查询网络配置信息详细
+// Query network configuration information details
 export function getConfig(id) {
   return request({
     url: '/api/network/config/' + id,
@@ -17,7 +17,7 @@ export function getConfig(id) {
   })
 }
 
-// 新增网络配置信息
+// Add network configuration information
 export function addConfig(data) {
   return request({
     url: '/api/network/config',
@@ -26,7 +26,7 @@ export function addConfig(data) {
   })
 }
 
-// 修改网络配置信息
+// EditNetwork configuration information
 export function updateConfig(data) {
   return request({
     url: '/api/network/config',
@@ -35,7 +35,7 @@ export function updateConfig(data) {
   })
 }
 
-// 删除网络配置信息
+// Delete network configuration information
 export function delConfig(id) {
   return request({
     url: '/api/network/config/' + id,

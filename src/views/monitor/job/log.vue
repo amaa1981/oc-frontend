@@ -142,7 +142,7 @@
       @pagination="getList"
     />
 
-    <!-- 调度日志详细 -->
+    <!-- Job Log details -->
     <el-dialog title="Schedule Log Detail" :visible.sync="open" width="700px" append-to-body>
       <el-form ref="form" :model="form" label-width="100px" size="mini">
         <el-row>
@@ -197,7 +197,7 @@ export default {
       showSearch: true,
       // Total count
       total: 0,
-      // 调度日志Table data
+      // Job LogTable data
       jobLogList: [],
       // Show dialog
       open: false,
@@ -238,7 +238,7 @@ export default {
         }
       );
     },
-    // 返回按钮
+    // Back button
     handleClose() {
       const obj = { path: "/monitor/job" };
       this.$tab.closeOpenPage(obj);

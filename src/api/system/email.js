@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询邮箱推送配置列表
+// Query mailbox push configuration list
 export function listEmailPush(query) {
   return request({
     url: '/api/email/push',
@@ -9,7 +9,7 @@ export function listEmailPush(query) {
   })
 }
 
-// 查询邮箱推送配置详细
+// Query mailbox push configuration details
 export function getEmailPush(id) {
   return request({
     url: '/api/email/push/' + id,
@@ -17,7 +17,7 @@ export function getEmailPush(id) {
   })
 }
 
-// 新增邮箱推送配置
+// Added email push configuration
 export function addEmailPush(data) {
   return request({
     url: '/api/email/push',
@@ -26,7 +26,7 @@ export function addEmailPush(data) {
   })
 }
 
-// 修改邮箱推送配置
+// Edit email push configuration
 export function updateEmailPush(data) {
   return request({
     url: '/api/email/push',
@@ -35,7 +35,7 @@ export function updateEmailPush(data) {
   })
 }
 
-// 删除邮箱推送配置
+// Delete mailbox push configuration
 export function delEmailPush(ids) {
   return request({
     url: '/api/email/push/' + ids,

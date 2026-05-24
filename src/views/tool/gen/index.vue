@@ -43,7 +43,7 @@
           size="mini"
           @click="handleGenTable"
           v-hasPermi="['tool:gen:code']"
-        >生成</el-button>
+        >Generate</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -64,7 +64,7 @@
           :disabled="single"
           @click="handleEditTable"
           v-hasPermi="['tool:gen:edit']"
-        >修改</el-button>
+        >Edit</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -81,7 +81,7 @@
 
     <el-table v-loading="loading" :data="tableList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" align="center" width="55"></el-table-column>
-      <el-table-column label="序号" type="index" width="50" align="center">
+      <el-table-column label="No." type="index" width="50" align="center">
         <template slot-scope="scope">
           <span>{{(queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1}}</span>
         </template>
@@ -108,7 +108,7 @@
         width="120"
       />
       <el-table-column label="Created At" align="center" prop="createTime" width="160" />
-      <el-table-column label="更新时间" align="center" prop="updateTime" width="160" />
+      <el-table-column label="Updated At" align="center" prop="updateTime" width="160" />
       <el-table-column label="Actions" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -118,7 +118,7 @@
             class="btn-view"
             @click="handlePreview(scope.row)"
             v-hasPermi="['tool:gen:preview']"
-          >预览</el-button>
+          >Preview</el-button>
           <span class="action-divider" />
           <el-button
             type="text"
@@ -127,7 +127,7 @@
             class="btn-edit"
             @click="handleEditTable(scope.row)"
             v-hasPermi="['tool:gen:edit']"
-          >编辑</el-button>
+          >Edit</el-button>
           <span class="action-divider" />
           <el-button
             type="text"
@@ -143,7 +143,7 @@
             icon="el-icon-refresh"
             @click="handleSynchDb(scope.row)"
             v-hasPermi="['tool:gen:edit']"
-          >同步</el-button>
+          >Sync</el-button>
           <el-button
             type="text"
             size="small"
@@ -161,7 +161,7 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
-    <!-- 预览界面 -->
+    <!-- Previewinterface -->
     <el-dialog :title="preview.title" :visible.sync="preview.open" width="80%" top="5vh" append-to-body class="scrollbar">
       <el-tabs v-model="preview.activeName">
         <el-tab-pane
@@ -170,7 +170,7 @@
           :name="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
           :key="key"
         >
-          <el-link :underline="false" icon="el-icon-document-copy" v-clipboard:copy="value" v-clipboard:success="clipboardSuccess" style="float:right">复制</el-link>
+          <el-link :underline="false" icon="el-icon-document-copy" v-clipboard:copy="value" v-clipboard:success="clipboardSuccess" style="float:right">Copy</el-link>
           <pre><code class="hljs" v-html="highlightedCode(value, key)"></code></pre>
         </el-tab-pane>
       </el-tabs>
@@ -196,34 +196,34 @@ export default {
   components: { importTable },
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 唯一标识符
+      // unique identifier
       uniqueId: "",
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 选中表数组
+      // Select table array
       tableNames: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // showSearchcondition
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 表数据
+      // table data
       tableList: [],
-      // 日期范围
+      // date range
       dateRange: "",
-      // 查询参数
+      // Queryparameter
       queryParams: {
         pageNum: 1,
         pageSize: 10,
         tableName: undefined,
         tableComment: undefined
       },
-      // 预览参数
+      // Previewparameter
       preview: {
         open: false,
         title: "Code Preview",
@@ -312,7 +312,7 @@ export default {
     clipboardSuccess() {
       this.$modal.msgSuccess("Copied successfully");
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.tableId);
       this.tableNames = selection.map(item => item.tableName);

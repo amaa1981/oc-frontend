@@ -1,7 +1,7 @@
 import { parseTime } from './ruoyi'
 
 /**
- * 表格时间格式化
+ * Time Formatting of tables
  */
 export function formatDate(cellValue) {
   if (cellValue == null || cellValue == "") return "";
@@ -32,14 +32,14 @@ export function formatTime(time, option) {
   const diff = (now - d) / 1000
 
   if (diff < 30) {
-    return '刚刚'
+    return 'just'
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前'
+    return Math.ceil(diff / 60) + "minutes ago"
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前'
+    return Math.ceil(diff / 3600) + "hours ago"
   } else if (diff < 3600 * 24 * 2) {
-    return '1天前'
+    return '1days ago'
   }
   if (option) {
     return parseTime(time, option)
@@ -47,13 +47,13 @@ export function formatTime(time, option) {
     return (
       d.getMonth() +
       1 +
-      '月' +
+      'moon' +
       d.getDate() +
-      '日' +
+      'day' +
       d.getHours() +
-      '时' +
+      'hour' +
       d.getMinutes() +
-      '分'
+      'point'
     )
   }
 }
@@ -219,15 +219,15 @@ export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
   const later = function() {
-    // 据上一次触发时间间隔
+    // According to the last trigger time interval
     const last = +new Date() - timestamp
 
-    // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
+    // The time interval between the last time the wrapped function was called last is less than the set time interval wait
     if (last < wait && last > 0) {
       timeout = setTimeout(later, wait - last)
     } else {
       timeout = null
-      // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
+      // If set to immediate===true, there is no need to call here because the starting boundary has already been called.
       if (!immediate) {
         result = func.apply(context, args)
         if (!timeout) context = args = null
@@ -239,7 +239,7 @@ export function debounce(func, wait, immediate) {
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout
-    // 如果延时不存在，重新设定延时
+    // If the delay does not exist, reset the delay
     if (!timeout) timeout = setTimeout(later, wait)
     if (callNow) {
       result = func.apply(context, args)
@@ -374,12 +374,12 @@ export const beautifierConf = {
   }
 }
 
-// 首字母大小
+// initial letter size
 export function titleCase(str) {
   return str.replace(/( |^)[a-z]/g, L => L.toUpperCase())
 }
 
-// 下划转驼峰
+// Hump ​​down stroke
 export function camelCase(str) {
   return str.replace(/_[a-z]/g, str1 => str1.substr(-1).toUpperCase())
 }

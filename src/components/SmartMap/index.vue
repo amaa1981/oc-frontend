@@ -1,6 +1,6 @@
 <template>
   <div class="smart-map-container">
-    <!-- Mapbox 地图 -->
+    <!-- Mapbox map -->
     <mapbox-map
       v-if="currentMapService === 'mapbox'"
       :center="center"
@@ -15,7 +15,7 @@
     >
     </mapbox-map>
 
-    <!-- 高德地图 -->
+    <!-- Amap -->
     <el-amap
       v-else-if="currentMapService === 'amap'"
       :vid="mapId"
@@ -29,7 +29,7 @@
       <slot name="amap-content"></slot>
     </el-amap>
 
-    <!-- Google地图 -->
+    <!-- Google Maps -->
     <div
       v-else-if="currentMapService === 'google'"
       :id="mapId"
@@ -37,7 +37,7 @@
       ref="googleMapRef"
     ></div>
 
-    <!-- 地图服务切换器 -->
+    <!-- Map service switcher -->
     <div class="map-service-switcher" v-if="showSwitcher">
       <el-select
         v-model="currentMapService"
@@ -53,7 +53,7 @@
       </el-select>
     </div>
 
-    <!-- 位置信息提示 -->
+    <!-- Location information prompts -->
     <div class="location-info" v-if="showLocationInfo">
       <span>Current location: {{ locationDescription }}</span>
       <span>Recommended map: {{ mapConfigs[currentMapService]?.name }}</span>
@@ -145,18 +145,18 @@ export default {
     },
   },
   methods: {
-    // 检测最适合的地图服务
+    // Detect the most suitable map service
     detectBestMapService(center) {
       const [lng, lat] = center;
       const recommended = getRecommendedMapService(lng, lat);
 
       if (recommended !== this.currentMapService) {
-        console.log(`位置变化，推荐使用${mapConfigs[recommended].name}`);
+        console.log(`Location changed; recommended${mapConfigs[recommended].name}`);
         this.currentMapService = recommended;
       }
     },
 
-    // Mapbox 地图事件处理
+    // Mapbox map event handling
     onMapInit(map) {
       this.$emit("map-init", map);
     },
@@ -167,13 +167,13 @@ export default {
       this.$emit("marker-click", e);
     },
 
-    // 切换地图服务
+    // Switch map service
     switchMapService(service) {
-      console.log(`切换到${mapConfigs[service].name}`);
+      console.log(`Switched to${mapConfigs[service].name}`);
       this.currentMapService = service;
       this.$emit("service-changed", service);
 
-      // 如果切换到Google地图，需要初始化
+      // If Switched to Google Maps, initialization is required
       if (service === "google") {
         this.$nextTick(() => {
           this.initGoogleMap();
@@ -181,14 +181,14 @@ export default {
       }
     },
 
-    // 初始化Google地图
+    // Initializing Google Map
     initGoogleMap() {
-      // 这里需要加载Google Maps API
-      console.log("初始化Google地图");
-      // 实际实现需要Google Maps API Key
+      // Here you need to load the Google Maps API
+      console.log("Initializing Google Map");
+      // Actual implementation requires Google Maps API Key
     },
 
-    // 获取当前地图实例
+    // Get the current map instance
     getMapInstance() {
       if (this.currentMapService === "amap") {
         return this.$refs.amapRef;

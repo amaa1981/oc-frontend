@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询门禁设备信息列表
+// Query access control device information list
 export function listControl(query) {
   return request({
     url: '/api/access/control',
@@ -17,7 +17,7 @@ export function listControl(query) {
   })
 }
 
-// 查询门禁设备信息详细
+// Query access control device information details
 export function getControl(id) {
   return request({
     url: '/api/access/control/' + id,
@@ -25,7 +25,7 @@ export function getControl(id) {
   })
 }
 
-// 新增门禁设备信息
+// Add access control equipment information
 export function addControl(data) {
   return request({
     url: '/api/access/control',
@@ -34,7 +34,7 @@ export function addControl(data) {
   })
 }
 
-// 修改门禁设备信息
+// Edit access control device information
 export function updateControl(data) {
   return request({
     url: '/api/access/control',
@@ -43,7 +43,7 @@ export function updateControl(data) {
   })
 }
 
-// 删除门禁设备信息
+// Delete access control device information
 export function delControl(id) {
   return request({
     url: '/api/access/control/' + id,
@@ -51,7 +51,7 @@ export function delControl(id) {
   })
 }
 
-// 操作门禁设备
+// Operate access control equipment
 export function operate(data) {
   return request({
     url: '/api/access/control/operate',

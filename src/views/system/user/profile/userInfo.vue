@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      // 表单校验
+      // Form verification
       rules: {
         nickName: [
           { required: true, message: this.$t('commonTips.cannotBeEmpty'), trigger: "blur" }

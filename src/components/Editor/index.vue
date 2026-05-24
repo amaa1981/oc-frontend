@@ -47,7 +47,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    // 上传文件大小限制(MB)
+    // Upload File Size limit (MB)
     fileSize: {
       type: Number,
       default: 5,
@@ -71,7 +71,7 @@ export default {
         bounds: document.body,
         debug: "warn",
         modules: {
-          // 工具栏配置
+          // Toolbar configuration
           toolbar: [
             ["bold", "italic", "underline", "strike"],       // Bold italic underline strikethrough
             ["blockquote", "code-block"],                    // Quote code block
@@ -125,7 +125,7 @@ export default {
     init() {
       const editor = this.$refs.editor;
       this.Quill = new Quill(editor, this.options);
-      // 如果设置了上传地址则自定义图片上传事件
+      // If Upload URL is set, customize the Image upload event
       if (this.type == 'url') {
         let toolbar = this.Quill.getModule("toolbar");
         toolbar.addHandler("image", (value) => {
@@ -156,9 +156,9 @@ export default {
         this.$emit("on-editor-change", eventName, ...args);
       });
     },
-    // 上传前校检格式和大小
+    // Check format and size before uploading
     handleBeforeUpload(file) {
-      // 校检文件大小
+      // Check File Size
       if (this.fileSize) {
         const isLt = file.size / 1024 / 1024 < this.fileSize;
         if (!isLt) {
@@ -169,15 +169,15 @@ export default {
       return true;
     },
     handleUploadSuccess(res, file) {
-      // 获取富文本组件实例
+      // Get rich text component instance
       let quill = this.Quill;
-      // 如果上传成功
+      // If the upload is successful
       if (res.code == 200) {
-        // 获取光标所在位置
+        // Get the cursor position
         let length = quill.getSelection().index;
-        // 插入图片  res.url为服务器返回的图片地址
+        // InsertImage res.url is the Image address of the server Back
         quill.insertEmbed(length, "image", process.env.VUE_APP_BASE_API + res.fileName);
-        // 调整光标到最后
+        // Adjust the cursor to the end
         quill.setSelection(length + 1);
       } else {
         this.$message.error("Image insert failed");

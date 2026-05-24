@@ -1,6 +1,6 @@
 export function getJson(name, option) {
   const datajson = {
-    //香港大学UWB显示
+    //University of Hong Kong UWB display
     "BBEF5D75-26FC-4F3A-B2A3-F1C8B77FC5E1": [{
 		"name": "HKUSTPerson",
 		"type": "0",
@@ -40,25 +40,25 @@ export function getJson(name, option) {
 			"name": "Threshold",
 			"unit": "",
 			"type": "emVT_R4",
-			"fVal": option.personCheckThreshold || 0.6 //人员检查阈值
+			"fVal": option.personCheckThreshold || 0.6 //Personnel check threshold
 		}, {
 			"enable": "1",
 			"name": "floorId",
 			"unit": "",
 			"type": "emVT_I4",
-			"lVal": option.floorId || ""  //楼层id
+			"lVal": option.floorId || ""  //floorid
 		}, {
 			"enable": "1",
 			"name": "distance",
 			"unit": "",
 			"type": "emVT_I4",
-			"lVal": option.personCoordinateDistance || 500 //人员坐标距离
+			"lVal": option.personCoordinateDistance || 500 //Personnel coordinate distance
 		},{
 			"enable": "1",
 			"name": "person interval",
 			"unit": "",
 			"type": "emVT_I4",
-			"lVal": option.coordinateUpdateInterval || 1000  //坐标更新间隔
+			"lVal": option.coordinateUpdateInterval || 1000  //Coordinate update interval
 		},{
 			"enable": "1",
 			"name": "AlarmInterval",
@@ -73,7 +73,7 @@ export function getJson(name, option) {
 			"strVal": ""
 		}]
 	}],
-    //口罩耳机检测
+    //Mask and earphone detection
     "27DB5613-D184-4F13-A7E6-671DE5C7F4E6": [{
 		"name": "MaskEarphone",
 		"type": "0",
@@ -101,14 +101,14 @@ export function getJson(name, option) {
 			"name": "earphoneThresh",
 			"unit": "",
 			"type": "emVT_R4",
-			"fVal": option.earphoneThresh || 0.6 //耳机阈值
+			"fVal": option.earphoneThresh || 0.6 //Headphone threshold
 		},
 		{
 			"enable": "1",
 			"name": "faceMaskThresh",
 			"unit": "",
 			"type": "emVT_R4",
-			"fVal": option.faceMaskThresh || 0.6 //口罩阈值
+			"fVal": option.faceMaskThresh || 0.6 //Mask threshold
 		}, 	{
 			"enable": "1",
 			"name": "MaskEarphone type",
@@ -126,7 +126,7 @@ export function getJson(name, option) {
 			"name": "FrameInterval",
 			"unit": "",
 			"type": "emVT_I4",
-			"lVal": option.maskEarphoneFrameInterval || 1000 //检测帧率间隔（毫秒）
+			"lVal": option.maskEarphoneFrameInterval || 1000 //Detect frame rate interval（millisecond）
 		},{
 			"enable": "1",
 			"name": "MLLM",
@@ -141,7 +141,7 @@ export function getJson(name, option) {
 			"strVal": ""
 		}]
 	}],
-    //车辆统计
+    //vehicle statistics
     "0234CA9A-0200-4FE5-9793-859741E689C3": [{
 		"name": "VehicleCounting",
 		"type": "0",
@@ -181,19 +181,19 @@ export function getJson(name, option) {
 			"unit": "",
 			"fVal": option.vehicleCarThresh || 0.6,
 			"enable": "1",
-			"name": "car thresh"   //汽车阈值
+			"name": "car thresh"   //car threshold
 		},{
 			"type": "emVT_R4",
 			"unit": "",
 			"fVal": option.vehicleMotorcycleThresh || 0.6,
 			"enable": "1",
-			"name": "motorcycle thresh" //摩托车阈值
+			"name": "motorcycle thresh" //motorcycle threshold
 		},{
 			"type": "emVT_I4",
 			"unit": "",
 			"lVal": option.vehicleFrameInterval || 200,
 			"enable": "1",
-			"name": "FrameInterval"  //检测帧率
+			"name": "FrameInterval"  //Detect frame rate
 		},{
 			"enable": "1",
 			"name": "AlarmInterval",
@@ -208,7 +208,7 @@ export function getJson(name, option) {
 			"strVal": ""
 		}]
 	}],
-    //充电枪检测
+    //Charging gun detection
     "DACD8C81-FCDC-47E3-80A9-B648CE558456": [{
 		"name": "ChargingDetect",
 		"type": "0",
@@ -311,7 +311,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //手套头套口罩识别
+    //Gloves, headgear and mask identification
     "27BB5613-D184-4F13-A7E6-671DE5C7F434": [{
       "name": "SAHeadMaskHand",
       "type": "0",
@@ -360,7 +360,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //手套鞋套检测
+    //Glove and shoe cover testing
     "25BB561D-D154-4F13-A7E6-671DE5C7F134": [{
       "name": "GlovesDetect",
       "type": "0",
@@ -388,13 +388,13 @@ export function getJson(name, option) {
         "name": "person Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.glovesPersonThresh || "0.6"//人员阈值
+        "fVal": option.glovesPersonThresh || "0.6"//personnel threshold
       }, {
         "enable": "1",
         "name": "Glove Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.glovesThresh || "0.6" //手套鞋套阈值
+        "fVal": option.glovesThresh || "0.6" //Gloves and Shoe Covers Threshold
       }, {
         "enable": "1",
         "name": "GlovesDetect type",
@@ -415,7 +415,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //非员工入侵检测
+    //Non-employee intrusion detection
     "8742D74B-BDAC-49E2-BDA0-CB906D28E6E4": [{
       "name": "IntrusionUniform",
       "type": "0",
@@ -443,19 +443,19 @@ export function getJson(name, option) {
         "name": "person Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.intrusionPersonThresh || "0.5"  //人员检查阈值
+        "fVal": option.intrusionPersonThresh || "0.5"  //Personnel check threshold
       }, {
         "enable": "1",
         "name": "Front pic path",
         "unit": "",
         "type": "emVT_LPSTR",
-        "strVal": option.intrusionFrontPic || ""  //衣服正面图片地址
+        "strVal": option.intrusionFrontPic || ""  //front of clothesImageaddress
       }, {
         "enable": "1",
         "name": "Back pic path",
         "unit": "",
         "type": "emVT_LPSTR",
-        "strVal": option.intrusionBackPic || ""  //衣服背面图片地址
+        "strVal": option.intrusionBackPic || ""  //back of clothesImageaddress
       }, {
         "enable": "1",
         "name": "type",
@@ -476,7 +476,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //围栏检测
+    //Fence detection
     "9982D74C-BDAC-49E2-BDA0-CB906D28E69A": [{
       "name": "HKFenceDetect",
       "type": "0",
@@ -510,13 +510,13 @@ export function getJson(name, option) {
         "name": "fence Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fenceThresh || 0.6  //围栏阈值
+        "fVal": option.fenceThresh || 0.6  //fence threshold
       }, {
         "enable": "1",
         "name": "person Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fencePersonThresh || 0.6  //人检测阈值
+        "fVal": option.fencePersonThresh || 0.6  //Human detection threshold
       }, {
         "enable": "1",
         "name": "type",
@@ -538,7 +538,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //玩手机姿势识别
+    //Gesture recognition for playing with mobile phone
     "D432D747-BDAC-49E2-BDA0-CB906D28E141": [{
       "name": "playphonepose",
       "type": "0",
@@ -569,7 +569,7 @@ export function getJson(name, option) {
         "fVal": option.fVal || 0.6
       }, {
         "enable": "1",
-        "name": "person Threshold",   //人检测阈值
+        "name": "person Threshold",   //Human detection threshold
         "unit": "",
         "type": "emVT_R4",
         "fVal": option.personThreshold || 0.6
@@ -594,7 +594,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //头套识别
+    //Headgear recognition
     "9132D74B-BDAC-49E2-BDA0-CB906D28E66E": [{
       "name": "BlackMask",
       "type": "0",
@@ -625,7 +625,7 @@ export function getJson(name, option) {
         "fVal": option.fVal || 0.6
       }, {
         "enable": "1",
-        "name": "person Threshold",  //人检测阈值
+        "name": "person Threshold",  //Human detection threshold
         "unit": "",
         "type": "emVT_R4",
         "fVal": option.personThreshold || 0.6
@@ -651,7 +651,7 @@ export function getJson(name, option) {
       }]
     }],
 
-    // 机动车违停识别
+    // Motor vehicle illegal parking identification
     "DD32D74B-BDAC-49E2-BDA0-CB906D28E14E": [{
       "name": "IllegalParking",
       "type": "0",
@@ -685,14 +685,14 @@ export function getJson(name, option) {
         "name": "IllegalParking Timeout",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": option.IllegalParkingTimeout || 0  //违停限时
+        "lVal": option.IllegalParkingTimeout || 0  //Violation of parking time limit
       },
       {
         "enable": "1",
         "name": "type",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": option.IllegalParkingtype || 0  //类型
+        "lVal": option.IllegalParkingtype || 0  //type
       }, {
         "enable": "1",
         "name": "AlarmInterval",
@@ -707,7 +707,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //年龄性别识别
+    //Age and gender identification
     "76B27D32-5274-A1A5-2DA7-8F827B1C8616": [{
       "name": "AgeGender",
       "type": "0",
@@ -747,7 +747,7 @@ export function getJson(name, option) {
         "name": "type",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": '0'  //类型
+        "lVal": '0'  //type
       }, {
         "enable": "1",
         "name": "faceColor",
@@ -780,7 +780,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    // 门状态检测
+    // Door status detection
     "65EB561E-EAE4-4F13-A7E6-A11DE5C7D163": [{
       "name": "doorstatus",
       "type": "0",
@@ -808,19 +808,19 @@ export function getJson(name, option) {
         "name": "Threshold1",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.Threshold1 || 0.5   //预留字段1
+        "fVal": option.Threshold1 || 0.5   //Reserved fields1
       }, {
         "enable": "1",
         "name": "Threshold2",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": option.Threshold2 || 0    //预留字段2
+        "lVal": option.Threshold2 || 0    //Reserved fields2
       }, {
         "enable": "1",
         "name": "AlarmInterval",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": "30"   //报警间隔时间
+        "fVal": "30"   //Alarm interval
       }, {
         "enable": "1",
         "name": "Time ThaiLicensePlate",
@@ -829,7 +829,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //泰国车牌识别
+    //Thailand license plate recognition
     "33BB561E-EAE4-4F13-A7E6-A11DE5C7F167": [{
       "name": "ThaiLicensePlate",
       "type": "0",
@@ -857,13 +857,13 @@ export function getJson(name, option) {
         "name": "vehicle Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.vehicleThreshs || 0.6  //车辆识别阈值
+        "fVal": option.vehicleThreshs || 0.6  //vehicle recognition threshold
       }, {
         "enable": "1",
         "name": "license Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.licenseThreshs || 0.6  //车牌识别阈值
+        "fVal": option.licenseThreshs || 0.6  //License plate recognition threshold
       }, {
         "enable": "1",
         "name": "AlarmInterval",
@@ -880,7 +880,7 @@ export function getJson(name, option) {
     }],
 
 
-    //表情检测
+    //Expression detection
     "65BB561E-EA54-4F13-A7E6-A11DE5C7F157": [{
       "name": "FacialExpression",
       "type": "0",
@@ -923,7 +923,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //垃圾满溢检测
+    //Garbage overflow detection
     "1f954cb2-b29c-48b9-9a78-8fecf957a515": [{
       "name": "OverGarbageDetect",
       "type": "0",
@@ -940,7 +940,7 @@ export function getJson(name, option) {
         "unit": "",
         "type": "emVT_I4",
         "fVal": "0"
-        // 循环 option.points.POLYGON 插入对象
+        // Loop option.points.POLYGON Insert object
       },
       ...(
         Array.isArray(option.points.POLYGON)
@@ -958,14 +958,14 @@ export function getJson(name, option) {
         "name": "sensitivity",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fVal//垃圾检测阈值
+        "fVal": option.fVal//Garbage detection threshold
       },
       {
         "enable": "1",
         "name": "type",
         "unit": "",
         "type": "emVT_R4",
-        "lVal": option.garbageType || 2    //类型  0: 垃圾桶满溢 1: 垃圾乱放  2:   都报
+        "lVal": option.garbageType || 2    //type  0: Trash can overflowing 1: littering  2:   metropolitan newspaper
       },
 
       {
@@ -981,7 +981,7 @@ export function getJson(name, option) {
         "type": "emVT_LPSTR"
       }]
     }],
-    //口罩检测
+    //Mask testing
     "B6B27D32-5274-A1C3-2DA7-8F827B1C8676": [{
       "name": "MaskDetect",
       "type": "0",
@@ -1009,25 +1009,25 @@ export function getJson(name, option) {
         "name": "type",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": option.types || 0  //0不太口罩报警 1戴口罩报警
+        "lVal": option.types || 0  //0Not too mask alarm 1Wear a mask and call the police
       }, {
         "enable": "1",
         "name": "faceColor",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.faceColor || 0.55  //人脸color阈值
+        "fVal": option.faceColor || 0.55  //human facecolorthreshold
       }, {
         "enable": "1",
         "name": "faceWeight",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.faceWeight || 0.83  //人脸质量权重
+        "fVal": option.faceWeight || 0.83  //Face quality weight
       }, {
         "enable": "1",
         "name": "maskScore",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.maskScore || 0.6  //口罩阈值
+        "fVal": option.maskScore || 0.6  //Mask threshold
       }, {
         "enable": "1",
         "name": "Threshold",
@@ -1048,7 +1048,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    // 平台积水检测
+    // Platform water detection
     "DAA64F89-9E21-45C9-9FC6-9F4E9C1CB794": [{
       "name": "Waterlogging",
       "type": "0",
@@ -1104,13 +1104,13 @@ export function getJson(name, option) {
       }, {
         "type": "emVT_R4",
         "unit": "",
-        "fVal": option.waterThresh || 0.5, //积水阈值
+        "fVal": option.waterThresh || 0.5, //water accumulation threshold
         "enable": "1",
         "name": "Waterlogging thresh"
       }, {
         "type": "emVT_R4",
         "unit": "",
-        "fVal": option.scaleThresh || 0.5, //标尺阈值
+        "fVal": option.scaleThresh || 0.5, //ruler threshold
         "enable": "1",
         "name": "ScaleDetect thresh"
       }, {
@@ -1127,7 +1127,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //摩托车安全帽检测
+    //Motorcycle helmet inspection
     "7f954cb2-b29c-48b9-9a78-8fecf957a212": [{
       "name": "Enable MotorcycleHelmetDetect",
       "type": "0",
@@ -1155,19 +1155,19 @@ export function getJson(name, option) {
         "name": "personThresh Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.personThresh || 0.60  //人员阈值
+        "fVal": option.personThresh || 0.60  //personnel threshold
       }, {
         "enable": "1",
         "name": "helmetThresh Pattern",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.helmetThresh || 0.6  //安全帽阈值
+        "fVal": option.helmetThresh || 0.6  //Hard hat threshold
       }, {
         "enable": "1",
         "name": "motorcycleThresh Pattern",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.motorcycleThresh || 0.6  //摩托车阈值
+        "fVal": option.motorcycleThresh || 0.6  //motorcycle threshold
       }, {
         "enable": "1",
         "name": "AlarmInterval",
@@ -1181,7 +1181,7 @@ export function getJson(name, option) {
         "type": "emVT_LPSTR"
       }]
     }],
-    //店内顾客检测
+    //In-store customer detection
     "45BB561E-EA54-4F13-A7E6-A11DE5C75648": [{
       "name": "TaiGuestStatistics",
       "type": "0",
@@ -1198,7 +1198,7 @@ export function getJson(name, option) {
         "unit": "",
         "type": "emVT_I4",
         "lVal": "0"
-        // 循环 option.points.POLYGON 插入对象
+        // Loop option.points.POLYGON Insert object
       },
       ...(
         Array.isArray(option.points.POLYGON)
@@ -1229,13 +1229,13 @@ export function getJson(name, option) {
         "name": "person Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fValperson//人员检测阈值
+        "fVal": option.fValperson//Person detection threshold
       }, {
         "enable": "1",
         "name": "Assistant Threshold",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fValassistant//店员检测阈值
+        "fVal": option.fValassistant//Store clerk detection threshold
       }, {
         "enable": "1",
         "name": "Threshold2",
@@ -1247,13 +1247,13 @@ export function getJson(name, option) {
         "name": "retention time",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": option.retentionTime || 60 //客人滞留开始时间
+        "lVal": option.retentionTime || 60 //Guest stay start time
       }, {
         "enable": "1",
         "name": "conversation time",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": option.conversationTime || 5 //客人和店员交谈开始时间
+        "lVal": option.conversationTime || 5 //Start time of conversation between customer and store clerk
       }, {
         "enable": "1",
         "name": "camera IP",
@@ -1274,7 +1274,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //进店人数统计
+    //Statistics of people entering the store
     "174CA9D-0200-4FE5-9793-859741E689C6": [{
       "name": "TaiEntryStatistics",
       "type": "0",
@@ -1312,7 +1312,7 @@ export function getJson(name, option) {
       }, {
         "type": "emVT_R4",
         "unit": "",
-        "fVal": option.fVal,//灵敏度
+        "fVal": option.fVal,//Sensitivity
         "enable": "1",
         "name": "sensitivity"
       }, {
@@ -1335,7 +1335,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //车辆逆行(跟踪)
+    //Vehicle driving in reverse direction (tracking)
     "0264CA9D-0200-4FE5-9793-859741E689C1": [{
       "name": "VehicleRetrograde",
       "type": "0",
@@ -1373,7 +1373,7 @@ export function getJson(name, option) {
       }, {
         "type": "emVT_R4",
         "unit": "",
-        "fVal": option.fVal,//灵敏度
+        "fVal": option.fVal,//Sensitivity
         "enable": "1",
         "name": "sensitivity"
       }, {
@@ -1399,7 +1399,7 @@ export function getJson(name, option) {
 
 
 
-    //打架
+    //fight
     "6C448FBB-83E1-49AD-B06D-297D267BD80B": [{
       "name": "FightingDetect",
       "type": "0",
@@ -1427,7 +1427,7 @@ export function getJson(name, option) {
         "name": "sensitivity",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fVal,//灵敏度
+        "fVal": option.fVal,//Sensitivity
       }, {
         "enable": "1",
         "name": "AlarmInterval",
@@ -1442,7 +1442,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //船只识别
+    //vessel identification
     "5FFA8DB9-DC3F-49ED-B0BB-A2AEA1F9FD3F": [{
       "name": "ShippingCounting",
       "type": "0",
@@ -1487,7 +1487,7 @@ export function getJson(name, option) {
       }, {
         "type": "emVT_R4",
         "unit": "",
-        "fVal": option.fVal,//灵敏度
+        "fVal": option.fVal,//Sensitivity
         "enable": "1",
         "name": "sensitivity"
       }, {
@@ -1504,7 +1504,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //安全帽颜色
+    //helmet color
     "BA200843-1714-4718-914C-21211CAC5E46": [{
       "name": "SafetyHelmetColourDetect",
       "type": "0",
@@ -1532,7 +1532,7 @@ export function getJson(name, option) {
         "name": "sensitivity",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fVal,//灵敏度
+        "fVal": option.fVal,//Sensitivity
       }, {
         "enable": "1",
         "name": "AlarmInterval",
@@ -1548,7 +1548,7 @@ export function getJson(name, option) {
       }]
     }],
 
-    //睡岗检测
+    //Sleeping duty test
     "E7017EDA-4EFD-493E-97DF-4156ECB39656": [{
       "name": "SleepPost",
       "type": "0",
@@ -1576,13 +1576,13 @@ export function getJson(name, option) {
         "name": "sensitivity",
         "unit": "",
         "type": "emVT_R4",
-        "fVal": option.fVal,//灵敏度
+        "fVal": option.fVal,//Sensitivity
       }, {
         "enable": "1",
         "name": "PalyPhone Time",
         "unit": "",
         "type": "emVT_I4",
-        "lVal": option.sleeptimeOut   //时间 秒
+        "lVal": option.sleeptimeOut   //time Second
       }, {
         "enable": "1",
         "name": "Time IllegalBuilt",
@@ -1591,7 +1591,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //反光衣
+    //Reflective clothing
     "7F954DB2-C29C-48B9-9A78-8EECF957A290": [{
       "name": "Cross Line",
       "type": "0",
@@ -1608,12 +1608,12 @@ export function getJson(name, option) {
           "unit": "",
           "type": "emVT_R4",
           "name": "sensitivity",
-          "fVal": option.fVal,//灵敏度
+          "fVal": option.fVal,//Sensitivity
           "enable": "1"
         }
       ]
     }],
-    //跌倒
+    //fall
     "ADEE06F4-9D5F-44A8-8681-507BBF3CADF8": [{
       "name": "Climb Higher",
       "type": "0",
@@ -1641,7 +1641,7 @@ export function getJson(name, option) {
         "name": "sensitivity",
         "unit": "",
         "type": "emVT_R4",
-       "fVal": option.fVal,//灵敏度
+       "fVal": option.fVal,//Sensitivity
       }, {
         "lVal": option.mllm || "0",
         "type": "emVT_I4",
@@ -1680,13 +1680,13 @@ export function getJson(name, option) {
       //     "unit": "",
       //     "type": "emVT_R4",
       //     "name": "sensitivity",
-      //     "fVal": option.fVal,//灵敏度
+      //     "fVal": option.fVal,//Sensitivity
       //     "enable": "1"
       //   }
       // ]
 
     }],
-    //滞留
+    //stay
     "6C4483AA-83E1-49AD-B06D-297D267BD80B": [{
       "name": "Retention",
       "type": "0",
@@ -1703,12 +1703,12 @@ export function getJson(name, option) {
           "unit": "",
           "type": "emVT_I4",
           "name": "Retention TimeOut",
-          "lVal": option.timeOut,  //滞留时间秒
+          "lVal": option.timeOut,  //Residence time seconds
           "enable": "1"
         }
       ]
     }],
-    //车辆逆行
+    //Vehicle traveling in the wrong direction
     "0264CA9D-0200-4FE5-9793-859741E689C0": [
       {
         "name": "VehicleConverse",
@@ -1741,14 +1741,14 @@ export function getJson(name, option) {
             "name": "sensitivity",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": option.fVal//灵敏度
+            "fVal": option.fVal//Sensitivity
           },
           {
             "enable": "1",
             "name": "type",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": option.type //0检测到车头报警  1检测到车尾报警
+            "fVal": option.type //0Vehicle alarm detected  1Rear alarm detected
           },
           {
             "enable": "1",
@@ -1762,7 +1762,7 @@ export function getJson(name, option) {
     ],
 
 
-    //遗留物
+    //legacy
     "BDDBB500-62F3-4A93-AC9E-11C9CC6EA4BE": [
       {
         "name": "RemnantDetect",
@@ -1795,7 +1795,7 @@ export function getJson(name, option) {
             "name": "RemnantDetect DelayTime",
             "unit": "",
             "type": "emVT_I4",
-            "lVal": option.DelayTime //遗留时间秒
+            "lVal": option.DelayTime //Remaining time in seconds
           },
           {
             "strVal": "",
@@ -1809,7 +1809,7 @@ export function getJson(name, option) {
     ],
 
 
-    //脱岗检测
+    //Off-duty testing
     'F7581B40-A9F9-498E-A510-14F40009C545': [{
       "name": "Leave Post",
       "type": "0",
@@ -1817,7 +1817,7 @@ export function getJson(name, option) {
       abilityterm: [
         {
           "enable": "1",
-          "name": "Detect Area", //检测位置
+          "name": "Detect Area", //Detection position
           "unit": "unit",
           "type": "emVT_POLYGON",
           "points": option.points.POLYGON[0],
@@ -1827,19 +1827,19 @@ export function getJson(name, option) {
           "name": "sensitivity",
           "unit": "",
           "type": "emVT_R4",
-          "fVal": option.fVal//灵敏度
+          "fVal": option.fVal//Sensitivity
         },
         {
           "enable": "1",
-          "name": "LeavePost TimeOut", //离岗时间
+          "name": "LeavePost TimeOut", //Off duty time
           "unit": "",
           "type": "emVT_I4",
-          "lVal": option.tuotime || 30 //默认30分钟
+          "lVal": option.tuotime || 30 //default30minute
         }
       ]
     }],
 
-    //密度检测
+    //Density detection
     'F7581B40-A9F9-498E-A510-14F40010C545': [{
       "name": "Density",
       "type": "0",
@@ -1847,7 +1847,7 @@ export function getJson(name, option) {
       "abilityterm": [
         {
           "enable": "1",
-          "name": "DensityDetect DeviceId",//取流的设备ID
+          "name": "DensityDetect DeviceId",//Streaming equipmentID
           "unit": "",
           "type": "emVT_LPSTR",
           "strVal": option.deviceId
@@ -1864,14 +1864,14 @@ export function getJson(name, option) {
           "name": "DensityDetect DensityInterval",
           "unit": "",
           "type": "emVT_R4",
-          "fVal": option.userNum//人数
+          "fVal": option.userNum//Number of people
         },
         {
           "enable": "1",
           "name": "sensitivity",
           "unit": "",
           "type": "emVT_R4",
-          "fVal": option.fVal//灵敏度
+          "fVal": option.fVal//Sensitivity
         },
         {
           "enable": "1",
@@ -1885,11 +1885,11 @@ export function getJson(name, option) {
           "name": "DensityDetect DesnityType",
           "unit": "",
           "type": "emVT_I4",
-          "lVal": option.alarmType//报警类型
+          "lVal": option.alarmType//Alarm type
         }
       ]
     }],
-    //入侵检测
+    //Intrusion detection
     "6C448FAA-83E1-49AD-B06D-297D267BD80B": [{
       name: "Cross Line",
       type: "0",
@@ -1918,7 +1918,7 @@ export function getJson(name, option) {
         },
       ],
     }],
-    //攀高检测
+    //Climb high detection
     '6C448FAA-83E1-49AD-B06D-397D267BD80B': [
       {
         "name": "Climb Higher",
@@ -1942,7 +1942,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //人脸识别(win版)
+    //Face recognition (win version)
     "B6A27D32-5274-A1C3-2DA7-8F827B1C8622": [
       {
         "name": "ExtractionDetect Filter",
@@ -1978,7 +1978,7 @@ export function getJson(name, option) {
             "name": "ExtractionDetect Weight",
             "unit": "",
             "type": "emVT_I4",
-            "lVal": option.faceWeightwin || 7 //人脸质量
+            "lVal": option.faceWeightwin || 7 //face quality
           },
           {
             "enable": "1",
@@ -1999,7 +1999,7 @@ export function getJson(name, option) {
             "name": "ExtractionDetect Frame interval",
             "unit": "ms",
             "type": "emVT_I4",
-            "lVal": option.frameInterval || "400" //人脸检测间隔（毫秒）
+            "lVal": option.frameInterval || "400" //Face detection interval（millisecond）
           },
           {
             "enable": "1",
@@ -2018,7 +2018,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //人脸识别
+    //face recognition
     'B7A27D32-5274-A1C3-2DA7-8F827B1C8644': [{
       "clsid": "B7A27D32-5274-A1C3-2DA7-8F827B1C8644",
       "abilityterm": [{
@@ -2071,7 +2071,7 @@ export function getJson(name, option) {
     }],
 
 
-    //安全帽
+    //helmet
     '7F954CB2-B29C-48B9-9A78-8FECF957A290': [
       {
         "name": "Cross Line",
@@ -2119,7 +2119,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //电动车入户
+    //Electric vehicles entering the home
     '3864E531-F909-4E37-A544-B557A8490D80': [
       {
         "name": "Cross Line",
@@ -2150,7 +2150,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //烟火检测
+    //Pyrotechnic detection
     '7DCD8C8C-FCDC-47EE-80A9-B648CE558FF5': [
       {
         "name": "SmokerFire",
@@ -2202,7 +2202,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //抽烟检测
+    //Smoking test
     '118D34A0-4FEB-4906-A622-C7974AB3C637': [
       {
         "name": "Enable Smoking",
@@ -2235,14 +2235,14 @@ export function getJson(name, option) {
             "name": "sensitivity",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": option.fVal//灵敏度
+            "fVal": option.fVal//Sensitivity
           },
           {
             "enable": "1",
             "name": "SmokingDetect Pattern",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": '1'//0:远处识别不检测烟，只识别姿势1:近处要检测烟，同时识别姿势
+            "fVal": '1'//0:Remote recognition does not detect smoke，Only recognize gestures1:Detect smoke nearby，Recognize gestures simultaneously
           },
           {
             "enable": "1",
@@ -2260,7 +2260,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //违规停车
+    //Illegal parking
     'ED32D74B-BDAC-49E2-BDA0-CB906D28E14F': [
       {
         "name": "Cross Line",
@@ -2279,13 +2279,13 @@ export function getJson(name, option) {
             "name": "sensitivity",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": option.fVal//灵敏度
+            "fVal": option.fVal//Sensitivity
           }, {
             "enable": "1",
             "name": "IllegalParking Timeout",
             "unit": "",
             "type": "emVT_I4",
-            "lVal": option.MaxCount  //拥堵报警时间秒
+            "lVal": option.MaxCount  //Congestion alarm time in seconds
           }, {
             "enable": "1",
             "name": "AlarmInterval",
@@ -2302,7 +2302,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //玩手机
+    //Play with mobile phone
     '28E4800E-01AF-4647-8F9B-966497DBE20B': [
       {
         "name": "PalyPhone",
@@ -2335,14 +2335,14 @@ export function getJson(name, option) {
             "name": "sensitivity",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": option.fVal//灵敏度
+            "fVal": option.fVal//Sensitivity
           },
           {
             "enable": "1",
             "name": "PalyPhone Time",
             "unit": "",
             "type": "emVT_I4",
-            "lVal": option.lVal//时间分钟
+            "lVal": option.lVal//time minutes
           },
           {
             "enable": "1",
@@ -2361,7 +2361,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //违规加油
+    //Illegal refueling
     'D2985710-425A-4DC9-AD61-C876FA5F5E9D': [
       {
         "name": "GasStationViolator",
@@ -2429,14 +2429,14 @@ export function getJson(name, option) {
             "name": "sensitivity",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": option.fVal//灵敏度
+            "fVal": option.fVal//Sensitivity
           },
           {
             "enable": "1",
             "name": "Detect Distance",
             "unit": "",
             "type": "emVT_R4",
-            "fVal": option.distance//油桶跟人员距离
+            "fVal": option.distance//The distance between oil barrels and people
           },
           {
             "enable": "1",
@@ -2448,7 +2448,7 @@ export function getJson(name, option) {
         ]
       }],
 
-    //加油站检测
+    //Gas station inspection
     '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F24d': [
       {
         "name": "AnGasStation",
@@ -2627,7 +2627,7 @@ export function getJson(name, option) {
       }],
 
 
-    //足球进球
+    //soccer goal
     "49D6CA47-73F2-4748-A488-CF3A2CF73D05": [
       {
         "name": "ScoreClip",
@@ -2664,7 +2664,7 @@ export function getJson(name, option) {
           },
           {
             "enable": "1",
-            "name": "Time ScoreClip", //执行时间
+            "name": "Time ScoreClip", //Execution time
             "unit": "",
             "type": "emVT_LPSTR",
             "strVal": ""
@@ -2673,7 +2673,7 @@ export function getJson(name, option) {
       },
 
 
-    ],//动物识别
+    ],//animal identification
     "A8261BAE-3EB5-4636-A9CC-5637782EE189": [
       {
         "name": "Animal",
@@ -2713,7 +2713,7 @@ export function getJson(name, option) {
         ]
       }
     ],
-    //刀枪检测
+    //Knife and gun detection
     "99BB561E-EA54-4F13-A7E6-A11DE5C7F142": [{
       "name": "Dangerous",
       "type": "0",
@@ -2764,7 +2764,7 @@ export function getJson(name, option) {
         }
       ]
     }],
-    //巴基斯坦车牌识别
+    //Pakistani license plate recognition
     "BED2D84A-BDAC-49E2-BDA0-AB909D26E11F": [{
       "name": "PlateRecognition",
       "type": "0",
@@ -2813,7 +2813,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //泰国进店人数统计
+    //Statistics of people entering stores in Thailand
     "374CA9D-0200-4FE5-9793-859741E689D1": [{
       "name": "TaiEntryStatistics",
       "type": "0",
@@ -2869,13 +2869,13 @@ export function getJson(name, option) {
       }, {
         "type": "emVT_R4",
         "unit": "",
-        "fVal": option.passThresh, //经过阈值
+        "fVal": option.passThresh, //Passed threshold
         "enable": "1",
         "name": "pass thresh"
       }, {
         "type": "emVT_R4",
         "unit": "",
-        "fVal": option.enterThresh,  //进店阈值
+        "fVal": option.enterThresh,  //Store entry threshold
         "enable": "1",
         "name": "enter thresh"
       }, {
@@ -2910,7 +2910,7 @@ export function getJson(name, option) {
         "strVal": ""
       }]
     }],
-    //人车统计
+    //Statistics of people and vehicles
     "1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F": [{
       "name": "AnGasStCount",
       "type": "0",

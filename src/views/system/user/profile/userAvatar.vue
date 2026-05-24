@@ -105,11 +105,11 @@ export default {
   },
   data() {
     return {
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 是否显示cropper
+      // Whether to display cropper
       visible: false,
-      // 弹出层标题
+      // Popup layer Title
       title: "Change Avatar",
       options: {
         img: store.getters.avatar, // Crop image URL
@@ -124,11 +124,11 @@ export default {
     };
   },
   methods: {
-    // 编辑头像
+    // Edit avatar
     editCropper() {
       this.open = true;
     },
-    // 打开弹出层结束时的回调
+    // Callback when opening popup layer ends
     modalOpened() {
       this.visible = true;
       if (!this.resizeHandler) {
@@ -138,26 +138,26 @@ export default {
       }
       window.addEventListener("resize", this.resizeHandler);
     },
-    // 刷新组件
+    // refresh component
     refresh() {
       this.$refs.cropper.refresh();
     },
-    // 覆盖默认的上传行为
+    // Override default upload behavior
     requestUpload() {},
-    // 向左旋转
+    // Rotate left
     rotateLeft() {
       this.$refs.cropper.rotateLeft();
     },
-    // 向右旋转
+    // Rotate right
     rotateRight() {
       this.$refs.cropper.rotateRight();
     },
-    // 图片缩放
+    // Image zoom
     changeScale(num) {
       num = num || 1;
       this.$refs.cropper.changeScale(num);
     },
-    // 上传预处理
+    // Upload preprocessing
     beforeUpload(file) {
       if (file.type.indexOf("image/") == -1) {
         this.$modal.msgError(this.$t("profile.uploadFileTip"));
@@ -169,7 +169,7 @@ export default {
         };
       }
     },
-    // 上传图片
+    // UploadImage
     uploadImg() {
       this.$refs.cropper.getCropBlob((data) => {
         let formData = new FormData();
@@ -183,11 +183,11 @@ export default {
         });
       });
     },
-    // 实时预览
+    // Real-time Preview
     realTime(data) {
       this.previews = data;
     },
-    // 关闭窗口
+    // close window
     closeDialog() {
       this.options.img = store.getters.avatar;
       this.visible = false;

@@ -218,7 +218,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改角色配置对话框 -->
+    <!-- Add or Edit role configuration dialog -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item :label="$t('role.roleName')" prop="roleName">
@@ -299,7 +299,7 @@
       </div>
     </el-dialog>
 
-    <!-- 分配角色数据权限对话框 -->
+    <!-- Assign Roles data permissions dialog box -->
     <el-dialog
       :title="title"
       :visible.sync="openDataScope"
@@ -400,21 +400,21 @@ export default {
       showSearch: true,
       // Total count
       total: 0,
-      // 角色表格数据
+      // Role table data
       roleList: [],
       // Dialog title
       title: "",
       // Show dialog
       open: false,
-      // Show dialog（数据权限）
+      // Show dialog (data permissions)
       openDataScope: false,
       menuExpand: false,
       menuNodeAll: false,
       deptExpand: true,
       deptNodeAll: false,
-      // 日期范围
+      // date range
       dateRange: [],
-      // 数据范围选项
+      // Data rangeOptions
       dataScopeOptions: [
         {
           value: "1",
@@ -437,9 +437,9 @@ export default {
           label: this.$t("role.dataScopeOptions5"),
         },
       ],
-      // 菜单列表
+      // Menu List
       menuOptions: [],
-      // 部门列表
+      // Department List
       deptOptions: [],
       // Query params
       queryParams: {
@@ -500,7 +500,7 @@ export default {
     getMenuTreeselect() {
       menuTreeselect().then((response) => {
         this.menuOptions = response.data;
-        //更新树状结构属性名为label的值为国际化后的值
+        //Update the value of the tree structure attribute named label to the internationalized value
         this.readNodes(this.menuOptions);
         console.log(this.menuOptions);
         this.menuOptions.map((res) => {
@@ -518,20 +518,20 @@ export default {
       }
     },
 
-    // 所有菜单节点数据
+    // All menu node data
     getMenuAllCheckedKeys() {
-      // 目前被选中的菜单节点
+      // The currently selected menu node
       let checkedKeys = this.$refs.menu.getCheckedKeys();
-      // 半选中的菜单节点
+      // Half-selected menu node
       let halfCheckedKeys = this.$refs.menu.getHalfCheckedKeys();
       checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
       return checkedKeys;
     },
-    // 所有部门节点数据
+    // All department node data
     getDeptAllCheckedKeys() {
-      // 目前被选中的部门节点
+      // The currently selected department node
       let checkedKeys = this.$refs.dept.getCheckedKeys();
-      // 半选中的部门节点
+      // Half-selected department node
       let halfCheckedKeys = this.$refs.dept.getHalfCheckedKeys();
       checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
       return checkedKeys;
@@ -551,7 +551,7 @@ export default {
         return response;
       });
     },
-    // 角色状态修改
+    // Character statusEdit
     handleStatusChange(row) {
       let text =
         row.status === "0"
@@ -571,17 +571,17 @@ export default {
           row.status = row.status === "0" ? "1" : "0";
         });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 取消按钮（数据权限）
+    // Cancel (data permission)
     cancelDataScope() {
       this.openDataScope = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       if (this.$refs.menu != undefined) {
         this.$refs.menu.setCheckedKeys([]);
@@ -615,13 +615,13 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.roleId);
       this.single = selection.length != 1;
       this.multiple = !selection.length;
     },
-    // 更多操作触发
+    // More action triggers
     handleCommand(command, row) {
       switch (command) {
         case "handleDataScope":
@@ -634,7 +634,7 @@ export default {
           break;
       }
     },
-    // 树权限（展开/折叠）
+    // Tree permissions (expand/collapse)
     handleCheckedTreeExpand(value, type) {
       if (type == "menu") {
         let treeList = this.menuOptions;
@@ -648,7 +648,7 @@ export default {
         }
       }
     },
-    // 树权限（全选/全不选）
+    // Tree permissions (select all/unselect all)
     handleCheckedTreeNodeAll(value, type) {
       if (type == "menu") {
         this.$refs.menu.setCheckedNodes(value ? this.menuOptions : []);
@@ -656,7 +656,7 @@ export default {
         this.$refs.dept.setCheckedNodes(value ? this.deptOptions : []);
       }
     },
-    // 树权限（父子联动）
+    // Tree permissions (parent-child linkage)
     handleCheckedTreeConnect(value, type) {
       if (type == "menu") {
         this.form.menuCheckStrictly = value ? true : false;

@@ -51,7 +51,7 @@
         <el-form-item prop="functionName">
           <span slot="label">
             Function Name
-            <el-tooltip content="用作类描述，例如 用户" placement="top">
+            <el-tooltip content="Class description, e.g. User" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -62,8 +62,8 @@
       <el-col :span="12">
         <el-form-item>
           <span slot="label">
-            上级菜单
-            <el-tooltip content="分配到指定菜单下，例如 系统管理" placement="top">
+            Previous menu
+            <el-tooltip content="Assign under a menu, e.g. System Management" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -73,7 +73,7 @@
             :options="menus"
             :normalizer="normalizer"
             :show-count="true"
-            placeholder="请选择系统菜单"
+            placeholder="Please select system menu"
           />
         </el-form-item>
       </el-col>
@@ -81,32 +81,32 @@
       <el-col :span="12">
         <el-form-item prop="genType">
           <span slot="label">
-            生成代码方式
-            <el-tooltip content="默认为zip压缩包下载，也可以自定义生成路径" placement="top">
+            Generatecode method
+            <el-tooltip content="Default is ZIP download; you can also set a custom output path" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-          <el-radio v-model="info.genType" label="0">zip压缩包</el-radio>
-          <el-radio v-model="info.genType" label="1">自定义路径</el-radio>
+          <el-radio v-model="info.genType" label="0">ZIP archive</el-radio>
+          <el-radio v-model="info.genType" label="1">Custom path</el-radio>
         </el-form-item>
       </el-col>
 
       <el-col :span="24" v-if="info.genType == '1'">
         <el-form-item prop="genPath">
           <span slot="label">
-            自定义路径
-            <el-tooltip content="填写磁盘绝对路径，若不填写，则生成到当前Web项目下" placement="top">
+            Custom path
+            <el-tooltip content="Absolute disk path; if empty, generates under the current web project" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
           <el-input v-model="info.genPath">
             <el-dropdown slot="append">
               <el-button type="primary">
-                最近路径快速选择
+                Quick selection of recent routes
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="info.genPath = '/'">恢复默认的生成基础路径</el-dropdown-item>
+                <el-dropdown-item @click.native="info.genPath = '/'">Restore default generation base path</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-input>
@@ -115,12 +115,12 @@
     </el-row>
 
     <el-row v-show="info.tplCategory == 'tree'">
-      <h4 class="form-header">其他信息</h4>
+      <h4 class="form-header">Other Info</h4>
       <el-col :span="12">
         <el-form-item>
           <span slot="label">
-            树编码字段
-            <el-tooltip content="树显示的编码字段名， 如：dept_id" placement="top">
+            tree encoding field
+            <el-tooltip content="Tree code field, e.g. dept_id" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -137,8 +137,8 @@
       <el-col :span="12">
         <el-form-item>
           <span slot="label">
-            树父编码字段
-            <el-tooltip content="树显示的父编码字段名， 如：parent_Id" placement="top">
+            tree parent encoding field
+            <el-tooltip content="Tree parent code field, e.g. parent_Id" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -155,8 +155,8 @@
       <el-col :span="12">
         <el-form-item>
           <span slot="label">
-            树名称字段
-            <el-tooltip content="树节点的显示名称字段名， 如：dept_name" placement="top">
+            tree name field
+            <el-tooltip content="Tree node display name field, e.g. dept_name" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -172,12 +172,12 @@
       </el-col>
     </el-row>
     <el-row v-show="info.tplCategory == 'sub'">
-      <h4 class="form-header">关联信息</h4>
+      <h4 class="form-header">Relation Info</h4>
       <el-col :span="12">
         <el-form-item>
           <span slot="label">
-            关联子表的表名
-            <el-tooltip content="关联子表的表名， 如：sys_user" placement="top">
+            The table name of the associated subtable
+            <el-tooltip content="Related child table name, e.g. sys_user" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -194,8 +194,8 @@
       <el-col :span="12">
         <el-form-item>
           <span slot="label">
-            子表关联的外键名
-            <el-tooltip content="子表关联的外键名， 如：user_id" placement="top">
+            The foreign key name associated with the subtable
+            <el-tooltip content="Child table foreign key, e.g. user_id" placement="top">
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
@@ -238,19 +238,19 @@ export default {
       subColumns: [],
       rules: {
         tplCategory: [
-          { required: true, message: "请选择生成模板", trigger: "blur" }
+          { required: true, message: "Please select a generation template", trigger: "blur" }
         ],
         packageName: [
-          { required: true, message: "请输入Package Path", trigger: "blur" }
+          { required: true, message: "Please enter package path", trigger: "blur" }
         ],
         moduleName: [
-          { required: true, message: "请输入Module Name", trigger: "blur" }
+          { required: true, message: "Please enter module name", trigger: "blur" }
         ],
         businessName: [
-          { required: true, message: "请输入Business Name", trigger: "blur" }
+          { required: true, message: "Please enter business name", trigger: "blur" }
         ],
         functionName: [
-          { required: true, message: "请输入Function Name", trigger: "blur" }
+          { required: true, message: "Please enter function name", trigger: "blur" }
         ],
       }
     };
@@ -262,7 +262,7 @@ export default {
     }
   },
   methods: {
-    /** 转换菜单数据结构 */
+    /** Convert menu data structure */
     normalizer(node) {
       if (node.children && !node.children.length) {
         delete node.children;
@@ -273,18 +273,18 @@ export default {
         children: node.children
       };
     },
-    /** 选择子表名触发 */
+    /** Select subtable name to trigger */
     subSelectChange(value) {
       this.info.subTableFkName = '';
     },
-    /** 选择生成模板触发 */
+    /** chooseGeneratetemplate trigger */
     tplSelectChange(value) {
       if(value !== 'sub') {
         this.info.subTableName = '';
         this.info.subTableFkName = '';
       }
     },
-    /** 设置关联外键 */
+    /** Set related foreign keys */
     setSubTableColumns(value) {
       for (var item in this.tables) {
         const name = this.tables[item].tableName;

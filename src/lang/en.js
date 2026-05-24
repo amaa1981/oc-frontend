@@ -1207,7 +1207,7 @@ module.exports = {
     "errornet2": 'Unable to display alarm location temporarily',
     "more": 'More',
   },
-  // 字典管理页面
+  // Dictionary management page
   dictManage: {
     dictId: 'dictionary number',
     dictName: 'dictionary name',
@@ -1223,7 +1223,7 @@ module.exports = {
     comfirmRemove: 'Are you sure to delete the data item whose dictionary number is {dictIds}?',
     refresh_s: 'Refresh successfully'
   },
-  // 字典详情页面
+  // Dictionary detail page
   dictInfo: {
     dictCode: 'dictionary encoding',
     dictType: 'dictionary name',
@@ -1245,7 +1245,7 @@ module.exports = {
     dialogTitle_e: 'Modify dictionary data',
     comfirmRemove: 'Are you sure to delete the data item whose dictionary code is {dictCodes}?'
   },
-  // 设备区域管理页面
+  // Device area management page
   "area": {
     "deptName": "Device Area Name",
     "status": "Device Area Status",
@@ -1262,7 +1262,7 @@ module.exports = {
     "dialogTitle_e": "Modify Device Area",
     "confirmRemove": "Are you sure to delete the data item named {deptName}?"
   },
-  // 设备区域页面
+  // Device area page
   deviceArea: {
     dictCode: 'Area ID',
     dictLabel: 'Equipment area',

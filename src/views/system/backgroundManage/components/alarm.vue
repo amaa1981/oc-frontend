@@ -144,9 +144,9 @@ export default {
       openAudio: false,
       id: 1, // Fixed ID, only one record in DB
       loading: false,
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         delAlarmTime: [
           {

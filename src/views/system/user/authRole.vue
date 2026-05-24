@@ -52,17 +52,17 @@ export default {
   name: "AuthRole",
   data() {
     return {
-       // 遮罩层
+       // Loading state
       loading: true,
-      // 分页信息
+      // Pagination information
       total: 0,
       pageNum: 1,
       pageSize: 10,
-      // 选中角色编号
+      // Select character number
       roleIds:[],
-      // 角色信息
+      // role information
       roles: [],
-      // 用户信息
+      // User information
       form: {}
     };
   },
@@ -90,11 +90,11 @@ export default {
     clickRow(row) {
       this.$refs.table.toggleRowSelection(row);
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.roleIds = selection.map((item) => item.roleId);
     },
-    // 保存选中的数据编号
+    // Save selected data number
     getRowKey(row) {
       return row.roleId;
     },

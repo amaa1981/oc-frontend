@@ -183,7 +183,7 @@ export default {
     }
   },
   created() {
-    // 防止 firefox 下 拖拽 会新打卡一个选项卡
+    // prevent firefox Down drag Will check in a new oneOptionsCard
     document.body.ondrop = event => {
       event.preventDefault()
       event.stopPropagation()
@@ -244,7 +244,7 @@ export default {
       const clone = JSON.parse(JSON.stringify(origin))
       clone.formId = ++this.idGlobal
       clone.span = formConf.span
-      clone.renderKey = +new Date() // 改变renderKey后可以实现强制更新组件
+      clone.renderKey = +new Date() // ChangerenderKeyYou can then force update components
       if (!clone.layout) clone.layout = 'colFormItem'
       if (clone.layout === 'colFormItem') {
         clone.vModel = `field${this.idGlobal}`
@@ -282,7 +282,7 @@ export default {
       document.getElementById('copyNode').click()
     },
     empty() {
-      this.$confirm('确定要Clear所有组件吗？', 'Notice', { type: 'warning' }).then(
+      this.$confirm('Clear all components?', 'Notice', { type: 'warning' }).then(
         () => {
           this.drawingList = []
         }

@@ -4,7 +4,7 @@
  * @Date: 2023-04-12 09:50:49
  * @LastEditTime: 2025-05-12 10:35:42
  * @LastEditors: FGJ
- * @Description: 获取dom的在屏幕上的真实物理像素位置
+ * @Description: Get the real physical pixel position of dom on the screen
  * @FilePath: \saas_school_platform\src\views\safety\realtimeMonitoring\screenInfo.js
  */
 export const getDPI = function () {
@@ -41,10 +41,10 @@ export const getDPI = function () {
 //     const devicePixelRatioOffsetTop = fullscreenTopOffsetList[devicePixelRatio] / devicePixelRatio;
 //     const devicePixelRatioOffsetLeft = devicePixelRatio > 1.25 ? 0.5 / devicePixelRatio : 0;
 
-//     // 屏幕的上下偏移量
+//     //The upper and lower offset of the screen
 //     let topOffset = window.screenY > 1 ? noFullscreenTopOffsetList[devicePixelRatio] / devicePixelRatio : 0;
 
-//     // 计算元素相对于视口的位置，并考虑控制台打开后窗口宽度变化对 left 值的影响
+//     // Calculate the position of the element relative to the viewport, and consider the impact of the window width change on the left value after the console is opened
 //     let correctedLeft = rect.left + scrollLeft;
 //     const originalWindowWidth = document.documentElement.clientWidth;
 
@@ -52,7 +52,7 @@ export const getDPI = function () {
 //         correctedLeft -= ((originalWindowWidth - window.innerWidth) / 2) + devicePixelRatioOffsetLeft;
 //     }
 
-//     // 返回dom元素相对系统桌面的位置
+//     //The position of the Backdom element relative to the system desktop
 //     return {
 //         width: elem.clientWidth,
 //         height: elem.clientHeight,
@@ -84,12 +84,12 @@ export const getElementPosition = function (elem) {
     }
     const devicePixelRatioOffsetTop = fullscreenTopOffsetList[devicePixelRatio] / devicePixelRatio;
     const devicePixelRatioOffsetLeft = devicePixelRatio > 1.25 ? 0.5 / devicePixelRatio : 0;
-    // 屏幕的上下偏移量
+    // The upper and lower offset of the screen
     let topOffset = window.screenY > 1 ? noFullscreenTopOffsetList[devicePixelRatio] / devicePixelRatio : 0;
     return {
         width: elem.clientWidth,
         height: elem.clientHeight,
-        // 返回dom元素相对系统桌面的位置
+        // The position of the Backdom element relative to the system desktop
         top: Math.ceil((rect.top + scrollTop) + (window.screenY + ((window.outerHeight - window.innerHeight > 0) ? (window.outerHeight - window.innerHeight) : 0)) - topOffset - devicePixelRatioOffsetTop),
         // top: Math.ceil((rect.top + scrollTop) + (window.screenY + Math.min(window.outerHeight  - window.innerHeight, isBrowserScreen ? 87.5 * getDPI() : 78.5 * getDPI())) - topOffset - devicePixelRatioOffsetTop),
         left: Math.ceil((rect.left + scrollLeft) + window.screenLeft + (Math.min(window.outerWidth - window.innerWidth, isBrowserScreen ? 0 : 15)) / 2 - devicePixelRatioOffsetLeft)

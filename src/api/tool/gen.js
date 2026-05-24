@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询生成表数据
+// QueryGenerate table data
 export function listTable(query) {
   return request({
     url: '/tool/gen/list',
@@ -8,7 +8,7 @@ export function listTable(query) {
     params: query
   })
 }
-// 查询db数据库列表
+// Querydb database List
 export function listDbTable(query) {
   return request({
     url: '/tool/gen/db/list',
@@ -17,7 +17,7 @@ export function listDbTable(query) {
   })
 }
 
-// 查询表详细信息
+// Query table details
 export function getGenTable(tableId) {
   return request({
     url: '/tool/gen/' + tableId,
@@ -25,7 +25,7 @@ export function getGenTable(tableId) {
   })
 }
 
-// 修改代码生成信息
+// Edit codeGenerator Info
 export function updateGenTable(data) {
   return request({
     url: '/tool/gen',
@@ -34,7 +34,7 @@ export function updateGenTable(data) {
   })
 }
 
-// 导入表
+// Import Table
 export function importTable(data) {
   return request({
     url: '/tool/gen/importTable',
@@ -43,7 +43,7 @@ export function importTable(data) {
   })
 }
 
-// 预览生成代码
+// PreviewGenerateCode
 export function previewTable(tableId) {
   return request({
     url: '/tool/gen/preview/' + tableId,
@@ -51,7 +51,7 @@ export function previewTable(tableId) {
   })
 }
 
-// 删除表数据
+// Delete table data
 export function delTable(tableId) {
   return request({
     url: '/tool/gen/' + tableId,
@@ -59,7 +59,7 @@ export function delTable(tableId) {
   })
 }
 
-// 生成代码（自定义路径）
+// Generate code (Custom path)
 export function genCode(tableName) {
   return request({
     url: '/tool/gen/genCode/' + tableName,
@@ -67,7 +67,7 @@ export function genCode(tableName) {
   })
 }
 
-// 同步数据库
+// Same as Step count database
 export function synchDb(tableName) {
   return request({
     url: '/tool/gen/synchDb/' + tableName,

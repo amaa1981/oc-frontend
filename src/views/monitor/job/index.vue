@@ -150,7 +150,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改定时任务对话框 -->
+    <!-- Add or Edit scheduled task dialog box -->
     <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-row>
@@ -239,7 +239,7 @@
       <crontab @hide="openCron=false" @fill="crontabFill" :expression="expression"></crontab>
     </el-dialog>
 
-    <!-- 任务日志详细 -->
+    <!-- Task log details -->
     <el-dialog title="Job Detail" :visible.sync="openView" width="700px" append-to-body>
       <el-form ref="form" :model="form" label-width="120px" size="mini">
         <el-row>
@@ -311,17 +311,17 @@ export default {
       showSearch: true,
       // Total count
       total: 0,
-      // 定时任务Table data
+      // Scheduled task Table data
       jobList: [],
       // Dialog title
       title: "",
       // Show dialog
       open: false,
-      // 是否显示详细弹出层
+      // Whether to display the detailed popup layer
       openView: false,
-      // 是否显示Cron表达式弹出层
+      // Whether to display the CronPattern popup layer
       openCron: false,
-      // 传入的表达式
+      // Incoming Pattern
       expression: "",
       // Query params
       queryParams: {
@@ -360,7 +360,7 @@ export default {
         this.loading = false;
       });
     },
-    // 任务组名字典翻译
+    // Task team name dictionary translation
     jobGroupFormat(row, column) {
       return this.selectDictLabel(this.dict.type.sys_job_group, row.jobGroup);
     },
@@ -399,7 +399,7 @@ export default {
       this.single = selection.length != 1;
       this.multiple = !selection.length;
     },
-    // 更多操作触发
+    // More action triggers
     handleCommand(command, row) {
       switch (command) {
         case "handleRun":
@@ -415,7 +415,7 @@ export default {
           break;
       }
     },
-    // 任务状态修改
+    // Task statusEdit
     handleStatusChange(row) {
       let text = row.status === "0" ? "Enable" : "Disable";
       this.$modal.confirm('Are you sure you want to ' + text + ' job "' + row.jobName + '"?').then(function() {

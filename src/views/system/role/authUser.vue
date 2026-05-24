@@ -108,19 +108,19 @@ export default {
   components: { selectUser },
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中用户组
+      // Select user group
       userIds: [],
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 用户表格数据
+      // user form data
       userList: [],
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -148,7 +148,7 @@ export default {
         }
       );
     },
-    // 返回按钮
+    // Back button
     handleClose() {
       const obj = { path: "/system/role" };
       this.$tab.closeOpenPage(obj);
@@ -163,7 +163,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.userIds = selection.map(item => item.userId)
       this.multiple = !selection.length

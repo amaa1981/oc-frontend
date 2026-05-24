@@ -1,19 +1,19 @@
 <template>
   <div class="login-page">
-    <!-- 粒子背景 -->
+    <!-- Particle background -->
     <canvas ref="particleCanvas" class="particle-canvas"></canvas>
     
-    <!-- 头部居中Logo -->
+    <!-- Centered header logo -->
     <div class="login-header">
       <div class="login-header__logo">
         <img :src="logoSrc" alt="logo" />
       </div>
     </div>
     
-    <!-- 主内容区域 - 表单居中 -->
+    <!-- Main content - centered form -->
     <div class="login-content">
       <div class="login-card">
-        <!-- 表单头部 -->
+        <!-- Form header -->
         <div class="login-card__header">
           <div class="login-card__icon-wrap">
             <div class="login-card__icon-inner">
@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <!-- 表单 -->
+        <!-- Form -->
         <el-form
           ref="loginForm"
           :model="loginForm"
@@ -102,7 +102,7 @@
         </el-form>
       </div>
 
-      <!-- 底部版权 -->
+      <!-- Footer copyright -->
       <div class="login-footer">
         <span>© 2026 . All right reserved.</span>
       </div>
@@ -171,7 +171,7 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    // 初始化粒子系统
+    // Initialize particle system
     initParticles() {
       const canvas = this.$refs.particleCanvas
       if (!canvas) return
@@ -185,7 +185,7 @@ export default {
       this.createParticles()
       this.animate()
 
-      // 鼠标移动事件
+      // Mouse move handler
       canvas.addEventListener('mousemove', (e) => {
         this.mouse.x = e.x
         this.mouse.y = e.y
@@ -196,14 +196,14 @@ export default {
         this.mouse.y = null
       })
     },
-    // 处理窗口大小变化
+    // Handle window resize
     handleResize() {
       if (!this.canvas) return
       this.canvas.width = window.innerWidth
       this.canvas.height = window.innerHeight
       this.createParticles()
     },
-    // 创建粒子
+    // Create particles
     createParticles() {
       this.particles = []
       const numberOfParticles = Math.floor((this.canvas.width * this.canvas.height) / 15000)
@@ -218,23 +218,23 @@ export default {
         this.particles.push({ x, y, size, speedX, speedY, originalX: x, originalY: y })
       }
     },
-    // 动画循环
+    // Animation loop
     animate() {
       if (!this.ctx || !this.canvas) return
 
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       
-      // 更新和绘制粒子
+      // Update and draw particles
       this.particles.forEach((particle, index) => {
-        // 粒子移动
+        // Move particles
         particle.x += particle.speedX
         particle.y += particle.speedY
 
-        // 边界检测
+        // Boundary check
         if (particle.x < 0 || particle.x > this.canvas.width) particle.speedX *= -1
         if (particle.y < 0 || particle.y > this.canvas.height) particle.speedY *= -1
 
-        // 鼠标交互
+        // Mouse interaction
         if (this.mouse.x && this.mouse.y) {
           const dx = this.mouse.x - particle.x
           const dy = this.mouse.y - particle.y
@@ -248,7 +248,7 @@ export default {
           }
         }
 
-        // 绘制粒子
+        // Draw particles
         this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
         this.ctx.shadowBlur = 3
         this.ctx.shadowColor = 'rgba(41, 144, 141, 0.8)'
@@ -257,7 +257,7 @@ export default {
         this.ctx.fill()
         this.ctx.shadowBlur = 0
 
-        // 绘制连线
+        // Draw connections
         for (let j = index + 1; j < this.particles.length; j++) {
           const dx = this.particles[j].x - particle.x
           const dy = this.particles[j].y - particle.y
@@ -325,7 +325,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// 整页左右分栏
+// Full-page split layout
 .login-page {
   display: flex;
   flex-direction: column;
@@ -336,7 +336,7 @@ export default {
   position: relative;
 }
 
-// 粒子背景Canvas
+// Particle backgroundCanvas
 .particle-canvas {
   position: absolute;
   top: 0;
@@ -347,7 +347,7 @@ export default {
   pointer-events: auto;
 }
 
-// ==================== 头部Logo区域 ====================
+// ==================== Header logo section ====================
 .login-header {
   display: flex;
   justify-content: center;
@@ -368,7 +368,7 @@ export default {
   }
 }
 
-// 主内容区域
+// Main content
 .login-content {
   display: flex;
   flex: 1;
@@ -380,7 +380,7 @@ export default {
   position: relative;
 }
 
-// 登录卡片
+// Login card
 .login-card {
   width: 100%;
   max-width: 420px;
@@ -465,7 +465,7 @@ export default {
       margin-bottom: 14px;
     }
 
-    // 校验失败 — 红色边框 + 粉色背景
+    // Validation error — red border and pink background
     ::v-deep .el-form-item.is-error .el-input__inner {
       border-color: #e8657d;
       background: #fff0f3;
@@ -473,7 +473,7 @@ export default {
   }
 }
 
-// 标签
+// Label
 .login-label {
   display: block;
   margin-bottom: 6px;
@@ -488,7 +488,7 @@ export default {
   }
 }
 
-// 输入框
+// Input
 .login-input {
   ::v-deep .el-input__inner {
     height: 48px;
@@ -524,7 +524,7 @@ export default {
   }
 }
 
-// 验证码
+// Captcha
 .login-captcha {
   display: flex;
   gap: 12px;
@@ -542,7 +542,7 @@ export default {
   }
 }
 
-// 登录选项行
+// Login Options row
 .login-options {
   display: flex;
   align-items: center;
@@ -568,7 +568,7 @@ export default {
   }
 }
 
-// 登录按钮
+// Login button
 .login-btn {
   width: 100%;
   height: 48px;
@@ -595,7 +595,7 @@ margin-top: 20px;
   }
 }
 
-// 底部版权
+// Footer copyright
 .login-footer {
   margin-top: 32px;
   text-align: center;

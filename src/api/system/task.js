@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询设备任务信息列表
+// Query device task information list
 export function listTask(query) {
   return request({
     url: '/api/deviceTask',
@@ -17,7 +17,7 @@ export function listTask(query) {
   })
 }
 
-// 查询设备任务信息详细
+// Query device task information details
 export function getTask(id) {
   return request({
     url: '/api/deviceTask/' + id,
@@ -25,7 +25,7 @@ export function getTask(id) {
   })
 }
 
-// 新增设备任务信息
+// Add device task information
 export function addTask(data) {
   return request({
     url: '/api/deviceTask',
@@ -34,7 +34,7 @@ export function addTask(data) {
   })
 }
 
-// 修改设备任务信息
+// Edit device task information
 export function updateTask(data) {
   return request({
     url: '/api/deviceTask',
@@ -43,7 +43,7 @@ export function updateTask(data) {
   })
 }
 
-// 删除设备任务信息
+// Delete device task information
 export function delTask(id) {
   return request({
     url: '/api/deviceTask/' + id,

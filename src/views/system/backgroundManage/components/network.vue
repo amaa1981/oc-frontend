@@ -87,7 +87,7 @@ export default {
       if (!value || value == "...") {
         return callback(new Error(this.$t("commonTips.cannotBeEmpty")));
       }
-      //验证IP地址的正则表达式
+      //Regular Pattern to verify IP address
       var reSpaceCheck = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; // IP address regex
       if (reSpaceCheck.test(value)) {
         value.match(reSpaceCheck);
@@ -111,11 +111,11 @@ export default {
     };
     return {
       id: "1",
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         internetCard: [
           {

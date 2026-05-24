@@ -147,11 +147,11 @@ export default {
       return true;
     },
     resolveExp() {
-      // 反解析 表达式
+      // Anti-parsing Pattern
       if (this.expression) {
         let arr = this.expression.split(" ");
         if (arr.length >= 6) {
-          //6 位以上是合法表达式
+          //6 or more digits are legal Pattern
           let obj = {
             second: arr[0],
             min: arr[1],
@@ -169,24 +169,24 @@ export default {
           }
         }
       } else {
-        // 没有传入的表达式 则还原
+        // If there is no incoming Pattern, it will be restored.
         this.clearCron();
       }
     },
-    // tab切换值
+    // tab switching value
     tabCheck(index) {
       this.tabActive = index;
     },
-    // 由子组件触发，更改表达式组成的字段值
+    // Triggered by child components, changing the field value composed of Pattern
     updateCrontabValue(name, value, from) {
       "updateCrontabValue", name, value, from;
       this.crontabValueObj[name] = value;
       if (from && from !== name) {
-        console.log(`来自组件 ${from} 改变了 ${name} ${value}`);
+        console.log(`From component ${from} changed ${name} ${value}`);
         this.changeRadio(name, value);
       }
     },
-    // 赋值到组件
+    // Assign value to component
     changeRadio(name, value) {
       let arr = ["second", "min", "hour", "month"],
         refName = "cron" + name,
@@ -291,9 +291,9 @@ export default {
       }
       this.$refs[refName].radioValue = insValue;
     },
-    // 表单选项的子组件校验数字格式（通过-props传递）
+    // Subcomponent of FormOptions checks number format (passed through -props)
     checkNumber(value, minLimit, maxLimit) {
-      // 检查必须为整数
+      // Check must be an integer
       value = Math.floor(value);
       if (value < minLimit) {
         value = minLimit;
@@ -302,17 +302,17 @@ export default {
       }
       return value;
     },
-    // 隐藏弹窗
+    // Hide pop-up window
     hidePopup() {
       this.$emit("hide");
     },
-    // 填充表达式
+    // Fill Pattern
     submitFill() {
       this.$emit("fill", this.crontabValueString);
       this.hidePopup();
     },
     clearCron() {
-      // 还原选择项
+      // Restore selections
       ("Preparing to restore");
       this.crontabValueObj = {
         second: "*",
@@ -360,7 +360,7 @@ export default {
   watch: {
     expression: "resolveExp",
     hideComponent(value) {
-      // 隐藏部分组件
+      // Hide some components
     },
   },
   mounted: function() {

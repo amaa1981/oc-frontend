@@ -19,30 +19,30 @@ function getPingInfo() {
     return ping;
 }
 
-// 建立 WebSocket 连接
+// Establish a WebSocket connection
 export const createSocket = (url) => {
     webSocketUrl = url;
-    // 建立连接前先判断当前是否有连接，若有使用 close 方法关闭连接
+    // Before establishing a connection, first determine whether there is currently a connection. If so, use the close method to close the connection.
     Socket && Socket.close();
     if (!Socket) {
         if (typeof WebSocket === "undefined") {
-            alert("您的浏览器不支持 WebSocket");
+            alert("Your browser does not support WebSocket");
             return;
         }
-        // 使用构造函数创建 Socket 连接实例
+        // Create a Socket connection instance using the constructor
         Socket = new WebSocket(url);
     
-        // 当从服务器接受到信息时的回调函数
+        // Callback function when information is received from the server
         Socket.onmessage = onMessageWS;
-        // 连接关闭后的回调函数
+        // Callback function after connection is closed
         Socket.onclose = onCloseWS;
-        // 连接失败后的回调函数
+        // Callback function after connection failure
         Socket.onerror = onErrorWS;
-        console.log("WebSocket 已连接");
+        console.log("WebSocket connected");
         showHistory();
-            // 连接成功后的回调函数
+            // Callback function after successful connection
         Socket.onopen = onOpenWS;
-        // 派发一个自定义事件
+        // dispatch a custom event
         // window.dispatchEvent(
         //     new CustomEvent("onWSOpen", {
         //         detail: {
@@ -51,16 +51,16 @@ export const createSocket = (url) => {
         //     })
         // );
     }
-    // 重置重连次数
+    // Reset reconnect times
     count = 0;
 };
-// 连接成功后的回调
+// Callback after successful connection
 const onOpenWS = () => {
     // mqttStore.setConnected(true);
     store.dispatch('mqtt/setConnected', true);
     console.log(store.state.mqtt.connected)
-    console.log("WebSocket 连接成功！");
-    // 派发一个自定义事件
+    console.log("WebSocket connection successful!");
+    // dispatch a custom event
     window.dispatchEvent(
         new CustomEvent("onWSOpen", {
             detail: {
@@ -68,20 +68,20 @@ const onOpenWS = () => {
             },
         })
     );
-    // 连接成功后发送心跳
+    // Send heartbeat after successful connection
     sendPing();
-    // 重置手动关闭标志
+    // Reset manual close flag
     isCloseByMySelf = false;
 };
 
-// 连接失败后的回调
+// Callback after connection failure
 const onErrorWS = () => {
-    console.log("WebSocket 连接出错，尝试重新连接...");
+    console.log("WebSocket connection error, try to reconnect...");
     // mqttStore.setConnected(false);
     store.dispatch('mqtt/setConnected', false);
     console.log(store.state.mqtt.connected)
-    Socket.close(); // 关闭当前连接
-    // clearInterval(setIntervalWebsocketPush); // 清除心跳定时器
+    Socket.close(); // Close current connection
+    // clearInterval(setIntervalWebsocketPush); // Clear heartbeat timer
     window.dispatchEvent(
         new CustomEvent("onWSOpen", {
             detail: {
@@ -93,18 +93,18 @@ const onErrorWS = () => {
     //     Socket = '';
     //     createSocket(webSocketUrl);
     // }
-    // 如果连接未关闭，则尝试重新连接
+    // If the connection is not closed, try to reconnect
     if (Socket.readyState !== 3) {
         setTimeout(() => {
-            Socket = ""; // 重置 Socket
-            createSocket(webSocketUrl); // 重新创建连接
-        }, 5000); // 5 秒后重连
+            Socket = ""; // Reset Socket
+            createSocket(webSocketUrl); // Re-create the connection
+        }, 5000); // 5 Reconnect after seconds
     }
 };
 
-// 收到信息的回调
+// callback after receiving information
 const onMessageWS = (e) => {
-    // 派发一个自定义事件
+    // dispatch a custom event
     window.dispatchEvent(
         new CustomEvent("onMessageWS", {
             detail: {
@@ -112,13 +112,13 @@ const onMessageWS = (e) => {
             },
         })
     );
-    // 收到信息说明当前连接是正常的
+    // Received a message indicating that the current connection is normal
 };
 
-// 发送数据但连接未建立时的处理回调
+// Processing callback when data is sent but the connection is not established
 const connecting = (message) => {
     setTimeout(() => {
-        // 如果当前处于正在连接状态，开启定时器等稍后再发送
+        // If you are currently connecting, start the timer and wait for sending again later.
         if (Socket.readyState === 0) {
             connecting(message);
         } else {
@@ -127,33 +127,33 @@ const connecting = (message) => {
     }, 1000);
 };
 
-// 数据发送的回调
+// Data sending callback
 export const sendWSPush = (message) => {
     if (Socket.readyState === 3) {
-        // 如果当前未连接，先建立连接
+        // If not currently connected, establish a connection first
         Socket.close();
         createSocket(webSocketUrl);
     } else if (Socket.readyState === 1) {
-        // 连接已建立
+        // Connection established
         Socket.send(JSON.stringify(message));
     } else if (Socket.readyState === 0) {
-        // 正在建立链接中
+        // Link is being established
         connecting(message);
     }
 };
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-        // 页面不可见时，关闭 WebSocket 连接
-        console.log("页面不可见，关闭 WebSocket 连接...");
-        // clearInterval(setIntervalWebsocketPush); // 清除心跳定时器
+        // Close the WebSocket connection when the page is not visible
+        console.log("The page is not visible, closing the WebSocket connection...");
+        // clearInterval(setIntervalWebsocketPush); // Clear heartbeat timer
         closeAll();
         closeWebsocket();
     } else {
-        console.log("页面重新可见，尝试重新连接 WebSocket...");
+        console.log("Page is visible again, try reconnecting WebSocket...");
         createSocket(webSocketUrl);
     }
 });
-// 连接关闭的回调
+// Connection close callback
 const onCloseWS = () => {
     // mqttStore.connected = false;
     // if (!document.hidden) {
@@ -162,49 +162,49 @@ const onCloseWS = () => {
     // }
     // if (document.hidden) {
     // }
-    // 页面可见性变化时重新连接
-    // 页面重新可见时，重新连接 WebSocket
-    // clearInterval(setIntervalWebsocketPush); // 清除心跳定时器
-    count++; // 重连次数加 1
-    // 如果连接不是手动关闭且重连次数小于 5 次，则尝试重连
+    // Reconnect when page visibility changes
+    // When the page becomes visible again, reconnect to the WebSocket
+    // clearInterval(setIntervalWebsocketPush); // Clear heartbeat timer
+    count++; // Increase the number of reconnections 1
+    // If the connection is not closed manually and the number of reconnections is less than 5 times, try to reconnect
     if (!isCloseByMySelf && count < 5) {
-        console.log(`WebSocket 断开，尝试第 ${count} 次重连...`);
+        console.log(`WebSocket disconnect，Try the ${count} reconnection...`);
         setTimeout(() => {
-            Socket = ""; // 重置 Socket
-            createSocket(webSocketUrl); // 重新创建连接
-        }, 5000); // 5 秒后重连
+            Socket = ""; // Reset Socket
+            createSocket(webSocketUrl); // Re-create the connection
+        }, 5000); // 5 Reconnect after seconds
     } else if (count >= 5) {
-        console.log("WebSocket 重连次数已达上限，停止重连");
+        console.log("The number of WebSocket reconnections has reached the upper limit, stop reconnecting.");
     }
 };
 
-// // 发送心跳 --- 默认每隔 5 秒发送一次心跳
+// //Send heartbeat --- Send heartbeat every 5 seconds by default
 // export const sendPing = () => {
-//     clearInterval(setIntervalWebsocketPush); // 清除旧的心跳定时器
-//     // 发送心跳
+//     clearInterval(setIntervalWebsocketPush); // Clear old heartbeat timer
+//     //Send heartbeat
 //     Socket.send(JSON.stringify(getPingInfo()));
 //     setIntervalWebsocketPush = setInterval(() => {
 //         if (Socket.readyState === WebSocket.OPEN) {
 //             Socket.send(JSON.stringify(getPingInfo()));
 //         } else {
-//             console.log('WebSocket 未连接，停止发送心跳');
-//             clearInterval(setIntervalWebsocketPush); // 停止心跳
+//             console.log('WebSocket is not connected, stop sending heartbeats');
+//             clearInterval(setIntervalWebsocketPush); // Stop heartbeat
 //         }
-//     }, 5000); // 每 5 秒发送一次心跳
+//     }, 5000); // Send a heartbeat every 5 seconds
 // };
 
-// 发送心跳
+// Send heartbeat
 const sendPing = () => {
     if (Socket.readyState === WebSocket.OPEN) {
         Socket.send(JSON.stringify(getPingInfo()));
-        // 递归调用，实现心跳
+        // Recursive call to achieve heartbeat
         setTimeout(sendPing, 5000);
     } else {
-        console.log("WebSocket 未连接，停止发送心跳");
+        console.log("WebSocket not connected, stopped sending heartbeats");
     }
 };
 
-// 关闭连接回调
+// Close connection callback
 export const closeWebsocket = () => {
     Socket && Socket.close();
     isCloseByMySelf = true;

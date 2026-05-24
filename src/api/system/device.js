@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询设备信息列表
+// Query device information list
 export function listDevice(query) {
   return request({
     url: '/device',
@@ -23,7 +23,7 @@ export function listDeviceAll(query) {
     params: query
   })
 }
-// 查询设备信息详细
+// Query device information details
 export function getDevice(id) {
   return request({
     url: '/device/' + id,
@@ -31,7 +31,7 @@ export function getDevice(id) {
   })
 }
 
-// 新增设备信息
+// Add device
 export function addDevice(data) {
   return request({
     url: '/device',
@@ -40,7 +40,7 @@ export function addDevice(data) {
   })
 }
 
-// 修改设备信息
+// Edit device information
 export function updateDevice(data) {
   return request({
     url: '/device',
@@ -49,7 +49,7 @@ export function updateDevice(data) {
   })
 }
 
-// 删除设备信息
+// Delete device information
 export function delDevice(id) {
   return request({
     url: '/device/' + id,
@@ -57,7 +57,7 @@ export function delDevice(id) {
   })
 }
 
-//音频状态总开关 10 开 20 关 status
+//Audio status master switch 10 on 20 off status
 export function audioStatus(status) {
   return request({
     url: '/deviceTask/audioStatus?status=' + status,

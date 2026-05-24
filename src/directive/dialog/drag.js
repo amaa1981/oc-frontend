@@ -1,5 +1,5 @@
 /**
-* v-dialogDrag 弹窗拖拽
+* v-dialogDrag pop-up drag
 * Copyright (c) 2019 ruoyi
 */
 
@@ -7,11 +7,11 @@ export default {
   bind(el, binding, vnode, oldVnode) {
     const value = binding.value
     if (value == false) return
-    // 获取拖拽内容头部
+    // Get the drag content header
     const dialogHeaderEl = el.querySelector('.el-dialog__header');
     const dragDom = el.querySelector('.el-dialog');
     dialogHeaderEl.style.cursor = 'move';
-    // 获取原有属性 ie dom元素.currentStyle 火狐谷歌 window.getComputedStyle(dom元素, null);
+    // Get the original attributes ie dom element.currentStyle Firefox Google window.getComputedStyle(dom element, null);
     const sty = dragDom.currentStyle || window.getComputedStyle(dragDom, null);
     dragDom.style.position = 'absolute';
     dragDom.style.marginTop = 0;
@@ -22,16 +22,16 @@ export default {
       width = +width.replace(/\px/g, '');
     }
     dragDom.style.left = `${(document.body.clientWidth - width) / 2}px`;
-    // 鼠标按下事件
+    // mouse press event
     dialogHeaderEl.onmousedown = (e) => {
-      // 鼠标按下，计算当前元素距离可视区的距离 (鼠标点击位置距离可视窗口的距离)
+      // When the mouse is pressed, calculate the distance between the current element and the visual area (the distance between the mouse click position and the visual window)
       const disX = e.clientX - dialogHeaderEl.offsetLeft;
       const disY = e.clientY - dialogHeaderEl.offsetTop;
 
-      // 获取到的值带px 正则匹配替换
+      // The obtained value has px regular matching and replacement
       let styL, styT;
 
-      // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
+      // Note that in IE, the value obtained for the first time is 50% of the component. After moving, the value is assigned to px.
       if (sty.left.includes('%')) {
         styL = +document.body.clientWidth * (+sty.left.replace(/\%/g, '') / 100);
         styT = +document.body.clientHeight * (+sty.top.replace(/\%/g, '') / 100);
@@ -40,16 +40,16 @@ export default {
         styT = +sty.top.replace(/\px/g, '');
       };
 
-      // 鼠标拖拽事件
+      // Mouse drag event
       document.onmousemove = function (e) {
-        // 通过事件委托，计算移动的距离 （开始拖拽至结束拖拽的距离）
+        // Calculate the moving distance through event delegation (the distance from the start of dragging to the end of dragging)
         const l = e.clientX - disX;
         const t = e.clientY - disY;
 
         let finallyL = l + styL
         let finallyT = t + styT
 
-        // 移动当前元素
+        // Move the current element
         dragDom.style.left = `${finallyL}px`;
         dragDom.style.top = `${finallyT}px`;
 

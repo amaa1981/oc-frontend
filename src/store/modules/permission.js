@@ -31,16 +31,16 @@ const permission = {
     },
   },
   actions: {
-    // 生成路由
+    // Generate route
     GenerateRoutes({ commit }) {
       return new Promise(resolve => {
-        // 向后端请求路由数据
+        // Request routing data from the backend
         getRouters().then(res => {
           const sdata = JSON.parse(JSON.stringify(res.data))
           const rdata = JSON.parse(JSON.stringify(res.data))
           const sidebarRoutes = filterAsyncRouter(sdata)
           const rewriteRoutes = filterAsyncRouter(rdata, false, true)
-          // 仅对实际路由插入 layout 包装，不影响侧边栏
+          // Insert layout wrapper only for actual routing, does not affect sidebar
           wrapAlarmLayout(rewriteRoutes)
           wrapConfigLayout(rewriteRoutes)
           const asyncRoutes = filterDynamicRoutes(dynamicRoutes);
@@ -57,14 +57,14 @@ const permission = {
   }
 }
 
-// 遍历后台传来的路由字符串，转换为组件对象
+// Traverse the routing string sent from the background and convert it into a component object
 function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
   return asyncRouterMap.filter(route => {
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
     if (route.component) {
-      // Layout ParentView 组件特殊处理
+      // Special handling of Layout ParentView component
       if (route.component === 'Layout') {
         route.component = Layout
       } else if (route.component === 'ParentView') {
@@ -72,10 +72,10 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
       } else if (route.component === 'InnerLink') {
         route.component = InnerLink
       } else if (route.path === '/alarmmanger') {
-        // alarmmanger 顶层必须使用 Layout，忽略后端返回的 component
+        // The top level of alarmmanger must use Layout, ignoring the backend Back component.
         route.component = Layout
       } else if (route.path === '/backgroundManage') {
-        // backgroundManage 顶层必须使用 Layout
+        // The top level of backgroundManage must use Layout
         route.component = Layout
       } else if (typeof route.component === 'string') {
         route.component = loadView(route.component)
@@ -91,7 +91,7 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
   })
 }
 
-// 仅对实际路由（非侧边栏）插入 AlarmLayout 中间层
+// Only for actual routing (non-sidebar) Insert AlarmLayout middle layer
 function wrapAlarmLayout(routes) {
   routes.forEach(route => {
     if (route.path === '/alarmmanger' && route.children && route.children.length) {
@@ -105,7 +105,7 @@ function wrapAlarmLayout(routes) {
   })
 }
 
-// 仅对实际路由（非侧边栏）插入 ConfigLayout 中间层
+// Insert ConfigLayout middle layer only for actual routing (not sidebar)
 function wrapConfigLayout(routes) {
   routes.forEach(route => {
     if (route.path === '/backgroundManage' && route.children && route.children.length) {
@@ -122,7 +122,7 @@ function wrapConfigLayout(routes) {
 function filterChildren(childrenMap, lastRouter = false) {
   var children = []
   childrenMap.forEach((el, index) => {
-    // alarmmanger / backgroundManage 保留嵌套结构，不扁平化
+    // alarmmanger / backgroundManage retains nested structure, does not flatten
     if ((el.path === 'alarmmanger' || el.path === 'backgroundManage') && el.children && el.children.length) {
       children.push(el)
       return
@@ -148,7 +148,7 @@ function filterChildren(childrenMap, lastRouter = false) {
   return children
 }
 
-// 动态路由遍历，验证是否具备权限
+// Dynamic route traversal to verify whether permissions are available
 export function filterDynamicRoutes(routes) {
   const res = []
   routes.forEach(route => {
@@ -166,7 +166,7 @@ export function filterDynamicRoutes(routes) {
 }
 
 export const loadView = (view) => {
-  // 统一使用 require 方式加载，避免生产环境动态 import 路径解析问题
+  // Uniformly use the require method to load to avoid dynamic import path resolution problems in the production environment
   return (resolve) => require([`@/views/${view}`], resolve)
 }
 

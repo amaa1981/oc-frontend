@@ -24,7 +24,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="安装位置" prop="position">
+      <el-form-item label="Installation Location" prop="position">
         <el-input
           v-model="queryParams.position"
           placeholder="Enter installation location"
@@ -39,10 +39,10 @@
           icon="el-icon-search"
           size="mini"
           @click="handleQuery"
-          >搜索</el-button
+          >Search</el-button
         >
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-          >重置</el-button
+          >Reset</el-button
         >
       </el-form-item>
     </el-form>
@@ -54,8 +54,8 @@
     >
       <el-table-column label="Access Control ID" align="center" prop="accessControlId" />
       <el-table-column label="Name" align="center" prop="name" />
-      <el-table-column label="安装位置" align="center" prop="position" />
-      <el-table-column label="进出类型" align="center" prop="type">
+      <el-table-column label="Installation Location" align="center" prop="position" />
+      <el-table-column label="Entry/Exit Type" align="center" prop="type">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.type === 1" type="success">{{
             $t("dict.v1_door_type.1")
@@ -63,7 +63,7 @@
           <el-tag v-else type="danger">{{ $t("dict.v1_door_type.0") }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="门禁序号" align="center" prop="gatewayIndex" />
+      <el-table-column label="Access Control Index" align="center" prop="gatewayIndex" />
       <el-table-column label="Status" align="center" prop="staic">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.staic === 1" type="success">{{
@@ -97,7 +97,7 @@
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:door:remove']"
-            >删除</el-button
+            >Delete</el-button
           >
         </template>
       </el-table-column>
@@ -126,25 +126,25 @@ export default {
   name: "Record",
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 门禁操作记录信息表格数据
+      // Access control operation record information form data
       recordList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -155,9 +155,9 @@ export default {
         staic: null,
         isDelete: null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {},
     };
   },
@@ -175,12 +175,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: null,
@@ -210,7 +210,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.id);
       this.single = selection.length !== 1;

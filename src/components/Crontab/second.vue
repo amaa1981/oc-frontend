@@ -49,7 +49,7 @@ export default {
 	name: 'crontab-second',
 	props: ['check', 'radioParent'],
 	methods: {
-		// 单选按钮值变化时
+		// When radio value changes
 		radioChange() {
 			switch (this.radioValue) {
 				case 1:
@@ -66,19 +66,19 @@ export default {
 					break;
 			}
 		},
-		// 周期两个值变化时
+		// When cycle range changes
 		cycleChange() {
 			if (this.radioValue == '2') {
 				this.$emit('update', 'second', this.cycleTotal);
 			}
 		},
-		// 平均两个值变化时
+		// When average range changes
 		averageChange() {
 			if (this.radioValue == '3') {
 				this.$emit('update', 'second', this.averageTotal);
 			}
 		},
-		// checkbox值变化时
+		// When checkbox selection changes
 		checkboxChange() {
 			if (this.radioValue == '4') {
 				this.$emit('update', 'second', this.checkboxString);
@@ -95,19 +95,19 @@ export default {
 		}
 	},
 	computed: {
-		// 计算两个周期值
+		// Compute cycle range
 		cycleTotal: function () {
 			const cycle01 = this.checkNum(this.cycle01, 0, 58)
 			const cycle02 = this.checkNum(this.cycle02, cycle01 ? cycle01 + 1 : 1, 59)
 			return cycle01 + '-' + cycle02;
 		},
-		// 计算平均用到的值
+		// Compute average values
 		averageTotal: function () {
 			const average01 = this.checkNum(this.average01, 0, 58)
 			const average02 = this.checkNum(this.average02, 1, 59 - average01 || 0)
 			return average01 + '/' + average02;
 		},
-		// 计算勾选的checkbox值合集
+		// Compute selected checkbox values
 		checkboxString: function () {
 			let str = this.checkboxList.join();
 			return str == '' ? '*' : str;

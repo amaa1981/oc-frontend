@@ -82,7 +82,7 @@
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize"
       @pagination="getList" />
 
-    <!-- 添加或修改设备任务信息对话框 -->
+    <!-- Add or Edit device task information dialog box -->
     <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body :destroy-on-close="true">
       <div class="main">
         <div class="operation">
@@ -138,15 +138,15 @@
             <span class="unit-tag">{{ $t("task.s") }}</span>
           </div>
         </el-form-item>
-        <!-- 是否开启识别框 -->
+        <!-- Whether to enable the recognition box -->
         <el-form-item :label="$t('task.enableRecognitionBox')">
           <el-switch v-model="form.enableRecognitionBox" @change="handleRecognitionBoxChange"></el-switch>
         </el-form-item>
-        <!-- 帧率 - 仅当开启识别框时显示 -->
+        <!-- Frame rate - only shown when the recognition box is turned on -->
         <el-form-item :label="$t('task.frameRate')" v-if="form.enableRecognitionBox" prop="frameRate">
           <el-input-number v-model="form.frameRate" :min="1" :max="25" :placeholder="$t('commonTips.pleaseEnter')"></el-input-number>
         </el-form-item>
-        <!-- 违规停车、遗留物、滞留、加油站检测没有灵敏度 -->
+        <!-- Illegal parking, leftovers, detention, gas station detection No sensitivity -->
         <el-form-item :label="$t('task.fVal')" v-if="
           form.algorithmType != 'BDDBB500-62F3-4A93-AC9E-11C9CC6EA4BE' &&
           form.algorithmType != '6C4483AA-83E1-49AD-B06D-297D267BD80B' &&
@@ -169,20 +169,20 @@
           <el-input placeholder="%" type="number" v-model="other.options.fVal" min="0" max="1" />
         </el-form-item>
 
-        <!-- 玩手机姿势识别 -->
+        <!-- Gesture recognition for playing with mobile phone -->
         <template v-if="form.algorithmType == 'D432D747-BDAC-49E2-BDA0-CB906D28E141'">
           <el-form-item :label="$t('task.faceDetectionThreshold')" prop="">
             <el-input type="number" v-model="other.options.personThreshold" min="0" max="1" />
           </el-form-item>
         </template>
-        <!-- 头套识别 -->
+        <!-- Headgear recognition -->
         <template v-if="form.algorithmType == '9132D74B-BDAC-49E2-BDA0-CB906D28E66E'">
           <el-form-item :label="$t('task.faceDetectionThreshold')" prop="">
             <el-input type="number" v-model="other.options.personThreshold" min="0" max="1" />
           </el-form-item>
         </template>
 
-        <!-- 围栏检测 -->
+        <!-- Fence detection -->
         <template v-if="form.algorithmType == '9982D74C-BDAC-49E2-BDA0-CB906D28E69A'">
           <el-form-item :label="$t('task.fenceThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.fenceThresh" min="0" max="1" />
@@ -192,7 +192,7 @@
           </el-form-item>
         </template>
 
-        <!-- 手套鞋套检测 -->
+        <!-- Glove and shoe cover testing -->
         <template v-if="form.algorithmType == '25BB561D-D154-4F13-A7E6-671DE5C7F134'">
           <el-form-item :label="$t('task.glovesPersonThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.glovesPersonThresh" min="0" max="1" />
@@ -201,7 +201,7 @@
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.glovesThresh" min="0" max="1" />
           </el-form-item>
         </template>
-       <!-- 充电枪检测专用字段 -->
+       <!-- Special field for charging gun detection -->
         <template v-if="form.algorithmType == 'DACD8C81-FCDC-47E3-80A9-B648CE558456'">
           <el-form-item :label="$t('task.carThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.carThreshold" min="0" max="1" />
@@ -210,7 +210,7 @@
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.chargingThreshold" min="0" max="1" />
           </el-form-item>
         </template>
-        <!-- 非员工入侵检测 -->
+        <!-- Non-employee intrusion detection -->
         <template v-if="form.algorithmType == '8742D74B-BDAC-49E2-BDA0-CB906D28E6E4'">
           <el-form-item :label="$t('task.intrusionPersonThresh')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.intrusionPersonThresh" min="0" max="1" />
@@ -245,7 +245,7 @@
           </el-form-item>
         </template>
 
-        <!-- 机动车违停识别 -->
+        <!-- Motor vehicle illegal parking identification -->
         <template v-if="form.algorithmType == 'DD32D74B-BDAC-49E2-BDA0-CB906D28E14E'">
           <el-form-item :label="$t('task.illegalParkingTimeout')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="text"
@@ -256,7 +256,7 @@
               v-model="other.options.IllegalParkingtype" />
           </el-form-item>
         </template>
-        <!-- 年龄性别识别 -->
+        <!-- Age and gender identification -->
         <template v-if="form.algorithmType == '76B27D32-5274-A1A5-2DA7-8F827B1C8616'">
           <!-- <el-form-item :label="$t('task.type')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="text" v-model="other.options.facetype" />
@@ -274,7 +274,7 @@
           </el-form-item>
         </template>
 
-        <!-- 门状态检测 -->
+        <!-- Door status detection -->
         <template v-if="form.algorithmType == '65EB561E-EAE4-4F13-A7E6-A11DE5C7D163'">
           <el-form-item :label="$t('task.Threshold1')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.Threshold1"
@@ -285,7 +285,7 @@
               min="0" max="1" />
           </el-form-item>
         </template>
-        <!-- 口罩检测 -->
+        <!-- Mask testing -->
         <template v-if="form.algorithmType == 'B6B27D32-5274-A1C3-2DA7-8F827B1C8676'">
           <el-form-item :label="$t('task.types')" prop="">
             <el-select v-model="other.options.types">
@@ -307,7 +307,7 @@
           </el-form-item>
         </template>
 
-        <!-- 平台积水检测 -->
+        <!-- Platform water detection -->
         <template v-if="form.algorithmType == 'DAA64F89-9E21-45C9-9FC6-9F4E9C1CB794'">
           <el-form-item :label="$t('task.waterThresh')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.waterThresh"
@@ -318,7 +318,7 @@
               min="0" max="1" />
           </el-form-item>
         </template>
-        <!-- 泰国车牌识别专用字段 -->
+        <!-- Thailand license plate recognition special field -->
         <template v-if="form.algorithmType == '33BB561E-EAE4-4F13-A7E6-A11DE5C7F167'">
           <el-form-item :label="$t('task.vehicleThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.vehicleThreshs"
@@ -330,7 +330,7 @@
           </el-form-item>
         </template>
 
-        <!-- 香港大学UWB显示专用字段 -->
+        <!-- University of Hong Kong UWB display dedicated fields -->
         <template v-if="form.algorithmType == 'BBEF5D75-26FC-4F3A-B2A3-F1C8B77FC5E1'">
           <el-form-item :label="$t('task.personCheckThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.personCheckThreshold"
@@ -353,7 +353,7 @@
           </el-form-item>
         </template>
 
-        <!-- 车辆统计专用字段 -->
+        <!-- Special fields for vehicle statistics -->
         <template v-if="form.algorithmType == '0234CA9A-0200-4FE5-9793-859741E689C3'">
           <el-form-item :label="$t('task.vehicleCarThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.vehicleCarThresh"
@@ -369,7 +369,7 @@
           </el-form-item>
         </template>
 
-        <!-- 口罩耳机检测专用字段 -->
+        <!-- Special field for mask and earphone detection -->
         <template v-if="form.algorithmType == '27DB5613-D184-4F13-A7E6-671DE5C7F4E6'">
           <el-form-item :label="$t('task.earphoneThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.earphoneThresh"
@@ -391,25 +391,25 @@
           </el-form-item>
         </template>
 
-        <!-- 摩托车安全帽检测专用字段 -->
+        <!-- Special field for motorcycle helmet detection -->
         <template v-if="form.algorithmType == '7f954cb2-b29c-48b9-9a78-8fecf957a212'">
-          <!-- 人员阈值 -->
+          <!-- personnel threshold -->
           <el-form-item :label="$t('task.personThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.mtpersonThresh"
               min="0" max="1" />
           </el-form-item>
-          <!-- 安全帽阈值 -->
+          <!-- Hard hat threshold -->
           <el-form-item :label="$t('task.helmetThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.helmetThresh"
               min="0" max="1" />
           </el-form-item>
-          <!-- 摩托车阈值 -->
+          <!-- motorcycle threshold -->
           <el-form-item :label="$t('task.motorcycleThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.motorcycleThresh"
               min="0" max="1" />
           </el-form-item>
         </template>
-        <!-- 睡岗检测专用字段-->
+        <!-- Special fields for sleep guard detection-->
         <template v-if="form.algorithmType == 'E7017EDA-4EFD-493E-97DF-4156ECB39656'">
           <el-form-item :label="$t('task.lVal')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.sleeptimeOut"
@@ -417,7 +417,7 @@
             </el-input>
           </el-form-item>
         </template>
-        <!-- 滞留检测专用字段-->
+        <!-- Dedicated fields for detention detection-->
         <template v-if="form.algorithmType == '6C4483AA-83E1-49AD-B06D-297D267BD80B'">
           <el-form-item :label="$t('task.retentionTime')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.timeOut"
@@ -425,7 +425,7 @@
             </el-input>
           </el-form-item>
         </template>
-        <!-- 车辆逆行 专用字段-->
+        <!-- Vehicle driving in reverse direction Dedicated field-->
         <template v-if="form.algorithmType == '0264CA9D-0200-4FE5-9793-859741E689C0'">
           <el-form-item :label="$t('task.type')" prop="">
             <el-select :placeholder="$t('commonTips.pleaseSelect')" v-model="other.options.type">
@@ -434,7 +434,7 @@
             </el-select>
           </el-form-item>
         </template>
-        <!-- 安全帽 专用字段-->
+        <!-- Hard hat dedicated field-->
 
         <template v-if="form.algorithmType == '7F954CB2-B29C-48B9-9A78-8FECF957A290'">
           <el-form-item :label="$t('task.type')" prop="">
@@ -446,7 +446,7 @@
           </el-form-item>
         </template>
 
-        <!-- 遗留物检测 专用字段-->
+        <!-- Legacy Detection Special Field-->
         <template v-if="form.algorithmType == 'BDDBB500-62F3-4A93-AC9E-11C9CC6EA4BE'">
           <el-form-item :label="$t('task.tempsRestant')" prop="alarmInterval">
             <el-input :placeholder="$t('task.second')" type="number" v-model="other.options.DelayTime"><template
@@ -454,14 +454,14 @@
             </el-input>
           </el-form-item>
         </template>
-        <!-- 脱岗检测 专用字段-->
+        <!-- Off-duty detection special field-->
         <template v-if="form.algorithmType == 'F7581B40-A9F9-498E-A510-14F40009C545'">
           <el-form-item :label="$t('task.tuotime')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.tuotime"
               min="0" />
           </el-form-item>
         </template>
-        <!-- 店内顾客检测专用字段 -->
+        <!-- Special fields for in-store customer detection -->
         <template v-if="form.algorithmType == '45BB561E-EA54-4F13-A7E6-A11DE5C75648'">
           <el-form-item :label="$t('task.personThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.fValperson"
@@ -483,7 +483,7 @@
           <el-form-item :label="$t('task.cameraIP')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="text" v-model="other.options.cameraIP2" />
           </el-form-item>
-          <!-- 区域名称列表 -->
+          <!-- Area name List -->
           <el-form-item :label="$t('task.areaNameList')" prop="" v-if="other.options.areaNameList.length > 0">
             <div v-for="(areaName, index) in other.options.areaNameList" :key="index" style="margin-bottom: 10px;">
               <el-input v-model="other.options.areaNameList[index]" :placeholder="$t('task.areaName') + (index + 1)"
@@ -494,7 +494,7 @@
           </el-form-item>
         </template>
 
-        <!-- 垃圾检测算法 ID: 1f954cb2-b29c-48b9-9a78-8fecf957a515 -->
+        <!-- Garbage detection algorithm ID: 1f954cb2-b29c-48b9-9a78-8fecf957a515 -->
         <template v-if="form.algorithmType == '1f954cb2-b29c-48b9-9a78-8fecf957a515'">
             
           <el-form-item :label="$t('task.garbageType')" prop="">
@@ -506,7 +506,7 @@
           </el-form-item>
         </template>
 
-        <!-- 人脸识别专用字段 -->
+        <!-- Face recognition dedicated fields -->
         <template v-if="form.algorithmType == 'B7A27D32-5274-A1C3-2DA7-8F827B1C8644'">
           <el-form-item :label="$t('group.libName')" prop="">
             <el-select v-model="other.options.faceGroupList" multiple>
@@ -545,7 +545,7 @@
               min="0" />
           </el-form-item>
         </template>
-        <!-- 密度检测专用字段 -->
+        <!-- Special fields for density detection -->
         <template v-if="form.algorithmType == 'F7581B40-A9F9-498E-A510-14F40010C545'">
           <el-form-item :label="$t('task.alarmType')" prop="">
             <el-select :placeholder="$t('commonTips.pleaseSelect')" v-model="other.options.alarmType">
@@ -560,21 +560,21 @@
           </el-form-item>
         </template>
 
-        <!-- 玩手机专用字段 -->
+        <!-- Play with mobile phone-specific fields -->
         <template v-if="form.algorithmType == '28E4800E-01AF-4647-8F9B-966497DBE20B'">
           <el-form-item :label="$t('task.lVal')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.lVal" min="0" />
           </el-form-item>
         </template>
 
-        <!-- 违规加油专用字段 -->
+        <!-- Special fields for illegal refueling -->
         <template v-if="form.algorithmType == 'D2985710-425A-4DC9-AD61-C876FA5F5E9D'">
           <el-form-item :label="$t('task.distance')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.distance"
               min="0" />
           </el-form-item>
         </template>
-        <!-- 泰国进店人数统计专用字段 -->
+        <!-- Special fields for statistics on the number of people entering the store in Thailand -->
         <template v-if="form.algorithmType == '374CA9D-0200-4FE5-9793-859741E689D1'">
           <el-form-item :label="$t('task.passThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.passThresh"
@@ -589,7 +589,7 @@
           </el-form-item>
         </template>
 
-        <!-- 人车统计专用字段 -->
+        <!-- Special fields for people and vehicles statistics -->
         <template v-if="form.algorithmType == '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F'">
           <el-form-item :label="$t('task.vehicleThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.vehicleThresh"
@@ -601,7 +601,7 @@
           </el-form-item>
         </template>
 
-        <!-- 加油站检测专用字段 -->
+        <!-- Special fields for gas station detection -->
         <template v-if="form.algorithmType == '1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F24d'">
           <el-form-item :label="$t('task.helmetThreshold')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.helmetthresh"
@@ -640,7 +640,7 @@
           </el-form-item>
         </template>
 
-        <!-- 违规停车专用字段 -->
+        <!-- Special field for illegal parking -->
         <template v-if="form.algorithmType == 'ED32D74B-BDAC-49E2-BDA0-CB906D28E14F'">
           <el-form-item :label="$t('task.MaxCount')" prop="">
             <el-input :placeholder="$t('commonTips.pleaseEnter')" type="number" v-model="other.options.MaxCount"
@@ -648,7 +648,7 @@
           </el-form-item>
         </template>
 
-        <!-- 抽烟专用字段 -->
+        <!-- Special field for smoking -->
         <!-- <template
           v-if="form.algorithmType == '118D34A0-4FEB-4906-A622-C7974AB3C637'"
         >
@@ -663,7 +663,7 @@
           </el-form-item>
         </template> -->
 
-        <!-- 多模态模型(MLLM) 0关闭 1开启 默认关闭 -->
+        <!-- Multimodal model (MLLM) 0 off 1 on Default off -->
         <template v-if="
           form.algorithmType == '118D34A0-4FEB-4906-A622-C7974AB3C637' ||
           form.algorithmType == '28E4800E-01AF-4647-8F9B-966497DBE20B' ||
@@ -734,11 +734,11 @@ import {
   updateTask,
 } from "@/api/system/task";
 import { listGroup } from "@/api/system/group";
-//获取设备详情
+//Get device details
 import { getDevice } from "@/api/system/device";
-//获取下发任务json
+//Get the issued task json
 import { getJson } from "@/utils/json/parameter";
-//标注插件
+//Annotation plug-in
 import AILabel from "ailabel";
 
 export default {
@@ -746,25 +746,25 @@ export default {
   dicts: ["v1_startup_status", "v1_alarm_type"],
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 设备任务信息表格数据
+      // Equipment task information table data
       taskList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -773,175 +773,175 @@ export default {
         status: null,
         deviceId: null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      //其他算法参数
+      //Other algorithm parameters
       other: {
         options: {
-          //坐标
+          //coordinate
           points: {
-            //直线
+            //straight line
             LINE: [],
-            //矩形
+            //rectangle
             RECT: [],
-            //多边形  默认全屏
+            //Polygon Default full screen
             POLYGON: [],
-            //点
+            //point
             POINTS: [],
           },
-          //灵敏度
+          //Sensitivity
           fVal: 0.5,
-          //围栏检测--围栏阈值
+          //Fence detection--fence threshold
           fenceThresh: 0.6,
-          //围栏检测--人检测阈值
+          //Fence detection--person detection threshold
           fencePersonThresh: 0.6,
-          //手套鞋套检测--人员阈值
+          //Glove and shoe cover detection-personnel threshold
           glovesPersonThresh: 0.6,
-          //手套鞋套检测--手套鞋套阈值
+          //Glove and shoe cover detection--glove and shoe cover threshold
           glovesThresh: 0.6,
-          //垃圾类型
+          //Garbage type
           garbageType: 2,
-          //人检测阈值
+          //Human detection threshold
           personThreshold: 0.6,
-          //违停限时
+          //Violation of parking time limit
           IllegalParkingTimeout: 0,
-          //违停类型
+          //Type of illegal stop
           IllegalParkingtype: "",
-          //类型
+          //type
           facetype: "",
           //faceColor
           faceColors: "0.55",
           //faceWeight
           faceWeights: "0.83",
-          //门状态检测--阈值1
+          //Door status detection--threshold 1
           Threshold1: 0.5,
-          //门状态检测--阈值2
+          //Door status detection--Threshold 2
           Threshold2: 0,
-          //口罩检测--0不太口罩报警 1戴口罩报警
+          //Mask detection--0 Alarm for not wearing a mask 1 Alarm for wearing a mask
           types: "0",
-          //口罩检测--人脸color阈值
+          //Mask detection-face color threshold
           faceColor: 0.55,
-          //口罩检测--人脸质量权重
+          //Mask detection--face quality weight
           faceWeight: 0.83,
-          //人脸识别(win版)--人脸质量权重
+          //Face recognition (win version)--face quality weight
           faceWeightwin: 7,
-          //人脸识别(win版)--人脸检测间隔（毫秒）
+          //Face recognition (win version)--face detection interval (milliseconds)
           frameInterval: 400,
-          //口罩检测--口罩阈值
+          //Mask detection--mask threshold
           maskScore: 0.6,
-          //平台积水检测--积水阈值
+          //Platform water accumulation detection-water accumulation threshold
           waterThresh: 0.5,
-          //平台积水检测--标尺阈值
+          //Platform water detection--scale threshold
           scaleThresh: 0.5,
-          //摩托车安全帽检测--人员检测阈值
+          //Motorcycle helmet detection-personnel detection threshold
           mtpersonThresh: 0.6,
-          //摩托车安全帽检测--安全帽检测阈值
+          //Motorcycle helmet detection - helmet detection threshold
           helmetThresh: 0.6,
-          //摩托车安全帽检测--摩托车检测阈值
+          //Motorcycle helmet detection--motorcycle detection threshold
           motorcycleThresh: 0.6,
-          //泰国车牌识别--车辆检测阈值
+          //Thailand License Plate Recognition--Vehicle Detection Threshold
           vehicleThreshs: 0.6,
-          //泰国车牌识别--车牌识别阈值
+          //Thailand License Plate Recognition--License Plate Recognition Threshold
           licenseThreshs: 0.6,
-          //人员检测阈值
+          //Person detection threshold
           fValperson: 0.6,
-          //店员检测阈值
+          //Store clerk detection threshold
           fValassistant: 0.6,
-          //客人滞留开始时间
+          //Guest stay start time
           retentionTime: 60,
-          //客人和店员交谈开始时间
+          //Start time of conversation between customer and store clerk
           conversationTime: 5,
-          //相机IP
+          //Camera IP
           cameraIP2: "",
-          //区域名称列表（店内顾客检测）
+          //Area name List (in-store customer detection)
           areaNameList: [],
-          //密度检测
+          //Density detection
           alarmType: null,
           userNum: null,
-          //玩手机--时间秒
+          //Playing on mobile phone - seconds
           lVal: 4,
-          //违规加油--油桶和人员距离(米)
+          //Illegal refueling - distance between oil barrels and personnel (meters)
           distance: 10,
-          //泰国进店人数统计--经过阈值
+          //Statistics of people entering stores in Thailand--passing the threshold
           passThresh: 0.6,
-          //泰国进店人数统计--进店阈值
+          //Statistics of people entering stores in Thailand--store entry threshold
           enterThresh: 0.6,
-          //泰国进店人数统计--相机IP
+          //Statistics of people entering stores in Thailand--Camera IP
           cameraIP: "",
-          //人车统计--车辆检测阈值
+          //People and vehicles statistics--Vehicle detection threshold
           vehicleThresh: 0.5,
-          //人车统计--人员检测阈值
+          //People and vehicles statistics--people detection threshold
           personThresh: 0.5,
-          //加油站检测--安全帽检测阈值
+          //Gas Station Detection--Safety Hat Detection Threshold
           helmetthresh: 0.4,
-          //加油站检测--人员识别阈值
+          //Gas Station Detection-Personnel Recognition Threshold
           personthresh: 0.6,
-          //加油站检测--员工识别阈值
+          //Gas Station Detection--Employee Identification Threshold
           staffidentithresh: 0.4,
-          //加油站检测--油罐车阈值
+          //Gas station detection-tank truck threshold
           tanker: 0.4,
-          //灭火器阈值
+          //fire extinguisher threshold
           fireex: 0.4,
-          //油车防静电阈值
+          //Oil truck anti-static threshold
           tankerstat: 0.4,
-          //防静电推送间隔
+          //Anti-static push interval
           staticeleAlarmInterval: 60,
-          //灭火器推送间隔
+          //Fire extinguisher push interval
           fireexAlarmInterval: 3600,
-          //违规停车--拥堵报警时间(秒)
+          //Illegal parking - congestion alarm time (seconds)
           MaxCount: 10,
-          //遗留物检测--遗留时间(秒)
+          //Remaining object detection--remaining time (seconds)
           DelayTime: 30,
-          //车辆逆行--0检测到车头报警  1检测到车尾报警
+          //Vehicle traveling in the wrong direction--0Vehicle alarm detected  1Rear alarm detected
           type: "1",
-          //滞留检测--时间(秒)
+          //Retention detection--time (seconds)
           timeOut: "30",
-          //睡岗检测--时间(秒)
+          //Sleeping duty detection--time (seconds)
           sleeptimeOut: "10",
-          //人脸库列表
+          //Face database list
           faceGroupList: "",
-          //是否带安全帽 0不带 1带
+          //Whether to wear a safety helmet 0 No 1 Yes
           anquanmao: "0",
-          //非员工入侵检测--人员检查阈值
+          //Non-employee intrusion detection-personnel inspection threshold
           intrusionPersonThresh: 0.5,
-          //非员工入侵检测--衣服正面图片地址
+          //Non-employee intrusion detection--Image address on the front of clothes
           intrusionFrontPic: "",
-          //非员工入侵检测--衣服背面图片地址
+          //Non-employee intrusion detection--Image address on the back of clothes
           intrusionBackPic: "",
-          //多模态模型 0关闭 1开启
+          //Multimodal model 0 off 1 on
           mllm: "0",
-          //充电枪检测--汽车阈值
+          //Charging gun detection--car threshold
           carThreshold: 0.6,
-          //充电枪检测--充电枪阈值
+          //Charging gun detection-charging gun threshold
           chargingThreshold: 0.6,
-          //车辆统计--汽车阈值
+          //Vehicle Statistics--Car Threshold
           vehicleCarThresh: 0.6,
-          //车辆统计--摩托车阈值
+          //Vehicle Statistics--Motorcycle Threshold
           vehicleMotorcycleThresh: 0.6,
-          //车辆统计--检测帧率
+          //Vehicle statistics--detection frame rate
           vehicleFrameInterval: 200,
-          //口罩耳机检测--耳机阈值
+          //Mask and earphone detection--earphone threshold
           earphoneThresh: 0.6,
-          //口罩耳机检测--口罩阈值
+          //Mask earphone detection--mask threshold
           faceMaskThresh: 0.6,
-          //口罩耳机检测--检测帧率间隔（毫秒）
+          //Mask and earphone detection--detection frame rate interval (milliseconds)
           maskEarphoneFrameInterval: 1000,
-          //香港大学UWB显示--人员检查阈值
+          //University of Hong Kong UWB display--Personnel inspection threshold
           personCheckThreshold: 0.6,
-          //香港大学UWB显示--楼层id
+          //University of Hong Kong UWB display--floor id
           floorId: null,
-          //香港大学UWB显示--人员坐标距离
+          //University of Hong Kong UWB display--Personnel coordinate distance
           personCoordinateDistance: 500,
-          //香港大学UWB显示--坐标更新间隔
+          //University of Hong Kong UWB display--coordinate update interval
           coordinateUpdateInterval: 1000,
         },
         sf25: {
           type: "0",
         },
       },
-      // 上传地址
+      // Upload URL
       uploadUrl: process.env.VUE_APP_BASE_API + "/common/upload",
-      // 表单校验
+      // Form verification
       rules: {
         taskName: [
           {
@@ -1005,14 +1005,14 @@ export default {
       gMap: null, // AILabel instance
       gFirstFeatureLayer: null, // Vector layer instance (rect, polygon etc)
       allFeatures: null, // All features
-      //设置裁剪区域宽高
+      //Set the width and height of the cropping area
       map: {
         width: 0,
         height: 0,
       },
-      //人脸库列表
+      //Face database list
       faceGroupList: [],
-      // 序号计数器
+      // No.Counter
       sequenceCounter: 1,
     };
   },
@@ -1024,10 +1024,10 @@ export default {
   },
 
   created() {
-    //获取设备id
+    //Get device id
     this.queryParams.deviceId = this.$route.query.deviceId;
     this.getList();
-    //获取摄像头画面图片
+    //Get camera screen image
     getDevice(this.$route.query.deviceId).then((response) => {
       this.imgUrl = "data:image/png;base64," + response.data.imageData;
     });
@@ -1067,13 +1067,13 @@ export default {
       }
       return true;
     },
-    //选中算法类型
+    //Select algorithm type
     changeAlgorithmType(e) {
       this.$nextTick((res) => {
         this.form.taskName = this.$refs.selectLable.selected.label;
       });
       console.log(e);
-      //人脸识别查看人脸库
+      //Face recognition view face library
       if (e == "B7A27D32-5274-A1C3-2DA7-8F827B1C8644") {
         listGroup({ pageNum: 1, pageSize: 1000 }).then((response) => {
           this.faceGroupList = response.data.records;
@@ -1089,12 +1089,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: null,
@@ -1123,164 +1123,164 @@ export default {
         enableRecognitionBox: false,
         frameRate: 4,
       };
-      //其他算法参数
+      //Other algorithm parameters
       this.other = {
         options: {
-          //坐标
+          //coordinate
           points: {
-            //直线
+            //straight line
             LINE: [],
-            //矩形
+            //rectangle
             RECT: [],
-            //多边形  默认全屏
+            //Polygon Default full screen
             POLYGON: [],
-            //点
+            //point
             POINTS: [],
           },
-          //灵敏度
+          //Sensitivity
           fVal: 0.5,
-          //围栏检测--围栏阈值
+          //Fence detection--fence threshold
           fenceThresh: 0.6,
-          //围栏检测--人检测阈值
+          //Fence detection--person detection threshold
           fencePersonThresh: 0.6,
-          //手套鞋套检测--人员阈值
+          //Glove and shoe cover detection-personnel threshold
           glovesPersonThresh: 0.6,
-          //手套鞋套检测--手套鞋套阈值
+          //Glove and shoe cover detection--glove and shoe cover threshold
           glovesThresh: 0.6,
-          //垃圾类型
+          //Garbage type
           garbageType: 2,
-          //人检测阈值
+          //Human detection threshold
           personThreshold: 0.6,
-          //违停限时
+          //Violation of parking time limit
           IllegalParkingTimeout: 0,
-          //违停类型
+          //Type of illegal stop
           IllegalParkingtype: "",
-          //类型
+          //type
           facetype: "",
           //faceColor
           faceColors: "0.55",
           //faceWeight
           faceWeights: "0.83",
-          //门状态检测--阈值1
+          //Door status detection--threshold 1
           Threshold1: 0.5,
-          //门状态检测--阈值2
+          //Door status detection--Threshold 2
           Threshold2: 0,
-          //口罩检测--0不太口罩报警 1戴口罩报警
+          //Mask detection--0 Alarm for not wearing a mask 1 Alarm for wearing a mask
           types: "0",
-          //口罩检测--人脸color阈值
+          //Mask detection-face color threshold
           faceColor: 0.55,
-          //口罩检测--人脸质量权重
+          //Mask detection--face quality weight
           faceWeight: 0.83,
-          //人脸识别(win版)--人脸质量权重
+          //Face recognition (win version)--face quality weight
           faceWeightwin: 7,
-          //人脸识别(win版)--人脸检测间隔（毫秒）
+          //Face recognition (win version)--face detection interval (milliseconds)
           frameInterval: 400,
-          //口罩检测--口罩阈值
+          //Mask detection--mask threshold
           maskScore: 0.6,
-          //平台积水检测--积水阈值
+          //Platform water accumulation detection-water accumulation threshold
           waterThresh: 0.5,
-          //平台积水检测--标尺阈值
+          //Platform water detection--scale threshold
           scaleThresh: 0.5,
-          //摩托车安全帽检测--人员检测阈值
+          //Motorcycle helmet detection-personnel detection threshold
           mtpersonThresh: 0.6,
-          //摩托车安全帽检测--安全帽检测阈值
+          //Motorcycle helmet detection - helmet detection threshold
           helmetThresh: 0.6,
-          //摩托车安全帽检测--摩托车检测阈值
+          //Motorcycle helmet detection--motorcycle detection threshold
           motorcycleThresh: 0.6,
-          //泰国车牌识别--车辆检测阈值
+          //Thailand License Plate Recognition--Vehicle Detection Threshold
           vehicleThreshs: 0.6,
-          //泰国车牌识别--车牌识别阈值
+          //Thailand License Plate Recognition--License Plate Recognition Threshold
           licenseThreshs: 0.6,
-          //人员检测阈值
+          //Person detection threshold
           fValperson: 0.6,
-          //店员检测阈值
+          //Store clerk detection threshold
           fValassistant: 0.6,
-          //客人滞留开始时间
+          //Guest stay start time
           retentionTime: 60,
-          //客人和店员交谈开始时间
+          //Start time of conversation between customer and store clerk
           conversationTime: 5,
-          //相机IP
+          //Camera IP
           cameraIP2: "",
-          //区域名称列表（店内顾客检测）
+          //Area name List (in-store customer detection)
           areaNameList: [],
-          //密度检测
+          //Density detection
           alarmType: null,
           userNum: null,
-          //玩手机--时间秒
+          //Playing on mobile phone - seconds
           lVal: 4,
-          //违规加油--油桶和人员距离(米)
+          //Illegal refueling - distance between oil barrels and personnel (meters)
           distance: 10,
-          //泰国进店人数统计--经过阈值
+          //Statistics of people entering stores in Thailand--passing the threshold
           passThresh: 0.6,
-          //泰国进店人数统计--进店阈值
+          //Statistics of people entering stores in Thailand--store entry threshold
           enterThresh: 0.6,
-          //泰国进店人数统计--相机IP
+          //Statistics of people entering stores in Thailand--Camera IP
           cameraIP: "",
-          //人车统计--车辆检测阈值
+          //People and vehicles statistics--Vehicle detection threshold
           vehicleThresh: 0.5,
-          //人车统计--人员检测阈值
+          //People and vehicles statistics--people detection threshold
           personThresh: 0.5,
-          //加油站检测--安全帽检测阈值
+          //Gas Station Detection--Safety Hat Detection Threshold
           helmetthresh: 0.4,
-          //加油站检测--人员识别阈值
+          //Gas Station Detection-Personnel Recognition Threshold
           personthresh: 0.6,
-          //加油站检测--员工识别阈值
+          //Gas Station Detection--Employee Identification Threshold
           staffidentithresh: 0.4,
-          //加油站检测--油罐车阈值
+          //Gas station detection-tank truck threshold
           tanker: 0.4,
-          //灭火器阈值
+          //fire extinguisher threshold
           fireex: 0.4,
-          //油车防静电阈值
+          //Oil truck anti-static threshold
           tankerstat: 0.4,
-          //防静电推送间隔
+          //Anti-static push interval
           staticeleAlarmInterval: 60,
-          //灭火器推送间隔
+          //Fire extinguisher push interval
           fireexAlarmInterval: 3600,
-          //违规停车--拥堵报警时间(秒)
+          //Illegal parking - congestion alarm time (seconds)
           MaxCount: 10,
-          //遗留物检测--遗留时间(秒)
+          //Remaining object detection--remaining time (seconds)
           DelayTime: 30,
-          //车辆逆行--0检测到车头报警  1检测到车尾报警
+          //The vehicle is driving in the wrong direction--0 The alarm is detected at the front of the vehicle 1 The alarm at the rear is detected
           type: "1",
-          //滞留检测--时间(秒)
+          //Retention detection--time (seconds)
           timeOut: "30",
-          //睡岗检测--时间(秒)
+          //Sleeping duty detection--time (seconds)
           sleeptimeOut: "10",
-          //人脸库列表
+          //Face database list
           faceGroupList: "",
-          //是否带安全帽 0不带 1带
+          //Whether to wear a safety helmet 0 No 1 Yes
           anquanmao: "0",
-          //非员工入侵检测--人员检查阈值
+          //Non-employee intrusion detection-personnel inspection threshold
           intrusionPersonThresh: 0.5,
-          //非员工入侵检测--衣服正面图片地址
+          //Non-employee intrusion detection--Image address on the front of clothes
           intrusionFrontPic: "",
-          //非员工入侵检测--衣服背面图片地址
+          //Non-employee intrusion detection--Image address on the back of clothes
           intrusionBackPic: "",
-          //多模态模型 0关闭 1开启
+          //Multimodal model 0 off 1 on
           mllm: "0",
-          //充电枪检测--汽车阈值
+          //Charging gun detection--car threshold
           carThreshold: 0.6,
-          //充电枪检测--充电枪阈值
+          //Charging gun detection-charging gun threshold
           chargingThreshold: 0.6,
-          //车辆统计--汽车阈值
+          //Vehicle Statistics--Car Threshold
           vehicleCarThresh: 0.6,
-          //车辆统计--摩托车阈值
+          //Vehicle Statistics--Motorcycle Threshold
           vehicleMotorcycleThresh: 0.6,
-          //车辆统计--检测帧率
+          //Vehicle statistics--detection frame rate
           vehicleFrameInterval: 200,
-          //口罩耳机检测--耳机阈值
+          //Mask and earphone detection--earphone threshold
           earphoneThresh: 0.6,
-          //口罩耳机检测--口罩阈值
+          //Mask earphone detection--mask threshold
           faceMaskThresh: 0.6,
-          //口罩耳机检测--检测帧率间隔（毫秒）
+          //Mask and earphone detection--detection frame rate interval (milliseconds)
           maskEarphoneFrameInterval: 1000,
-          //香港大学UWB显示--人员检查阈值
+          //University of Hong Kong UWB display--Personnel inspection threshold
           personCheckThreshold: 0.6,
-          //香港大学UWB显示--楼层id
+          //University of Hong Kong UWB display--floor id
           floorId: 2,
-          //香港大学UWB显示--人员坐标距离
+          //University of Hong Kong UWB display--Personnel coordinate distance
           personCoordinateDistance: 500,
-          //香港大学UWB显示--坐标更新间隔
+          //University of Hong Kong UWB display--coordinate update interval
           coordinateUpdateInterval: 1000,
         },
         sf25: {
@@ -1288,7 +1288,7 @@ export default {
         },
       };
       this.resetForm("form");
-      // 重置序号计数器
+      // ResetNo. counter
       this.sequenceCounter = 1;
     },
     /** Search handler */
@@ -1301,7 +1301,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.id);
       this.single = selection.length !== 1;
@@ -1334,24 +1334,24 @@ export default {
         this.form = response.data;
         this.form.dimension = JSON.parse(response.data.dimension);
         this.form.time1 = response.data.time1.split("-");
-        // 根据frameRate判断是否开启识别框
+        // Determine whether to open the recognition frame based on frameRate
         this.$set(this.form, 'enableRecognitionBox', response.data.frameRate != null && response.data.frameRate !== '' && response.data.frameRate !== 0);
         this.open = true;
         this.title = this.$t("commonBtn.edit");
         let teshu = JSON.parse(response.data.analysisJson);
         console.log(teshu);
-        //获取数组name=sensitivity的对象
+        //Get the object of array name=sensitivity
         try {
           this.other.options.fVal = teshu[0].abilityterm.find(
             (item) => item.name == "sensitivity"
           ).fVal;
         } catch (error) {
-          console.log("没有灵敏度");
+          console.log("No sensitivity");
         }
 
-        //填充特殊算法特殊值
+        //Fill special algorithm special value
         switch (this.form.algorithmType) {
-          //围栏检测
+          //Fence detection
           case "9982D74C-BDAC-49E2-BDA0-CB906D28E69A":
             this.other.options.fenceThresh = teshu[0].abilityterm.find(
               (item) => item.name == "fence Threshold"
@@ -1360,7 +1360,7 @@ export default {
               (item) => item.name == "person Threshold"
             )?.fVal;
             break;
-          //手套鞋套检测
+          //Glove and shoe cover testing
           case "25BB561D-D154-4F13-A7E6-671DE5C7F134":
             this.other.options.glovesPersonThresh = teshu[0].abilityterm.find(
               (item) => item.name == "person Threshold"
@@ -1369,25 +1369,25 @@ export default {
               (item) => item.name == "Glove Threshold"
             )?.fVal;
             break;
-          //垃圾满溢检测
+          //Garbage overflow detection
           case "1f954cb2-b29c-48b9-9a78-8fecf957a515":
             this.other.options.garbageType = teshu[0].abilityterm.find(
               (item) => item.name == "type"
             )?.lVal;
             break;
-          //玩手机姿势识别
+          //Gesture recognition for playing with mobile phone
           case "D432D747-BDAC-49E2-BDA0-CB906D28E141":
             this.other.options.personThreshold = teshu[0].abilityterm.find(
               (item) => item.name == "person Threshold"
             )?.fVal;
             break;
-          //头套识别
+          //Headgear recognition
           case "9132D74B-BDAC-49E2-BDA0-CB906D28E66E":
             this.other.options.personThreshold = teshu[0].abilityterm.find(
               (item) => item.name == "person Threshold"
             )?.fVal;
             break;
-          //机动车违停识别
+          //Motor vehicle illegal parking identification
           case "DD32D74B-BDAC-49E2-BDA0-CB906D28E14E":
             this.other.options.IllegalParkingTimeout = teshu[0].abilityterm.find(
               (item) => item.name == "IllegalParking Timeout"
@@ -1396,7 +1396,7 @@ export default {
               (item) => item.name == "type"
             )?.lVal;
             break;
-          //年龄性别识别
+          //Age and gender identification
           case "76B27D32-5274-A1A5-2DA7-8F827B1C8616":
             // this.other.options.facetype = teshu[0].abilityterm.find(
             //   (item) => item.name == "type"
@@ -1411,7 +1411,7 @@ export default {
               (item) => item.name == "AlarmInterval"
             )?.fVal;
             break;
-          //门状态检测
+          //Door status detection
           case "65EB561E-EAE4-4F13-A7E6-A11DE5C7D163":
             this.other.options.Threshold1 = teshu[0].abilityterm.find(
               (item) => item.name == "Threshold1"
@@ -1420,7 +1420,7 @@ export default {
               (item) => item.name == "Threshold2"
             )?.lVal;
             break;
-          //泰国车牌识别
+          //Thailand license plate recognition
           case "33BB561E-EAE4-4F13-A7E6-A11DE5C7F167":
             this.other.options.vehicleThreshs = teshu[0].abilityterm.find(
               (item) => item.name == "vehicle Threshold"
@@ -1429,7 +1429,7 @@ export default {
               (item) => item.name == "license Threshold"
             )?.fVal;
             break;
-          //车辆统计
+          //vehicle statistics
           case "0234CA9A-0200-4FE5-9793-859741E689C3":
             this.other.options.vehicleCarThresh = teshu[0].abilityterm.find(
               (item) => item.name == "car thresh"
@@ -1441,7 +1441,7 @@ export default {
               (item) => item.name == "FrameInterval"
             )?.lVal;
             break;
-          //口罩耳机检测
+          //Mask and earphone detection
           case "27DB5613-D184-4F13-A7E6-671DE5C7F4E6":
             this.other.options.earphoneThresh = teshu[0].abilityterm.find(
               (item) => item.name == "earphoneThresh"
@@ -1456,7 +1456,7 @@ export default {
               (item) => item.name == "MLLM"
             )?.lVal || "0");
             break;
-          //人脸识别(win版)
+          //Face recognition (win version)
           case "B6A27D32-5274-A1C3-2DA7-8F827B1C8622":
             this.other.options.faceWeightwin = teshu[0].abilityterm.find(
               (item) => item.name == "ExtractionDetect Weight"
@@ -1465,7 +1465,7 @@ export default {
               (item) => item.name == "ExtractionDetect Frame interval"
             )?.lVal;
             break;
-          //口罩检测
+          //Mask testing
           case "B6B27D32-5274-A1C3-2DA7-8F827B1C8676":
             this.other.options.types = String(teshu[0].abilityterm.find(
               (item) => item.name == "type"
@@ -1480,7 +1480,7 @@ export default {
               (item) => item.name == "maskScore"
             )?.fVal;
             break;
-          //平台积水检测
+          //Platform water detection
           case "DAA64F89-9E21-45C9-9FC6-9F4E9C1CB794":
             this.other.options.waterThresh = teshu[0].abilityterm.find(
               (item) => item.name == "Waterlogging thresh"
@@ -1489,7 +1489,7 @@ export default {
               (item) => item.name == "ScaleDetect thresh"
             )?.fVal;
             break;
-          //摩托车安全帽检测
+          //Motorcycle helmet inspection
           case "7f954cb2-b29c-48b9-9a78-8fecf957a212":
             this.other.options.mtpersonThresh = teshu[0].abilityterm.find(
               (item) => item.name == "personThresh Threshold"
@@ -1501,7 +1501,7 @@ export default {
               (item) => item.name == "motorcycleThresh Pattern"
             )?.fVal;
             break;
-          //泰国进店人数统计
+          //Statistics of people entering stores in Thailand
           case "374CA9D-0200-4FE5-9793-859741E689D1":
             this.other.options.passThresh = teshu[0].abilityterm.find(
               (item) => item.name == "pass thresh"
@@ -1513,7 +1513,7 @@ export default {
               (item) => item.name == "cameraIP"
             )?.strVal;
             break;
-          //店内顾客检测
+          //In-store customer detection
           case "45BB561E-EA54-4F13-A7E6-A11DE5C75648":
             console.log(teshu[0].abilityterm);
             console.log(
@@ -1536,55 +1536,55 @@ export default {
             this.other.options.cameraIP2 = teshu[0].abilityterm.find(
               (item) => item.name == "camera IP"
             )?.strVal;
-            // 恢复区域名称列表（从 emVT_POLYGON 类型的 abilityterm 中获取）
+            // List of restored area names (obtained from abilityterm of type emVT_POLYGON)
             const polygonTerms = teshu[0].abilityterm.filter(
               (item) => item.type == "emVT_POLYGON" && item.name != "cross" && item.name != "direction"
             );
             this.other.options.areaNameList = polygonTerms.map(term => term.name || "");
             break;
-          //睡岗检测
+          //Sleeping duty test
           case "E7017EDA-4EFD-493E-97DF-4156ECB39656":
             this.other.options.sleeptimeOut = teshu[0].abilityterm[4].lVal;
             break;
-          //滞留检测
+          //Retention detection
           case "6C4483AA-83E1-49AD-B06D-297D267BD80B":
             this.other.options.timeOut = teshu[0].abilityterm[1].lVal;
             break;
-          //车辆逆行
+          //Vehicle traveling in the wrong direction
           case "0264CA9D-0200-4FE5-9793-859741E689C0":
             this.other.options.type = teshu[0].abilityterm[4].fVal;
             break;
-          //遗留物
+          //legacy
           case "BDDBB500-62F3-4A93-AC9E-11C9CC6EA4BE":
             this.other.options.DelayTime = teshu[0].abilityterm[3].DelayTime;
             break;
-          //脱岗检测
+          //Off-duty testing
           case "F7581B40-A9F9-498E-A510-14F40009C545":
-            //脱岗时间（分）
+            //Off-duty time (minutes)
             this.other.options.tuotime = teshu[0].abilityterm[2].lVal;
             break;
-          //密度检测
+          //Density detection
           case "F7581B40-A9F9-498E-A510-14F40010C545":
-            //报警类型
+            //Alarm type
             this.other.options.alarmType = teshu[0].abilityterm[5].lVal;
-            //人数
+            //Number of people
             this.other.options.userNum = teshu[0].abilityterm[2].fVal;
             break;
-          //玩手机
+          //Play with mobile phone
           case "28E4800E-01AF-4647-8F9B-966497DBE20B":
             this.other.options.lVal = teshu[0].abilityterm[4].lVal;
             this.other.options.mllm = (teshu[0].abilityterm.find(item => item.name === 'MLLM') || {}).lVal || '0';
             break;
-          //违规加油
+          //Illegal refueling
           case "D2985710-425A-4DC9-AD61-C876FA5F5E9D":
             this.other.options.distance = teshu[0].abilityterm[6].fVal;
             break;
-          //人车统计
+          //Statistics of people and vehicles
           case "1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F":
             this.other.options.vehicleThresh = teshu[0].abilityterm[8].fVal;
             this.other.options.personThresh = teshu[0].abilityterm[9].fVal;
             break;
-          //  加油站检测
+          //  Gas station inspection
           case "1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F24d":
             console.log(teshu[0].abilityterm);
             this.other.options.helmetthresh = teshu[0].abilityterm[8].fVal;
@@ -1599,16 +1599,16 @@ export default {
             this.other.options.fireexAlarmInterval =
               teshu[0].abilityterm[17].fVal;
             break;
-          //违规停车
+          //Illegal parking
           case "ED32D74B-BDAC-49E2-BDA0-CB906D28E14F":
             this.other.options.MaxCount = teshu[0].abilityterm[2].lVal;
             break;
-          //安全帽
+          //helmet
           case "7F954CB2-B29C-48B9-9A78-8FECF957A290":
             this.other.options.anquanmao = teshu[0].abilityterm[2].lVal;
             this.other.options.mllm = (teshu[0].abilityterm.find(item => item.name === 'MLLM') || {}).lVal || '0';
             break;
-          //人脸识别
+          //face recognition
           case "B7A27D32-5274-A1C3-2DA7-8F827B1C8644":
             listGroup({ pageNum: 1, pageSize: 1000 }).then((response) => {
               this.faceGroupList = response.data.records;
@@ -1617,7 +1617,7 @@ export default {
               teshu[0].abilityterm[5].strVal.split(",");
             console.log(this.other.options.faceGroupList);
             break;
-          //非员工入侵检测
+          //Non-employee intrusion detection
           case "8742D74B-BDAC-49E2-BDA0-CB906D28E6E4":
             this.other.options.intrusionPersonThresh = teshu[0].abilityterm.find(
               (item) => item.name == "person Threshold"
@@ -1629,7 +1629,7 @@ export default {
               (item) => item.name == "Back pic path"
             )?.strVal || "";
             break;
-            //充电枪检测
+            //Charging gun detection
           case "DACD8C81-FCDC-47E3-80A9-B648CE558456":
             this.other.options.carThreshold = teshu[0].abilityterm.find(
               (item) => item.name == "car Threshold"
@@ -1638,7 +1638,7 @@ export default {
               (item) => item.name == "Charging Threshold"
             )?.fVal || "0.6";
             break;
-          //香港大学UWB显示
+          //University of Hong Kong UWB display
           case "BBEF5D75-26FC-4F3A-B2A3-F1C8B77FC5E1":
             this.other.options.personCheckThreshold = teshu[0].abilityterm.find(
               (item) => item.name == "Threshold"
@@ -1653,15 +1653,15 @@ export default {
               (item) => item.name == "person interval"
             )?.lVal;
             break;
-          //抽烟检测
+          //Smoking test
           case "118D34A0-4FEB-4906-A622-C7974AB3C637":
-          //烟火检测
+          //Pyrotechnic detection
           case "7DCD8C8C-FCDC-47EE-80A9-B648CE558FF5":
-          //跌倒
+          //fall
           case "ADEE06F4-9D5F-44A8-8681-507BBF3CADF8":
-          //刀枪检测
+          //Knife and gun detection
           case "99BB561E-EA54-4F13-A7E6-A11DE5C7F142":
-          //电动车入户
+          //Electric vehicles entering the home
           case "3864E531-F909-4E37-A544-B557A8490D80":
             this.other.options.mllm = (teshu[0].abilityterm.find(item => item.name === 'MLLM') || {}).lVal || '0';
             break;
@@ -1686,7 +1686,7 @@ export default {
       // }
       let that = this;
 
-      //如果画图为空就画全图
+      //If the drawing is empty, draw the whole picture
       if (that.form.dimension.length == 0) {
         that.form.dimension = [
           {
@@ -1711,16 +1711,16 @@ export default {
       }
 
       console.log(that.form.dimension);
-      //循环遍历dimension
+      //Loop through dimensions
       this.form.dimension.forEach((item) => {
-        //点
+        //point
         if (item.type == "POINT") {
           that.other.options.points.POINTS.push({
             x: String(item.data.x / that.map.width),
             y: String(item.data.y / that.map.height),
           });
         }
-        //线和多边形
+        //Lines and polygons
         else if (item.type == "LINE" || item.type == "POLYGON") {
           that.other.options.points[item.type].push(
             item.data.map((item) => {
@@ -1731,7 +1731,7 @@ export default {
             })
           );
         } else if (item.type == "RECT") {
-          //矩形
+          //rectangle
           that.other.options.points[item.type].push({
             x: item.data.x / that.map.width,
             y: item.data.y / that.map.height,
@@ -1741,7 +1741,7 @@ export default {
         }
       });
 
-      // 非员工入侵检测必填验证
+      // Non-employee intrusion detectionRequired authentication
       if (this.form.algorithmType == "8742D74B-BDAC-49E2-BDA0-CB906D28E6E4") {
         if (!this.other.options.intrusionPersonThresh && this.other.options.intrusionPersonThresh !== 0) {
           this.$message.error(this.$t("task.intrusionPersonThreshRequired"));
@@ -1757,7 +1757,7 @@ export default {
         }
       }
 
-      // 如果识别框关闭，frameRate不传
+      // If the recognition box is closed, frameRate is not transmitted
       if (!this.form.enableRecognitionBox) {
         this.form.frameRate = null;
       }
@@ -1765,14 +1765,14 @@ export default {
       this.$refs["form"].validate(async (valid) => {
         if (valid) {
           switch (this.form.algorithmType) {
-            //脱岗检测
+            //Off-duty testing
             case "F7581B40-A9F9-498E-A510-14F40009C545":
               this.other.options.deviceId = this.$route.query.deviceCode;
               this.form.analysisJson = JSON.stringify(
                 getJson(this.form.algorithmType, this.other.options)
               );
               break;
-            //密度检测
+            //Density detection
             case "F7581B40-A9F9-498E-A510-14F40010C545":
               this.other.options.deviceId = this.$route.query.deviceCode;
               this.form.analysisJson = JSON.stringify(
@@ -1780,7 +1780,7 @@ export default {
               );
               break;
 
-            //人脸识别
+            //face recognition
             // case "B7A27D32-5274-A1C3-2DA7-8F827B1C8644":
             //   this.form.analysisJson = JSON.stringify(
             //     getJson(this.form.algorithmType, this.other.options)
@@ -1826,17 +1826,17 @@ export default {
     setMode(mode) {
       this.mode = mode;
     },
-    // 获取所有features
+    // Get all features
     getFeatures() {
       this.allFeatures = this.gFirstFeatureLayer.getAllFeatures();
       console.log("--allFeatures--", this.allFeatures);
       console.log(this.allFeatures[0].getPoints);
     },
-    // 初始样式
+    // initial style
     setDrawingStyle(mode) {
       let drawingStyle = {};
       switch (mode) {
-        //线段
+        //line segment
         case "LINE": {
           this.drawingStyle = {
             strokeStyle: "#cb1c1c",
@@ -1849,13 +1849,13 @@ export default {
           break;
         }
 
-        //矩形
+        //rectangle
         case "RECT": {
           this.drawingStyle = { strokeStyle: "#cb1c1c", lineWidth: 2 };
           this.gMap.setDrawingStyle(drawingStyle);
           break;
         }
-        //多边形
+        //Polygon
         case "POLYGON": {
           this.drawingStyle = {
             strokeStyle: "#cb1c1c", // Border color
@@ -1869,7 +1869,7 @@ export default {
           this.gMap.setDrawingStyle(drawingStyle);
           break;
         }
-        //点
+        //point
         case "POINT": {
           this.drawingStyle = {
             strokeStyle: "#cb1c1c",
@@ -1886,14 +1886,14 @@ export default {
       }
     },
 
-    // 添加图形
+    // Add graphics
     addFeature(data, type, id, sequenceNumber = null) {
       let that = this;
       let drawingStyle = this.drawingStyle;
       let centerPoint = null;
       let x = 0;
       let y = 0;
-      //点
+      //point
       if (type === "POINT") {
         const pointFeature = new AILabel.Feature.Point(
           id, // id
@@ -1901,13 +1901,13 @@ export default {
           { name: id }, // props
           drawingStyle // style
         );
-        console.log("画点");
+        console.log("Draw point");
         console.log(data);
         that.gFirstFeatureLayer.addFeature(pointFeature);
         x = data.x;
         y = data.y;
       }
-      //线
+      //Wire
       else if (type === "LINE") {
         //
 
@@ -1919,14 +1919,14 @@ export default {
           { name: id }, // props
           drawingStyle // style
         );
-        console.log("画线");
+        console.log("Draw line");
         console.log(data);
         console.log(that.gMap.getScale());
         console.log(width);
         console.log(width);
         that.gFirstFeatureLayer.addFeature(lineFeature);
 
-        // 计算线段中点用于显示序号
+        // Calculate the midpoint of the line segment for display No.
         centerPoint = {
           x: (data.start.x + data.end.x) / 2,
           y: (data.start.y + data.end.y) / 2,
@@ -1935,7 +1935,7 @@ export default {
         y = data.start.y;
       }
 
-      //矩形
+      //rectangle
       else if (type === "RECT") {
         const rectFeature = new AILabel.Feature.Rect(
           id, // id
@@ -1946,7 +1946,7 @@ export default {
         console.log(rectFeature.getPoints());
         that.gFirstFeatureLayer.addFeature(rectFeature);
 
-        // 计算矩形中心点用于显示序号
+        // Calculate the center point of the rectangle for display No.
         centerPoint = {
           x: data.x + data.width / 2,
           y: data.y + data.height / 2,
@@ -1954,7 +1954,7 @@ export default {
         x = data.x;
         y = data.y;
       }
-      //多边形
+      //Polygon
       else if (type === "POLYGON") {
         const polygonFeature = new AILabel.Feature.Polygon(
           id, // id
@@ -1965,7 +1965,7 @@ export default {
 
         that.gFirstFeatureLayer.addFeature(polygonFeature);
 
-        // 计算多边形中心点用于显示序号
+        // Calculate polygon center point for display No.
         let sumX = 0,
           sumY = 0;
         data.forEach((point) => {
@@ -1979,12 +1979,12 @@ export default {
         x = data[0].x;
         y = data[0].y;
       }
-      // 插入一个序号文本，显示在多边形中心点
+      // Insert a No. text, displayed at the center point of the polygon
       if (sequenceNumber !== null) {
-        // 显示在第一个点
+        // Shown at first point
 
         const textId = `text_${id}`;
-        // 修正文本位置不生效问题，确保传入的坐标为数值类型且刷新图层
+        // Fixed the problem that the text position does not take effect, ensure that the coordinates passed in are of numerical type and refresh the layer
         const textFeature = new AILabel.Text(
           textId,
           {
@@ -2000,7 +2000,7 @@ export default {
             textBaseline: "middle",
             fontWeight: "bold",
             lineWidth: 2,
-            // 通过设置锚点为中心，并根据多边形中心点进行偏移，确保文本居中
+            // Make sure the text is centered by setting the anchor point to the center and offsetting it based on the polygon center point
             anchor: "center",
             display: "block",
           }
@@ -2011,10 +2011,10 @@ export default {
       this.getFeatures();
     },
 
-    // 删除 删除按钮
+    // Delete Delete button
     deIcon() {
       this.gMap.markerLayer.removeAllMarkers();
-      // 删除所有序号相关的features和文本
+      // Delete all No. related features and text
       const allFeatures = this.gFirstFeatureLayer.getAllFeatures();
       allFeatures.forEach((feature) => {
         if (
@@ -2027,7 +2027,7 @@ export default {
         }
       });
 
-      // 删除所有文本对象
+      // Delete all text objects
       const allTexts = this.gFirstFeatureLayer.getAllTexts
         ? this.gFirstFeatureLayer.getAllTexts()
         : [];
@@ -2037,7 +2037,7 @@ export default {
         }
       });
     },
-    // 增加事件
+    // add event
     addEvent() {
       let that = this;
       let gMap = this.gMap;
@@ -2056,31 +2056,31 @@ export default {
           return;
         }
         this.itemName = "pons";
-        //点
+        //point
         if (type == "POINT") {
           that.form.dimension.push({
             type: type,
             data: { x: data.x, y: data.y },
           });
         }
-        //单线段
+        //single line segment
         if (type == "LINE") {
           that.form.dimension.push({
             type: type,
             data: [data.start, data.end],
           });
         }
-        //矩形
+        //rectangle
         if (type == "RECT") {
           that.form.dimension.push({
             type: type,
             data: data,
           });
         }
-        //多边形
+        //Polygon
         if (type == "POLYGON") {
           if (data.length < 8) {
-            //小于8个点计算最后一个点附近的点添加进去直到够8个点
+            //If it is less than 8 points, calculate the points near the last point and add them until 8 points are reached.
             const xx = data[data.length - 1].x;
             const yy = data[data.length - 1].y;
             const n = 8 - data.length;
@@ -2095,7 +2095,7 @@ export default {
             data: data,
           });
 
-          // 如果是店内顾客检测算法，弹出输入框让用户输入区域名称
+          // If it is an in-store customer detection algorithm, an Input pops up to allow the user to enter the area name.
           if (that.form.algorithmType == '45BB561E-EA54-4F13-A7E6-A11DE5C75648') {
             that.$prompt(that.$t('task.enterAreaName'), that.$t('commonTips.tips'), {
               confirmButtonText: that.$t('commonBtn.confirm'),
@@ -2105,7 +2105,7 @@ export default {
             }).then(({ value }) => {
               that.other.options.areaNameList.push(value || that.$t('task.areaName') + (that.other.options.areaNameList.length + 1));
             }).catch(() => {
-              // 用户取消，使用默认名称
+              // User cancels, using default name
               that.other.options.areaNameList.push(that.$t('task.areaName') + (that.other.options.areaNameList.length + 1));
             });
           }
@@ -2123,40 +2123,40 @@ export default {
         console.log("--map boundsChanged--", data);
         return "";
       });
-      // 双击编辑 在绘制模式下双击feature触发选中
+      // double-click to edit Double-click the feature to trigger selection in drawing mode
       gMap.events.on("featureSelected", (feature) => {
         //this.editId = feature.id;
-        console.log("--map featureSelected--", feature, "双击编辑");
-        //设置编辑feature
+        console.log("--map featureSelected--", feature, "double-click to edit");
+        //SetEditfeature
         //gMap.setActiveFeature(feature);
       });
-      //右键 目前只针对点双击选中右键触发
+      //Right click is currently only triggered by right click when double-clicking.
       gMap.events.on("featureDeleted", (feature) => {
         if (feature.type == "POINT") {
-          // 根据id删除对应feature
+          // Corresponding feature according to idDelete
           that.gFirstFeatureLayer.removeFeatureById(feature.id);
         }
       });
-      // 单机空白取消编辑
+      // StandaloneBlankCancelEdit
       gMap.events.on("featureUnselected", (e) => {
         console.log("--map featureUnselected--", e);
-        // 取消featureSelected
+        // CancelfeatureSelected
         that.editId = "";
         that.deIcon();
         gMap.setActiveFeature(null);
       });
-      // 更新完
+      // Updated
       gMap.events.on("featureUpdated", (feature, shape) => {
         console.log(feature);
-        // 更新或者移动需要重新设置删除图标
+        // Updates or moves require resetting the Delete icon.
       });
 
-      // 删除
+      // Delete
       gMap.events.on("FeatureDeleted", () => {
         // that.gFirstFeatureLayer.removeFeatureById(that.editId);
       });
     },
-    // 获取坐标 需要自行添加
+    // Obtaining coordinates needs to be added by yourself
     getPoints(feature) {
       switch (feature.type) {
         case "RECT":
@@ -2171,22 +2171,22 @@ export default {
           return [];
       }
     },
-    //填充事件
+    //fill event
     Fill() {
       let fill = this.gFirstFeatureLayer.getFeatureById(this.editId);
 
       fill.style.fillStyle = "#FFDAB9";
       fill.style.fill = true;
-      //刷新map
+      //refresh map
       this.gMap.refresh();
     },
-    //重置
+    //Reset
     Revoke() {
       this.gMap.destroy();
       this.mode = "";
       this.form.dimension = [];
       this.sequenceCounter = 1; // Reset sequence counter
-      // 如果是店内顾客检测算法，清空区域名称列表
+      // If it is an in-store customer detection algorithm, clear the area name list.
       if (this.form.algorithmType == '45BB561E-EA54-4F13-A7E6-A11DE5C75648') {
         this.other.options.areaNameList = [];
       }
@@ -2194,17 +2194,17 @@ export default {
         this.initMap();
       }, 1000);
 
-      // console.log("撤销");
+      // console.log("undo");
       // this.getFeatures();
       // this.allFeatures.pop();
       // this.gMap.removeAllLayers();
-      // //刷新map
+      // //Refresh map
       // this.gMap.refresh();
-      // console.log(this.allFeatures, "--所有操作--");
+      // console.log(this.allFeatures, "--all operations--");
     },
 
     initMap() {
-      //获取图片宽高
+      //Get Image width and height
       let img = new Image();
       img.src = this.imgUrl; // Load camera image
       //this.form.dimension = [];
@@ -2238,7 +2238,7 @@ export default {
         });
         that.gMap = gMap;
         this.addEvent();
-        // 加载图片
+        // LoadImage
         const gFirstImageLayer = new AILabel.Layer.Image(
           "first-layer-image", // id
           {
@@ -2247,7 +2247,7 @@ export default {
             height: img.height,
             crossOrigin: false, // Set true for cross-origin images
             position: {
-              // 左上角相对中心点偏移量
+              // Offset of upper left corner relative to center point
               x: 0,
               y: 0,
             },
@@ -2255,9 +2255,9 @@ export default {
           { name: "First image layer" }, // props
           { zIndex: 5 } //
         );
-        // 添加到gMap对象
+        // Add to gMap object
         gMap.addLayer(gFirstImageLayer);
-        // 添加矢量图层
+        // Add vector layer
         const gFirstFeatureLayer = new AILabel.Layer.Feature(
           "first-layer-feature", // id
           { name: "First vector layer" }, // props
@@ -2274,7 +2274,7 @@ export default {
         };
       };
     },
-    //查看详情的时候回显标注
+    //Echo annotations when viewing details
     initbiaozhu() {
       this.drawingStyle = {
         strokeStyle: "#cb1c1c", // Border color
@@ -2303,11 +2303,11 @@ export default {
           da = this.form.dimension[i].data;
         }
 
-        // 添加序号，从1开始
+        // Add No., starting from 1
         this.addFeature(da, this.form.dimension[i].type, "pons_" + i, i + 1);
       }
 
-      // 设置下一个序号计数器
+      // Set next No. counter
       this.sequenceCounter = this.form.dimension.length + 1;
     },
   },

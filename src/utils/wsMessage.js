@@ -3,7 +3,7 @@
  * @Date: 2023-04-12 15:49:17
  * @LastEditTime: 2025-05-12 14:18:13
  * @LastEditors: FGJ
- * @Description: websocket消息处理函数
+ * @Description: websocket message processing function
  * @FilePath: \ruoyi-ui\src\utils\wsMessage.js
  */
 import { sendWSPush } from './websocket.js';
@@ -29,7 +29,7 @@ function handlerData(data) {
 export let open = function (data) {
     data.type = 'open';
     sendWSPush(handlerData(data));
-    //showList添加一条数据
+    //showList adds a piece of data
     if (showHistoryCheck == false) {
         store.dispatch('mqtt/setShowList', [...store.state.mqtt.showList, data]);
     }
@@ -50,7 +50,7 @@ export let resize = function (data) {
 export let close = function (data) {
     data.type = 'close';
     sendWSPush(handlerData(data));
-    // 从store中移除对应数据
+    // Remove the corresponding data from the store
     store.dispatch('mqtt/setShowList', store.state.mqtt.showList.filter(item => item.videoId !== data.videoId));
 }
 
@@ -74,7 +74,7 @@ export let showHistory = function () {
     console.log(store.state.mqtt.showList)
     showHistoryCheck = true;
     store.state.mqtt.showList.forEach(item => {
-        // 只调用 show 恢复显示状态，不重复调用 open 避免重复触发播放
+        // Only call show to restore the display state, and do not call open repeatedly to avoid triggering playback repeatedly.
         show(item);
     });
     showHistoryCheck = false;

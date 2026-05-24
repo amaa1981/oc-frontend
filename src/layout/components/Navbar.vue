@@ -17,7 +17,7 @@
 
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
-        <!-- 标准版：设备区域树形选择器 -->
+        <!-- Standard edition: device area tree selector -->
         <treeselect
           v-if="edition === 'standard'"
           v-model="installationArea"

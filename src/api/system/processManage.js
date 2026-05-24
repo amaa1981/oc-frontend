@@ -3,11 +3,11 @@
  * @Date: 2023-06-16 10:42:02
  * @LastEditTime: 2025-05-29 16:36:39
  * @LastEditors: FGJ
- * @Description: 进程管理相关接口
+ * @Description: Process management related interfaces
  * @FilePath: \ruoyi-ui\src\api\system\processManage.js
  */
 import request from '@/utils/request'
-// 查询分析服务器进程信息
+// Query analyzes server process information
 export function getProcessInfo(query) {
   return request({
     url: '/api/manageConfig/analysis/getProcessInfo',
@@ -15,7 +15,7 @@ export function getProcessInfo(query) {
     params: query
   })
 }
-// 重启分析服务器进程
+// Restart analysis server process
 export function restartProcess(query) {
   return request({
     url: '/api/manageConfig/analysis/restartProcess',
@@ -23,7 +23,7 @@ export function restartProcess(query) {
     params: query
   })
 }
-// 查询流媒体服务器进程信息
+// Query streaming server process information
 export function getMediaProcessInfo(query) {
   return request({
     url: '/api/manageConfig/media/getProcessInfo',
@@ -31,7 +31,7 @@ export function getMediaProcessInfo(query) {
     params: query
   })
 }
-// 重启流媒体服务器进程
+// Restart streaming server process
 export function restartMediaProcess(query) {
   return request({
     url: '/api/manageConfig/media/restartProcess',

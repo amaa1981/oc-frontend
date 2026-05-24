@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询手机推送配置列表
+// Query mobile phone push configuration List
 export function listPhonePush(query) {
   return request({
     url: '/api/phone/push',
@@ -9,7 +9,7 @@ export function listPhonePush(query) {
   })
 }
 
-// 查询手机推送配置详细
+// Query mobile push configuration details
 export function getPhonePush(id) {
   return request({
     url: '/api/phone/push/' + id,
@@ -17,7 +17,7 @@ export function getPhonePush(id) {
   })
 }
 
-// 新增手机推送配置
+// Added mobile push configuration
 export function addPhonePush(data) {
   return request({
     url: '/api/phone/push',
@@ -26,7 +26,7 @@ export function addPhonePush(data) {
   })
 }
 
-// 修改手机推送配置
+// Edit mobile push configuration
 export function updatePhonePush(data) {
   return request({
     url: '/api/phone/push',
@@ -35,7 +35,7 @@ export function updatePhonePush(data) {
   })
 }
 
-// 删除手机推送配置
+// Delete mobile push configuration
 export function delPhonePush(ids) {
   return request({
     url: '/api/phone/push/' + ids,

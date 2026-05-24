@@ -34,7 +34,7 @@ export default {
         newPassword: undefined,
         confirmPassword: undefined
       },
-      // 表单校验
+      // Form verification
       rules: {
         oldPassword: [
           { required: true, message: this.$t('commonTips.cannotBeEmpty'), trigger: "blur" }

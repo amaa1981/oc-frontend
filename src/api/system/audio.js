@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询播放音频配置列表
+// Query plays Audio configuration List
 export function listConfig(query) {
   return request({
     url: '/api/audio/config',
@@ -17,7 +17,7 @@ export function listConfig(query) {
   })
 }
 
-// 查询播放音频配置详细
+// Query play Audio configuration details
 export function getConfig(id) {
   return request({
     url: '/api/audio/config/' + id,
@@ -25,7 +25,7 @@ export function getConfig(id) {
   })
 }
 
-// 新增播放音频配置
+// Added playback Audio configuration
 export function addConfig(data) {
   return request({
     url: '/api/audio/config',
@@ -34,7 +34,7 @@ export function addConfig(data) {
   })
 }
 
-// 修改播放音频配置
+// Edit play Audio configuration
 export function updateConfig(data) {
   return request({
     url: '/api/audio/config',
@@ -43,7 +43,7 @@ export function updateConfig(data) {
   })
 }
 
-// 删除播放音频配置
+// Delete playAudio configuration
 export function delConfig(id) {
   return request({
     url: '/api/audio/config/' + id,

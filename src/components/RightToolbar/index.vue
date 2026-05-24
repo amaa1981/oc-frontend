@@ -26,9 +26,9 @@ export default {
   name: "RightToolbar",
   data() {
     return {
-      // 显隐数据
+      // Explicit data
       value: [],
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
     };
   },
@@ -59,7 +59,7 @@ export default {
     }
   },
   created() {
-    // 显隐列初始默认隐藏列
+    // Show and hide columns. The columns are initially hidden by default.
     for (let item in this.columns) {
       if (this.columns[item].visible === false) {
         this.value.push(parseInt(item));
@@ -67,22 +67,22 @@ export default {
     }
   },
   methods: {
-    // 搜索
+    // Search
     toggleSearch() {
       this.$emit("update:showSearch", !this.showSearch);
     },
-    // 刷新
+    // refresh
     refresh() {
       this.$emit("queryTable");
     },
-    // 右侧列表元素变化
+    // Changes to the List element on the right
     dataChange(data) {
       for (let item in this.columns) {
         const key = this.columns[item].key;
         this.columns[item].visible = !data.includes(key);
       }
     },
-    // 打开显隐列dialog
+    // Open the visible column dialog
     showColumn() {
       this.open = true;
     },

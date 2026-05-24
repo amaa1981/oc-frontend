@@ -1,4 +1,4 @@
-<!-- 加油站项目用 -->
+<!-- For gas station projects -->
 <template>
   <div class="app-container">
     <el-form
@@ -30,7 +30,7 @@
         />
       </el-form-item>
 
-      <!-- <el-form-item label="处理状态" prop="status">
+      <!-- <el-form-item label="Processing status" prop="status">
         <el-select
           v-model="queryParams.status"
           placeholder="Select status"
@@ -95,7 +95,7 @@
         >
       </el-col> -->
     </el-row>
-    <!-- 记录列表显示区域 -->
+    <!-- Record List display area -->
     <div class="record-list-container" v-loading="loading">
       <div class="record-grid">
         <div v-for="item in recordList" :key="item.id" class="record-item-card">
@@ -121,14 +121,14 @@
               <div class="info-item" v-if="item.strRes">
                 <label>Detection Result:</label>
                 <div class="detection-results">
-                  <!-- 如果是字符串类型 -->
+                  <!-- If it is a string type -->
                   <ul
                     v-if="typeof item.strRes === 'string'"
                     class="result-list"
                   >
                     <li>{{ item.strRes }}</li>
                   </ul>
-                  <!-- 如果是对象类型 -->
+                  <!-- If it is an object type -->
                   <ul v-else class="result-list">
                     <li
                       v-if="
@@ -305,25 +305,25 @@ export default {
     return {
       IP: "http://" + window.location.hostname,
       strRes: {},
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 告警记录信息表格数据
+      // Alarm record information table data
       recordList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -333,11 +333,11 @@ export default {
         taskName: null,
         status: null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
-        // remarks: [{ required: true, message: "请输入", trigger: "change" }],
+        // remarks: [{ required: true, message: "Please enter", trigger: "change" }],
       },
       pickerOptions: {
         shortcuts: [
@@ -373,17 +373,17 @@ export default {
     };
   },
   created() {
-    // 处理URL参数
+    // Handle URL parameters
     this.handleUrlParams();
-    // //获取天日期yyyy-MM-dd  00:00:00
+    // //Get the day date yyyy-MM-dd 00:00:00
     // this.queryParams.sendTime[0] = this.getNowFormatDate() + " 00:00:00";
-    // //获取天日期yyyy-MM-dd  23:59:59
+    // //Get the day date yyyy-MM-dd 23:59:59
     // this.queryParams.sendTime[1] = this.getNowFormatDate() + " 23:59:59";
     console.log(this.queryParams.sendTime);
     this.getList();
   },
   methods: {
-    // 处理URL参数
+    // Handle URL parameters
     handleUrlParams() {
       const { eventTypeId } = this.$route.query;
       if (eventTypeId) {
@@ -442,12 +442,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: null,
@@ -481,7 +481,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.id);
       this.single = selection.length !== 1;

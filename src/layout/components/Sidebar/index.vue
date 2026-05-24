@@ -22,7 +22,7 @@
             </el-menu>
         </el-scrollbar>
 
-        <!-- 告警卡片，折叠时隐藏 -->
+        <!-- Alarm card, hidden when folded -->
         <div v-if="!isCollapse" class="alarm-card">
             <div class="alarm-card__header">
                 <span class="alarm-card__header-left">
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <!-- 折叠按钮，绝对定位在侧边栏右边缘外 -->
+        <!-- Collapse button, positioned absolutely outside the right edge of the sidebar -->
         <button class="sidebar-toggle-btn" @click="toggleSidebar">
             <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i>
         </button>

@@ -15,9 +15,9 @@
     </div>
 
     <div class="alarm-detail-body">
-      <!-- 左侧：图片/视频 + Automated Findings -->
+      <!-- Left: Image/Video + Automated Findings -->
       <div class="alarm-detail-left">
-        <!-- 媒体区域 -->
+        <!-- media area -->
         <div class="alarm-media">
           <video
             v-if="form.videoUrl"
@@ -36,14 +36,14 @@
           />
         </div>
 
-        <!-- 特殊识别结果区域 -->
+        <!-- Special recognition result area -->
         <div class="alarm-findings" v-if="hasFindings">
           <div class="findings-header">
             <i class="el-icon-data-analysis" />
             <span>{{ $t('record.ppeResult') }}</span>
           </div>
 
-          <!-- 车牌 -->
+          <!-- license plate -->
           <div class="finding-item" v-if="form.eventTypeId == 'BED2D84A-BDAC-49E2-BDA0-AB909D26E11F'
             || form.eventTypeId == '33BB561E-EAE4-4F13-A7E6-A11DE5C7F167'">
             <span class="finding-label">{{ $t('record.plate') }}</span>
@@ -57,7 +57,7 @@
             </span>
           </div>
 
-          <!-- 车辆统计 -->
+          <!-- vehicle statistics -->
           <div class="finding-item" v-if="form.eventTypeId == '0234CA9A-0200-4FE5-9793-859741E689C3'">
             <span class="finding-label">{{ $t('record.vehicleCount') }}</span>
             <span class="finding-value">
@@ -74,25 +74,25 @@
             </span>
           </div>
 
-          <!-- 密度检测 -->
+          <!-- Density detection -->
           <div class="finding-item" v-if="form.eventTypeId == 'F7581B40-A9F9-498E-A510-14F40010C545'">
             <span class="finding-label">{{ $t('record.peoplenum') }}</span>
             <span class="finding-value">{{ form.strRes }}</span>
           </div>
 
-          <!-- 违规停车 -->
+          <!-- Illegal parking -->
           <div class="finding-item" v-if="form.eventTypeId == 'ED32D74B-BDAC-49E2-BDA0-CB906D28E14F'">
             <span class="finding-label">{{ $t('record.busnum') }}</span>
             <span class="finding-value">{{ form.strRes }}</span>
           </div>
 
-          <!-- 摩托车安全帽 -->
+          <!-- motorcycle helmet -->
           <div class="finding-item" v-if="form.eventTypeId == '7f954cb2-b29c-48b9-9a78-8fecf957a212'">
             <span class="finding-label">{{ $t('record.helmetnum') }}</span>
             <span class="finding-value">{{ form.strRes }}</span>
           </div>
 
-          <!-- 人脸识别 -->
+          <!-- face recognition -->
           <template v-if="form.eventTypeId == 'B7A27D32-5274-A1C3-2DA7-8F827B1C8644'">
             <div class="finding-item">
               <span class="finding-label">{{ $t('record.name') }}</span>
@@ -104,13 +104,13 @@
             </div>
           </template>
 
-          <!-- 门状态 -->
+          <!-- door status -->
           <div class="finding-item" v-if="form.eventTypeId == '65EB561E-EAE4-4F13-A7E6-A11DE5C7D163'">
             <span class="finding-label">{{ $t('record.doorStatus') }}</span>
             <span class="finding-value">{{ form.strRes }}</span>
           </div>
 
-          <!-- 年龄性别 -->
+          <!-- Age and gender -->
           <div class="finding-item" v-if="form.eventTypeId == '76B27D32-5274-A1A5-2DA7-8F827B1C8616'">
             <span class="finding-label">{{ $t('record.ageGenderResult') }}</span>
             <span class="finding-value">
@@ -127,7 +127,7 @@
             </span>
           </div>
 
-          <!-- 烟火检测 -->
+          <!-- Pyrotechnic detection -->
           <div class="finding-item" v-if="form.eventTypeId == '7DCD8C8C-FCDC-47EE-80A9-B648CE558FF5'">
             <span class="finding-label">{{ $t('record.smokeFireResult') }}</span>
             <span class="finding-value">
@@ -144,7 +144,7 @@
             </span>
           </div>
 
-          <!-- 跌倒检测 -->
+          <!-- Fall detection -->
           <div class="finding-item" v-if="form.eventTypeId == 'ADEE06F4-9D5F-44A8-8681-507BBF3CADF8'">
             <span class="finding-label">{{ $t('record.fallDetectResult') }}</span>
             <span class="finding-value">
@@ -161,7 +161,7 @@
             </span>
           </div>
 
-          <!-- PPE 手套头套口罩 -->
+          <!-- PPE gloves, headgear and mask -->
           <div class="finding-item ppe-finding" v-if="form.eventTypeId == '27BB5613-D184-4F13-A7E6-671DE5C7F434'">
             <template v-if="ppeList && ppeList.length">
               <div class="ppe-scroll">
@@ -185,7 +185,7 @@
             <span v-else>{{ $t('record.noData') }}</span>
           </div>
 
-          <!-- 口罩耳机检测 -->
+          <!-- Mask and earphone detection -->
           <div class="finding-item" v-if="form.eventTypeId == '27DB5613-D184-4F13-A7E6-671DE5C7F4E6'">
             <span class="finding-label">{{ $t('record.maskEarphoneResult') }}</span>
             <span class="finding-value">
@@ -204,9 +204,9 @@
         </div>
       </div>
 
-      <!-- 右侧：信息卡片 -->
+      <!-- Right: Information card -->
       <div class="alarm-detail-right">
-        <!-- Incident Overview 卡片 -->
+        <!-- Incident Overview card -->
         <div class="info-card">
           <div class="info-card-title">
             <i class="el-icon-date" />
@@ -231,7 +231,7 @@
           </div>
         </div>
 
-        <!-- Device Context 卡片 -->
+        <!-- Device Context card -->
         <div class="info-card">
           <div class="info-card-title">
             <i class="el-icon-video-camera" />
@@ -249,7 +249,7 @@
           </div>
         </div>
 
-        <!-- 备注卡片 -->
+        <!-- Note card -->
         <div class="info-card remarks-card" v-if="form.status == 0">
           <div class="info-card-title">
             <i class="el-icon-edit-outline" />
@@ -264,7 +264,7 @@
           />
         </div>
 
-        <!-- 已处理备注只读 -->
+        <!-- Processed remarks are read-only -->
         <div class="info-card protocol-card" v-if="form.status != 0 && form.remarks">
           <div class="info-card-title">
             <i class="el-icon-warning-outline" />
@@ -275,7 +275,7 @@
       </div>
     </div>
 
-    <!-- 底部按钮 -->
+    <!-- bottom button -->
     <div slot="footer" class="alarm-detail-footer">
       <el-button class="btn-cancel" @click="handleCancel">
         {{ $t('commonBtn.cancel') }}
@@ -576,7 +576,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-// 标题区
+// Title area
 .alarm-detail-header {
   .alarm-detail-title {
     font-size: 16px;
@@ -591,14 +591,14 @@ export default {
   }
 }
 
-// 主体两栏布局
+// Main body two column layout
 .alarm-detail-body {
   display: flex;
   gap: 0;
   min-height: 400px;
 }
 
-// 左侧
+// left side
 .alarm-detail-left {
   flex: 1;
   padding: 20px;
@@ -622,7 +622,7 @@ export default {
   }
 }
 
-// Findings 区域
+// Findings area
 .alarm-findings {
   background: #fff;
   border: 1px solid #f0f2f5;
@@ -665,7 +665,7 @@ export default {
     }
   }
 
-  // PPE 行
+  // PPE line
   .ppe-scroll {
     max-height: 160px;
     overflow-y: auto;
@@ -714,7 +714,7 @@ export default {
   }
 }
 
-// 右侧
+// right side
 .alarm-detail-right {
   width: 260px;
   flex-shrink: 0;
@@ -725,7 +725,7 @@ export default {
   background: #fafbfc;
 }
 
-// 信息卡片
+// Information card
 .info-card {
   background: #fff;
   border: 1px solid #f0f2f5;
@@ -767,7 +767,7 @@ export default {
     }
   }
 
-  // 算法类型标签
+  // Algorithm typeLabel
   .algo-tag {
     display: inline-flex;
     align-items: center;
@@ -784,7 +784,7 @@ export default {
   }
 }
 
-// 备注卡片
+// Note card
 .remarks-card {
   ::v-deep .remarks-input .el-textarea__inner {
     border-radius: 8px;
@@ -799,7 +799,7 @@ export default {
   }
 }
 
-// Protocol 深色卡片
+// Protocol dark card
 .protocol-card {
   background: #1e2d3d !important;
   border-color: #1e2d3d !important;
@@ -817,7 +817,7 @@ export default {
   }
 }
 
-// 底部按钮
+// bottom button
 .alarm-detail-footer {
   display: flex;
   justify-content: flex-end;

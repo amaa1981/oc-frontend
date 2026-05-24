@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-tabs v-model="activeTab" @tab-click="handleTabClick">
       <el-tab-pane :label="$t('push.httpPush')" name="http">
-        <!-- HTTP推送配置 -->
+        <!-- HTTP push configuration -->
         <el-form
           :model="queryParams"
           ref="queryForm"
@@ -143,7 +143,7 @@
       </el-tab-pane>
 
       <el-tab-pane :label="$t('push.phonePush')" name="phone">
-        <!-- 手机推送配置 -->
+        <!-- Mobile push configuration -->
         <el-form
           :model="phoneQueryParams"
           ref="phoneQueryForm"
@@ -284,7 +284,7 @@
       </el-tab-pane>
     </el-tabs>
 
-    <!-- 添加或修改http推送配置对话框 -->
+    <!-- Add or Edithttp push configuration dialog -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item :label="$t('push.httpAddress')" prop="connectInfo">
@@ -326,7 +326,7 @@
       </div>
     </el-dialog>
 
-    <!-- 添加或修改手机推送配置对话框 -->
+    <!-- Add or Edit mobile push configuration dialog box -->
     <el-dialog :title="phoneTitle" :visible.sync="phoneOpen" width="500px" append-to-body>
       <el-form ref="phoneForm" :model="phoneForm" :rules="phoneRules" label-width="100px">
         <el-form-item :label="$t('push.phone')" prop="phone">
@@ -391,27 +391,27 @@ export default {
   dicts: ["v1_startup_status", "v1_alarm_type"],
   data() {
     return {
-      // 当前激活的tab
+      // Currently active tab
       activeTab: "http",
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // http推送配置表格数据
+      // http push configuration form data
       configList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -419,9 +419,9 @@ export default {
         status: null,
         alarmType: null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
-      // 表单校验
+      // Form verification
       rules: {
         connectInfo: [
           { required: true, message: this.$t('push.httpAddressRequired'), trigger: "blur" },
@@ -433,7 +433,7 @@ export default {
           { required: true, message: this.$t('push.alarmTypeRequired'), trigger: "change" },
         ],
       },
-      // 手机推送相关
+      // Mobile push related
       phoneLoading: true,
       phoneIds: [],
       phoneSingle: true,
@@ -467,7 +467,7 @@ export default {
     this.getList();
   },
   methods: {
-    // Tab切换
+    // Tab switch
     handleTabClick(tab) {
       if (tab.name === "http") {
         this.getList();
@@ -475,7 +475,7 @@ export default {
         this.getPhoneList();
       }
     },
-    //选中推送报警全部时，清空其他选项
+    //When Push Alarm All is selected, clear other Options.
     changeAlarmType(e) {
       let that = this;
       if (e[e.length - 1] == "0") {
@@ -501,12 +501,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: null,
@@ -526,7 +526,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.id);
       this.single = selection.length !== 1;
@@ -586,7 +586,7 @@ export default {
         .catch(() => {});
     },
 
-    // ========== 手机推送相关方法 ==========
+    // ========== Mobile push related methods ==========
     changePhoneAlarmType(e) {
       let that = this;
       if (e[e.length - 1] == "0") {

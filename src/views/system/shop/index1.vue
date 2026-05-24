@@ -64,7 +64,7 @@
       </el-form-item>
     </el-form>
 
-    <!-- 今日数据展示 -->
+    <!-- Today's data display -->
 
     <el-row :gutter="10" class="mb8">
       <right-toolbar
@@ -73,7 +73,7 @@
       ></right-toolbar>
     </el-row>
 
-    <!-- 表格展示 -->
+    <!-- Table display -->
 
     <el-table v-loading="loading" :data="shopCountList">
       <el-table-column
@@ -147,23 +147,23 @@ export default {
   dicts: ["v1_device_area"],
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 客流统计列表
+      // Passenger flow statistics list
       shopCountList: [],
-      // 今日数据
+      // Today's data
       todayData: {
         passNum: 0,
         enterNum: 0,
         dateTime: "",
       },
-      // 日期范围
+      // date range
       dateRange: [],
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -171,12 +171,12 @@ export default {
         endTime: null,
         installationArea: localStorage.getItem('installationArea') || null,
       },
-      // 图表实例
+      // Chart example
       chartInstance: null,
-      // 日期选择器配置
+      // Date picker configuration
       pickerOptions: {
         disabledDate(time) {
-          // 禁用明天及之后的日期
+          // Disable tomorrow and later dates
           const today = new Date();
           today.setHours(23, 59, 59, 999);
           return time.getTime() > today.getTime();
@@ -185,15 +185,15 @@ export default {
     };
   },
   computed: {
-    // 总经过客流
+    // Passenger flow
     totalPassNum() {
       return this.shopCountList.reduce((sum, item) => sum + item.passNum, 0);
     },
-    // 总进店客流
+    // Total in-store customer flow
     totalEnterNum() {
       return this.shopCountList.reduce((sum, item) => sum + item.enterNum, 0);
     },
-    // 平均进店率
+    // Average store entry rate
     avgEnterRate() {
       if (this.totalPassNum === 0) return "0%";
       return ((this.totalEnterNum / this.totalPassNum) * 100).toFixed(2) + "%";
@@ -202,7 +202,7 @@ export default {
   created() {
     this.getTodayData();
     this.getList();
-    // 监听设备区域变化
+    // Monitor device area changes
     this.$bus.$on('installationAreaChange', this.onInstallationAreaChange);
   },
   beforeDestroy() {
@@ -210,14 +210,14 @@ export default {
     if (this.chartInstance) {
       this.chartInstance.dispose();
     }
-    // 移除监听
+    // Remove listening
     this.$bus.$off('installationAreaChange', this.onInstallationAreaChange);
   },
   mounted() {
     window.addEventListener("resize", this.resizeChart);
   },
   methods: {
-    // 设备区域变化处理
+    // Device area change processing
     onInstallationAreaChange(val) {
       this.queryParams.installationArea = val || null;
       this.getTodayData();
@@ -245,7 +245,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.error("获取今日数据失败:", error);
+          console.error("Failed to fetch today's data:", error);
           this.todayData = {
             passNum: 0,
             enterNum: 0,
@@ -259,13 +259,13 @@ export default {
       getShopCountPage(this.queryParams).then((response) => {
         let records = response.data.records || [];
 
-        // 如果没有设置时间范围，确保今日数据在第一位
+        // If no time range is set, make sure today's data is first
         // if (!this.queryParams.startTime && !this.queryParams.endTime) {
-        //   // 过滤掉今日数据（如果已存在）
+        //   // Filter out today's data (if it already exists)
         //   const today = new Date().toISOString().slice(0, 10);
         //   records = records.filter((item) => !item.dateTime.startsWith(today));
 
-        //   // 将今日数据插入到第一位
+        //   //Insert today's data to the first position
         //   if (
         //     this.todayData &&
         //     (this.todayData.passNum > 0 || this.todayData.enterNum > 0)
@@ -320,15 +320,15 @@ export default {
         this.chartInstance.dispose();
       }
 
-      // 准备数据
+      // Prepare data
       const dateList = this.shopCountList.map((item) => item.dateTime);
       const passNumList = this.shopCountList.map((item) => item.passNum);
       const enterNumList = this.shopCountList.map((item) => item.enterNum);
 
-      // 初始化图表
+      // Initialize chart
       this.chartInstance = echarts.init(this.$refs.shopFlowChart);
 
-      // 配置图表选项
+      // Configure chart options
       const option = {
         tooltip: {
           trigger: "axis",
@@ -388,7 +388,7 @@ export default {
         ],
       };
 
-      // 设置图表选项
+      // Set chart options
       this.chartInstance.setOption(option);
     },
     /** Resize chart */

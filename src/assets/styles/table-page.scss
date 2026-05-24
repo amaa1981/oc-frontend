@@ -1,9 +1,9 @@
 /**
- * 全局表格页面样式覆盖
- * 查询条件、按钮、表格、分页 — 匹配 Figma 设计稿
+ * Global table page style override
+ * Query conditions, buttons, tables, pagination — matching Figma design draft
  */
 
-// ==================== 页面容器白色卡片 ====================
+// ==================== Page container white card ====================
 .app-container {
   background: #fff;
   border-radius: 12px;
@@ -11,7 +11,7 @@
   padding: 0 20px 20px !important;
 }
 
-// ==================== 查询表单区域 ====================
+// ==================== QueryForm area ====================
 .app-container {
   > .el-form--inline {
     display: flex;
@@ -28,11 +28,11 @@
       line-height: 16px !important;
     }
 
-    // 操作按钮推到右侧
+    // Actions pushed to the right
     .form-actions-right {
       margin-left: auto;
 
-      // 删除按钮 — 红色描边
+      // Delete button — red stroke
       .el-button--danger.is-plain {
         background-color: #fff;
         border: 1px solid #ef4444;
@@ -50,7 +50,7 @@
         }
       }
 
-      // 编辑/导出/其他按钮 — 灰色描边
+      // Edit/Export/Other buttons — gray stroke
       .el-button--success.is-plain,
       .el-button--warning.is-plain,
       .el-button--info.is-plain {
@@ -81,7 +81,7 @@
       width: auto !important;
     }
 
-    // 输入框 & 选择器
+    // Input & Selector
     .el-input__inner {
       border-radius: 8px;
       border: 1px solid #e5e7eb;
@@ -105,7 +105,7 @@
       border-radius: 8px;
     }
 
-    // 搜索按钮 — 绿色填充 #10B981
+    // Search Button — Green Fill #10B981
     .el-button--primary {
       background: linear-gradient( 270deg, #0F6A71 0%, #29908D 100%), linear-gradient( 90deg, #01BBAA 0%, #01A0BD 100%);
       box-shadow: 0px 0px 0px 1px #156475;
@@ -122,7 +122,7 @@
       }
     }
 
-    // 重置按钮 — 白底灰边框
+    // Reset button — gray border on white background
     .el-button--default {
       border-radius: 8px;
       border: 1px solid #e5e7eb;
@@ -142,14 +142,14 @@
   }
 }
 
-// ==================== 操作按钮行 ====================
+// ==================== Actions row ====================
 .app-container {
   > .mb8,
   .area-toolbar {
     margin-bottom: 16px !important;
     padding-top: 14px;
 
-    // 新增按钮 — 绿色填充
+    // Add button — green fill
     .el-button--primary.is-plain {
       background: linear-gradient( 270deg, #0F6A71 0%, #29908D 100%), linear-gradient( 90deg, #01BBAA 0%, #01A0BD 100%);
       box-shadow: 0px 0px 0px 1px #156475;
@@ -166,7 +166,7 @@
       }
     }
 
-    // 删除按钮 — 红色描边
+    // Delete button — red stroke
     .el-button--danger.is-plain {
       background-color: #fff;
       border: 1px solid #ef4444;
@@ -184,7 +184,7 @@
       }
     }
 
-    // 编辑/其他按钮 — 灰色描边
+    // Edit/Other button — gray stroke
     .el-button--success.is-plain,
     .el-button--warning.is-plain,
     .el-button--info.is-plain {
@@ -208,31 +208,31 @@
   .el-select-dropdown__item.selected{
         color: #29908D !important;
      }
-// ==================== 表格样式 ====================
+// ==================== Table style ====================
 .el-table {
   border: none !important;
   border-radius: 0;
 
-  // 去掉表格前后伪元素边框线
+  // Remove the border lines of pseudo elements before and after the table
   &::before,
   &::after {
     display: none !important;
   }
 
-  // 恢复 .cell 的内边距，防止 checkbox 布局错乱产生多余圆点
+  // Restore the padding of .cell to prevent checkbox layout from being messed up and causing redundant dots
   .cell {
     padding-left: 10px !important;
     padding-right: 10px !important;
   }
 
-  // 复选框列禁用省略号，防止 ellipsis 渲染成小点
+  // Checkbox column disables ellipses to prevent ellipsis from rendering into small dots
   .el-table-column--selection .cell {
     text-overflow: clip !important;
     overflow: visible !important;
     white-space: nowrap !important;
   }
 
-  // 表头 — 白底灰色文字，无背景色
+  // Header - gray text on white background, no background color
   .el-table__header-wrapper,
   .el-table__fixed-header-wrapper {
     th {
@@ -245,13 +245,13 @@
       padding: 0 12px;
     }
 
-    // 去掉表头底部多余的 border
+    // Remove the extra border at the bottom of the header
     th.is-leaf {
       border-bottom: 1px solid #e5e7eb !important;
     }
   }
 
-  // 表体行
+  // Table body line
   .el-table__body {
     tr {
       transition: background 0.15s;
@@ -269,14 +269,14 @@
         background-color: #f9fafb !important;
       }
 
-      // 最后一行不要底线
+      // No bottom line in the last line
       &:last-child td {
         border-bottom: none !important;
       }
     }
   }
 
-  // 去掉固定列阴影
+  // Remove fixed column shadow
   .el-table__fixed,
   .el-table__fixed-right {
     &::before {
@@ -285,7 +285,7 @@
     box-shadow: none !important;
   }
 
-  // 表格内文字按钮
+  // Text button in table
   .el-button--text {
     color: #374151;
     font-weight: 500;
@@ -296,13 +296,13 @@
       color: #10b981;
     }
 
-    // 有显式颜色 class 时不覆盖 hover
+    // Hover is not overridden when there is an explicit color class
     &.btn-view:hover { color: #059669 !important; }
     &.btn-edit:hover { color: #2563eb !important; }
     &.btn-delete:hover { color: #dc2626 !important; }
   }
 
-  // 状态标签 — 胶囊圆角填充
+  // Status Label — Capsule fillet filling
   .cell .el-tag {
     border-radius: 999px;
     padding: 0 14px;
@@ -335,7 +335,7 @@
   }
 }
 
-// ==================== 分页样式 ====================
+// ==================== Pagination style ====================
 .pagination-container {
   padding: 16px 0 !important;
   margin-top: 0 !important;
@@ -352,7 +352,7 @@
     padding: 0;
     font-weight: 400;
 
-    // "共 X 条" — 绿色左对齐
+    // "X total" — green left-justified
     .el-pagination__total {
       margin-right: auto;
       color: #10b981;
@@ -361,7 +361,7 @@
       order: -1;
     }
 
-    // 每页条数
+    // Number of items per page
     .el-pagination__sizes {
       order: 0;
       margin-left: auto;
@@ -376,7 +376,7 @@
       }
     }
 
-    // 上一页 / 下一页
+    // Previous page / next page
     .btn-prev,
     .btn-next {
       background: #fff !important;
@@ -400,7 +400,7 @@
       }
     }
   
-    // 页码
+    // page number
     .el-pager {
       list-style: none;
       padding: 0;
@@ -433,7 +433,7 @@
       }
     }
 
-    // 跳转
+    // Jump
     .el-pagination__jump {
       font-size: 13px;
       color: #6b7280;
@@ -449,7 +449,7 @@
   }
 }
 
-// ==================== 无搜索表单页面工具栏 ====================
+// ==================== No SearchForm page toolbar ====================
 .area-toolbar {
   display: flex;
   align-items: center;
@@ -464,36 +464,36 @@
   }
 }
 
-// ==================== 操作列按钮颜色（全局） ====================
+// ==================== Action column button color (global) ====================
 // Element UI renders icon prop as <i class="el-icon-xxx"> inside the button
 // We color the button via its icon child's class on the parent button
 
 .el-table .cell {
-  // 查看/详情 — 绿色
+  // View/Details — Green
   .el-button--text.btn-view {
     color: #0abf8a !important;
     &:hover { color: #059669 !important; }
   }
 
-  // 编辑 — 蓝色
+  // Edit — blue
   .el-button--text.btn-edit {
     color: #3b82f6 !important;
     &:hover { color: #2563eb !important; }
   }
 
-  // 删除 — 红色
+  // Delete — red
   .el-button--text.btn-delete {
     color: #f05252 !important;
     &:hover { color: #dc2626 !important; }
   }
 
-  // 通过图标子元素推断按钮颜色（无显式 class 时的兜底）
+  // Infer button color from icon sub-element（No explicit class The secret of time）
   .el-button--text .el-icon-edit { color: #3b82f6; }
   .el-button--text .el-icon-delete { color: #f05252; }
   .el-button--text .el-icon-view,
   .el-button--text .el-icon-search { color: #0abf8a; }
 
-  // 让按钮文字跟随图标颜色（通过 inherit）
+  // Let Button Text follow icon color (via inherit)
   .el-button--text:not(.btn-view):not(.btn-edit):not(.btn-delete) {
     &:has(.el-icon-edit) { color: #3b82f6 !important; }
     &:has(.el-icon-delete) { color: #f05252 !important; }
@@ -502,7 +502,7 @@
   }
 }
 
-// 操作列竖线分隔符
+// Operation column vertical bar Separator
 .action-divider {
   display: inline-block;
   width: 1px;
@@ -512,7 +512,7 @@
   vertical-align: middle;
 }
 
-// ==================== 在线/离线状态胶囊（全局） ====================
+// ==================== Online/Offline Status Capsule (Global) ====================
 .device-status {
   display: inline-flex;
   align-items: center;
@@ -545,15 +545,15 @@
   }
 }
 
-// ==================== 弹窗全局样式 ====================
+// ==================== Pop-up window global style ====================
 
-// 全局 el-form-item__label 行高修正（防止长文字折行撑高）
+// Global el-form-item__label line height correction (to prevent long text from being folded and raised)
 .el-form-item__label {
   line-height: 16px !important;
   font-size: 13px;
 }
 
-// 全局 Switch 绿色主题
+// Global Switch green theme
 .el-switch.is-checked .el-switch__core {
   background-color: #29908d !important;
   border-color: #29908d !important;
@@ -614,7 +614,7 @@
     max-height: 72vh;
     overflow-y: auto;
 
-    // label-position="top" 时表单项垂直排列
+    // label-position="top" when Form item Vertical Align
     .el-form--label-top {
       .el-form-item {
         display: block;
@@ -644,7 +644,7 @@
       }
     }
 
-    // 表单标签（非 top 模式兜底）
+    // FormLabel (non-top mode)
     .el-form-item__label {
       font-size: 13px;
       font-weight: 500;
@@ -654,7 +654,7 @@
       white-space: nowrap;
     }
 
-    // 输入框
+    // Input
     .el-input__inner,
     .el-textarea__inner {
       border-radius: 10px;
@@ -673,7 +673,7 @@
       }
     }
 
-    // 下拉选择器
+    // drop down selector
     .el-select {
       width: 100%;
 
@@ -694,7 +694,7 @@
       gap: 12px;
     }
 
-    // 取消按钮
+    // Cancel
     .el-button--default {
       border-radius: 12px;
       border: 1px solid #e5e7eb;
@@ -712,7 +712,7 @@
       }
     }
 
-    // 确认按钮 — 渐变绿
+    // Confirm button - gradient green
     .el-button--primary {
       background: linear-gradient(270deg, #0f6a71 0%, #29908d 100%);
       box-shadow: 0 0 0 1px #41ad95;
@@ -732,7 +732,7 @@
   }
 }
 
-// MessageBox 确认弹窗按钮样式
+// MessageBox confirmation pop-up button style
 .el-message-box {
   border-radius: 16px !important;
 

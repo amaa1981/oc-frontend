@@ -138,7 +138,7 @@ export default {
       showSearch: true,
       // Total count
       total: 0,
-      // 记录列表
+      // Record List
       recordList: [],
       // Date range
       dateRange: [],
@@ -152,10 +152,10 @@ export default {
         eventTypeId: "45BB561E-EA54-4F13-A7E6-A11DE5C75648",
         installationArea: localStorage.getItem('installationArea') || null,
       },
-      // 日期选择器配置
+      // Date picker configuration
       pickerOptions: {
         disabledDate(time) {
-          // 禁用明天及之后的日期
+          // Disable tomorrow and later dates
           const today = new Date();
           today.setHours(23, 59, 59, 999);
           return time.getTime() > today.getTime();
@@ -165,15 +165,15 @@ export default {
   },
   created() {
     this.getList();
-    // 监听设备区域变化
+    // Monitor device area changes
     this.$bus.$on('installationAreaChange', this.onInstallationAreaChange);
   },
   beforeDestroy() {
-    // 移除监听
+    // Remove listening
     this.$bus.$off('installationAreaChange', this.onInstallationAreaChange);
   },
   methods: {
-    // 设备区域变化处理
+    // Device area change processing
     onInstallationAreaChange(val) {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
@@ -200,7 +200,7 @@ export default {
       try {
         const resObj = JSON.parse(strRes);
         if (resObj.retention && Array.isArray(resObj.retention)) {
-          // 提取所有guestId并用逗号连接
+          // Extract all guestIds and concatenate with comma
           const guestIds = resObj.retention
             .map((item) => item.guestId)
             .filter((id) => id) // Filter empty values
@@ -221,7 +221,7 @@ export default {
       try {
         const resObj = JSON.parse(strRes);
         if (resObj.retention && Array.isArray(resObj.retention)) {
-          // 提取所有regionId并用逗号连接
+          // Extract all regionIds and concatenate with comma
           const regionIds = resObj.retention
             .map((item) => item.regionId)
             .filter((id) => id) // Filter empty values
@@ -242,7 +242,7 @@ export default {
       try {
         const resObj = JSON.parse(strRes);
         if (resObj.retention && Array.isArray(resObj.retention)) {
-          // 提取所有cameraIp并用逗号连接
+          // Extract all cameraIps and concatenate with comma
           const cameraIps = resObj.retention
             .map((item) => item.cameraIp)
             .filter((ip) => ip) // Filter empty values
@@ -263,7 +263,7 @@ export default {
       try {
         const resObj = JSON.parse(strRes);
         if (resObj.retention && Array.isArray(resObj.retention)) {
-          // 提取所有begTime并用逗号连接
+          // Extract all begTime and concatenate with comma
           const begTimes = resObj.retention
             .map((item) => item.begTime)
             .filter((time) => time) // Filter empty values
@@ -284,7 +284,7 @@ export default {
       try {
         const resObj = JSON.parse(strRes);
         if (resObj.retention && Array.isArray(resObj.retention)) {
-          // 提取所有endTime并用逗号连接
+          // Extract all endTime and concatenate with comma
           const endTimes = resObj.retention
             .map((item) => item.endTime)
             .filter((time) => time) // Filter empty values
@@ -306,7 +306,7 @@ export default {
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
-      // 保持固定参数不变
+      // Keep fixed parameters unchanged
       this.queryParams.startTime = null;
       this.queryParams.endTime = null;
       this.queryParams.recordUrl1 = 10;

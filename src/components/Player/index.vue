@@ -52,23 +52,23 @@ export default {
       resizeObserver: null,
       position: null,
       playInfo: null,
-      // 防抖 -- 缩放
+      // Anti-Shake -- Zoom
       debounceResize: _.debounce(resize, 50),
-      // 防抖 -- 移动
+      // Anti-Shake - Mobile
       debounceMove: _.debounce(move, 50),
-      // 防抖 -- 隐藏视频
+      // Anti-shake -- Hide Video
       debounceHidden: _.debounce(hidden, 16),
-      // 防抖 -- 显示视频
+      // Anti-Shake -- Display Video
       debounceShow: _.debounce(show, 16),
-      // 防抖 -- 创建视频
+      // Anti-shake -- Create Video
       debounceOpen: _.debounce(open, 16),
-      // 防抖 -- 关闭视频
+      // Anti-shake -- turn off Video
       debounceClose: _.debounce(close, 16),
     };
   },
   created() {
     let _this = this;
-    // 挂载全局事件
+    // Mount global events
     this.$bus.$on("move", () => {
       this.$nextTick(() => {
         _this.handlerScreenMove();
@@ -94,22 +94,22 @@ export default {
     "config.type": {
       handler(newVal, oldVal) {
         if (newVal === "open" && oldVal === "show") {
-          // 此情景为此分屏正在播放视频，但需切换新的视频
+          // In this scenario, a video is being played on the split screen, but a new video needs to be switched.
           this.destroyStream();
           this.createStream();
         } else if (newVal === "open") {
-          // 此情景为此分屏第一次创建视频
+          // This scenario creates a Video for the first time for this split screen
           this.createStream();
         } else if (newVal === "show" && oldVal === "hidden") {
-          // 此情景为标签页切回或关闭浏览器最小化后显示视频
+          // In this scenario, the Label page is switched back or the Video is displayed after closing the browser and minimizing it.
           this.$nextTick(() => {
             this.handlerScreenShow();
           });
         } else if (newVal === "hidden" && oldVal === "show") {
-          // 此情景为标签页切走或浏览器最小化后隐藏视频
+          // In this case, the Label page is cut away or the Video is hidden after the browser is minimized.
           this.handlerHidden();
         } else if (newVal === "show") {
-          // 此情景展示之前切换到更少分屏时被隐藏的视频
+          // This scenario shows the video that was previously hidden when Switched to less split screen
           this.$nextTick(() => {
             this.handlerScreenShow();
           });
@@ -120,13 +120,13 @@ export default {
     },
   },
   methods: {
-    // 隐藏视频
+    // HideVideo
     handlerHidden() {
       this.debounceHidden({
         videoId: this.config.videoId,
       });
     },
-    // 显示视频
+    // Show Video
     handlerScreenShow() {
       this.position = getElementPosition(
         this.$refs[`player${this.config.id}`],
@@ -141,7 +141,7 @@ export default {
         rtspUrl: this.config.rtspUrl,
       };
     },
-    // 画面移动
+    // screen movement
     handlerScreenMove() {
       if (this.config.type !== "show") return;
       this.position = getElementPosition(
@@ -153,7 +153,7 @@ export default {
         videoId: this.config.videoId,
       });
     },
-    // 画面缩放
+    // Screen zoom
     handlerScreenResize() {
       if (this.config.type !== "show") return;
       this.position = getElementPosition(
@@ -174,7 +174,7 @@ export default {
         })
       );
     },
-    // 连接视频流
+    // Connect Video Stream
     createStream() {
       this.position = getElementPosition(
         this.$refs[`player${this.config.id}`],
@@ -195,7 +195,7 @@ export default {
         rtspUrl: this.config.rtspUrl,
       };
     },
-    // 销毁视频流
+    // DestroyVideo streaming
     destroyStream() {
       this.debounceClose({
         videoId: this.playInfo.videoId,

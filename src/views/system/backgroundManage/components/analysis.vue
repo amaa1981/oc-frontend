@@ -10,7 +10,7 @@
   <div class="app-container">
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-refresh-left" size="mini" @click="restart">重启</el-button>
+        <el-button type="primary" plain icon="el-icon-refresh-left" size="mini" @click="restart">Restart</el-button>
       </el-col>
     </el-row>
 
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       processList: [],
-      // 遮罩层
+      // Loading state
       loading: false,
     }
   },

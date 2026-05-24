@@ -218,7 +218,7 @@ export default {
       single: true,
       // Multiple disabled
       multiple: true,
-      // 选择用户名
+      // Select username
       selectName: "",
       // Show search
       showSearch: true,
@@ -226,9 +226,9 @@ export default {
       total: 0,
       // Table data
       list: [],
-      // 日期范围
+      // date range
       dateRange: [],
-      // 默认排序
+      // Default sort
       defaultSort: { prop: "loginTime", order: "descending" },
       // Query params
       queryParams: {
@@ -241,9 +241,9 @@ export default {
     };
   },
   created() {
-    //获取天日期yyyy-MM-dd  00:00:00
+    //Get day date yyyy-MM-dd 00:00:00
     this.dateRange[0] = this.getNowFormatDate() + " 00:00:00";
-    //获取天日期yyyy-MM-dd  23:59:59
+    //Get day date yyyy-MM-dd 23:59:59
     this.dateRange[1] = this.getNowFormatDate() + " 23:59:59";
     this.getList();
   },

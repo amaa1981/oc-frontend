@@ -20,7 +20,7 @@
       <i class="el-icon-plus"></i>
     </el-upload>
 
-    <!-- 上传提示 -->
+    <!-- Upload tips -->
     <div class="el-upload__tip" slot="tip" v-if="showTip">
       {{ $t("imageUpload.pleaseUpload") }}
       <template v-if="fileSize">
@@ -64,12 +64,12 @@ export default {
       type: Number,
       default: 5,
     },
-    // 文件类型, 例如['png', 'jpg', 'jpeg']
+    // File Type, such as ['png', 'jpg', 'jpeg']
     fileType: {
       type: Array,
       default: () => ["png", "jpg", "jpeg"],
     },
-    // 是否显示提示
+    // Whether to Show Tip
     isShowTip: {
       type: Boolean,
       default: true,
@@ -94,9 +94,9 @@ export default {
     value: {
       handler(val) {
         if (val) {
-          // 首先将值转为数组
+          // First convert the value into an array
           const list = Array.isArray(val) ? val : this.value.split(",");
-          // 然后将数组转为对象数组
+          // Then convert the array into an object array
           this.fileList = list.map((item) => {
             if (typeof item === "string") {
               if (item.indexOf(this.baseUrl) === -1) {
@@ -117,7 +117,7 @@ export default {
     },
   },
   computed: {
-    // 是否显示提示
+    // Whether to Show Tip
     showTip() {
       return this.isShowTip && (this.fileType || this.fileSize);
     },
@@ -161,7 +161,7 @@ export default {
       this.$modal.loading(this.$t("imageUpload.loadingText"));
       this.number++;
     },
-    // 文件个数超出
+    // The number of files exceeds
     handleExceed() {
       this.$modal.msgError(
         this.$t("imageUpload.sumLimit", { limit: this.limit })
@@ -203,12 +203,12 @@ export default {
         this.$modal.closeLoading();
       }
     },
-    // 预览
+    // Preview
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    // 对象转成指定字符串分隔
+    // Convert the object to the specified string delimited
     listToString(list, separator) {
       let strs = "";
       separator = separator || ",";
@@ -223,11 +223,11 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-// .el-upload--picture-card 控制加号部分
+// .el-upload--picture-card controls the plus part
 ::v-deep.hide .el-upload--picture-card {
   display: none;
 }
-// 去掉动画效果
+// Remove animation effect
 ::v-deep .el-list-enter-active,
 ::v-deep .el-list-leave-active {
   transition: all 0s;

@@ -234,7 +234,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改设备信息对话框 -->
+    <!-- Add or Edit device information dialog box -->
     <el-dialog
       :title="title"
       :visible.sync="open"
@@ -243,7 +243,7 @@
       :close-on-click-modal="false"
     >
       <el-form ref="form" :model="form" :rules="rules" label-position="top">
-        <!-- 设备名称 — 全宽 -->
+        <!-- Device name - full width -->
         <el-form-item :label="$t('device.deviceName')" prop="deviceName">
           <el-input
             v-model="form.deviceName"
@@ -251,7 +251,7 @@
           />
         </el-form-item>
 
-        <!-- 设备类型 + 厂商类型 -->
+        <!-- Device type + vendor type -->
         <el-row :gutter="16">
           <el-col :span="12">
             <el-form-item :label="$t('device.deviceType')" prop="deviceType">
@@ -288,7 +288,7 @@
           </el-col>
         </el-row>
 
-        <!-- 协议类型 + 设备区域 -->
+        <!-- Protocol type + device area -->
         <el-row :gutter="16">
           <el-col :span="12">
             <el-form-item :label="$t('device.protocolType')" prop="protocolType">
@@ -309,7 +309,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item :label="$t('device.installationArea')" prop="installationArea">
-              <!-- 标准版：树形选择器 -->
+              <!-- Standard edition: tree selector -->
               <treeselect
                 v-if="edition === 'standard'"
                 v-model="form.installationArea"
@@ -317,7 +317,7 @@
                 :show-count="true"
                 :placeholder="$t('commonTips.pleaseSelect')"
               />
-              <!-- 沙特版：字典下拉 -->
+              <!-- Saudi edition: dictionary select -->
               <el-select
                 v-else
                 v-model="form.installationArea"
@@ -335,7 +335,7 @@
           </el-col>
         </el-row>
 
-        <!-- 安装位置 — 全宽 -->
+        <!-- Installation Location — full width -->
         <el-form-item :label="$t('device.installationLocation')" prop="installationLocation">
           <el-input
             v-model="form.installationLocation"
@@ -364,7 +364,7 @@
           </el-col>
         </el-row>
 
-        <!-- 用户名 + 密码 -->
+        <!-- Username + Password -->
         <el-row :gutter="16">
           <el-col :span="12">
             <el-form-item :label="$t('device.userName')" prop="userName">
@@ -384,7 +384,7 @@
           </el-col>
         </el-row>
 
-        <!-- nvr显示的字段 -->
+        <!-- Fields displayed by nvr -->
         <el-form-item
           :label="$t('device.deviceChannel')"
           prop="deviceChannel"
@@ -396,7 +396,7 @@
           />
         </el-form-item>
 
-        <!-- rtsp需要显示的字段 -->
+        <!-- Fields that rtsp needs to display -->
         <template
           v-if="
             form.protocolType == 7 ||
@@ -418,7 +418,7 @@
           </el-form-item>
         </template>
 
-        <!-- 坐标 — 全宽 -->
+        <!-- Coordinates - full width -->
         <el-form-item :label="$t('device.coordinate')" prop="coordinate">
           <div class="coordinate-row">
             <el-input
@@ -461,7 +461,7 @@
             ></el-button>
           </el-input>
 
-          <!-- Mapbox 地图 -->
+          <!-- Mapbox map -->
           <mapbox-map
             v-if="dialogMap && mapReady"
             :center="amapCenter"
@@ -475,7 +475,7 @@
             ref="deviceMap"
           ></mapbox-map>
 
-          <!-- 地图加载提示 -->
+          <!-- Map loading prompt -->
           <div
             v-else-if="dialogMap && !mapReady"
             class="map-loading-placeholder"
@@ -528,7 +528,7 @@
       </div>
     </el-dialog>
 
-    <!-- 监控弹窗组件 -->
+    <!-- Monitor pop-up window components -->
     <el-dialog
       :title="$t('device.monitor')"
       :visible.sync="dialogPlayer"
@@ -565,7 +565,7 @@ import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import { deptTreeSelect } from "@/api/system/user";
 
-// 获取全局地图默认中心坐标
+// Get the default center coordinates of the global map
 const defaultCenter = settings.mapConfig?.defaultCenter ;
 export default {
   name: "Device",
@@ -583,29 +583,29 @@ export default {
   },
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 设备信息表格数据
+      // Device information table data
       deviceList: [],
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 部门树选项（标准版使用）
+      // Department Tree Options (for standard version)
       deptOptions: [],
-      // 版本类型
+      // Edition type
       edition: settings.edition || 'saudi',
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -617,10 +617,10 @@ export default {
         protocolType: null,
         installationArea: localStorage.getItem('installationArea') || null,
       },
-      // 表单参数
+      // Form parameters
       form: {},
       disabled: false,
-      // 表单校验
+      // Form verification
       rules: {
         deviceName: [
           {
@@ -737,7 +737,7 @@ export default {
       fullscreen: false, // Monitor dialog fullscreen
       select: mapConfig.mapType, // Map type
       map: null,
-      // Mapbox 地图相关配置
+      // Mapbox map related configuration
       amapCenter: defaultCenter, // Map center [lng, lat]
       deviceMarkers: [], // Device marker array
       mapReady: false, // Map ready state
@@ -774,11 +774,11 @@ export default {
     } else {
       this.getList()
     }
-    // 监听设备区域变化
+    // Monitor device area changes
     this.$bus.$on('installationAreaChange', this.onInstallationAreaChange)
   },
   beforeDestroy() {
-    // 移除监听
+    // Remove listening
     this.$bus.$off('installationAreaChange', this.onInstallationAreaChange);
   },
   mounted() {
@@ -787,18 +787,18 @@ export default {
     }, 10000); // refresh every 10 seconds
   },
   methods: {
-    // 设备区域变化处理
+    // Device area change processing
     onInstallationAreaChange(val) {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
     },
-    // 获取部门树（标准版）
+    // Get department tree (standard version)
     getDeptTree() {
       return deptTreeSelect().then((response) => {
         this.deptOptions = response.data
       })
     },
-    // 根据部门ID获取名称（标准版列表显示）
+    // Get the name based on the department ID (standard version List display)
     getDeptName(id) {
       if (!id || !this.deptOptions.length) return id
       const find = (list) => {
@@ -813,15 +813,15 @@ export default {
       }
       return find(this.deptOptions) || id
     },
-    // Mapbox 地图事件处理
+    // Mapbox map event handling
     onDeviceMapInit(map) {
-      console.log("设备 Mapbox 地图初始化完成", map);
+      console.log("Device Mapbox map initialized", map);
       this.map = map;
       this.updateDeviceMarkers();
     },
 
     onDeviceMapClick(e) {
-      console.log("设备地图点击事件", e);
+      console.log("Device map click event", e);
       const lng = e.lngLat.lng;
       const lat = e.lngLat.lat;
 
@@ -829,12 +829,12 @@ export default {
       this.position.lat = lat;
       this.form.coordinate = lng + "," + lat;
 
-      // 更新设备标记位置
+      // Update device tag location
       this.updateDeviceMarkers([lng, lat]);
     },
 
     onMarkerDragEnd(e) {
-      console.log("标记拖拽结束事件", e);
+      console.log("Marker drag end event", e);
       const lng = e.position[0];
       const lat = e.position[1];
 
@@ -842,11 +842,11 @@ export default {
       this.position.lat = lat;
       this.form.coordinate = lng + "," + lat;
 
-      // 更新标记位置
+      // Update marker position
       this.updateDeviceMarkers([lng, lat]);
     },
 
-    // 更新设备标记点
+    // Update device points
     updateDeviceMarkers(position = null) {
       const currentPosition = position || this.amapCenter;
       this.deviceMarkers = [
@@ -865,7 +865,7 @@ export default {
         },
       ];
     },
-    //根据名称搜索位置（使用Mapbox Geocoding API）
+    //Search location based on name (using Mapbox Geocoding API)
     async setView() {
       if (!this.keyword || !this.map) {
         this.$message.warning("Please enter search keywords");
@@ -873,7 +873,7 @@ export default {
       }
 
       try {
-        // 使用 Mapbox Geocoding API 进行地名搜索
+        // Use Mapbox Geocoding API to conduct place name search
         const mapboxToken = process.env.VUE_APP_MAPBOX_TOKEN || this.$store.state.settings.mapboxToken
         const response = await fetch(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
@@ -887,20 +887,20 @@ export default {
           const feature = data.features[0];
           const location = feature.center; // [lng, lat]
 
-          // 更新地图中心和标记位置
+          // Update map center and marker location
           this.amapCenter = location;
           this.position.lng = location[0];
           this.position.lat = location[1];
           this.form.coordinate = location[0] + "," + location[1];
 
-          // 移动地图到搜索位置
+          // Move map to Search location
           this.map.flyTo({
             center: location,
             zoom: 16,
             essential: true,
           });
 
-          // 更新标记点
+          // Update markers
           this.updateDeviceMarkers(location);
 
           this.$message.success(`Found: ${feature.place_name}`);
@@ -908,17 +908,17 @@ export default {
           this.$message.error("No address found");
         }
       } catch (error) {
-        console.error("搜索地址时出错:", error);
+        console.error("Error searching address:", error);
         this.$message.error("Address search failed, please try again");
       }
     },
-    //拼接rtsp路径
+    //Splice rtsp path
     changertsp() {
       console.log(this.form);
 
       let rtspurl = "";
 
-      //海康旧私有协议
+      //Hikvision old private agreement
       if (this.form.factoryType == 1) {
         rtspurl =
           "rtsp://" +
@@ -954,7 +954,7 @@ export default {
         this.form.rtspMain = rtspurl + "1";
         this.form.rtspSub = rtspurl + "2";
       }
-      //大华
+      //Dahua
       if (this.form.factoryType == 5) {
         rtspurl =
           "rtsp://" +
@@ -976,7 +976,7 @@ export default {
     changemap() {
       console.log(this.select);
     },
-    //跳转到设置任务
+    //Jump to setup task
     handleAiSettings(row) {
       this.aiSettingsDevice = row;
       const saved = this.aiSettingsMap[row.id];
@@ -1005,16 +1005,16 @@ export default {
     getTask(row) {
       this.$message.info("Device: " + (row.deviceName || row.name) + " | IP: " + (row.deviceIp || "N/A") + " | RTSP: " + (row.rtspMain || "N/A"));
     },
-    //确认坐标
+    //Confirm coordinates
     setok() {
       this.dialogMap = false;
       this.sign = false;
       this.mapReady = false;
-      // 清理地图实例引用
+      // Clean up map instance references
       this.map = null;
-      console.log("地图弹窗已关闭，所有状态已重置");
+      console.log("Map dialog closed; state reset");
     },
-    //地图点击事件
+    //Map click event
     handleMapClick(e) {
       console.log(e.lnglat);
       const lng = e.lnglat.lng;
@@ -1024,10 +1024,10 @@ export default {
       this.position.lat = lat;
       this.form.coordinate = lng + "," + lat;
 
-      // 更新标记位置
+      // Update marker position
       this.markerPosition = [lng, lat];
     },
-    //标记拖拽结束事件
+    //Marker drag end event
     handleMarkerDragEnd(e) {
       console.log(e.lnglat);
       const lng = e.lnglat.lng;
@@ -1037,21 +1037,21 @@ export default {
       this.position.lat = lat;
       this.form.coordinate = lng + "," + lat;
 
-      // 更新标记位置
+      // Update marker position
       this.markerPosition = [lng, lat];
     },
-    //显示地图
+    //Show map
     positioning() {
       console.log("ok");
       console.log(this.form.coordinate);
       this.sign = true;
       setTimeout(() => {
-        // 重置地图状态
+        // Reset map status
         this.mapReady = false;
         this.map = null;
 
         this.dialogMap = true;
-        //经度和纬度
+        //longitude and latitude
         if (this.form.coordinate == "" || this.form.coordinate == null) {
           this.center.lng = defaultCenter[0];
           this.center.lat = defaultCenter[1];
@@ -1085,12 +1085,12 @@ export default {
         this.loading = false;
       });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         id: null,
@@ -1131,7 +1131,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.id);
       this.single = selection.length !== 1;
@@ -1204,10 +1204,10 @@ export default {
         `device_${new Date().getTime()}.xlsx`
       );
     },
-    // 弹窗打开时触发，用于确保地图实例已创建
+    // Triggered when the pop-up window opens, used to ensure that the map instance has been created
     handleDialogOpened() {
       this.mapReady = true;
-      // 延迟确保地图正确初始化
+      // Delay ensures map initializes correctly
       this.$nextTick(() => {
         setTimeout(() => {
           if (this.map) {
@@ -1282,7 +1282,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-// 在线/离线状态胶囊
+// Online/offline status capsule
 .device-status {
   display: inline-flex;
   align-items: center;
@@ -1321,7 +1321,7 @@ export default {
   }
 }
 
-// 坐标行
+// Coordinate row
 .coordinate-row {
   display: flex;
   gap: 10px;
@@ -1363,7 +1363,7 @@ export default {
   }
 }
 
-// 操作列按钮颜色
+// Action column button color
 .btn-view {
   color: #0abf8a !important;
   &:hover { color: #059669 !important; }
@@ -1379,7 +1379,7 @@ export default {
   &:hover { color: #dc2626 !important; }
 }
 
-// 竖线分隔符
+// Vertical Separator
 .action-divider {
   display: inline-block;
   width: 1px;

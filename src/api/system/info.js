@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询服务安装包信息列表
+// Query service installation package information list
 export function listInfo(query) {
   return request({
     url: '/api/service/update',
@@ -17,7 +17,7 @@ export function listInfo(query) {
   })
 }
 
-// 查询服务安装包信息详细
+// Query service installation package information details
 export function getInfo(id) {
   return request({
     url: '/api/service/update/' + id,
@@ -25,7 +25,7 @@ export function getInfo(id) {
   })
 }
 
-// 获取最新的服务安装包信息
+// Get the latest service installation package information
 export function getInfonew() {
   return request({
     url: '/api/service/update/new',
@@ -33,7 +33,7 @@ export function getInfonew() {
   })
 }
 
-// 新增服务安装包信息
+// Added service installation package information
 export function addInfo(data) {
   return request({
     url: '/api/service/update',
@@ -42,7 +42,7 @@ export function addInfo(data) {
   })
 }
 
-// 修改服务安装包信息
+// Edit service installation package information
 export function updateInfo(data) {
   return request({
     url: '/api/service/update',
@@ -51,7 +51,7 @@ export function updateInfo(data) {
   })
 }
 
-// 删除服务安装包信息
+// Delete service installation package information
 export function delInfo(id) {
   return request({
     url: '/api/service/update/' + id,

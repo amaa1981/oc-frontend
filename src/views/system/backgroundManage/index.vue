@@ -1,6 +1,6 @@
 <template>
   <div class="bg-manage-wrap">
-    <!-- 左侧导航 -->
+    <!-- Left navigation -->
     <div class="bg-nav">
       <div
         v-for="item in flatTabs"
@@ -10,7 +10,7 @@
       >{{ item.label }}</div>
     </div>
 
-    <!-- 右侧内容 -->
+    <!-- Right content -->
     <div class="bg-body">
       <Network v-if="activeName === 'network'" />
       <Alarm v-if="activeName === 'alarm'" />

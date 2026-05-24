@@ -10,16 +10,16 @@
     append-to-body
   >
     <div class="ai-report-body">
-      <!-- 加载状态 -->
+      <!-- Loading status -->
       <div v-if="loading && !content" class="ai-report-loading">
         <i class="el-icon-loading"></i>
         <span>{{ $t('dataCenter.aiGenerating') }}</span>
       </div>
-      <!-- 报告内容 -->
+      <!-- Report content -->
       <div v-if="content" class="ai-report-content" ref="reportContent" v-html="renderedHtml"></div>
-      <!-- 流式光标 -->
+      <!-- Streaming cursor -->
       <span v-if="loading && content" class="ai-cursor">▌</span>
-      <!-- 错误 -->
+      <!-- mistake -->
       <div v-if="errorMsg" class="ai-report-error">
         <i class="el-icon-warning"></i>
         <span>{{ errorMsg }}</span>
@@ -36,7 +36,7 @@
     </div>
   </el-dialog>
 
-  <!-- 导出成功弹窗 -->
+  <!-- Export success pop-up window -->
   <el-dialog
     :visible.sync="exportSuccessVisible"
     width="480px"
@@ -87,7 +87,7 @@ export default {
       set(val) { this.$emit('update:visible', val); },
     },
     renderedHtml() {
-      // 将 Markdown 转换为 HTML 渲染
+      // Convert Markdown to HTML rendering
       const cleaned = this.content.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
       return marked(cleaned)
     },
@@ -113,7 +113,7 @@ export default {
         prompt,
         function onChunk(text) {
           self.content += text;
-          // 自动滚动到底部
+          // Automatically scroll to bottom
           self.$nextTick(function () {
             var el = self.$refs.reportContent;
             if (el) el.scrollTop = el.scrollHeight;
@@ -159,7 +159,7 @@ export default {
         lines.push('');
       }
 
-      // 事件类型分布
+      // Event type distribution
       if (data.eventTypes && data.eventTypes.length > 0) {
         lines.push(isEnglish ? '[Event Type Distribution]' : '[Event Type Distribution]');
         var total = 0;
@@ -174,7 +174,7 @@ export default {
         lines.push('');
       }
 
-      // 事件趋势
+      // event trends
       if (data.trendData && data.trendData.length > 0) {
         lines.push(isEnglish ? '[Event Alert Trends]' : '[Event Alert Trends]');
         for (var k = 0; k < data.trendData.length; k++) {
@@ -186,7 +186,7 @@ export default {
         lines.push('');
       }
 
-      // 人车趋势
+      // People and cars trend
       if (data.vehiclesTrend && data.vehiclesTrend.length > 0) {
         lines.push(isEnglish ? '[People & Vehicle Alert Trends]' : '[People & Vehicle Trends]');
         for (var n = 0; n < data.vehiclesTrend.length; n++) {
@@ -198,7 +198,7 @@ export default {
         lines.push('');
       }
 
-      // 设备Top3
+      // EquipmentTop3
       if (data.topDevices && data.topDevices.length > 0) {
         lines.push(isEnglish ? '[Top 3 Device Alerts]' : '[Top 3 Device Alerts]');
         for (var q = 0; q < data.topDevices.length; q++) {
@@ -245,7 +245,7 @@ export default {
         let y = margin
         const self = this
 
-        // canvas 渲染文字为图片（支持中文）
+        // canvas renders text as Image (supports Chinese)
         function textToImg(text, fontSize, color, bold) {
           const canvas = document.createElement('canvas')
           const ctx = canvas.getContext('2d')
@@ -266,7 +266,7 @@ export default {
           }
         }
 
-        // 自动换行添加文本
+        // Automatically wrap text
         function addText(text, fontSize, color, bold, indent) {
           if (!text || !text.trim()) return
           indent = indent || 0
@@ -300,7 +300,7 @@ export default {
           }
         }
 
-        // 水平分隔线
+        // horizontal divider
         function addHr(color) {
           pdf.setDrawColor(color || '#e4e7ed')
           pdf.setLineWidth(0.3)
@@ -308,7 +308,7 @@ export default {
           y += 3
         }
 
-        // 封面
+        // cover
         pdf.setFillColor(26, 122, 110)
         pdf.rect(0, 0, pageW, 36, 'F')
         const titleImg = textToImg(self.$t('dataCenter.aiReport'), 18, '#ffffff', true)
@@ -323,7 +323,7 @@ export default {
         pdf.addImage(subImg.data, 'PNG', margin, 26, subImg.w, subImg.h)
         y = 46
 
-        // 解析已渲染的 HTML
+        // Parse rendered HTML
         const tempDiv = document.createElement('div')
         tempDiv.innerHTML = self.renderedHtml
 
@@ -342,7 +342,7 @@ export default {
             addHr('#26a69a')
           } else if (tag === 'h2') {
             y += 5
-            // 绿色左竖条
+            // Green left vertical bar
             pdf.setFillColor(38, 166, 154)
             pdf.rect(margin, y, 3, 5.5, 'F')
             addText(node.textContent, 13, '#1a2a36', true)
@@ -356,7 +356,7 @@ export default {
             addText(node.textContent, 10, '#303133', true)
           } else if (tag === 'p') {
             y += 1
-            // 处理 p 内的 strong/em 混排，简化为纯文本
+            // Process strong/em mixed layout within p and simplify it to plain text
             addText(node.textContent, 9, '#333333', false)
             y += 1
           } else if (tag === 'ul' || tag === 'ol') {
@@ -393,7 +393,7 @@ export default {
           processNode(tempDiv.childNodes[i])
         }
 
-        // 页脚页码
+        // Footer page number
         const totalPages = pdf.internal.getNumberOfPages()
         for (let p = 1; p <= totalPages; p++) {
           pdf.setPage(p)
@@ -410,7 +410,7 @@ export default {
         pdf.save(fileName)
         self.exportSuccessVisible = true
       } catch (err) {
-        console.error('导出PDF失败', err)
+        console.error('Failed to export PDF', err)
         this.$message.error(this.$t('dataCenter.exportFailed'))
       }
     },

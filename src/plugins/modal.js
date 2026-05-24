@@ -4,55 +4,55 @@ import { translate as $t } from "@/lang"
 let loadingInstance;
 
 export default {
-  // 消息提示
+  // Message prompt
   msg(content) {
     Message.info(content)
   },
-  // 错误消息
+  // error message
   msgError(content) {
     Message.error(content)
   },
-  // 成功消息
+  // success message
   msgSuccess(content) {
     Message.success(content)
   },
-  // 警告消息
+  // warning message
   msgWarning(content) {
     Message.warning(content)
   },
-  // 弹出提示
+  // Pop up prompt
   alert(content) {
     MessageBox.alert(content, $t('modal.systemTip'))
   },
-  // 错误提示
+  // Error Message
   alertError(content) {
     MessageBox.alert(content, $t('modal.systemTip'), { type: 'error' })
   },
-  // 成功提示
+  // Tips for success
   alertSuccess(content) {
     MessageBox.alert(content, $t('modal.systemTip'), { type: 'success' })
   },
-  // 警告提示
+  // Warning
   alertWarning(content) {
     MessageBox.alert(content, $t('modal.systemTip'), { type: 'warning' })
   },
-  // 通知提示
+  // Notification tips
   notify(content) {
     Notification.info(content)
   },
-  // 错误通知
+  // Error notification
   notifyError(content) {
     Notification.error(content);
   },
-  // 成功通知
+  // Success notification
   notifySuccess(content) {
     Notification.success(content)
   },
-  // 警告通知
+  // warning notification
   notifyWarning(content) {
     Notification.warning(content)
   },
-  // 确认窗体
+  // Confirmation form
   confirm(content) {
     return MessageBox.confirm(content, $t('modal.systemTip'), {
       confirmButtonText: $t('commonBtn.confirm'),
@@ -60,7 +60,7 @@ export default {
       type: "warning",
     })
   },
-  // 提交内容
+  // Submit content
   prompt(content) {
     return MessageBox.prompt(content, $t('modal.systemTip'), {
       confirmButtonText: $t('commonBtn.confirm'),
@@ -68,7 +68,7 @@ export default {
       type: "warning",
     })
   },
-  // 打开遮罩层
+  // Open mask layer
   loading(content) {
     loadingInstance = Loading.service({
       lock: true,
@@ -77,7 +77,7 @@ export default {
       background: "rgba(0, 0, 0, 0.7)",
     })
   },
-  // 关闭遮罩层
+  // Turn off mask layer
   closeLoading() {
     loadingInstance.close();
   }

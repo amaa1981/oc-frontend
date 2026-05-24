@@ -97,7 +97,7 @@ export default {
 </style>
 
 <style lang="scss">
-// 个人中心单选框绿色风格
+// ProfileRadiogreen style
 .profile-page {
   .el-radio__input.is-checked .el-radio__inner {
     border-color: #26a69a;
@@ -109,7 +109,7 @@ export default {
   .el-radio__inner:hover {
     border-color: #26a69a;
   }
-  // tab 激活绿色
+  // tab activate green
   .el-tabs__item.is-active {
     color: #26a69a;
   }
@@ -119,7 +119,7 @@ export default {
   .el-tabs__active-bar {
     background-color: #26a69a;
   }
-  // primary 按钮绿色
+  // primary button green
   .el-button--primary {
     background-color: #26a69a;
     border-color: #26a69a;

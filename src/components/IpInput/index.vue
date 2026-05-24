@@ -7,7 +7,7 @@
 -->
 <template>
   <div class="ip-input">
-    <!-- 每一段一个输入框 -->
+    <!-- One input per segment -->
     <div
       v-for="(item, index) in ipArr"
       :key="index"
@@ -103,7 +103,7 @@ export default {
     },
     handleInput(index) {
       const newValue = this.ipArr[index];
-      // 如果输入的是非数字，或者输入不在0-255之间，则阻止输入
+      // If the input is not a number, or the input is not between 0-255, the input is blocked
       if (!this.isNumberValid(newValue)) {
         this.ipArr[index] = this.oldIpInput[index];
         return false;
@@ -114,7 +114,7 @@ export default {
         if (index === this.ipArr.length - 1) {
           return true;
         }
-        // 将焦点移动到下一个输入框
+        // Move focus to next Input
         this.handleFocus(index + 1);
       }
       return true;

@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询清理告警记录配置列表
+// Query to clear alarm record configuration List
 export function listConfig(query) {
   return request({
     url: '/alarm/config',
@@ -17,7 +17,7 @@ export function listConfig(query) {
   })
 }
 
-// 查询清理告警记录配置详细
+// Query clear alarm record configuration details
 export function getConfig(id) {
   return request({
     url: '/sysConfig/' + id,
@@ -25,7 +25,7 @@ export function getConfig(id) {
   })
 }
 
-// 新增清理告警记录配置
+// Added clearing alarm record configuration
 export function addConfig(data) {
   return request({
     url: '/alarm/config',
@@ -34,7 +34,7 @@ export function addConfig(data) {
   })
 }
 
-// 修改清理告警记录配置
+// Edit clear alarm record configuration
 export function updateConfig(data) {
   return request({
     url: '/sysConfig',
@@ -43,7 +43,7 @@ export function updateConfig(data) {
   })
 }
 
-// 删除清理告警记录配置
+// Delete clears alarm record configuration
 export function delConfig(id) {
   return request({
     url: '/alarm/config/' + id,

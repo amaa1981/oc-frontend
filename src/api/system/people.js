@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询人员信息列表
+// QueryPersonnel Information List
 export function listPeople(query) {
   return request({
     url: '/people',
@@ -17,7 +17,7 @@ export function listPeople(query) {
   })
 }
 
-// 查询人员信息详细
+// Query personnel information details
 export function getPeople(id) {
   return request({
     url: '/api/people/' + id,
@@ -25,7 +25,7 @@ export function getPeople(id) {
   })
 }
 
-// 新增人员信息
+// Add new personnel information
 export function addPeople(data) {
   return request({
     url: '/people',
@@ -34,7 +34,7 @@ export function addPeople(data) {
   })
 }
 
-// 修改人员信息
+// Edit personnel information
 export function updatePeople(data) {
   return request({
     url: '/people',
@@ -43,7 +43,7 @@ export function updatePeople(data) {
   })
 }
 
-// 删除人员信息
+// Delete personnel information
 export function delPeople(id) {
   return request({
     url: '/people/' + id,

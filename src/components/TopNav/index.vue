@@ -15,7 +15,7 @@
       >
     </template>
 
-    <!-- 顶部菜单超出数量折叠 -->
+    <!-- Top menu collapsed beyond quantity -->
     <el-submenu
       :style="{ '--theme': theme }"
       index="more"
@@ -38,15 +38,15 @@
 <script>
 import { constantRoutes } from "@/router";
 
-// 隐藏侧边栏路由
+// Hide sidebar routing
 const hideList = ["/index", "/user/profile"];
 
 export default {
   data() {
     return {
-      // 顶部栏初始数
+      // Top bar initial number
       visibleNumber: 10,
-      // 当前激活菜单的 index
+      // The index of the currently active menu
       currentIndex: undefined,
     };
   },
@@ -54,12 +54,12 @@ export default {
     theme() {
       return this.$store.state.settings.theme;
     },
-    // 顶部显示菜单
+    // Show menu at top
     topMenus() {
       let topMenus = [];
       this.routers.map((menu) => {
         if (menu.hidden !== true) {
-          // 兼容顶部栏一级菜单内部跳转
+          // Compatible with top bar first-level menu internal jump
           if (menu.path === "/") {
             topMenus.push(menu.children[0]);
           } else {
@@ -69,11 +69,11 @@ export default {
       });
       return topMenus;
     },
-    // 所有的路由信息
+    // All routing information
     routers() {
       return this.$store.state.permission.topbarRouters;
     },
-    // 设置子路由
+    // Set up subroutes
     childrenMenus() {
       var childrenMenus = [];
       this.routers.map((router) => {
@@ -94,7 +94,7 @@ export default {
       });
       return constantRoutes.concat(childrenMenus);
     },
-    // 默认激活的菜单
+    // Menu activated by default
     activeMenu() {
       const path = this.$route.path;
       let activePath = path;
@@ -126,22 +126,22 @@ export default {
     this.setVisibleNumber();
   },
   methods: {
-    // 根据宽度计算设置显示栏数
+    // Set the number of columns to display based on width calculations
     setVisibleNumber() {
       const width = document.body.getBoundingClientRect().width / 3;
       this.visibleNumber = parseInt(width / 85);
     },
-    // 菜单选择事件
+    // Menu selection event
     handleSelect(key, keyPath) {
       this.currentIndex = key;
       const route = this.routers.find((item) => item.path === key);
       console.log(key);
       console.log(keyPath);
       if (this.ishttp(key)) {
-        // http(s):// 路径新窗口打开
+        // http(s):// path new window opens
         window.open(key, "_blank");
       } else if (!route || !route.children) {
-        // 没有子路由路径内部打开
+        // No subroute paths are opened internally
         const routeMenu = this.childrenMenus.find((item) => item.path === key);
         if (routeMenu && routeMenu.query) {
           let query = JSON.parse(routeMenu.query);
@@ -151,11 +151,11 @@ export default {
         }
         this.$store.dispatch("app/toggleSideBarHide", true);
       } else {
-        // 有子路由，默认跳转到第一个子路由
+        // If there are sub-routes, it will jump to the first sub-route by default.
         console.log(key);
         const firstChild = this.getFirstChildRoute(route);
         if (firstChild) {
-          // 如果找到第一个子路由，跳转到该路由
+          // If the first sub-route is found, jump to that route
           if (firstChild.query) {
             let query = JSON.parse(firstChild.query);
             this.$router.push({ path: firstChild.path, query: query });
@@ -163,12 +163,12 @@ export default {
             this.$router.push({ path: firstChild.path });
           }
         }
-        // 显示左侧联动菜单
+        // Show left linkage menu
         this.activeRoutes(key);
         this.$store.dispatch("app/toggleSideBarHide", false);
       }
     },
-    // 当前激活的路由
+    // Currently active route
     activeRoutes(key) {
       var routes = [];
       if (this.childrenMenus && this.childrenMenus.length > 0) {
@@ -184,19 +184,19 @@ export default {
         this.$store.dispatch("app/toggleSideBarHide", true);
       }
     },
-    // 获取第一个可访问的子路由
+    // Get the first accessible sub-route
     getFirstChildRoute(route) {
       if (!route || !route.children || route.children.length === 0) {
         return null;
       }
       
-      // 从 childrenMenus 中查找第一个未隐藏的子路由
-      // childrenMenus 已经处理好了完整路径，避免重复拼接
+      // Find the first unhidden child route from childrenMenus
+      // childrenMenus has processed the complete path to avoid repeated splicing
       const parentPath = route.path;
       
       for (let i = 0; i < this.childrenMenus.length; i++) {
         const child = this.childrenMenus[i];
-        // 找到属于当前父路由的第一个未隐藏的子路由
+        // Find the first unhidden child route belonging to the current parent route
         if (child.parentPath === parentPath && child.hidden !== true) {
           return {
             path: child.path,
@@ -205,7 +205,7 @@ export default {
         }
       }
       
-      // 如果没有找到可用的子路由，返回 null
+      // If no available subroute is found, Back null
       return null;
     },
     ishttp(url) {

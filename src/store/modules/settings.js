@@ -23,11 +23,11 @@ const mutations = {
 }
 
 const actions = {
-  // 修改布局设置
+  // Edit layout settings
   changeSetting({ commit }, data) {
     commit('CHANGE_SETTING', data)
   },
-  // 设置网页标题
+  // Set web page Title
   setTitle({ commit }, title) {
     state.title = title
   }

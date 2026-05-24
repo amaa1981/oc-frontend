@@ -1,5 +1,5 @@
 <template>
-  <!-- 授权用户 -->
+  <!-- authorized user -->
   <el-dialog :title="$t('role.selectUser')" :visible.sync="visible" width="800px" top="5vh" append-to-body>
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true">
       <el-form-item :label="$t('role.userName')" prop="userName">
@@ -61,22 +61,22 @@ import { unallocatedUserList, authUserSelectAll } from "@/api/system/role";
 export default {
   dicts: ['sys_normal_disable'],
   props: {
-    // 角色编号
+    // role number
     roleId: {
       type: [Number, String]
     }
   },
   data() {
     return {
-      // 遮罩层
+      // Loading state
       visible: false,
-      // 选中数组值
+      // Selected ids value
       userIds: [],
-      // 总条数
+      // Total count
       total: 0,
-      // 未授权用户数据
+      // Unauthorized user data
       userList: [],
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -87,7 +87,7 @@ export default {
     };
   },
   methods: {
-    // 显示弹框
+    // Show popup
     show() {
       this.queryParams.roleId = this.roleId;
       this.getList();
@@ -96,11 +96,11 @@ export default {
     clickRow(row) {
       this.$refs.table.toggleRowSelection(row);
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.userIds = selection.map(item => item.userId);
     },
-    // 查询表数据
+    // Query table data
     getList() {
       unallocatedUserList(this.queryParams).then(res => {
         this.userList = res.rows;

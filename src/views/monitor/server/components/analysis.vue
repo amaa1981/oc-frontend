@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       processList: [],
-      // 遮罩层
+      // Loading state
       loading: false,
     };
   },

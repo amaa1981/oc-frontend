@@ -152,7 +152,7 @@
       @pagination="getList"
     />
 
-    <!-- 详情弹窗 -->
+    <!-- Details pop-up window -->
     <el-dialog
       :title="$t('trajectoryQuery.trajectoryDetail')"
       :visible.sync="detailVisible"
@@ -242,23 +242,23 @@ export default {
   dicts: ["v1_device_area"],
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 轨迹列表
+      // Track List
       trajectoryList: [],
-      // 详情弹窗
+      // Details pop-up window
       detailVisible: false,
       detailLoading: false,
       trajectoryDetailList: [],
-      // 详情图片列表
+      // DetailsImageList
       detailImageList: [],
-      // 日期范围
+      // date range
       dateRange: [],
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -266,10 +266,10 @@ export default {
         endTime: null,
         installationArea: localStorage.getItem('installationArea') || null,
       },
-      // 日期选择器配置
+      // Date picker configuration
       pickerOptions: {
         disabledDate(time) {
-          // 禁用明天及之后的日期
+          // Disable tomorrow and later dates
           const today = new Date();
           today.setHours(23, 59, 59, 999);
           return time.getTime() > today.getTime();
@@ -279,15 +279,15 @@ export default {
   },
   created() {
     this.getList();
-    // 监听设备区域变化
+    // Monitor device area changes
     this.$bus.$on('installationAreaChange', this.onInstallationAreaChange);
   },
   beforeDestroy() {
-    // 移除监听
+    // Remove listening
     this.$bus.$off('installationAreaChange', this.onInstallationAreaChange);
   },
   methods: {
-    // 设备区域变化处理
+    // Device area change processing
     onInstallationAreaChange(val) {
       this.queryParams.installationArea = val || null;
       this.handleQuery();
@@ -329,7 +329,7 @@ export default {
       this.detailVisible = true;
       this.detailLoading = true;
 
-      // 调用轨迹详情接口
+      // Call the trajectory details interface
       const params = {
         recordUrl1: row.recordUrl1, // Customer ID
         taskName: row.taskName, // Track time period
@@ -339,14 +339,14 @@ export default {
       getTrajectory(params)
         .then((response) => {
           this.trajectoryDetailList = response.data || [];
-          // 收集所有图片URL用于图片预览切换
+          // Collect all ImageURLs for ImagePreview switching
           this.detailImageList = this.trajectoryDetailList
             .filter((item) => item.imageUrl)
             .map((item) => item.imageUrl);
           this.detailLoading = false;
         })
         .catch((error) => {
-          console.error("获取轨迹详情失败:", error);
+          console.error("Failed to fetch track details:", error);
           this.$message.error(this.$t("trajectoryQuery.getDetailFailed"));
           this.detailLoading = false;
         });
@@ -381,7 +381,7 @@ export default {
         })
         .catch((error) => {
           if (error !== "cancel") {
-            console.error("删除失败:", error);
+            console.error("Deletefail:", error);
             this.$message.error(
               this.$t("trajectoryQuery.deleteFailed") 
             );

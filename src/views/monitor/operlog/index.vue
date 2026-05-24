@@ -232,7 +232,7 @@
       @pagination="getList"
     />
 
-    <!-- 操作日志详细 -->
+    <!-- Detailed operation log -->
     <el-dialog
       :title="$t('operlog.dialogTitle')"
       :visible.sync="open"
@@ -345,9 +345,9 @@ export default {
     };
   },
   created() {
-    //获取天日期yyyy-MM-dd  00:00:00
+    //Get day date yyyy-MM-dd 00:00:00
     this.dateRange[0] = this.getNowFormatDate() + " 00:00:00";
-    //获取天日期yyyy-MM-dd  23:59:59
+    //Get day date yyyy-MM-dd 23:59:59
     this.dateRange[1] = this.getNowFormatDate() + " 23:59:59";
     this.getList();
   },

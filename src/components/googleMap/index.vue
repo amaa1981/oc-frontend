@@ -11,16 +11,16 @@ const loader = new Loader({
 })
 export default {
   props: {
-    // 是否可点击更新标注
+    // Is it possible to click to update annotations?
     cilckable: {
       type: Boolean,
       default: false
     },
-    // 搜索关键字
+    // Search keywords
     keyword: {
       type: String
     },
-    // 标注点
+    // Label points
     position: {
       type: Object,
       default: () => ({ lat: 37.7749, lng: -122.4194 })
@@ -35,7 +35,7 @@ export default {
     }
   },
   watch: {
-    // 监听搜索关键字
+    // Monitor Search keywords
     keyword: {
       handler(newVal) {
         if (newVal !== '') {
@@ -43,18 +43,18 @@ export default {
             if (this.map === null) {
               this.initMap();
             }
-            // 设置搜索参数
+            // Set search parameters
             const request = {
               query: newVal,
               fields: ["name", "geometry", "placr_id"],
             };
-            // 进行地点搜索
+            // Conduct a location search
             this.service.textSearch(request, (results, status) => {
               if (status === this.google.maps.places.PlacesServiceStatus.OK && results && results.length > 0) {
-                // 使用第一个搜索结果
+                // Use the first search result
                 const place = results[0];
                 const location = place.geometry.location;
-                // 将地图中心设置为搜索结果
+                // Set map center to search results
                 this.map.setCenter(location);
               }
             });
@@ -62,11 +62,11 @@ export default {
         }
       }
     },
-    // 监听新的标注点信息
+    // Monitor new marking point information
     position: {
       handler(newVal) {
         this.$nextTick(() => {
-          // 在添加新标记前先移除旧标记
+          // Remove old tags before adding new ones
           if (this.map === null) {
             this.initMap();
           }
@@ -77,7 +77,7 @@ export default {
             title: "My Location",
             animation: google.maps.Animation.BOUNCE
           });
-          // 设置地图的中心为标注点所在
+          // Set the center of the map to where the label point is
           this.map.setCenter(this.marker.getPosition());
         })
       },
@@ -88,7 +88,7 @@ export default {
     this.initMap();
   },
   methods: {
-    // 地图初始化
+    // Map initialization
     initMap() {
       const mapOptions = {
         center: this.position, // Default map center at marker location
@@ -109,12 +109,12 @@ export default {
             document.getElementById("map"),
             mapOptions
           )
-          // 标记
+          // mark
           this.marker = new google.maps.Marker({
             position: this.position,
             map: this.map,
             title: "My Location",
-            // draggable:true, // 是否可移动
+            // draggable:true, // Whether it can be moved
             animation: google.maps.Animation.BOUNCE  // BOUNCE: always bouncing, DROP: bounce after move
           }) // Map marker class
           if (this.cilckable) {
@@ -128,7 +128,7 @@ export default {
     clickMap(e) {
       let lat = e.latLng.lat();
       let lng = e.latLng.lng();
-      // 在添加新标记前先移除旧标记
+      // Remove old tags before adding new ones
       this.marker.setMap(null);
       this.marker = new google.maps.Marker({
         position: { lat, lng },

@@ -115,7 +115,7 @@ export default {
 	name: 'crontab-week',
 	props: ['check', 'cron'],
 	methods: {
-		// 单选按钮值变化时
+		// When radio value changes
 		radioChange() {
 			if (this.radioValue !== 2 && this.cron.day !== '?') {
 				this.$emit('update', 'day', '?', 'week');
@@ -142,25 +142,25 @@ export default {
 			}
 		},
 
-		// 周期两个值变化时
+		// When cycle range changes
 		cycleChange() {
 			if (this.radioValue == '3') {
 				this.$emit('update', 'week', this.cycleTotal);
 			}
 		},
-		// 平均两个值变化时
+		// When average range changes
 		averageChange() {
 			if (this.radioValue == '4') {
 				this.$emit('update', 'week', this.averageTotal);
 			}
 		},
-		// 最近工作日值变化时
+		// When nearest weekday changes
 		weekdayChange() {
 			if (this.radioValue == '5') {
 				this.$emit('update', 'week', this.weekday + 'L');
 			}
 		},
-		// checkbox值变化时
+		// When checkbox selection changes
 		checkboxChange() {
 			if (this.radioValue == '6') {
 				this.$emit('update', 'week', this.checkboxString);
@@ -175,24 +175,24 @@ export default {
 		'checkboxString': 'checkboxChange',
 	},
 	computed: {
-		// 计算两个周期值
+		// Compute cycle range
 		cycleTotal: function () {
 			this.cycle01 = this.checkNum(this.cycle01, 1, 7)
 			this.cycle02 = this.checkNum(this.cycle02, 1, 7)
 			return this.cycle01 + '-' + this.cycle02;
 		},
-		// 计算平均用到的值
+		// Compute average values
 		averageTotal: function () {
 			this.average01 = this.checkNum(this.average01, 1, 4)
 			this.average02 = this.checkNum(this.average02, 1, 7)
 			return this.average02 + '#' + this.average01;
 		},
-		// 最近的工作日（格式）
+		// Most recent working day (format)
 		weekdayCheck: function () {
 			this.weekday = this.checkNum(this.weekday, 1, 7)
 			return this.weekday;
 		},
-		// 计算勾选的checkbox值合集
+		// Compute selected checkbox values
 		checkboxString: function () {
 			let str = this.checkboxList.join();
 			return str == '' ? '*' : str;

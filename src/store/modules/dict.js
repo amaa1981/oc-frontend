@@ -27,15 +27,15 @@ const mutations = {
 }
 
 const actions = {
-  // 设置字典
+  // Set dictionary
   setDict({ commit }, data) {
     commit('SET_DICT', data)
   },
-  // 删除字典
+  // Delete dictionary
   removeDict({ commit }, key) {
     commit('REMOVE_DICT', key)
   },
-  // 清空字典
+  // Clear dictionary
   cleanDict({ commit }) {
     commit('CLEAN_DICT')
   }

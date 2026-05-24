@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 查询人脸库信息列表
+// Query face database information list
 export function listGroup(query) {
   return request({
     url: '/api/peopleGroup',
@@ -17,7 +17,7 @@ export function listGroup(query) {
   })
 }
 
-// 查询人脸库信息详细
+// Query face database information details
 export function getGroup(id) {
   return request({
     url: '/api/peopleGroup/' + id,
@@ -25,7 +25,7 @@ export function getGroup(id) {
   })
 }
 
-// 新增人脸库信息
+// Add face database information
 export function addGroup(data) {
   return request({
     url: '/api/peopleGroup',
@@ -34,7 +34,7 @@ export function addGroup(data) {
   })
 }
 
-// 修改人脸库信息
+// Edit face database information
 export function updateGroup(data) {
   return request({
     url: '/api/peopleGroup',
@@ -43,7 +43,7 @@ export function updateGroup(data) {
   })
 }
 
-// 删除人脸库信息
+// Delete face database information
 export function delGroup(id) {
   return request({
     url: '/api/peopleGroup/' + id,

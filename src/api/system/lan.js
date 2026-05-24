@@ -8,7 +8,7 @@
  */
 import request from '@/utils/request'
 
-// 获取系统语言
+// Get system locale
 export function getLocale() {
   return request({
     url: '/api/sysConfig/getLocale',
@@ -16,7 +16,7 @@ export function getLocale() {
   })
 }
 
-// 设置系统语言
+// Set system locale
 export function setLocale(locale) {
   return request({
     url: '/api/sysConfig/setLocale?locale=' + locale,
@@ -25,7 +25,7 @@ export function setLocale(locale) {
 }
 
 
-// 获取java系统配置信息
+// Get Java system config
 export function getConfig() {
   return request({
     url: '/api/sysConfig/java',

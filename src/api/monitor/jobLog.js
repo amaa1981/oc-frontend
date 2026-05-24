@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询调度日志列表
+// QueryJob LogList
 export function listJobLog(query) {
   return request({
     url: '/monitor/jobLog/list',
@@ -9,7 +9,7 @@ export function listJobLog(query) {
   })
 }
 
-// 删除调度日志
+// DeleteJob Log
 export function delJobLog(jobLogId) {
   return request({
     url: '/monitor/jobLog/' + jobLogId,
@@ -17,7 +17,7 @@ export function delJobLog(jobLogId) {
   })
 }
 
-// 清空调度日志
+// Clear Job Log
 export function cleanJobLog() {
   return request({
     url: '/monitor/jobLog/clean',

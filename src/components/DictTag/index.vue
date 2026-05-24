@@ -36,7 +36,7 @@ export default {
       default: null,
     },
     value: [Number, String, Array],
-    // 当未找到匹配的数据时，显示value
+    // When no matching data is found, value is displayed
     showValue: {
       type: Boolean,
       default: true,
@@ -58,19 +58,19 @@ export default {
     unmatch(){
       this.unmatchArray = [];
       if (this.value !== null && typeof this.value !== 'undefined') {
-        // 传入值为非数组
+        // The value passed in is not an array
         if(!Array.isArray(this.value)){
           if(this.options.some(v=> v.value == this.value )) return false;
           this.unmatchArray.push(this.value);
           return true;
         }
-        // 传入值为Array
+        // The incoming value is Array
         this.value.forEach(item => {
           if (!this.options.some(v=> v.value == item )) this.unmatchArray.push(item)
         });
         return true;
       }
-      // 没有value不显示
+      // No value is displayed
       return false;
     },
 

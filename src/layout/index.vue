@@ -12,7 +12,7 @@
         <settings/>
       </right-panel>
     </div>
-    <!-- AI聊天助手 -->
+    <!-- AI chat assistant -->
     <!-- <ai-chat/> -->
 
   </div>

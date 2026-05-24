@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <!--部门数据-->
+      <!--Department data-->
       <el-col :span="4" :xs="24">
         <div class="head-container">
           <el-input
@@ -27,7 +27,7 @@
           />
         </div>
       </el-col>
-      <!--用户数据-->
+      <!--User data-->
       <el-col :span="20" :xs="24">
         <el-form
           :model="queryParams"
@@ -292,7 +292,7 @@
       </el-col>
     </el-row>
 
-    <!-- 添加或修改用户配置对话框 -->
+    <!-- Add or Edit User Configuration Dialog -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
@@ -451,7 +451,7 @@
       </div>
     </el-dialog>
 
-    <!-- 用户导入对话框 -->
+    <!-- User import dialog -->
     <el-dialog
       :title="upload.title"
       :visible.sync="upload.open"
@@ -520,58 +520,58 @@ export default {
   components: { Treeselect },
   data() {
     return {
-      // 遮罩层
+      // Loading state
       loading: true,
-      // 选中数组
+      // Selected ids
       ids: [],
-      // 非单个禁用
+      // Disable single-action
       single: true,
-      // 非多个禁用
+      // Disable batch-action
       multiple: true,
-      // 显示搜索条件
+      // Show search conditions
       showSearch: true,
-      // 总条数
+      // Total count
       total: 0,
-      // 用户表格数据
+      // user form data
       userList: null,
-      // 弹出层标题
+      // Popup layer Title
       title: "",
-      // 部门树选项
+      // Department TreeOptions
       deptOptions: undefined,
-      // 是否显示弹出层
+      // Dialog visible
       open: false,
-      // 部门名称
+      // Department name
       deptName: undefined,
-      // 默认密码
+      // default password
       initPassword: undefined,
-      // 日期范围
+      // date range
       dateRange: [],
-      // 岗位选项
+      // PositionOptions
       postOptions: [],
-      // 角色选项
+      // RoleOptions
       roleOptions: [],
-      // 表单参数
+      // Form parameters
       form: {},
       defaultProps: {
         children: "children",
         label: "label",
       },
-      // 用户导入参数
+      // User import parameters
       upload: {
-        // 是否显示弹出层（用户导入）
+        // Dialog visible (user import)
         open: false,
-        // 弹出层标题（用户导入）
+        // Pop-up layer Title (imported by user)
         title: "",
-        // 是否禁用上传
+        // Disabledupload
         isUploading: false,
-        // 是否更新已经存在的用户数据
+        // Whether to update existing user data
         updateSupport: 0,
-        // 设置上传的请求头部
+        // Set upload request headers
         headers: { Authorization: "Bearer " + getToken() },
-        // 上传的地址
+        // Upload address
         url: process.env.VUE_APP_BASE_API + "/system/user/importData",
       },
-      // 查询参数
+      // Query parameters
       queryParams: {
         pageNum: 1,
         pageSize: 10,
@@ -580,7 +580,7 @@ export default {
         status: undefined,
         deptId: undefined,
       },
-      // 列信息
+      // Column information
       columns: [
         { key: 0, label: this.$t("user.userId"), visible: true },
         { key: 1, label: this.$t("user.userName"), visible: true },
@@ -590,7 +590,7 @@ export default {
         { key: 5, label: this.$t("user.status"), visible: true },
         { key: 6, label: this.$t("user.createTime"), visible: true },
       ],
-      // 表单校验
+      // Form verification
       rules: {
         userName: [
           {
@@ -643,7 +643,7 @@ export default {
     };
   },
   watch: {
-    // 根据名称筛选部门树
+    // Filter department tree by name
     deptName(val) {
       this.$refs.tree.filter(val);
     },
@@ -673,17 +673,17 @@ export default {
         this.deptOptions = response.data;
       });
     },
-    // 筛选节点
+    // Filter nodes
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
     },
-    // 节点单击事件
+    // Node click event
     handleNodeClick(data) {
       this.queryParams.deptId = data.id;
       this.handleQuery();
     },
-    // 用户状态修改
+    // User statusEdit
     handleStatusChange(row) {
       let text =
         row.status === "0"
@@ -703,12 +703,12 @@ export default {
           row.status = row.status === "0" ? "1" : "0";
         });
     },
-    // 取消按钮
+    // Cancel
     cancel() {
       this.open = false;
       this.reset();
     },
-    // 表单重置
+    // FormReset
     reset() {
       this.form = {
         userId: undefined,
@@ -739,13 +739,13 @@ export default {
       this.$refs.tree.setCurrentKey(null);
       this.handleQuery();
     },
-    // 多选框选中数据
+    // Selection change
     handleSelectionChange(selection) {
       this.ids = selection.map((item) => item.userId);
       this.single = selection.length != 1;
       this.multiple = !selection.length;
     },
-    // 更多操作触发
+    // More action triggers
     handleCommand(command, row) {
       switch (command) {
         case "handleResetPwd":
@@ -866,11 +866,11 @@ export default {
         `user_template_${new Date().getTime()}.xlsx`
       );
     },
-    // 文件上传中处理
+    // Processed in File Upload
     handleFileUploadProgress(event, file, fileList) {
       this.upload.isUploading = true;
     },
-    // 文件上传成功处理
+    // File Upload successfully processed
     handleFileSuccess(response, file, fileList) {
       this.upload.open = false;
       this.upload.isUploading = false;
@@ -884,7 +884,7 @@ export default {
       );
       this.getList();
     },
-    // 提交上传文件
+    // Submit to upload files
     submitFileForm() {
       this.$refs.upload.submit();
     },

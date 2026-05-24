@@ -49,7 +49,7 @@ export default {
       const first = matched[0];
 
       // if (!this.isDashboard(first)) {
-      //   matched = [{ path: '/index', meta: { title: '首页' }}].concat(matched)
+      //   matched = [{ path: '/index', meta: { title: 'Homepage' }}].concat(matched)
       // }
 
       this.levelList = matched.filter(
