@@ -338,7 +338,19 @@ export default {
         .catch(() => {});
     },
     handleExport() {
-      this.download("api/alarm/record/export", { ...this.queryParams }, `record_${new Date().getTime()}.xlsx`);
+      const params = new URLSearchParams();
+      if (this.queryParams.eventTypeId) params.append("eventTypeId", this.queryParams.eventTypeId);
+      if (this.queryParams.equipmentName) params.append("equipmentName", this.queryParams.equipmentName);
+      if (this.queryParams.status) params.append("status", this.queryParams.status);
+      if (this.queryParams.startTime) params.append("startTime", this.queryParams.startTime);
+      if (this.queryParams.endTime) params.append("endTime", this.queryParams.endTime);
+      const url = `/api/alarm/record/export?${params.toString()}`;
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `alarm_records_${new Date().getTime()}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
   },
 };
