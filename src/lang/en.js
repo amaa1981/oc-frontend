@@ -75,13 +75,12 @@ module.exports = {
       "12": "Hikivision rtsp"
     },
     "v1_user_type": {
-      "0": "White list",
-      "1": "Black list",
-      2: "VIP"
+      "1": "Staff",
+      "2": "Blacklisted"
     },
     "v1_sex": {
-      "0": "Female",
-      "1": "Male"
+      "0": "Male",
+      "1": "Female"
     },
     "v1_device_status": {
       "0": "Offline",

@@ -150,7 +150,7 @@ export default {
         return false;
       }
       if (5) {
-        const isLt = file.size / 1024 / 1024 > 5;
+        const isLt = file.size / 1024 / 1024 < 5;
         if (!isLt) {
           this.$modal.msgError(
             this.$t("imageUpload.sizeTip", { fileSize: 5 })
