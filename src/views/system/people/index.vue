@@ -288,7 +288,12 @@ export default {
         .catch(() => {});
     },
     downloadTemplate() {
-      this.download("api/people/importTemplate", {}, `people_template_${new Date().getTime()}.xlsx`);
+      const link = document.createElement("a");
+      link.href = "/api/people/importTemplate";
+      link.download = "people_template.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
     handleOpenImport() {
       this.importOpen = true;
