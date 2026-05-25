@@ -20,7 +20,7 @@ export function listPeople(query) {
 // Query personnel information details
 export function getPeople(id) {
   return request({
-    url: '/api/people/' + id,
+    url: '/people/' + id,
     method: 'get'
   })
 }

@@ -251,6 +251,10 @@ export default {
       const id = row.id || this.ids;
       getPeople(id).then((response) => {
         this.form = response.data;
+        // Map faceImage to image for the upload component
+        if (response.data.faceImage) {
+          this.form.image = response.data.faceImage;
+        }
         this.open = true;
         this.title = "Edit Personnel";
       });
@@ -259,6 +263,7 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           this.form.faceList = this.form.image ? this.form.image.split(",") : [];
+            this.form.faceImage = this.form.image;
           if (this.form.id != null) {
             updatePeople(this.form).then(() => {
               this.$modal.msgSuccess("Updated successfully");
