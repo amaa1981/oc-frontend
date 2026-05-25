@@ -119,7 +119,7 @@ export default {
   computed: {
     // Whether to Show Tip
     showTip() {
-      return this.isShowTip && (this.fileType || this.fileSize);
+      return this.isShowTip && (this.fileType || 5);
     },
   },
   methods: {
@@ -149,11 +149,11 @@ export default {
         );
         return false;
       }
-      if (this.fileSize) {
-        const isLt = file.size / 1024 / 1024 < this.fileSize;
+      if (5) {
+        const isLt = file.size / 1024 / 1024 > 5;
         if (!isLt) {
           this.$modal.msgError(
-            this.$t("imageUpload.sizeTip", { fileSize: this.fileSize })
+            this.$t("imageUpload.sizeTip", { fileSize: 5 })
           );
           return false;
         }

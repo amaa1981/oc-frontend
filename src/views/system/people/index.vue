@@ -203,7 +203,7 @@ export default {
         name: [{ required: true, message: "Name is required", trigger: "change" }],
         sex: [{ required: true, message: "Gender is required", trigger: "change" }],
         type: [{ required: true, message: "Type is required", trigger: "change" }],
-        image: [{ required: true, message: "Photo is required", trigger: "change" }],
+        image: [],
       },
       importOpen: false,
       importLoading: false,
@@ -234,8 +234,8 @@ export default {
     },
     cancel() { this.open = false; this.reset(); },
     reset() {
-      this.form = { id: null, name: null, sex: null, type: null, image: null, faceList: [], libId: this.$route.query.libId };
-      this.queryParams.libId = this.$route.query.libId;
+      this.form = { id: null, name: null, sex: null, type: null, image: null, faceList: [] };
+
       this.resetForm("form");
     },
     handleQuery() { this.queryParams.pageNum = 1; this.getList(); },
@@ -307,7 +307,7 @@ export default {
       this.pictureFile = file.raw || file;
     },
     async submitImport() {
-      if (!this.queryParams.libId) { this.$message.error("Library ID is required"); return; }
+
       if (!this.excelFile) { this.$message.error("Please select an Excel file"); return; }
       if (!this.pictureFile) { this.$message.error("Please select a ZIP file"); return; }
       const formData = new FormData();
