@@ -318,11 +318,18 @@ export default {
           rightData.push({ date_type: item.name, eventTypeId: item.id, count: new Array(week.length).fill(0), week });
         });
         res.data.forEach(item => {
+          // Skip summary items
+          if (item.time === -1 || item.time === "-1") return;
           const rightItem = rightData.find(x => x.eventTypeId === item.eventTypeId);
           if (rightItem) {
-            if (this.type == "1") rightItem.count[item.time] = item.num;
-            else if (this.type == "2") rightItem.count[item.time - 1] = item.num;
-            else rightItem.count[this.daysSinceDate(item.time)] = item.num;
+            if (this.type == "1") {
+              if (typeof item.time === "number") rightItem.count[item.time] = item.num;
+            } else if (this.type == "2") {
+              if (typeof item.time === "number") rightItem.count[item.time - 1] = item.num;
+            } else {
+              const idx = this.daysSinceDate(item.time);
+              if (idx >= 0 && idx < 30) rightItem.count[idx] = item.num;
+            }
           }
         });
         this.dataList.rightData = rightData;
