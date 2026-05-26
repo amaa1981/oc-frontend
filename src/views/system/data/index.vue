@@ -305,6 +305,15 @@ export default {
         this.leftAlarmTypeMapping = {};
         aggregatedData.forEach(item => { this.leftAlarmTypeMapping[item.name] = item.id; });
 
+        // If no data for today, show empty chart with violation types
+        if (this.dataList.leftData.length === 0) {
+          const violations = ["no_glove", "no_hairnet", "no_mask"];
+          violations.forEach(v => {
+            this.dataList.leftData.push({ value: 0, name: v, id: v });
+            this.leftAlarmTypeMapping[v] = v;
+          });
+        }
+
         let week = [];
         if (this.type == "1") { for (let i = 0; i <= 23; i++) week.push(i); }
         else if (this.type == "2") { for (let i = 0; i < 7; i++) week.push(i); }
@@ -314,7 +323,9 @@ export default {
         }
 
         let rightData = [];
-        this.dataList.leftData.forEach(item => {
+        // Always show all 3 violation types in the trend chart
+        const violations = [{name:"no_glove", id:"no_glove"}, {name:"no_hairnet", id:"no_hairnet"}, {name:"no_mask", id:"no_mask"}];
+        violations.forEach(item => {
           rightData.push({ date_type: item.name, eventTypeId: item.id, count: new Array(week.length).fill(0), week });
         });
         res.data.forEach(item => {
