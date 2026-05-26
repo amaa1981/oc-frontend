@@ -289,7 +289,7 @@ export default {
         res.data.forEach(item => { this.bottomAlarmTypeMapping[item.deviceName] = "1EFA1DB9-DC3E-49ED-B0CC-A2AEA1F9F25F"; });
       });
 
-      getTrendChart({ type: this.type }).then((res) => {
+      getTrendChart({ type: this.type, startTime: startTime + " 00:00:00", endTime: endTime + " 23:59:59" }).then((res) => {
         const leftData = res.data.map(item => ({
           value: item.num,
           name: this.$t(`dict.v1_alarm_type.${item.eventTypeId}`) || item.eventTypeId,
