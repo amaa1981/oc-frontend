@@ -45,7 +45,7 @@ export default {
     },
     style: {
       type: String,
-      default: "mapbox://styles/mapbox/outdoors-v12",
+      default: "mapbox://styles/mapbox/dark-v11",
 
 
       //mapbox://styles/mapbox/streets-v12
@@ -231,14 +231,14 @@ export default {
           el.style.height = icon.height ? `${icon.height}px` : "32px";
         }
       } else {
-        // Default markup style
-        el.className += " default-marker";
-        el.style.width = "20px";
-        el.style.height = "20px";
-        el.style.borderRadius = "50%";
-        el.style.backgroundColor = "#ff0000";
-        el.style.border = "2px solid #fff";
-        el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.3)";
+        // Futuristic glowing marker
+        el.className += " default-marker futuristic-marker";
+        el.innerHTML = `
+          <div class="marker-inner">
+            <div class="marker-dot"></div>
+            <div class="marker-pulse"></div>
+            <div class="marker-pulse marker-pulse-2"></div>
+          </div>`;
       }
 
       // Create tag
@@ -253,6 +253,7 @@ export default {
           offset: 25,
           closeButton: true,
           closeOnClick: false,
+          className: "futuristic-popup",
         });
 
         if (typeof popup === "string") {
@@ -431,6 +432,75 @@ export default {
 </style> 
 
 <style>
+
+/* Futuristic marker styles */
+.futuristic-marker .marker-inner {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.futuristic-marker .marker-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #00ffcc;
+  box-shadow: 0 0 8px #00ffcc, 0 0 16px #00ffcc, 0 0 24px #00ffcc;
+  z-index: 2;
+  position: relative;
+}
+
+.futuristic-marker .marker-pulse {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #00ffcc;
+  opacity: 0;
+  animation: markerPulse 2s ease-out infinite;
+}
+
+.futuristic-marker .marker-pulse-2 {
+  animation-delay: 1s;
+}
+
+@keyframes markerPulse {
+  0% { transform: scale(0.3); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Alarm marker - red glow */
+.alarm-marker .marker-dot {
+  background: #ff3366;
+  box-shadow: 0 0 8px #ff3366, 0 0 16px #ff3366, 0 0 24px #ff3366;
+}
+
+.alarm-marker .marker-pulse {
+  border-color: #ff3366;
+}
+
+/* Futuristic popup */
+.futuristic-popup .mapboxgl-popup-content {
+  background: rgba(0, 10, 20, 0.92) !important;
+  border: 1px solid #00ffcc !important;
+  border-radius: 8px !important;
+  color: #00ffcc !important;
+  box-shadow: 0 0 20px rgba(0,255,204,0.3) !important;
+  padding: 12px 16px !important;
+  font-family: monospace !important;
+}
+
+.futuristic-popup .mapboxgl-popup-tip {
+  border-top-color: #00ffcc !important;
+}
+
+.futuristic-popup .mapboxgl-popup-close-button {
+  color: #00ffcc !important;
+}
+
 /* Hide Mapbox logo and copyright */
 .mapboxgl-ctrl-logo,
 .mapboxgl-ctrl-attrib {
