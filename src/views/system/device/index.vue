@@ -510,7 +510,7 @@
 
           <el-form-item label="IOU Threshold (0.1 - 0.9)">
             <el-slider v-model="aiSettings.iouThreshold" :min="0.1" :max="0.9" :step="0.05" show-input />
-            <div style="color:#909399;font-size:12px;margin-top:4px">Controls overlapping boxes. Lower = fewer duplicates. Recommended: 0.4</div>
+            <div style="color:#909399;font-size:12px;margin-top:4px">Controls duplicate box removal. Use 0.4 for single person view, 0.6-0.7 if multiple people or hands are close together.</div>
           </el-form-item>
 
           <el-form-item label="Scan Interval (seconds)">
