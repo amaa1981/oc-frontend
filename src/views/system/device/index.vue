@@ -505,14 +505,22 @@
         <el-form label-position="top">
           <el-form-item label="Confidence Threshold (0.1 - 1.0)">
             <el-slider v-model="aiSettings.confidence" :min="0.1" :max="1.0" :step="0.05" show-input />
+            <div style="color:#909399;font-size:12px;margin-top:4px">Higher = fewer but more accurate detections. Recommended: 0.65</div>
+          </el-form-item>
+
+          <el-form-item label="IOU Threshold (0.1 - 0.9)">
+            <el-slider v-model="aiSettings.iouThreshold" :min="0.1" :max="0.9" :step="0.05" show-input />
+            <div style="color:#909399;font-size:12px;margin-top:4px">Controls overlapping boxes. Lower = fewer duplicates. Recommended: 0.4</div>
+          </el-form-item>
+
+          <el-form-item label="Scan Interval (seconds)">
+            <el-input-number v-model="aiSettings.processInterval" :min="1" :max="60" :step="1" style="width:100%" />
+            <div style="color:#909399;font-size:12px;margin-top:4px">How often to run detection. Lower = more CPU usage.</div>
           </el-form-item>
 
           <el-form-item label="Alert Cooldown (seconds)">
             <el-input-number v-model="aiSettings.cooldown" :min="5" :max="300" :step="5" style="width:100%" />
-          </el-form-item>
-
-          <el-form-item label="Camera Refresh Interval (seconds)">
-            <el-input-number v-model="aiSettings.refreshInterval" :min="10" :max="300" :step="10" style="width:100%" />
+            <div style="color:#909399;font-size:12px;margin-top:4px">Minimum time between alerts for the same violation.</div>
           </el-form-item>
 
           <el-form-item label="Enable Violations">
