@@ -714,8 +714,10 @@ export default {
       aiSettingsOpen: false,
       aiSettingsDevice: null,
       aiSettings: {
-        confidence: 0.5,
+        confidence: 0.65,
+        iouThreshold: 0.4,
         cooldown: 10,
+        processInterval: 10,
         refreshInterval: 30,
         detectMask: true,
         detectHairnet: true,
@@ -997,10 +999,24 @@ export default {
     saveAiSettings() {
       const deviceId = this.aiSettingsDevice.id;
       this.aiSettingsMap[deviceId] = { ...this.aiSettings };
-      // Save to localStorage for persistence
       localStorage.setItem('aiSettings_' + deviceId, JSON.stringify(this.aiSettings));
+      // Save to backend
+      this.$axios ? 
+        this.$axios.post(`/api/device/${deviceId}/ai-settings`, this.aiSettings) :
+        this.$http ? this.$http.post(`/api/device/${deviceId}/ai-settings`, this.aiSettings) :
+        fetch(`/api/device/${deviceId}/ai-settings`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.aiSettings)
+        });
       this.$message.success('AI settings saved for ' + this.aiSettingsDevice.deviceName);
       this.aiSettingsOpen = false;
+    },
+    loadAiSettings(deviceId) {
+      const saved = localStorage.getItem('aiSettings_' + deviceId);
+      if (saved) {
+        this.aiSettingsMap[deviceId] = JSON.parse(saved);
+      }
     },
     getTask(row) {
       this.$message.info("Device: " + (row.deviceName || row.name) + " | IP: " + (row.deviceIp || "N/A") + " | RTSP: " + (row.rtspMain || "N/A"));
